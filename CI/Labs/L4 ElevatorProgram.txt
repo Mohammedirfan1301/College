@@ -1,0 +1,896 @@
+#include <stdio.h>
+#include <elevator.h>
+
+int main(int argc, char * argv[])
+{
+    int     event;
+    
+    //This int will hold the current state of the elevator, ie whether the doors are opened or closed, elevator moving, etc.
+    //If the int = 0, then that state is false. If the int = 1, then that state is true.
+    int doors_open = 0, moving = 0, opening = 0, timeopen = 0, autoclose = 0;
+    
+    // Begin the main loop. This loops forever; it has no terminating condition.
+    for (;;)
+    {
+        // Get any pending event, if one exists
+        event = elevatorGetEvent();
+        
+        // See what we got
+        switch(event)
+        {
+        case 0 :        // Nothing has happened
+            // There is no pending event. We have nothing to do.
+            break;
+            
+        case 1 :        // UP button was pressed
+            // The "UP" (Floor 2) button has been pressed. Begin moving up.
+            
+            //This if tests to see if the elevator's doors are opened. If they are it prints an error and does not excute the up command.
+            if(doors_open == 1)
+            {
+                printf("Error! The doors are opened! Cannot move yet! \n");
+                break;
+            }
+            
+            //Tests to see if the doors are still opening before letting the elevator move up.
+            if(opening == 1)
+            {
+                printf("Error! The doors are still closing! Wait a second please! \n");
+                break;
+            }
+            
+            //Checks to see if the doors are automatically closing. If they are, then don't move the elevator!
+            if(timeopen == 3)
+            {
+                printf("Error! The doors are still closing! Wait a second please! \n");
+                break;
+            }
+            
+            elevatorUp();   //Move the elevator up
+            moving = 1; //Change the state of the moving variable, as the elevator is now traveling upwards.
+            break;
+            
+        case 2 :        // DOWN button was pressed
+            // The "DOWN" (Floor 1) button has been pressed. Begin moving down.
+            
+            //This if tests to see if the elevator's doors are opened. If they are it prints an error and does not excute the down command.
+            if(doors_open == 1)
+            {
+                printf("Error! The doors are opened! Cannot move yet! \n");
+                break;
+            }
+            
+            //Tests to see if the doors are still opening before letting the elevator move up.
+            if(opening == 1)
+            {
+                printf("Error! The doors are still closing! Wait a second please! \n");
+                break;
+            }
+            
+            //Checks to see if the doors are automatically closing. If they are, then don't move the elevator!
+            if(timeopen == 3)
+            {
+                printf("Error! The doors are still closing! Wait a second please! \n");
+                break;
+            }
+            
+            elevatorDown(); //Move the elevator down.
+            moving = 1; //Change the state of the moving variable, as the elevator is now traveling downwards.
+            break;
+            
+        case 3 :        // OPEN button was pressed
+            // The "OPEN" button has been pressed. Open the doors.
+            
+            //Test to see if the elevator is moving.
+            if(moving == 1)
+            {
+                printf("Error! The elevator is currently moving, so please wait before opening the doors! \n");
+                break;  //Exit from this case before excuting code that will break the program.
+            }
+            
+            timeopen = 0;   //This resets the timeopen variable to 'hold the door' an extra 3 seconds each time it is pressed.
+            doors_open = 1; //The doors are opened.
+            opening = 1;    //The doors are opening.
+            elevatorOpenDoors();    //Now that we know it's safe, open the doors!
+            break;
+            
+        case 4 :        // CLOSE button was pressed
+            // The "CLOSE" button has been pressed. Close the doors.
+            
+            if(moving == 1)
+            {
+                printf("The elevator is currently moving! You cannot close the doors! \n");
+                break;
+            }
+            
+            doors_open = 0; //The doors are now closed.
+            opening = 1;    //The doors are closing.
+            elevatorCloseDoors();
+            break;
+            
+        case 5 :        // Elevator reached the second floor
+            printf("The elevator is at floor 2\n");
+            elevatorOpenDoors();    //Open the doors, since we arrived at the desired floor.
+            doors_open = 1; //The elevator's doors are opened, so change the state.
+            moving = 0;     //Now that the elevator is stopped, change the state of the moving variable to false.
+            break;
+            
+        case 6 :        // Elevator reached the first floor
+            printf("The elevator is at floor 1\n");
+            elevatorOpenDoors();    //Open the doors, since we arrived at the desired floor.
+            doors_open = 1; //The elevator's doors are opened, so change the state.
+            moving = 0;     //Now that the elevator is stopped, change the state of the moving variable to false.
+            break;
+            
+        case 7 :        // Elevator doors are now at the fully open position
+            printf("The elevator doors are fully open\n");
+            doors_open = 1;   //Make sure the program knows the doors are open.
+            break;
+            
+        case 8 :        // Elevator doors are now at the fully closed position
+            printf("The elevator doors are fully closed\n");
+            opening = 0;    //Now that the doors are closed, this state may be changed to false.
+            doors_open = 0;       //This is also false now.
+            break;
+            
+        case 100 :      // Timer: one second has elapsed since last Timer event
+            printf("Tick\n");
+            
+            if(doors_open == 1)
+            {
+                timeopen++; //increase the timeopen int, this works as a counter variable
+            }
+            
+            if(timeopen == 4)
+            {
+                printf("Automatically closing the doors, please step back! \n");
+                elevatorCloseDoors();   //Close the doors
+                opening = 1;            //The doors are closing, so make sure this is true!
+                timeopen = 0;           //reset this variable
+            }
+            
+            break;    
+        }
+    }
+    
+    // The loop above never ends. We never get here.
+    return 0;
+}
+
+
+#include <stdio.h>
+#include <elevator.h>
+
+
+
+int main(int argc, char * argv[])
+{
+    int     event;
+    int timeopen = 0;   //timer for how long the elevator has been opened.
+
+    // Begin the main loop. This loops forever; it has no terminating condition.
+    for (;;)
+    {
+        // Get any pending event, if one exists
+        event = elevatorGetEvent();
+        //These enums will hold the current state of the elevator, ie whether the doors are opened or closed, elevator moving, etc.
+        enum ElevatorState
+        {
+            DoorsFullyClosed,
+            DoorsAreOpening,
+            DoorsFullyOpen,
+            DoorsAreClosing,
+            Moving
+        } state;
+        
+        // See what we got
+        switch(event)
+        {
+        case 0 :        // Nothing has happened
+            // There is no pending event. We have nothing to do.
+            break;
+            
+        case 1 :        // UP button was pressed
+            // The "UP" (Floor 2) button has been pressed. Begin moving up.
+            
+            //This if tests to see if the elevator's doors are opened. If they are it prints an error and does not excute the up command.
+            if(state == DoorsAreOpen)
+            {
+                printf("Error! The doors are opened! Cannot move up yet! \n");
+                break;
+            }
+            
+            elevatorUp();   //Move the elevator up
+            break;
+            
+        case 2 :        // DOWN button was pressed
+            // The "DOWN" (Floor 1) button has been pressed. Begin moving down.
+            
+            //This if tests to see if the elevator's doors are opened. If they are it prints an error and does not excute the down command.
+            if(state == DoorsAreOpen)
+            {
+                printf("Error! The doors are opened! Cannot move down yet! \n");
+                break;
+            }
+            
+            elevatorDown(); //Move the elevator down.
+            break;
+            
+        case 3 :        // OPEN button was pressed
+            // The "OPEN" button has been pressed. Open the doors.
+            
+            //Test to see if the elevator is moving.
+            if(state == moving)
+            {
+                printf("Error! The elevator is currently moving, so please wait before opening the doors! \n");
+                break;  //Exit from this case before excuting code that will break the program.
+            }
+
+            elevatorOpenDoors();    //Now that we know it's safe, open the doors!
+            break;
+            
+        case 4 :        // CLOSE button was pressed
+            // The "CLOSE" button has been pressed. Close the doors.
+            
+            if(state == moving)
+            {
+                printf("The elevator is currently moving! You cannot close the doors! \n");
+                break;
+            }
+            
+            elevatorCloseDoors();
+            break;
+            
+        case 5 :        // Elevator reached the second floor
+            printf("The elevator is at floor 2\n");
+            elevatorOpenDoors();    //Open the doors, since we arrived at the desired floor.
+            state = DoorsAreFullyOpened;    //The doors are opened.
+            break;
+            
+        case 6 :        // Elevator reached the first floor
+            printf("The elevator is at floor 1\n");
+            elevatorOpenDoors();    //Open the doors, since we arrived at the desired floor.
+            state = DoorsAreFullyOpened;    //The doors are opened.
+            break;
+            
+        case 7 :        // Elevator doors are now at the fully open position
+            printf("The elevator doors are fully open\n");
+            state = DoorsAreFullyOpened;    //The doors are opened.
+            break;
+            
+        case 8 :        // Elevator doors are now at the fully closed position
+            printf("The elevator doors are fully closed\n");
+            state = DoorsAreFullyClosed;    //The doors are opened.
+            break;
+            
+        case 100 :      // Timer: one second has elapsed since last Timer event
+            printf("Tick\n");
+            
+            if(doors_open == 1)
+            {
+                timeopen++; //increase the timeopen int, this works as a counter variable
+            }
+            
+            if(timeopen == 4)
+            {
+                printf("Automatically closing the doors, please step back! \n");
+                elevatorCloseDoors();   //Close the doors
+                state = DoorsAreClosing;    //The doors are opened.
+                timeopen = 0;           //reset this variable
+            }
+            
+            break;    
+        }
+    }
+    
+    // The loop above never ends. We never get here.
+    return 0;
+}
+
+#include <stdio.h>
+#include <elevator.h>
+
+int main(int argc, char * argv[])
+{
+    int     event;
+    int timeopen = 0;   //timer for how long the elevator has been opened.
+    
+    //These enums will hold the current state of the elevator, ie whether the doors are opened or closed, elevator moving, etc.
+    enum ElevatorState
+    {
+        DoorsFullyClosed,
+        DoorsAreOpening,
+        DoorsFullyOpen,
+        DoorsAreClosing,
+        Moving
+    } state = DoorsFullyClosed;
+
+    // Begin the main loop. This loops forever; it has no terminating condition.
+    for (;;)
+    {
+        // Get any pending event, if one exists
+        event = elevatorGetEvent();
+        
+        // See what we got
+        switch(event)
+        {
+        case 0 :        // Nothing has happened
+            // There is no pending event. We have nothing to do.
+            break;
+            
+        case 1 :        // UP button was pressed
+            // The "UP" (Floor 2) button has been pressed. Begin moving up.
+            
+            //This if tests to see if the elevator's doors are opened. If they are it prints an error and does not excute the up command.
+            if(state == DoorsFullyOpen)
+            {
+                printf("Error! The doors are opened! Cannot move up yet! \n");
+                break;
+            }
+            
+            if(state == DoorsAreOpening)
+            {
+                printf("Error! The doors are opening! Cannot move up yet! \n");
+                break;
+            }
+            
+            state = Moving;
+            elevatorUp();   //Move the elevator up
+            break;
+            
+        case 2 :        // DOWN button was pressed
+            // The "DOWN" (Floor 1) button has been pressed. Begin moving down.
+            
+            //This if tests to see if the elevator's doors are opened. If they are it prints an error and does not excute the down command.
+            if(state == DoorsFullyOpen)
+            {
+                printf("Error! The doors are opened! Cannot move down yet! \n");
+                break;
+            }
+            
+            if(state == DoorsAreOpening)
+            {
+                printf("Error! The doors are opening! Cannot move down yet! \n");
+                break;
+            }
+            
+            state = Moving;
+            elevatorDown(); //Move the elevator down.
+            break;
+            
+        case 3 :        // OPEN button was pressed
+            // The "OPEN" button has been pressed. Open the doors.
+            
+            //Test to see if the elevator is moving.
+            if(state == Moving)
+            {
+                printf("Error! The elevator is currently moving, so please wait before opening the doors! \n");
+                break;  //Exit from this case before excuting code that will break the program.
+            }
+            
+            state = DoorsAreOpening;
+            elevatorOpenDoors();    //Now that we know it's safe, open the doors!
+            break;
+            
+        case 4 :        // CLOSE button was pressed
+            // The "CLOSE" button has been pressed. Close the doors.
+            
+            if(state == moving)
+            {
+                printf("The elevator is currently moving! You cannot close the doors! \n");
+                break;
+            }
+            
+            state = DoorsAreClosing;
+            elevatorCloseDoors();
+            break;
+            
+        case 5 :        // Elevator reached the second floor
+            printf("The elevator is at floor 2\n");
+            elevatorOpenDoors();    //Open the doors, since we arrived at the desired floor.
+            state = DoorsFullyOpen;    //The doors are opened.
+            break;
+            
+        case 6 :        // Elevator reached the first floor
+            printf("The elevator is at floor 1\n");
+            elevatorOpenDoors();    //Open the doors, since we arrived at the desired floor.
+            state = DoorsFullyOpen;    //The doors are opened.
+            break;
+            
+        case 7 :        // Elevator doors are now at the fully open position
+            printf("The elevator doors are fully open\n");
+            state = DoorsFullyOpen;    //The doors are opened.
+            break;
+            
+        case 8 :        // Elevator doors are now at the fully closed position
+            printf("The elevator doors are fully closed\n");
+            state = DoorsFullyClosed;    //The doors are opened.
+            break;
+            
+        case 100 :      // Timer: one second has elapsed since last Timer event
+            printf("Tick\n");
+            
+            if(state == DoorsFullyOpen)
+            {
+                timeopen++; //increase the timeopen int, this works as a counter variable
+            }
+            
+            if(timeopen == 3)
+            {
+                printf("Automatically closing the doors, please step back! \n");
+                elevatorCloseDoors();   //Close the doors
+                state = DoorsAreClosing;    //The doors are opened.
+                timeopen = 0;           //reset this variable
+            }
+            
+            break;    
+        }
+    }
+    
+    // The loop above never ends. We never get here.
+    return 0;
+}
+
+#include <stdio.h>
+#include <elevator.h>
+
+int main(int argc, char * argv[])
+{
+    int     event;
+    int timeopen = 0;   //timer for how long the elevator has been opened.
+    
+    //These enums will hold the current state of the elevator, ie whether the doors are opened or closed, elevator moving, etc.
+    enum ElevatorState
+    {
+        DoorsFullyClosed,
+        DoorsAreOpening,
+        DoorsFullyOpen,
+        DoorsAreClosing,
+        Moving
+    } state = DoorsFullyClosed;
+
+    // Begin the main loop. This loops forever; it has no terminating condition.
+    for (;;)
+    {
+        // Get any pending event, if one exists
+        event = elevatorGetEvent();
+        
+        // See what we got
+        switch(event)
+        {
+        case 0 :        // Nothing has happened
+            // There is no pending event. We have nothing to do.
+            break;
+            
+        case 1 :        // UP button was pressed
+            // The "UP" (Floor 2) button has been pressed. Begin moving up.
+            
+            //This if tests to see if the elevator's doors are opened. If they are it prints an error and does not excute the up command.
+            if(state == DoorsFullyOpen)
+            {
+                printf("Error! The doors are opened! Cannot move up yet! \n");
+                break;
+            }
+            
+            if(state == DoorsAreOpening)
+            {
+                printf("Error! The doors are opening! Cannot move up yet! \n");
+                break;
+            }
+            
+            state = Moving;
+            elevatorUp();   //Move the elevator up
+            break;
+            
+        case 2 :        // DOWN button was pressed
+            // The "DOWN" (Floor 1) button has been pressed. Begin moving down.
+            
+            //This if tests to see if the elevator's doors are opened. If they are it prints an error and does not excute the down command.
+            if(state == DoorsFullyOpen)
+            {
+                printf("Error! The doors are opened! Cannot move down yet! \n");
+                break;
+            }
+            
+            if(state == DoorsAreOpening)
+            {
+                printf("Error! The doors are opening! Cannot move down yet! \n");
+                break;
+            }
+            
+            state = Moving;
+            elevatorDown(); //Move the elevator down.
+            break;
+            
+        case 3 :        // OPEN button was pressed
+            // The "OPEN" button has been pressed. Open the doors.
+            
+            //Test to see if the elevator is moving.
+            if(state == Moving)
+            {
+                printf("Error! The elevator is currently moving, so please wait before opening the doors! \n");
+                break;  //Exit from this case before excuting code that will break the program.
+            }
+            
+            timeopen = 0;
+            state = DoorsAreOpening;
+            elevatorOpenDoors();    //Now that we know it's safe, open the doors!
+            break;
+            
+        case 4 :        // CLOSE button was pressed
+            // The "CLOSE" button has been pressed. Close the doors.
+            
+            if(state == Moving)
+            {
+                printf("The elevator is currently moving! You cannot close the doors! \n");
+                break;
+            }
+            
+            state = DoorsAreClosing;
+            elevatorCloseDoors();
+            break;
+            
+        case 5 :        // Elevator reached the second floor
+            printf("The elevator is at floor 2\n");
+            elevatorOpenDoors();    //Open the doors, since we arrived at the desired floor.
+            state = DoorsFullyOpen;    //The doors are opened.
+            break;
+            
+        case 6 :        // Elevator reached the first floor
+            printf("The elevator is at floor 1\n");
+            elevatorOpenDoors();    //Open the doors, since we arrived at the desired floor.
+            state = DoorsFullyOpen;    //The doors are opened.
+            break;
+            
+        case 7 :        // Elevator doors are now at the fully open position
+            printf("The elevator doors are fully open\n");
+            state = DoorsFullyOpen;    //The doors are opened.
+            break;
+            
+        case 8 :        // Elevator doors are now at the fully closed position
+            printf("The elevator doors are fully closed\n");
+            state = DoorsFullyClosed;    //The doors are opened.
+            break;
+            
+        case 100 :      // Timer: one second has elapsed since last Timer event
+            printf("Tick\n");
+            
+            if(state == DoorsFullyOpen || DoorsAreOpening)
+            {
+                timeopen++; //increase the timeopen int, this works as a counter variable
+            }
+            
+            if(timeopen == 3)
+            {
+                printf("Automatically closing the doors, please step back! \n");
+                elevatorCloseDoors();   //Close the doors
+                state = DoorsAreClosing;    //The doors are opened.
+                timeopen = 0;           //reset this variable
+            }
+            
+            break;    
+        }
+    }
+    
+    // The loop above never ends. We never get here.
+    return 0;
+}
+
+WORKS
+#include <stdio.h>
+#include <elevator.h>
+
+int main(int argc, char * argv[])
+{
+    int     event;
+    int timeopen = 0;   //timer for how long the elevator has been opened.
+
+    //These enums will hold the current state of the elevator, ie whether the doors are opened or closed, elevator moving, etc.
+    enum ElevatorState
+    {
+        DoorsFullyClosed,
+        DoorsAreOpening,
+        DoorsFullyOpen,
+        DoorsAreClosing,
+        Moving
+    } state = DoorsFullyClosed;
+
+    // Begin the main loop. This loops forever; it has no terminating condition.
+    for (;;)
+    {
+        // Get any pending event, if one exists
+        event = elevatorGetEvent();
+        
+        // See what we got
+        switch(event)
+        {
+        case 0 :        // Nothing has happened
+            // There is no pending event. We have nothing to do.
+            break;
+            
+        case 1 :        // UP button was pressed
+            // The "UP" (Floor 2) button has been pressed. Begin moving up.
+            
+            //This if tests to see if the elevator's doors are opened. If they are it prints an error and does not excute the up command.
+            if(state == DoorsFullyOpen)
+            {
+                printf("Error! The doors are opened! Cannot move up yet! \n");
+                break;
+            }
+            
+            if(state == DoorsAreOpening)
+            {
+                printf("Error! The doors are opening! Cannot move up yet! \n");
+                break;
+            }
+            
+            state = Moving;
+            elevatorUp();   //Move the elevator up
+            break;
+            
+        case 2 :        // DOWN button was pressed
+            // The "DOWN" (Floor 1) button has been pressed. Begin moving down.
+            
+            //This if tests to see if the elevator's doors are opened. If they are it prints an error and does not excute the down command.
+            if(state == DoorsFullyOpen)
+            {
+                printf("Error! The doors are opened! Cannot move down yet! \n");
+                break;
+            }
+            
+            if(state == DoorsAreOpening)
+            {
+                printf("Error! The doors are opening! Cannot move down yet! \n");
+                break;
+            }
+            
+            state = Moving;
+            elevatorDown(); //Move the elevator down.
+            break;
+            
+        case 3 :        // OPEN button was pressed
+            // The "OPEN" button has been pressed. Open the doors.
+            
+            //Test to see if the elevator is moving.
+            if(state == Moving)
+            {
+                printf("Error! The elevator is currently moving, so please wait before opening the doors! \n");
+                break;  //Exit from this case before excuting code that will break the program.
+            }
+
+            //Reset the timer for the auto door feature.
+            if(state == DoorsFullyOpen && timeopen > 0)
+            {
+                timeopen = 0;
+                state = DoorsFullyOpen;
+                break;
+            }
+
+            state = DoorsAreOpening;
+            elevatorOpenDoors();    //Now that we know it's safe, open the doors!
+            break;
+            
+        case 4 :        // CLOSE button was pressed
+            // The "CLOSE" button has been pressed. Close the doors.
+            
+            if(state == Moving)
+            {
+                printf("The elevator is currently moving! You cannot close the doors! \n");
+                break;
+            }
+            
+            state = DoorsAreClosing;
+            elevatorCloseDoors();
+            break;
+            
+        case 5 :        // Elevator reached the second floor
+            printf("The elevator is at floor 2\n");
+            elevatorOpenDoors();        //Open the doors, since we arrived at the desired floor.
+            state = DoorsFullyOpen;     //The doors are opened.
+            break;
+            
+        case 6 :        // Elevator reached the first floor
+            printf("The elevator is at floor 1\n");
+            elevatorOpenDoors();        //Open the doors, since we arrived at the desired floor.
+            state = DoorsFullyOpen;     //The doors are opened.
+            break;
+            
+        case 7 :        // Elevator doors are now at the fully open position
+            printf("The elevator doors are fully open\n");
+            state = DoorsFullyOpen;    //The doors are opened.
+            break;
+            
+        case 8 :        // Elevator doors are now at the fully closed position
+            printf("The elevator doors are fully closed\n");
+            state = DoorsFullyClosed;    //The doors are opened.
+            break;
+            
+        case 100 :      // Timer: one second has elapsed since last Timer event
+            printf("Tick\n");
+            
+            if(state == DoorsFullyOpen)
+            {
+                timeopen++; //increase the timeopen int, this works as a counter variable
+            }
+            
+            if(timeopen == 3)
+            {
+                printf("Automatically closing the doors, please step back! \n");
+                state = DoorsAreClosing;    //The doors are closing.
+                timeopen = 0;               //reset this variable
+                elevatorCloseDoors();       //Close the doors
+            }
+            
+            break;    
+        }
+    }
+    
+    // The loop above never ends. We never get here.
+    return 0;
+}
+
+WORKS!
+#include <stdio.h>
+#include <elevator.h>
+
+int main(int argc, char * argv[])
+{
+    int     event;
+    int timeopen = 0;   //timer for how long the elevator has been opened.
+
+    //These enums will hold the current state of the elevator, ie whether the doors are opened or closed, elevator moving, etc.
+    enum ElevatorState
+    {
+        DoorsFullyClosed,
+        DoorsAreOpening,
+        DoorsFullyOpen,
+        DoorsAreClosing,
+        Moving
+    } state = DoorsFullyClosed;
+
+    // Begin the main loop. This loops forever; it has no terminating condition.
+    for (;;)
+    {
+        // Get any pending event, if one exists
+        event = elevatorGetEvent();
+        
+        // See what we got
+        switch(event)
+        {
+        case 0 :        // Nothing has happened
+            // There is no pending event. We have nothing to do.
+            break;
+            
+        case 1 :        // UP button was pressed
+            // The "UP" (Floor 2) button has been pressed. Begin moving up.
+            
+            //This if tests to see if the elevator's doors are opened. If they are it prints an error and does not excute the up command.
+            if(state == DoorsFullyOpen)
+            {
+                printf("Error! The doors are opened! Cannot move up yet! \n");
+                break;
+            }
+            
+            if(state == DoorsAreOpening)
+            {
+                printf("Error! The doors are opening! Cannot move up yet! \n");
+                break;
+            }
+            
+            if(state == DoorsAreClosing)
+            {
+                printf("Error! The doors are closing! Cannot move up yet! \n");
+                break;
+            }
+            
+            state = Moving;
+            elevatorUp();   //Move the elevator up
+            break;
+            
+        case 2 :        // DOWN button was pressed
+            // The "DOWN" (Floor 1) button has been pressed. Begin moving down.
+            
+            //This if tests to see if the elevator's doors are opened. If they are it prints an error and does not excute the down command.
+            if(state == DoorsFullyOpen)
+            {
+                printf("Error! The doors are opened! Cannot move down yet! \n");
+                break;
+            }
+            
+            //If the doors are opened
+            if(state == DoorsAreOpening)
+            {
+                printf("Error! The doors are opening! Cannot move down yet! \n");
+                break;
+            }
+            
+            if(state == DoorsAreClosing)
+            {
+                printf("Error! The doors are closing!! Cannot move down yet! \n");
+                break;
+            }
+            
+            state = Moving;
+            elevatorDown(); //Move the elevator down.
+            break;
+            
+        case 3 :        // OPEN button was pressed
+            // The "OPEN" button has been pressed. Open the doors.
+            
+            //Test to see if the elevator is moving.
+            if(state == Moving)
+            {
+                printf("Error! The elevator is currently moving, so please wait before opening the doors! \n");
+                break;  //Exit from this case before excuting code that will break the program.
+            }
+
+            //Reset the timer for the auto door feature.
+            if(state == DoorsFullyOpen && timeopen > 0)
+            {
+                timeopen = 0;
+                state = DoorsFullyOpen;
+                break;
+            }
+
+            state = DoorsAreOpening;
+            elevatorOpenDoors();    //Now that we know it's safe, open the doors!
+            break;
+            
+        case 4 :        // CLOSE button was pressed
+            // The "CLOSE" button has been pressed. Close the doors.
+            
+            if(state == Moving)
+            {
+                printf("Error! The elevator is currently moving! You cannot close the doors! \n");
+                break;
+            }
+            
+            state = DoorsAreClosing;
+            elevatorCloseDoors();
+            break;
+            
+        case 5 :        // Elevator reached the second floor
+            printf("The elevator is at floor 2\n");
+            elevatorOpenDoors();        //Open the doors, since we arrived at the desired floor.
+            state = DoorsFullyOpen;     //The doors are opened.
+            break;
+            
+        case 6 :        // Elevator reached the first floor
+            printf("The elevator is at floor 1\n");
+            elevatorOpenDoors();        //Open the doors, since we arrived at the desired floor.
+            state = DoorsFullyOpen;     //The doors are opened.
+            break;
+            
+        case 7 :        // Elevator doors are now at the fully open position
+            printf("The elevator doors are fully open\n");
+            state = DoorsFullyOpen;    //The doors are opened.
+            break;
+            
+        case 8 :        // Elevator doors are now at the fully closed position
+            printf("The elevator doors are fully closed\n");
+            state = DoorsFullyClosed;    //The doors are opened.
+            break;
+            
+        case 100 :      // Timer: one second has elapsed since last Timer event
+            printf("Tick\n");
+            
+            if(state == DoorsFullyOpen)
+            {
+                timeopen++; //increase the timeopen int, this works as a counter variable
+            }
+            
+            if(timeopen == 3)
+            {
+                printf("Automatically closing the doors, please step back! \n");
+                state = DoorsAreClosing;    //The doors are closing.
+                timeopen = 0;               //reset this variable
+                elevatorCloseDoors();       //Close the doors
+            }
+            
+            break;    
+        }
+    }
+    
+    // The loop above never ends. We never get here.
+    return 0;
+}

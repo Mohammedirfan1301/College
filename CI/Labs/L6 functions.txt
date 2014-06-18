@@ -1,0 +1,625 @@
+#include <stdio.h>
+#include <math.h>   // needed for M_PI
+#include <draw.h>
+
+/**
+ *  int x/y are coordinates 
+ *  Double start/end_angle are the starting angle and the ending angle. Starts at the 3 o'clock position
+ *  isAnticlockwise is an int that indicates whether the arc is drawn anticlockwise (if zero) or clockwise (if non-zero)
+ *  isFilled indicates whether the circle is filled (1) or not (0).
+ *  isDark indicates the color of the circle (1 is blue, 0 is cyan)
+ **/
+void arc(int x, int y, int radius, double start_angle, double end_angle, int isAnticlockwise, int isFilled, int isDark);
+
+/**
+void circle(int x, int y, int radius)
+{
+    // Begin a path for the circle
+    draw_begin();
+    
+    // Set the clrcle's color
+    draw_setColor("red");
+    
+    // Draw the circle itself
+    draw_arc(x, y, radius, 0, M_PI * 2, 0);
+    
+    // Render the path, filled
+    draw_finish(1);
+}
+***/
+
+int main(int argc, char * argv[])
+{
+    // Draw a filled circle centered at (150, 150) of radius 50
+    arc(220, 50, 30, M_PI*1, M_PI*2.5, 1, 0, 1);
+    //arc(220, 50, 15, );
+    return 0;
+}
+
+void arc(int x, int y, int radius, double start_angle, double end_angle, int isAnticlockwise, int isFilled, int isDark)
+{
+    //Begin a path for the arc
+    draw_begin();
+    
+    //Set the arc's color
+    if(isDark == 0)     //false so cyan
+        draw_setColor("cyan");
+    else                //true so blue
+        draw_setColor("blue");
+    
+    //Draw the arc
+    draw_arc(x, y, radius, start_angle, end_angle, isAnticlockwise);
+    
+    //Set whether the arc is filled or not
+    if(isFilled == 0)   //false so not filled
+        draw_finish(0);
+    else                //everything else is true so filled
+        draw_finish(1);
+}
+
+#include <stdio.h>
+#include <math.h>   // needed for M_PI
+#include <draw.h>
+
+/**
+ *  int x/y are coordinates 
+ *  Double start/end_angle are the starting angle and the ending angle. Starts at the 3 o'clock position
+ *  isAnticlockwise is an int that indicates whether the arc is drawn anticlockwise (if zero) or clockwise (if non-zero)
+ *  isFilled indicates whether the circle is filled (1) or not (0).
+ *  isDark indicates the color of the circle (1 is blue, 0 is cyan)
+ **/
+void arc(int x, int y, int radius, double start_angle, double end_angle, int isAnticlockwise, int isFilled, int isDark);
+
+//Takes an integer (degrees) and converts it to a double for use in the program
+double degreesToRadians(int degrees);
+
+int main(int argc, char * argv[])
+{
+    int tempdegree; //temp variable to send off to the function
+    double radians; //double to hold the value that is returned.
+    
+    printf("Enter a degree value so I can convert it to Radians: ");
+    scanf("%d", &tempdegree);
+    radians = degreesToRadians(tempdegree);
+    
+    // Draw a filled circle centered at (150, 150) of radius 50
+    arc(220,  50, 30, M_PI*1, M_PI* .5, 0, 0, 1);
+    arc(220, 150, 15, M_PI*0, M_PI*1.5, 0, 1, 0);
+    return 0;
+}
+
+void arc(int x, int y, int radius, double start_angle, double end_angle, int isAnticlockwise, int isFilled, int isDark)
+{
+    //Begin a path for the arc
+    draw_begin();
+    
+    //Set the arc's color
+    if(isDark == 0)     //false so cyan
+        draw_setColor("cyan");
+    else                //true so blue
+        draw_setColor("blue");
+    
+    //Draw the arc
+    draw_arc(x, y, radius, start_angle, end_angle, isAnticlockwise);
+    
+    //Set whether the arc is filled or not
+    if(isFilled == 0)   //false so not filled
+        draw_finish(0);
+    else                //everything else is true so filled
+        draw_finish(1);
+}
+
+double degreesToRadians(int degrees)
+{
+    double radians;
+    radians = (M_PI*2*degrees)/360;
+    return radians;
+}
+
+#include <stdio.h>
+#include <math.h>   // needed for M_PI
+#include <draw.h>
+
+/**
+ *  int x/y are coordinates 
+ *  Double start/end_angle are the starting angle and the ending angle. Starts at the 3 o'clock position
+ *  isAnticlockwise is an int that indicates whether the arc is drawn anticlockwise (if zero) or clockwise (if non-zero)
+ *  isFilled indicates whether the circle is filled (1) or not (0).
+ *  isDark indicates the color of the circle (1 is blue, 0 is cyan)
+ **/
+void arc(int x, int y, int radius, double start_angle, double end_angle, int isAnticlockwise, int isFilled, int isDark);
+
+//Takes an integer (degrees) and converts it to a double for use in the program
+double degreesToRadians(int degrees);
+
+int main(int argc, char * argv[])
+{
+    int start_angle, end_angle;         //temp variable to hold the degrees entered to send off to the function
+    double radians_start, radians_end;  //double to hold the values that are returned.
+    
+    printf("Enter a starting angle: ");
+    scanf("%d", &start_angle);
+    radians_start = degreesToRadians(start_angle);
+    //printf("%lf", radians_start);
+    
+    printf("Enter an ending angle: ");
+    scanf("%d", &end_angle);
+    radians_end = degreesToRadians(end_angle);
+    //printf("%lf", radians_end);
+    
+    // Draw a filled circle centered at (150, 150) of radius 50
+    arc(220,  50, 30, radians_start, radians_end, 0, 0, 1);
+    arc(220, 150, 15, M_PI*0, M_PI*1.5, 0, 1, 0);
+    return 0;
+}
+
+void arc(int x, int y, int radius, double start_angle, double end_angle, int isAnticlockwise, int isFilled, int isDark)
+{
+    //Begin a path for the arc
+    draw_begin();
+    
+    //Set the arc's color
+    if(isDark == 0)     //false so cyan
+        draw_setColor("cyan");
+    else                //true so blue
+        draw_setColor("blue");
+    
+    //Draw the arc
+    draw_arc(x, y, radius, start_angle, end_angle, isAnticlockwise);
+    
+    //Set whether the arc is filled or not
+    if(isFilled == 0)   //false so not filled
+        draw_finish(0);
+    else                //everything else is true so filled
+        draw_finish(1);
+}
+
+double degreesToRadians(int degrees)
+{
+    double radians;
+    radians = (M_PI*2*degrees)/360;
+    return radians;
+}
+
+#include <stdio.h>
+#include <math.h>   // needed for M_PI
+#include <draw.h>
+
+/**
+ *  int x/y are coordinates 
+ *  Double start/end_angle are the starting angle and the ending angle. Starts at the 3 o'clock position
+ *  isAnticlockwise is an int that indicates whether the arc is drawn anticlockwise (if zero) or clockwise (if non-zero)
+ *  isFilled indicates whether the circle is filled (1) or not (0).
+ *  isDark indicates the color of the circle (1 is blue, 0 is cyan)
+ **/
+void arc(int x, int y, int radius, double start_angle, double end_angle, int isAnticlockwise, int isFilled, int isDark);
+
+//Takes an integer (degrees) and converts it to a double for use in the program
+double degreesToRadians(int degrees);
+
+//int x/y are the coordinates for the start of the square. int size is how large of a square.
+//int isDark determines whether the square is BLUE (1) or CYAN(0)
+void square(int x, int y, int size, int isDark);
+
+//int x/y are the coordinates for the start of the square. int size is how large of a square.
+//length is the length or number how many squares in each row. isDark is whether the first square is BLUE or CYAN
+void rowOfSquares(int x, int y, int size, int length, int isDark);
+
+int main(int argc, char * argv[])
+{
+    //int size, filled;                   //for use in the square function
+    int start_angle, end_angle;         //temp variable to hold the degrees entered to send off to the function
+    double radians_start, radians_end;  //double to hold the values that are returned.
+    
+    /*
+    //User enters the starting angle
+    printf("Enter a starting angle: ");
+    scanf("%d", &start_angle);
+    radians_start = degreesToRadians(start_angle);
+    //printf("%lf", radians_start);
+    
+    //User enters the ending angle
+    printf("Enter an ending angle: ");
+    scanf("%d", &end_angle);
+    radians_end = degreesToRadians(end_angle);
+    //printf("%lf", radians_end);
+    
+    // Draw a filled circle centered at (150, 150) of radius 50
+    arc(220,  50, 30, radians_start, radians_end, 0, 0, 1);
+    arc(220, 150, 15, M_PI*0, M_PI*1.5, 0, 1, 0);
+    */
+    /*
+    printf("Enter a size and a filled/not filled: ");
+    scanf("%d %d", &size, &filled);
+    square(10, 10, size, filled);
+    */
+    
+    rowOfSquares(50, 50, 10, 5, 1);
+    
+    return 0;
+}
+
+void arc(int x, int y, int radius, double start_angle, double end_angle, int isAnticlockwise, int isFilled, int isDark)
+{
+    //Begin a path for the arc
+    draw_begin();
+    
+    //Set the arc's color
+    if(isDark == 0)     //false so cyan
+        draw_setColor("cyan");
+    else                //true so blue
+        draw_setColor("blue");
+    
+    //Draw the arc
+    draw_arc(x, y, radius, start_angle, end_angle, isAnticlockwise);
+    
+    //Set whether the arc is filled or not
+    if(isFilled == 0)   //false so not filled
+        draw_finish(0);
+    else                //everything else is true so filled
+        draw_finish(1);
+}
+
+double degreesToRadians(int degrees)
+{
+    double radians;                     //holds the return value
+    radians = (M_PI*2*degrees)/360;     //Converts degrees to radians using (PI * 2 * DEGREES) / 360 = RADIANS
+    return radians;                     //returns radians
+}
+
+void square(int x, int y, int size, int isDark)
+{
+    //Begin drawing the square
+    draw_begin();
+    
+    //Determine the square's color
+    if(isDark == 0)     //false so cyan
+        draw_setColor("cyan");
+    else                //true so blue
+        draw_setColor("blue");
+    
+    //Move to the starting position (top left corner)
+    draw_lineTo(x, y);
+    
+    //Draw the top line (which is just the same y value but an increased x, however large of a square you want)
+    draw_lineTo(x + size, y);
+    
+    //Draw the right side (same x value as above but increase the y as large as you want using the SIZE variable)
+    draw_lineTo(x + size, y + size);
+    
+    //Draw the bottom line (original x value but increased y value)
+    draw_lineTo(x, y + size);
+    
+    //Finally, draw the last side, the left side. X/Y are the original value to finish the square off
+    draw_lineTo(x, y);
+    
+    //Finish the square and make it filled
+    draw_finish(1);
+}
+
+void rowOfSquares(int x, int y, int size, int length, int isDark)
+{
+    
+    
+}
+
+
+
+
+
+//final program?
+
+#include <stdio.h>
+#include <math.h>   // needed for M_PI
+#include <draw.h>
+
+/**
+ *  int x/y are coordinates 
+ *  Double start/end_angle are the starting angle and the ending angle. Starts at the 3 o'clock position
+ *  isAnticlockwise is an int that indicates whether the arc is drawn anticlockwise (if zero) or clockwise (if non-zero)
+ *  isFilled indicates whether the circle is filled (1) or not (0).
+ *  isDark indicates the color of the circle (1 is blue, 0 is cyan)
+ **/
+void arc(int x, int y, int radius, double start_angle, double end_angle, int isAnticlockwise, int isFilled, int isDark);
+
+//Takes an integer (degrees) and converts it to a double for use in the program
+double degreesToRadians(int degrees);
+
+//int x/y are the coordinates for the start of the square. int size is how large of a square.
+//int isDark determines whether the square is BLUE (1) or CYAN(0)
+void square(int x, int y, int size, int isDark);
+
+//int x/y are the coordinates for the start of the square. int size is how large of a square.
+//length is the length or number how many squares in each row. isDark is whether the first square is BLUE or CYAN
+void rowOfSquares(int x, int y, int size, int length, int isDark);
+
+//This function just calls the row of squares function, but it calls it multiply times to print a checker board pattern.
+void checkerboard(int x, int y, int size, int length, int isDark);
+
+int main(int argc, char * argv[])
+{
+    //int size, filled;                   //for use in the square function
+    int start_angle, end_angle;         //temp variable to hold the degrees entered to send off to the function
+    double radians_start, radians_end;  //double to hold the values that are returned.
+    
+    //User enters the starting angle
+    printf("Enter a starting angle: ");
+    scanf("%d", &start_angle);
+    radians_start = degreesToRadians(start_angle);
+    //printf("%lf", radians_start);
+    
+    //User enters the ending angle
+    printf("Enter an ending angle: ");
+    scanf("%d", &end_angle);
+    radians_end = degreesToRadians(end_angle);
+    //printf("%lf", radians_end);
+    
+    // Draw a filled circle centered at (150, 150) of radius 50
+    arc(220,  50, 30, radians_start, radians_end, 0, 0, 1);
+    arc(220, 150, 15, M_PI*0, M_PI*1.5, 0, 1, 0);
+    
+    //Print out the two checkerboards
+    checkerboard(10, 10, 20, 8, 1);
+    checkerboard(140, 140, 11, 5, 0);
+    
+    return 0;
+}
+
+void arc(int x, int y, int radius, double start_angle, double end_angle, int isAnticlockwise, int isFilled, int isDark)
+{
+    //Begin a path for the arc
+    draw_begin();
+    
+    //Set the arc's color
+    if(isDark == 0)     //false so cyan
+        draw_setColor("cyan");
+    else                //true so blue
+        draw_setColor("blue");
+    
+    //Draw the arc
+    draw_arc(x, y, radius, start_angle, end_angle, isAnticlockwise);
+    
+    //Set whether the arc is filled or not
+    if(isFilled == 0)   //false so not filled
+        draw_finish(0);
+    else                //everything else is true so filled
+        draw_finish(1);
+}
+
+double degreesToRadians(int degrees)
+{
+    double radians;                     //holds the return value
+    radians = (M_PI*2*degrees)/360;     //Converts degrees to radians using (PI * 2 * DEGREES) / 360 = RADIANS
+    return radians;                     //returns radians
+}
+
+void square(int x, int y, int size, int isDark)
+{
+    //Begin drawing the square
+    draw_begin();
+    
+    //Determine the square's color
+    if(isDark == 0)     //false so cyan
+        draw_setColor("cyan");
+    else                //true so blue
+        draw_setColor("blue");
+    
+    //Move to the starting position (top left corner)
+    draw_lineTo(x, y);
+    
+    //Draw the top line (which is just the same y value but an increased x, however large of a square you want)
+    draw_lineTo(x + size, y);
+    
+    //Draw the right side (same x value as above but increase the y as large as you want using the SIZE variable)
+    draw_lineTo(x + size, y + size);
+    
+    //Draw the bottom line (original x value but increased y value)
+    draw_lineTo(x, y + size);
+    
+    //Finally, draw the last side, the left side. X/Y are the original value to finish the square off
+    draw_lineTo(x, y);
+    
+    //Finish the square and make it filled
+    draw_finish(1);
+}
+
+void rowOfSquares(int x, int y, int size, int length, int isDark)
+{
+    int count = 0;
+    
+    //Run for the number of rows (ie if size == 5, print out 5)
+    while(count < length)
+    {
+        //print the first square
+        square(x, y, size, isDark);
+        
+        //Change the value for the next square
+        if(isDark == 0)
+            isDark = 1;
+        else
+            isDark = 0;
+        
+        //increase x for the next square
+        x = x + size;            
+        count++;
+    }
+}
+
+void checkerboard(int x, int y, int size, int length, int isDark)
+{
+    int count = 0;
+    
+    //Run for the number of columns
+    while(count < length)
+    {
+        rowOfSquares(x, y, size, length, isDark);
+        
+        //Change the value for the next row
+        if(isDark == 0)
+            isDark = 1;
+        else
+            isDark = 0;
+            
+        //increase y for the next row
+        y = y + size;
+        count++;
+    } 
+}
+
+//APPROVED PROGRAM
+#include <stdio.h>
+#include <math.h>   // needed for M_PI
+#include <draw.h>
+
+/**
+ *  int x/y are coordinates 
+ *  Double start/end_angle are the starting angle and the ending angle. Starts at the 3 o'clock position
+ *  isAnticlockwise is an int that indicates whether the arc is drawn anticlockwise (if zero) or clockwise (if non-zero)
+ *  isFilled indicates whether the circle is filled (1) or not (0).
+ *  isDark indicates the color of the circle (1 is blue, 0 is cyan)
+ **/
+void arc(int x, int y, int radius, double start_angle, double end_angle, int isAnticlockwise, int isFilled, int isDark);
+
+//Takes an integer (degrees) and converts it to a double for use in the program
+double degreesToRadians(int degrees);
+
+//int x/y are the coordinates for the start of the square. int size is how large of a square.
+//int isDark determines whether the square is BLUE (1) or CYAN(0)
+void square(int x, int y, int size, int isDark);
+
+//int x/y are the coordinates for the start of the square. int size is how large of a square.
+//length is the length or number how many squares in each row. isDark is whether the first square is BLUE or CYAN
+void rowOfSquares(int x, int y, int size, int length, int isDark);
+
+//This function just calls the row of squares function, but it calls it multiply times to print a checker board pattern.
+void checkerboard(int x, int y, int size, int length, int isDark);
+
+int main(int argc, char * argv[])
+{
+    //int size, filled;                 //for use in the square function
+    int start_angle, end_angle;         //temp variable to hold the degrees entered to send off to the function
+    double radians_start, radians_end;  //double to hold the values that are returned.
+    
+    //User enters the starting angle
+    printf("Enter a starting angle: ");
+    scanf("%d", &start_angle);
+    radians_start = degreesToRadians(start_angle);
+    //printf("%lf", radians_start);
+    
+    //User enters the ending angle
+    printf("Enter an ending angle: ");
+    scanf("%d", &end_angle);
+    radians_end = degreesToRadians(end_angle);
+    //printf("%lf", radians_end);
+    
+    // Draw a filled circle centered at (150, 150) of radius 50
+    arc(220,  50, 30, radians_start, radians_end, 0, 0, 1);
+    arc(220, 150, 15, M_PI*0, M_PI*1.5, 0, 1, 0);
+    
+    //Print out the two checkerboards
+    checkerboard(10, 10, 20, 8, 1);
+    checkerboard(140, 140, 11, 5, 0);
+    
+    return 0;
+}
+
+void arc(int x, int y, int radius, double start_angle, double end_angle, int isAnticlockwise, int isFilled, int isDark)
+{
+    //Begin a path for the arc
+    draw_begin();
+    
+    //Set the arc's color
+    if(isDark == 0)     //false so cyan
+        draw_setColor("cyan");
+    else                //true so blue
+        draw_setColor("blue");
+    
+    //Draw the arc
+    draw_arc(x, y, radius, start_angle, end_angle, isAnticlockwise);
+    
+    //Set whether the arc is filled or not
+    if(isFilled == 0)   //false so not filled
+        draw_finish(0);
+    else                //everything else is true so filled
+        draw_finish(1);
+}
+
+double degreesToRadians(int degrees)
+{
+    double radians;                     //holds the return value
+    radians = (M_PI*2*degrees)/360;     //Converts degrees to radians using (PI * 2 * DEGREES) / 360 = RADIANS
+    return radians;                     //returns radians
+}
+
+void square(int x, int y, int size, int isDark)
+{
+    //Begin drawing the square
+    draw_begin();
+    
+    //Determine the square's color
+    if(isDark == 0)     //false so cyan
+        draw_setColor("cyan");
+    else                //true so blue
+        draw_setColor("blue");
+    
+    //Move to the starting position (top left corner)
+    draw_lineTo(x, y);
+    
+    //Draw the top line (which is just the same y value but an increased x, however large of a square you want)
+    draw_lineTo(x + size, y);
+    
+    //Draw the right side (same x value as above but increase the y as large as you want using the SIZE variable)
+    draw_lineTo(x + size, y + size);
+    
+    //Draw the bottom line (original x value but increased y value)
+    draw_lineTo(x, y + size);
+    
+    //Finally, draw the last side, the left side. X/Y are the original value to finish the square off
+    draw_lineTo(x, y);
+    
+    //Finish the square and make it filled
+    draw_finish(1);
+}
+
+void rowOfSquares(int x, int y, int size, int length, int isDark)
+{
+    int count = 0;
+    
+    //Run for the number of rows (ie if size == 5, print out 5)
+    while(count < length)
+    {
+        //print the first square
+        square(x, y, size, isDark);
+        
+        //Change the value for the next square
+        if(isDark == 0)
+            isDark = 1;
+        else
+            isDark = 0;
+        
+        //increase x for the next square
+        x = x + size;            
+        count++;
+    }
+}
+
+void checkerboard(int x, int y, int size, int length, int isDark)
+{
+    int count = 0;
+    
+    //Run for the number of columns
+    while(count < length)
+    {
+        rowOfSquares(x, y, size, length, isDark);
+        
+        //Change the value for the next row
+        if(isDark == 0)
+            isDark = 1;
+        else
+            isDark = 0;
+            
+        //increase y for the next row
+        y = y + size;
+        count++;
+    } 
+}

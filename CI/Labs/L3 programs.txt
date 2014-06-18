@@ -1,0 +1,100 @@
+Lab 3 Sign off 1
+
+#include <stdio.h>
+#include <learncs.h>
+
+int main(int argc, char * argv[])
+{
+    int     pods;
+    int     peasPerPod;
+    int valid = 0;
+
+    do{
+        printf("How many pea pods are there? ");
+        pods = getInteger();
+        if(pods > 0)
+            valid = 1;  //Input is OK so allow the program to stop looping
+        if(pods <= 0)
+        {
+            printf("Error: the number of pea pods must be greater than zero! Try again! \n");            
+            valid = 0;
+        }
+    }while(valid == 0); //run while valid is 0, or false - that is run while the user is entering negative numbers
+
+    do{
+        printf("How many peas are in each pod? ");
+        peasPerPod = getInteger();
+        if(peasPerPod > 0)
+            valid = 1;  //Input is OK so allow the program to stop looping
+        if(peasPerPod <= 0)
+        {
+            printf("Error: the number of peas per pod must be greater than zero! Try again! \n");            
+            valid = 0;
+        }
+    }while(valid == 0); //run while valid is 0, or false - that is run while the user is entering negative numbers
+    
+    printf("Given %d pods, each containing %d peas, there are %d total peas.\n",
+            pods, peasPerPod, pods * peasPerPod);
+    
+    return 0;
+}
+
+Lab 3 Sign off 2
+
+#include <stdio.h>
+#include <learncs.h>
+
+int main(int argc, char * argv[])
+{
+    int i = 0;  // integer variable i will be used as the loop counter
+    int risks = 0;
+
+    printf("How many asterisks would you like to print? -> ");
+    risks = getInteger();
+
+    while (i < risks)
+    {
+        printf("*");
+        i++;
+    }
+    
+    printf("\n\n");
+    
+    for(i = 0; i < risks; i++)
+        printf("*");
+    
+    printf("\n\nBye bye.\n");
+    // Success. Exit with status code 0.
+    return 0;
+}
+
+Extra Credit
+
+#include <stdio.h>
+#include <learncs.h>
+
+int main(int argc, char * argv[])
+{
+    int a, b;
+    int width = 0;
+    int height = 0;
+
+    printf("What is the width? ");
+    width = getInteger();
+    
+    printf("What is the width? ");
+    height = getInteger();
+
+    for(a = 0; a < height; a++)
+    {
+        for(b = 0; b < width; b++)
+        {
+            printf("*");
+        }
+        printf("\n");
+    }
+    
+    printf("\n\nBye bye.\n");
+    // Success. Exit with status code 0.
+    return 0;
+}

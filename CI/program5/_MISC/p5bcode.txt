@@ -1,0 +1,13 @@
+//Check to see if there is any numbers to get (newlines = no numbers)
+		not_empty = fgetc(quiz);	//Test the first line
+		ungetc(not_empty, quiz);
+
+		//If there are no numbers, then this student didn't go to any of the quizzes!
+		//So give him/her all 0s and a 0 average!
+		if(not_empty == 10)	//Check and see if the next spot is a digit or not.
+		{
+			for(count = 10; count > 0; count--)
+				fprintf(average, "   0");
+			avg = 0;
+			fprintf(average, " | %10d\n", avg);
+		}
