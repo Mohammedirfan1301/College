@@ -1,0 +1,42 @@
+Some students have asked me to detail in writing, the current assignment you are working on. This explanation applies to all labs. For my lab, I'm looking for submission of some significant portion of this by tomorrow evening.
+
+With completion (we hope) of your MyString modules, you are ready to make use of your MyString implementations in conjunction with the Vector implementations you've been working on in class. An upcoming assignment will be a Hangman game, where you need to be able locate words of a given length that match a pattern.
+
+A first requirement towards that assignment is reading a list of words (which contains a fairly complete list of English words, ranging from 1 letter long to 23 letters long), and separating the words into lists of words of a given length. Since the words range from 1 - 23 letters long, you will have 23 lists of words.
+
+1. Each word is stored in a MyString object.
+
+2. Each of the 23 lists of words is a Vector of the MyString objects from #1.
+
+3. The list of the 23 lists is a Vector of those Vectors from #2.
+
+It looks something like this ASCII art. (I hope this renders correctly.)
+
+Vector
+of
+Vectors
++---+
+|   | (vector of words of length 1)
++---+
+|   | (vector of words of length 2)
++---+
+|   | (etc.)
++---+
+|   |         Vector of MyStrings
++---+        +----+----+----+----+
+| --+------> |    |    |    |    |
++---+        +----+----+----+----+     MyString
+|   |                    |             +----+
++---+                    +-----------> |    |
+|   |                                  +----+
++---+
+
+Your assignment, then, is to create a vector which contains 23 vectors which may each contain some number of MyString objects. You then read a word from the dictionary located on cs.uml.edu at ~dlipman/public/dictionary.txt (i.e., it's in my directory on cs.uml.edu; it is not web-accessible) into a new MyString object, determine the length of the word, and add that MyString object to the appropriate (as determined by the word length) Vector of MyStrings.
+
+I recommend that you do steps 2 and 3 first, by reading the dictionary and ignoring all words that are not 4 characters long. Each 4-character-long word read into a MyString object is then added to a vector (which becomes the Vector of MyStrings).
+
+Once you can do that for a single vector of 4-character words, you can extend it to 23 vectors, each stored in the Vector of Vectors, so that when you read any word into a MyString object, you can look at its length (size()) to determine which of the 23 vectors it needs to be added to.
+
+Derrell
+
+

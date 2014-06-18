@@ -1,0 +1,16 @@
+Tests:
+
+Can remove all nodes that have no sub trees. or that do not have more than 1 subtree.
+cannot remove head. cannot remove 2 subtrees?
+does not balance itself
+
+TO DO:
+
+2 subtree removal
+Update balance factors.
+Cases to balance:
+
+Left Left
+Left Right
+Right Left
+Right Right

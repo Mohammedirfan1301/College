@@ -1,0 +1,528 @@
+**************************
+* LINUX COMMANDS TO KNOW *
+**************************
+
+Includes: SSH sessions (cs.uml.edu), Vi, Emacs and Terminal
+
+MYSTRING.H LOCATION:
+cs.uml.edu/~dlipman/mystring.h
+
+**********************************************
+* SSH session info - for UML CS Server       *
+**********************************************
+TO LOGIN: 
+ssh -l jdowning cs.uml.edu
+
+COPYING FILES FROM CS.UML.EDU USING SCP
+scp jdowning@cs.uml.edu:~/**DIRECTORY/**FILENAME** /home/jason/**DIRECTORY**
+
+If in the same directoy you should be able to leave off the directory 
+stuff and just have the file name (I think?)
+
+COPYING FILES TO CS.UML.EDU FROM LOCAL HOST USING SCP
+scp /home/jason/documents/ComputingII/**FILENAME** jdowning@cs.uml.edu:~/**DIRECTORY**/
+scp **FILENAME** jdowning@cs.uml.edu:~/**DIRECTORY**/
+
+********************************************
+* TO COMPILE SOMETHING IN LINUX USING GCC: *
+********************************************
+BASIC COMPILING
+gcc -o firstprogram firstprogram.c
+note: skip 'firstprogram' if you just want an a.out
+
+TO RUN A PROGRAM THAT WAS SUCCESSFULLY COMPILED USING GCC:
+./firstprogram (FIRSTPROGRAM = THE FIRST ARGUMENT AFTER -0, IE 'HELLO' for hello world program
+
+MORE ADVANCED COMPILING (ie linking files)
+~~~to be figured out~~~
+
+****************************
+* Vi Commands/useful info: *
+****************************
+FOR MORE INFO SEE: 
+www.cs.colostate.edu/helpdocs/vi.html
+
+vi    FILENAME = open file
+vi -r FILENAME = recover FILENAME after system crash
+:wq = SAVE CURRENT FILE AND QUIT
+:x  = same as above
+:q  = ONLY QUIT, prob not saving anything
+
+MOVING CURSOR W/O ARROW KEYS:
+j = down one line
+k = up one line
+ h/bcksp = left one char
+ l/space = right one char
+0 (ZERO) = start of cur line
+ $ = end of curr line
+ w = beginning of next word
+ b = beginning of previous word
+:0 = first line in file
+:n = move to line N
+:$ = move to last line in file
+
+CHANGING SCREENS
+^  = ctrl + key
+^f = forward(down) one screen
+^b = back(up) one screen
+^d = forward(down) half screen
+^u = back(up) one screen
+^l = redraw screen
+^r = redraw screen rem deleted lines
+
+TO UNDO STUFF: u
+NOTE: ACTS LIKE TOGGLE, UNDO/REDO LAST ACTION!!!
+
+INSERT/ADD TEXT
+NOTE: hit ESC to get out of INSERT mode and back to COMMAND mode
+i = insert text before cursor
+I = insert text at beginning of cur line
+a = append text after cursor
+A = append text to the end of the cur line
+o = open and put text in a new line before cur line
+O = open and put text in a new line  above cur line
+
+CHANGING TEXT
+r 	     = replace single character under cursor (no <Esc> needed)
+R 	     = replace characters, starting with current cursor position, until <Esc> is hit
+cw 	     = change the current word with new text, starting with the character under cursor, until <Esc> is hit
+cNw 	     = change N words beginning with character under cursor, until <Esc> is hit; e.g., c5w changes 5 words
+C 	     = change (replace) the characters in the current line, until <Esc> is hit
+cc 	     = change (replace) the entire current line, stopping when <Esc> is hit
+Ncc / cNc = change (replace) the next N lines, starting with the current line, stopping when <Esc> is hit
+
+DELETING TEXT
+delete single character under cursor
+Nx 	     = delete N characters, starting with character under cursor
+dw 	     = delete the single word beginning with character under cursor
+dNw 	     = delete N words beginning with character under cursor;  e.g., d5w deletes 5 words
+D 	     = delete the remainder of the line, starting with current cursor position
+dd 	     = delete entire current line
+Ndd / dNd = delete N lines, beginning with the current line;  e.g., 5dd deletes 5 lines
+
+CUTTING/PASTING TEXT
+yy = copy the current line into the buffer
+Nyy/yNy = copy the next N lines, including the cur line into the buffer
+p = paste the lines in the buffer into the text after the cur line
+
+SEARCHING TEXT
+/string = search forward for occurence of STRING in text
+?string = search backford for ^
+n = move to the next occurance of STRING
+N = move to the next occurance of STRING (opposite direction)
+
+DETERMING LINE NUMBERS
+:.=  = returns line number of current line at bottom of screen
+:=   = returns the total number of lines at bottom of screen
+^q   = returns line number + total number of lines
+
+*******************************
+* Emacs Commands/useful info: *
+*******************************
+Copied from:
+http://mally.stanford.edu/~sr/computing/emacs.html
+
+---------------------
+General Commands
+---------------------
+EMACS HELP (within EMACS)
+CTRL-h t 
+
+To execute Control commands, written as CTRL-letter, hold down the Control key while typing the letter indicated.
+To execute Escape commands, written as ESC letter, press the Escape key (once) and then type the letter indicated.
+
+emacs filename = start emacs
+CTRL-x CTRL-c = exit emacs (You will be asked whether you want to save the file.)
+CTRL-x CTRL-s = save current work (note the ~ files are autobackups)
+
+---------------------
+Getting Help
+---------------------
+You can invoke the general emacs help files by typing CTRL-h CTRL-h
+
+CTRL-h a FUNCTION
+    lists commands related to FUNCTION 
+CTRL-h F FUNCTION
+    get help about the specified function 
+CTRL-x 1	
+    get rid of Help window 
+ESC CTRL-v	
+    scroll Help window forward 
+CTRL-h i	
+    fancy emacs information browser 
+
+---------------------
+Error Recovery
+---------------------
+
+CTRL-g	
+    cancel partially typed or accidental command 
+CTRL-l	
+    redraw garbaged screen 
+CTRL-x u	
+    undo the last change 
+ESC x recover-file	
+    recover lost file 
+ESC x revert-buffer	
+    restore buffer to original contents 
+
+---------------------
+Screen Motion 
+---------------------
+CTRL-v
+    scroll to next screen 
+ESC v
+    scroll to previous screen 
+
+---------------------
+Cursor Movement
+---------------------
+
+CTRL-b
+    go backwards one character without deleting (usually you can also use the cursor key for this) 
+CTRL-f	
+    go forward one character without deleting (usually you can also use the cursor key for this) 
+ESC b	
+    go backwards one word 
+ESC f	
+    go forward one word 
+CTRL-p	
+    go up one line (usually you can also use the cursor key for this) 
+CTRL-n	
+    go down one line (usually you can also use the cursor key for this) 
+CTRL-a
+    go to beginning of the line 
+CTRL-e	
+    go to end of the line 
+ESC a
+    go to end of the sentence 
+ESC e	
+    go to end of the sentence 
+ESC <
+    go to the beginning of the file 
+ESC >	
+    go to the end of the file 
+ESC x goto-line	
+    go to the line specified 
+
+---------------------
+     Buffers
+---------------------
+The buffer is the basic editing unit. One buffer corresponds to one piece of text being edited. You can have several buffers open at once, but can edit only one at a time. Several buffers can be visible at the same time when you're splitting your window.
+
+CTRL-x b	
+    select another buffer 
+CTRL-x CTRL-b	
+    list all buffers 
+CTRL-x 1	
+    get rid of buffer list 
+CTRL-x k	
+    kill a buffer 
+
+---------------------
+Multiple Windows
+---------------------
+
+CTRL-x 0	
+    dismiss this window 
+CTRL-x 1	
+    dismiss all other windows 
+CTRL-x 2	
+    split window in two horizontally 
+CTRL-x o	
+    switch cursor to other window 
+
+---------------------
+Files
+---------------------
+
+CTRL-x s
+    save the file 
+CTRL-x CTRL-w
+    save a file with a new name 
+CTRL-x CTRL-v
+    read a different file into emacs, replacing the current buffer 
+CTRL-x CTRL-f
+    read a different file into emacs and put it into another buffer 
+CTRL-x i
+    insert contents of another file into this buffer 
+
+--------------------------
+Cutting and Pasting Text
+--------------------------
+In emacs, to "kill" means to delete something in a way that lets you recover it if you change your mind. DEL refers to the key on your keyboard that deletes backward one character--this may be the Backspace, Delete, or Rubout key depending on your particular keyboard.
+
+DEL
+    delete previous character 
+CTRL-d
+    delete next character 
+ESC DEL
+    kill previous word 
+ESC d
+    kill next word 
+ESC 0 CTRL-k
+    kill line to beginning 
+CTRL-k
+    kill line to end 
+CTRL-x DEL
+    kill sentence to beginning 
+ESC k
+    kill sentence to end 
+
+To move or copy a region of text in emacs, you must first "mark" it, then kill or copy the marked text, move the cursor to the desired location, and restore the killed or copied text. A region of text is defined by marking one end of it, then moving the cursor to the other end.
+
+CTRL-@	
+    set mark here 
+CTRL-x CTRL-x	
+    exchange cursor and mark
+    (used to verify you have marked the desired region) 
+ESC h	
+    mark current paragraph 
+CTRL-x h	
+    mark entire buffer 
+CTRL-w	
+    kill the marked region 
+ESC w	
+    copy the marked region 
+
+All killed text (except single characters deleted with DEL or CTRL-d) can be restored to the buffer. The most recently killed text is the first to be restored, then previously killed text blocks are restored in reverse order.
+
+CTRL-y	
+    re-insert ('yank') the last text that was killed 
+ESC y	
+    replace that restored text with previously killed text.
+    Repeated use will cycle through killed text blocks in reverse order. 
+
+-------------------------
+Searching and Replacing
+-------------------------
+In both forward and backward incremental searching, you can repeat the same command for next occurrences. The right cursor key exits the current search without moving the cursor. CTRL-g aborts the current search and moves the cursor back to the initial position.
+
+CTRL-s	
+    incremental search forward.
+    Note: On some terminals and serial connections, CTRL-s causes the display to freeze. If this happens, use CTRL-q to fix the problem, and use ESC x search-forward (CTRL-x Esc for further occurrences). 
+CTRL-r	
+    incremental search backward 
+ESC %
+    (query-replace) - ask before replacing each OLD STRING with NEW STRING. Type y to replace this one and go to the next one, and type n to skip to next without replacing. 
+ESC x replace-string
+    replace all occurrences of OLD STRING with NEW STRING.
+    If you need to replace a Return character (^J), type CTRL-j instead (because typing Return is interpreted directly in the minibuffer). 
+ESC-x list-matching-lines
+    lists all the lines matching your pattern in a separate buffer, along with their numbers. Use ESC-x goto-line to go to the occurrence you're interested in. 
+
+---------------------
+Keyboard Macros
+---------------------
+Not everyone will agree these are 'basic', but they're extremely useful if you tend to do repetitive things and want to avoid getting Carpal Tunnel Syndrome...
+
+CTRL-x (
+    lets you start define a keyboard macro - basically records what you do, so do exactly what you want your macro to do (with some slight differences - e.g.\ in the new version of emacs on turing i-searches have to be terminated by Return in a macro, but not otherwise). 
+CTRL-x )
+    end the definition of the keyboard macro 
+CTRL-x e
+    executes the keyboard macro. You can also tell it how many times to execute the macro, for example if you want it executed 15 times, type CTRL-u 15 CTRL-x e. If you want your macro to be executed indefinitely, i.e until it runs out of things to do, use CTRL-u 0 CTRL-x e. 
+
+*********************
+* Terminal Commands *
+*********************
+Copied from:
+http://community.linuxmint.com/tutorial/view/244
+
+------------
+System Info
+------------
+date – Show the current date and time
+cal – Show this month's calendar
+uptime – Show current uptime
+w – Display who is online
+whoami – Who you are logged in as
+finger user – Display information about user
+uname -a – Show kernel information
+cat /proc/cpuinfo – CPU information
+cat /proc/meminfo – Memory information
+df – Show disk usage
+du – Show directory space usage
+free – Show memory and swap usage
+
+-------------------
+Keyboard Shortcuts
+-------------------
+Enter – Run the command
+Up Arrow – Show the previous command
+Ctrl + R – Allows you to type a part of the command you're looking for and finds it
+
+Ctrl + Z – Stops the current command, resume with fg in the foreground or bg in the background
+Ctrl + C – Halts the current command, cancel the current operation and/or start with a fresh new line
+Ctrl + L – Clear the screen
+
+command | less – Allows the scrolling of the bash command window using Shift + Up Arrow and Shift + Down Arrow
+!! – Repeats the last command
+command  !$ – Repeats the last argument of the previous command
+Esc + . (a period) – Insert the last argument of the previous command on the fly, which enables you to edit it before executing the command
+
+Ctrl + A – Return to the start of the command you're typing
+Ctrl + E – Go to the end of the command you're typing
+Ctrl + U – Cut everything before the cursor to a special clipboard, erases the whole line
+Ctrl + K – Cut everything after the cursor to a special clipboard
+Ctrl + Y – Paste from the special clipboard that Ctrl + U and Ctrl + K save their data to
+Ctrl + T – Swap the two characters before the cursor (you can actually use this to transport a character from the left to the right, try it!)
+Ctrl + W – Delete the word / argument left of the cursor in the current line
+
+Ctrl + D – Log out of current session, similar to exit
+
+---------------------
+Learn the Commands
+---------------------
+apropos subject – List manual pages for subject
+man -k keyword – Display man pages containing keyword
+man command – Show the manual for command
+man -t man | ps2pdf - > man.pdf  – Make a pdf of a manual page
+which command – Show full path name of command
+time command – See how long a command takes
+
+whereis app – Show possible locations of app
+which app – Show which app will be run by default; it shows the full path
+
+-------------
+Searching
+-------------
+grep pattern files – Search for pattern in files
+grep -r pattern dir – Search recursively for pattern in dir
+command | grep pattern – Search for pattern in the output of command
+locate file – Find all instances of file
+find / -name filename – Starting with the root directory, look for the file called filename
+find / -name ”*filename*” – Starting with the root directory, look for the file containing the string filename
+locate filename – Find a file called filename using the locate command; this assumes you have already used the command updatedb (see next)
+updatedb – Create or update the database of files on all file systems attached to the Linux root directory
+which filename – Show the subdirectory containing the executable file  called filename
+grep TextStringToFind /dir – Starting with the directory called dir, look for and list all files containing TextStringToFind
+
+---------------------
+File Permissions
+---------------------
+chmod octal file – Change the permissions of file to octal, which can be found separately for user, group, and world by adding: 4 – read (r), 2 – write (w), 1 – execute (x)
+Examples:
+chmod 777 – read, write, execute for all
+chmod 755 – rwx for owner, rx for group and world
+For more options, see man chmod.
+
+---------------------
+File Commands
+---------------------
+ls – Directory listing
+ls -l – List files in current directory using long format
+ls -laC – List all files in current directory in long format and display in columns
+ls -F – List files in current directory and indicate the file type
+ls -al – Formatted listing with hidden files
+
+cd dir – Change directory to dir
+cd – Change to home
+mkdir dir – Create a directory dir
+pwd – Show current directory
+
+rm name – Remove a file or directory called name
+rm -r dir – Delete directory dir
+rm -f file – Force remove file
+rm -rf dir – Force remove an entire directory dir and all it’s included files and subdirectories (use with extreme caution)
+
+cp file1 file2 – Copy file1 to file2
+cp -r dir1 dir2 – Copy dir1 to dir2; create dir2 if it doesn't exist
+cp file /home/dirname – Copy the file called filename to the /home/dirname directory
+
+mv file /home/dirname – Move the file called filename to the /home/dirname directory
+mv file1 file2 – Rename or move file1 to file2; if file2 is an existing directory, moves file1 into directory file2
+
+ln -s file link – Create symbolic link link to file
+touch file – Create or update file
+cat > file – Places standard input into file
+cat file – Display the file called file
+
+more file – Display the file called file one page at a time, proceed to next page using the spacebar
+head file – Output the first 10 lines of file
+head -20 file – Display the first 20 lines of the file called file
+tail file – Output the last 10 lines of file
+tail -20 file – Display the last 20 lines of the file called file
+tail -f file – Output the contents of file as it grows, starting with the last 10 lines
+
+---------------------
+Compression
+---------------------
+tar cf file.tar files – Create a tar named file.tar containing files
+tar xf file.tar – Extract the files from file.tar
+
+tar czf file.tar.gz files – Create a tar with Gzip compression
+tar xzf file.tar.gz – Extract a tar using Gzip
+
+tar cjf file.tar.bz2 – Create a tar with Bzip2 compression
+tar xjf file.tar.bz2 – Extract a tar using Bzip2
+
+gzip file – Compresses file and renames it to file.gz
+gzip -d file.gz – Decompresses file.gz back to file
+
+---------------------
+Printing
+---------------------
+/etc/rc.d/init.d/lpd start – Start the print daemon
+/etc/rc.d/init.d/lpd stop – Stop the print daemon
+/etc/rc.d/init.d/lpd status – Display status of the print daemon
+lpq – Display jobs in print queue
+lprm – Remove jobs from queue
+lpr – Print a file
+lpc – Printer control tool
+man subject | lpr – Print the manual page called subject as plain text
+man -t subject | lpr – Print the manual page called subject as Postscript output
+printtool – Start X printer setup interface
+
+---------------------
+Network
+---------------------
+ifconfig – List IP addresses for all devices on the local machine
+ping host – Ping host and output results
+whois domain – Get whois information for domain
+dig domain – Get DNS information for domain
+dig -x host – Reverse lookup host
+wget file – Download file
+wget -c file – Continue a stopped download
+SSH
+
+ssh user@host – Connect to host as user
+ssh -p port user@host – Connect to host on port port as user
+ssh-copy-id user@host – Add your key to host for user to enable a keyed or passwordless login
+User Administration
+
+adduser accountname – Create a new user call accountname
+passwd accountname – Give accountname a new password
+su – Log in as superuser from current login
+exit – Stop being superuser and revert to normal user
+
+---------------------
+Process Management
+---------------------
+ps – Display your currently active processes
+top – Display all running processes
+kill pid – Kill process id pid
+killall proc – Kill all processes named proc (use with extreme caution)
+bg – Lists stopped or background jobs; resume a stopped job in the background
+fg – Brings the most recent job to foreground
+fg n – Brings job n to the foreground
+
+---------------------
+Installation from source
+---------------------
+./configure
+make
+make install
+dpkg -i pkg.deb – install a DEB package (Debian / Ubuntu / Linux Mint)
+rpm -Uvh pkg.rpm – install a RPM package (Red Hat / Fedora)
+
+---------------------
+Stopping & Starting
+---------------------
+shutdown -h now – Shutdown the system now and do not reboot
+halt – Stop all processes - same as above
+shutdown -r 5 – Shutdown the system in 5 minutes and reboot
+shutdown -r now – Shutdown the system now and reboot
+reboot – Stop all processes and then reboot - same as above
+startx – Start the X system
+

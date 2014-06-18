@@ -1,0 +1,29 @@
+mystring object:
+
+capacity 5
+size 5
+pMon: h e l l o
+
+return a pointer to this object - stucture
+
+p => pointer
+h => handle, something we don't know what it is but we will need to pass back
+
+hstr = my_string_init_c_string("hello")
+can keep calling this init function and storing the handles
+
+struct my_string contains three members:
+int capacity
+int size
+something that holds a string that is allocated?
+
+status = my_string_concat_c_string("world");
+pTemp = reallocate(p , 42);
+
+this is equivant to
+pTemp = malloc(42);
+if(pTemp != NULL)
+{
+	memcopy(pTemp, p, *);
+	free(p);
+}

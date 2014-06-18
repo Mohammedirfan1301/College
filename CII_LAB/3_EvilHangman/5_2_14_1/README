@@ -1,0 +1,83 @@
+	------------------------------------------------------------------------   
+	|						 		EVIL    							   |
+    |  *    *     ***     *   *   *******   *       *     ***     *   *    |   
+    |  *    *    *   *    **  *   #         **     **    *   *    **  *    O   
+    |  ******   *******   * * *   #  ****   * *   * *   *******   * * *   \|/ 
+	|  *    *   *     *   *  **   #     *   *  * *  *   *     *   *  **   / \ 
+	|  *    *   *     *   *   *   *******   *   *   *   *     *   *   *        
+	|                               V1.0                                       
+    ==========================================================================     
+
+	To submit use:
+	
+	submit dlipman hangman \
+  	mystring.c dictionary.c assocarray.c \
+  	mystring.h dictionary.h assocarray.h \
+  	dictionaryTest.c assocarrayTest.c \
+  	hangman.c Makefile README
+
+	Done:
+	MYSTRING.C
+	MYSTRINGTESTS.C
+	DICTIONARY.C
+	DICTIONARYTESTS.C
+	
+	To-do:
+	ASSOCARR.C
+	ASSOCARRTESTS.C
+	HANGMAN.C
+
+	Notes:
+	Mystring.c 
+	- NO MEMORY LEAKS UDER VALGRIND.
+	- Passes all 48 of derrell's tests
+	- Passes all 18 of my tests
+	
+	Dictionary.c
+	- NO MEMORY LEAKS UNDER VALGRIND.
+	- Passes dictionary.c test
+	- Has functions to get which ever sized vector of mystring that you want.
+	
+	Assocarr.c
+	- Doesn't work. No idea why. Spent hours on it but I can't get it working. >_<
+	
+	Assocarr_test.c
+	- Tried to test assocarray.c
+	
+	_Hangman.c 
+	- Asks user for basic information about the game
+	- Doesn't crash as far as I can tell.
+	- Does all required checks, ensuring that nothing that is NULL or invalid is
+	  used or passed to other functions. 
+	- Ensures user input is valid.
+	- Still a work in progress
+
+	KNOWN ISSUES:
+	- Assocarr.c not implemented
+	- Warnings about "implicit declaration" of two functions in hangman.c. After I
+	  added additional declarations of those functions, they went away. Not sure if
+	  that is the right thing to do or not. Functions are found in dictionary.c,
+	  perhaps that is why - hangman.c can't see them directly?
+
+	DICTIONARY.C NOTES
+	In order to get the vector of mystrings to work, I had to put some functions,
+	such as mystring assignment and mystring destroyer, into the mystring.c file.
+	gcc dictionary_tests.c dictionary.c generic_vector.c mystring.c -o test
+	Also, in a related note, to get the vector a vector part to work I had to do
+	the same thing, except I put myvector_assignment and myvector_destroyer in
+	the generic_vector.c file. 
+	
+	Made it less straight forward, but it seems to work!
+	
+	TESTS FILES:
+	** Mystring.c Test **
+	Used derrell tester
+	
+	** Dictionary.c Test **
+	used MAKEFILE
+	
+	** Assocarr.c Test **
+	used MAKEFILE
+	
+	** Hangman.c **
+	used MAKEFILE.
