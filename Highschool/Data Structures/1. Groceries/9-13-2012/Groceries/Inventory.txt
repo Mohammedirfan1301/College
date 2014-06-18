@@ -1,0 +1,35 @@
+00232154	Whole Turkey	23.46
+37845921	Half Gallon Milk	2.31
+47950221	Refridgerated Dog Food?	22.01
+49761923	Pepperoni For Two	7.53
+87220189	Chocolate Apples	4.12
+58329492	TOmato Sauce	3.78
+47392222	Pizza Dough	4.99
+74790119	Deck of Cards	.99
+72939119	Cheesecake	8.76
+09900019	Ichthyosaur	999999999999.99
+47802831	Watermellon-Flavored Bread	3.41
+83402928	Lime Juice	3.42
+00128391	Ranger Pudding	5.27
+82217609	Paper Towels	6.22
+93770019	2-liter Moxie	1.89
+02091900	One of those cereal bowls with a straw built in	1.28
+38271083	Gold-Plated Ferrari	5762300.99
+29711312	Lettuce	3.45
+16262832	Strike anywhere matches	5.00
+18716283	3 lemons	1.78
+92766283	Family of Lemurs	364.43
+92716283	Bag of Assorted Doorknobs	45.23
+72813923	Eyeglass Repair Kit	2.13
+48709231	Elephant Saddle	4365.99
+97180192	Assorted Saplings	34.20
+90001291	Live lobsters (choose 5)	56.23
+92871821	Dead Lobsters	0.00
+82890189	Have some Broccoli!	3.42
+87302991	Superball	.25
+55329121	Shoelaces	2.50
+87818181	One Dozen Mousetraps	10.00
+78801091	Hummingbird Feeder	16.99
+89000199	Pickling Spices	2.39
+00019292	Nine Bowls of SOup	12.70
+1

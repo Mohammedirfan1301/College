@@ -1,0 +1,203 @@
+Example 1:
+
+#include <iostream.h>
+int main()
+{
+	int x;
+	x=5;
+	cout<<x;
+
+	return 0;
+}
+
+Example 2:
+
+#include <iostream.h>
+
+int main()
+{
+	int x;
+	cout<<"What is your favorite number?";
+	cin>>x;
+	
+	cout<<"Your favorite number is \t";
+	cout<<x;
+	return 0;
+}
+
+Example 3:
+
+#include <iostream.h>
+
+int main()
+{
+	int num1,num2,sum;
+	cout<<"Enter an integer. \n";
+	cin>>num1;
+	cout<<"Enter a second integer. \n";
+	cin>>num2;
+	sum=num1+num2;
+	cout<<"The sum of your two integers is \t"<<sum;
+
+	return 0;
+}
+
+Example 4:
+
+#include <iostream.h>
+
+int main()
+{
+
+	char x;
+
+	cout<<"Enter a 'y' to continue or 'n' to quit. \n";
+	cin>> x;
+	cout<<endl;
+	cout<<"Your response was>>"<<x;
+
+	return 0;
+}
+
+#3 National Debt Program
+#include <iostream.h>
+
+int main()
+{
+
+	double x;                                                      //Declares variable "x", for the National Debt to be entered in.
+	cout<<"Please enter the National Debt. \n";                    //Asks the user for the National Debt
+	cout<<"(The NATIONAL DEBT is: $14,713,343,820,018)\n";         //lets the user know the National Debt (week old but still accuarate to the trillions/billions? (hopefully D:)
+	cout.precision(16);                                            //sets precision (number of decimal places) to 16. Allows the full National Debt to be entered.
+    cin>>x;                                                        //accepts the National Debt and stores it in variable 'x'
+	cout<<endl;                                                    //ends line to make program look nice
+	cout<<"The National Debt is: \t";                              //Prompts user
+	cout<<x;                                                       //Displays National Debt that had been entered by the user
+
+	return 0;                                                      //ends program
+}
+
+#4 Carpet Program (DiMSQUARE)
+
+#include <iostream.h>
+
+ATTEMPT 1
+
+int main()
+{
+	int length,width,area;
+	cout<<"This program will calculate the area of a room in square feet. \n"; //this will print to the screen.
+	cout<<"Enter the length of the room. \t";  // Prompt to enter the length
+	cin>>length;                               // This retrieves the length and stores it.
+	cout<<"Enter the width of the room. \t";   // Prompt to enter the width
+	cin>>width;                                // This retrieves the width and stores it.
+	area=length*width;                         // This calculates the area by multiplying width times height.
+	cout<<"The area of the room is: \t" <<area;    //This prints the area to the screen.
+
+	return 0;
+}
+
+ATTEMPT 2
+
+#include <iostream.h>
+
+int main()
+{
+	int length,width,area;
+	cout<<"This program will calculate the area of a room in square feet. \n"; //this will print to the screen.
+	cout<<"Enter the length of the room. \t";  // Prompt to enter the length
+	cin>>length;                               // This retrieves the length and stores it.
+	cout<<"Enter the width of the room. \t";   // Prompt to enter the width
+	cin>>width;                                // This retrieves the width and stores it.
+	area=length*width;                         // This calculates the area by multiplying width times height.
+	cout<<"The area of the room is \t" <<area; cout<<"square feet"; 							 //This prints the area to the screen.
+
+	return 0;
+}
+
+
+ATTEMPT 3
+
+#include <iostream.h>
+
+int main()
+{
+	int length,width,area;
+	cout<<"This program will calculate the area of \n a rectangular room in square feet. \n"; //this will print to the screen.
+	cout<<endl;                                 // Ends the line to add a space to make the program look nice.
+	cout<<"Enter the length of the room. \t";  // Prompt to enter the length
+	cin>>length;                               // This retrieves the length and stores it.
+	cout<<"Enter the width of the room. \t";   // Prompt to enter the width
+	cin>>width;                                // This retrieves the width and stores it.
+	area=length*width;                         // This calculates the area by multiplying width times height.
+	cout<<endl;                                // Ends line to make program look nice.
+	cout<<" The area of the room is: " <<area << " square feet ";    /*This prints the area to the screen. The << signs allow
+                                                                for the area to be displayed in square feet */
+
+	return 0; 
+}
+
+FINAL ATTEMPT:
+
+#include <iostream.h>
+
+int main()
+{
+	float x,y,z;
+	
+	cout<<"This program will calculate the area of \n a rectangular room in square feet. \n"; //this will print to the screen.
+	cout<<endl;                                 // Ends the line to add a space to make the program look nice.
+	cout<<"Enter the length of the room. \t";  // Prompt to enter the length
+	cin>>x;                               // This retrieves the length and stores it.
+	cout.precision(5);		      // sets decimal places to 5, so if mult. large numbers it comes out looking good.
+	cout<<"Enter the width of the room. \t";   // Prompt to enter the width
+	cin>>y;                                // This retrieves the width and stores it.
+	cout.precision(5);
+	z=x*y;                         // This calculates the area by multiplying width (y) times height (x).
+	cout<<endl;                                // Ends line to make program look nice.
+	cout<<" The area of the room is: " <<z << " square feet. ";    /*This prints the area to the screen. */
+
+    return 0; 
+}
+
+#5 Operations program
+
+#include <iostream.h>       //makes use of the input/output header file to use the keyboard.
+
+int main()
+{
+    float num1, num2, num3, sum, diff, prod, quot, average;             //declares the variables needed for the program.
+    cout<<"Hello. Welcome to the OPERATIONS program. \n";               //First prompt/text for the user to read.
+    cout<<"Please enter three numbers to use this program.\n";          //Asks for the user to enter three numbers.
+    cout<<"(This program will calculate the sum, difference, \n";       //Explains program to the user.
+    cout<<"product and quotient of the first two numbers. \n";          //continues explaining program (separate line to make program look nice).
+    cout<<"The program will then calculates the average of all three numbers.) \n";            //final explanation.
+    
+    cout<<endl;                                                                //ends the line (make program look nice)
+    
+    cout<<"Please enter the first number.\t";                                  //first prompt, asks for user to enter first number.
+    cin>>num1;                                                                 //stores number in the variable num1.
+    cout<<"Please enter the second number.\t";                                 //second propmt, asks for another number.
+    cin>>num2;                                                                 //stores 2nd number in variable num2
+    cout<<"Please enter the final number. \t";                                 //final prompt, asks for the final number.
+    cin>>num3;                                                                 //stores final number in variable num3
+    
+    cout<<endl;                                                                //ends the line
+    
+    sum=num1+num2;                                                             //these next 5 lines calculate sum, product, difference and quotient, along with the average.
+    diff=num1-num2;
+    prod=num1*num2;
+    quot=num1/num2;
+    average=(num1+num2+num3)/3;
+    
+    cout<<"The sum of the first two numbers is " <<sum <<"\n";                 //The next 5 lines prompt the user and display the calculations.
+    cout<<"The difference between the first two numbers is " <<diff <<"\n";
+    cout<<"The product of the first two numbers is " <<prod <<"\n";
+    cout<<"The quotient of the first two numbers is " <<quot <<"\n";
+    cout<<"The average of all three numbers is " <<average <<"\n";
+    
+    cout<<endl;                                                               //ends the line
+    
+    cout<<"THANK YOU FOR USING THE OPERATIONS PROGRAM.";                      //final prompt to thank user for using thr program.
+    return 0;                                                                 //ends the program.
+}

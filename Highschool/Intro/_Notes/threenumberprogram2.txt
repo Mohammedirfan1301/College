@@ -1,0 +1,109 @@
+#include <iostream.h>
+
+main()
+{
+	int a,b,c;                                           //three variables needed.
+	cout<<"Welcome to the 3-NUMBER-ORDER PROGRAM.  \n";  //prompt for the user to see
+	cout<<"This program will order three numbers   \n";  //explains program.
+	cout<<"in ascending order. (least to greatest) \n";
+	cout<<endl;
+	cout<<"Please enter the first number.   ";           //asks for first number
+	cin>>a;
+	cout<<endl;
+	cout<<"Please enter the second number.  ";           //asks for second number
+	cin>>b;
+	cout<<endl;
+	cout<<"Please enter the third number.   ";           //asks for third number
+	cin>>c;
+	cout<<endl;
+
+	/* all the possible options are:
+
+	None are equal
+	6 possible numbers
+	123     case1  = works
+	132     case2  =
+	213     case3  =
+	231     case4  =
+	312     case5  =
+	321     case6  =
+
+	Some are equal
+	18 possible
+	121     case7  =
+	131     case8  =
+	212
+	232
+	313
+	323
+
+	112     case9  =
+	113     case10 =
+	221
+	223
+	331
+	332
+
+	122     case11 =
+	133     case12 =
+	211
+	233
+	311
+	322
+
+	All are equal
+	111	  case13 =								*/
+
+
+
+	//None are equal
+
+	if((a<b)&&(a<c)&&(b<c))
+		cout<<"The order is: "<<a<<" "<<b<<" "<<c<<" Case1";   //works
+
+	if((a<b)&&(a<c)&&(c<b))
+		cout<<"The order is: "<<a<<" "<<c<<" "<<b<<" Case2";
+
+	if((b<a)&&(b<c)&&(a<c))
+		cout<<"The order is: "<<b<<" "<<a<<" "<<c<<" Case3";
+
+	if((b<a)&&(b<c)&&(c<a))
+		cout<<"The order is: "<<b<<" "<<c<<" "<<a<<" Case4";
+
+	if((c<a)&&(c<b)&&(b<a))
+		cout<<"The order is: "<<c<<" "<<b<<" "<<a<<" Case5";
+
+	if((c<a)&&(c<b)&&(a<b))
+		cout<<"The order is: "<<c<<" "<<a<<" "<<b<<" Case6";
+
+
+
+	//Some are equal
+
+	if((a==b)&&(b<c))
+		cout<<"The order is: "<<a<<" "<<b<<" "<<c<<" Case7";
+
+	if((a==b)&&(b>c))
+		cout<<"The order is: "<<c<<" "<<a<<" "<<b<<" Case8";
+
+	if((b==c)&&(c<a))
+		cout<<"The order is: "<<b<<" "<<c<<" "<<a<<" Case9";
+
+	if((b==c)&&(c>a))
+		cout<<"The order is: "<<a<<" "<<c<<" "<<b<<" Case10";
+
+	if((c==a)&&(a<b))
+		cout<<"The order is: "<<a<<" "<<c<<" "<<b<<" Case11";
+
+	if((c==a)&&(a>b))
+		cout<<"The order is: "<<b<<" "<<c<<" "<<a<<" Case12";
+
+
+
+	//All are equal
+
+	if((a==b)&&(b==c))
+		cout<<"The order is: "<<a<<" "<<b<<" "<<c<<" Case13";
+
+	return0;
+}

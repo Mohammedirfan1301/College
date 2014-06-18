@@ -1,0 +1,10 @@
+#include <iostream.h>
+#include <math.h>
+
+math()
+{
+	double x = 1.666666;
+   cout<<floor(x);
+
+	return 0;
+}

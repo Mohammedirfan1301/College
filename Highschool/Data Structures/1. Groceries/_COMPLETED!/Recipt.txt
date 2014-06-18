@@ -1,0 +1,140 @@
+****************************************************************** 
+*                 THE BASKET GROCERY STORE                       * 
+*        ALL THE FOOD YOU COULD EVER WANT - IN ONE PLACE.        * 
+****************************************************************** 
+TRANSACTION
+
+Whole Turkey	23.46
+Chocolate Apples	4.12
+TOmato Sauce	3.78
+Pizza Dough	4.99
+Superball	0.25
+Deck of Cards	0.99
+Cheesecake	8.76
+Watermellon-Flavored Bread	3.41
+Lime Juice	3.42
+Lettuce	3.45
+Ranger Pudding	5.27
+Paper Towels	6.22
+2-liter Moxie	1.89
+One of those cereal bowls with a straw built in	1.28
+
+The total for this transaction is $71.29
+
+************************************************ 
+
+TRANSACTION 
+
+Half Gallon Milk	2.31
+Refridgerated Dog Food?	22.01
+Nine Bowls of SOup	12.7
+ERROR! Barcode 82217619 not found! 
+Family of Lemurs	364.43
+Pepperoni For Two	7.53
+Paper Towels	6.22
+Paper Towels	6.22
+Paper Towels	6.22
+Strike anywhere matches	5
+Whole Turkey	23.46
+Paper Towels	6.22
+Paper Towels	6.22
+
+The total for this transaction is $468.54
+
+************************************************ 
+
+TRANSACTION 
+
+Lime Juice	3.42
+Lime Juice	3.42
+Strike anywhere matches	5
+2-liter Moxie	1.89
+Lime Juice	3.42
+Lime Juice	3.42
+ERROR! Barcode 97180191 not found! 
+2-liter Moxie	1.89
+Lime Juice	3.42
+Lime Juice	3.42
+Live lobsters (choose 5)	56.23
+2-liter Moxie	1.89
+Have some Broccoli!	3.42
+Pickling Spices	2.39
+Lime Juice	3.42
+Lime Juice	3.42
+2-liter Moxie	1.89
+
+The total for this transaction is $101.96
+
+************************************************ 
+
+TRANSACTION 
+
+Pepperoni For Two	7.53
+
+The total for this transaction is $7.53
+
+************************************************ 
+
+TRANSACTION 
+
+Refridgerated Dog Food?	22.01
+ERROR! Barcode 82217619 not found! 
+Chocolate Apples	4.12
+Shoelaces	2.5
+TOmato Sauce	3.78
+
+The total for this transaction is $32.41
+
+************************************************ 
+
+TRANSACTION 
+
+Hummingbird Feeder	16.99
+ERROR! Barcode 83402948 not found! 
+
+The total for this transaction is $16.99
+
+************************************************ 
+
+TRANSACTION 
+
+Bag of Assorted Doorknobs	45.23
+Bag of Assorted Doorknobs	45.23
+Dead Lobsters	0
+
+The total for this transaction is $90.46
+
+************************************************ 
+
+TRANSACTION 
+
+Refridgerated Dog Food?	22.01
+Refridgerated Dog Food?	22.01
+Family of Lemurs	364.43
+Refridgerated Dog Food?	22.01
+One of those cereal bowls with a straw built in	1.28
+One of those cereal bowls with a straw built in	1.28
+One of those cereal bowls with a straw built in	1.28
+One of those cereal bowls with a straw built in	1.28
+Eyeglass Repair Kit	2.13
+Watermellon-Flavored Bread	3.41
+3 lemons	1.78
+Have some Broccoli!	3.42
+
+The total for this transaction is $446.32
+
+************************************************ 
+
+TRANSACTION 
+
+Elephant Saddle	4365.99
+One Dozen Mousetraps	10
+Superball	0.25
+
+The total for this transaction is $4376.24
+
+************************************************ 
+
+TRANSACTION 
+
+There are no more transactions! 

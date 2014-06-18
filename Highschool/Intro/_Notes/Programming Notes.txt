@@ -1,0 +1,34 @@
+Programming NOTES
+(PAGE 29)
+***********************************************************
+
+Basic program:
+
+#include
+main()
+{
+	return 0;
+}
+
+************************************************************
+
+Multiple lines with one statement:
+cout << "Second sentence.\nThird sentence.";
+
+************************************************************
+multiple decimal places:
+
+cout.precision(number of places)
+
+*************************************************************
+
+Command line closes after program is done:
+
+#include <stdlib.h>
+
+~~~~~~~~~~~
+
+system("pause");
+return 0;
+
+*************************************************************

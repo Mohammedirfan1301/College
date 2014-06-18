@@ -1,0 +1,33 @@
+# Project: Battle Ship
+# Makefile created by Dev-C++ 4.9.9.2
+
+CPP  = g++.exe -D__DEBUG__
+CC   = gcc.exe -D__DEBUG__
+WINDRES = windres.exe
+RES  = 
+OBJ  = battlema.o battle.o $(RES)
+LINKOBJ  = battlema.o battle.o $(RES)
+LIBS =  -L"C:/Program Files (x86)/Dev-Cpp/lib/wx/gcc_lib" -L"C:/Program Files (x86)/Dev-Cpp/lib" -L"C:/Program Files (x86)/Dev-Cpp/MinGW32/lib"  -g3 
+INCS =  -I"C:/Program Files (x86)/Dev-Cpp/MinGW32/include" 
+CXXINCS =  -I"C:/Program Files (x86)/Dev-Cpp/MinGW32/include"  -I"C:/Program Files (x86)/Dev-Cpp/"  -I"C:/Program Files (x86)/Dev-Cpp/include/common" 
+BIN  = "Battle Ship.exe"
+CXXFLAGS = $(CXXINCS)   -g3
+CFLAGS = $(INCS)   -g3
+RM = rm -f
+
+.PHONY: all all-before all-after clean clean-custom
+
+all: all-before "Battle Ship.exe" all-after
+
+
+clean: clean-custom
+	${RM} $(OBJ) $(BIN)
+
+$(BIN): $(OBJ)
+	$(CPP) $(LINKOBJ) -o "Battle Ship.exe" $(LIBS)
+
+battlema.o: battlema.cpp   C:\Users\Jason\Documents\_Documents\Programming\_Programs\L15\2.Battleship\5-27\battle.cpp   C:/Program Files (x86)/Dev-Cpp/MinGW32/include/conio.h   c:\Users\Jason\Documents\_Documents\Programming\_Programs\L15\2.Battleship\5-27\battle.h   C:\Users\Jason\Documents\_Documents\Programming\_Programs\L15\2.Battleship\5-27\battle.h
+	$(CPP) -c battlema.cpp -o battlema.o $(CXXFLAGS)
+
+battle.o: battle.cpp   C:/Program Files (x86)/Dev-Cpp/MinGW32/include/conio.h   c:\Users\Jason\Documents\_Documents\Programming\_Programs\L15\2.Battleship\5-27\battle.h
+	$(CPP) -c battle.cpp -o battle.o $(CXXFLAGS)
