@@ -1,1 +1,2 @@
-This directory will contain projects related to the Computer Organization and Assembly Language class. It will likely contain MIPS/Intel assembly language code plus some other random shit.
+This directory will contain projects related to the Computer Organization and Assembly Language class. 
+It will likely contain MIPS/Intel assembly language code.
