@@ -1,1 +1,0 @@
-This will contain all the C++ code for the Computing IV class.
