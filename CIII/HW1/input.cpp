@@ -61,6 +61,9 @@ void Student::input()
 	cout<<"Enter the student's final exam: ";
 	cin>>final_exam;
 
+	// >> leaves a trailing newline, so let's remove it!
+	cin.ignore();
+
 	// Call the calc_avg and calc_letter functions
 	calc_average();
 	calc_letter();
@@ -74,7 +77,7 @@ void Student::output()
 	cout<<"Final Exam: "<<final_exam<<endl<<endl;
 	cout<<"These work out to: \n";
 	cout<<"Final numeric grade: "<<weight_average_grade<<endl;
-	cout<<"Final letter grade: "<<letter_grade<<endl;
+	cout<<"Final letter grade: "<<letter_grade<<endl<<endl;
 }
 
 // Private functions
@@ -91,30 +94,30 @@ void Student::calc_letter()
 	// Less than a 65 means the student got an "F".
 	if(weight_average_grade < 65)
 	{
-		letter_grade = "F";
+		letter_grade = 'F';
 	}
 
 	// If between a 65 and below a 70, they got a "D".
-	if(weight_average_grade < 70 && weight_average_grade => 65)
+	if(weight_average_grade < 70 && weight_average_grade >= 65)
 	{
-		letter_grade = "D";
+		letter_grade = 'D';
 	}
 
 	// 70 to 79 is a C-
-	if(weight_average_grade < 80 && weight_average_grade => 70)
+	if(weight_average_grade < 80 && weight_average_grade >= 70)
 	{
-		letter_grade = "C";
+		letter_grade = 'C';
 	}
 
 	// 80 to 89 is a B
-	if(weight_average_grade < 90 && weight_average_grade => 80)
+	if(weight_average_grade < 90 && weight_average_grade >= 80)
 	{
-		letter_grade = "B";
+		letter_grade = 'B';
 	}
 
 	// 90 to 100 is an A
-	if(weight_average_grade <= 100 && weight_average_grade => 90)
+	if(weight_average_grade <= 100 && weight_average_grade >= 90)
 	{
-		letter_grade = "A";
+		letter_grade = 'A';
 	}
 }
