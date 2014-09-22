@@ -78,6 +78,9 @@ void Truck::Health()
 	else {
 		cout<<"CHANGE MY OIL!! I'll die if you don't! ;(\n";
 	}
+
+	cout<<"You've driven: "<<m_miles_gas<<" miles on this tank of gas.\n";
+	cout<<"You've driven: "<<m_miles_oil<<" miles on this oil.\n";
 }
 
 // Fills up the gas tank of the truck.
@@ -93,6 +96,7 @@ void Truck::Fill_up()
 
 	// Now fill the truck up.
 	m_gas = 20;
+	m_miles_gas = 0;
 	cout<<"Filled up the truck - you're good to go for a drive! \n";
 }
 
@@ -108,6 +112,7 @@ void Truck::Change_oil()
 
 	// Now change the oil.
 	m_oil = 10;
+	m_miles_oil = 0;
 	cout<<"Changed the oil - you're good to go for a drive! \n";
 }
 
@@ -149,6 +154,7 @@ void Truck::Drive(float miles)
 	float gas_left = m_gas - gas_usage;
 	if(gas_left <= 0) {
 		cout<<"You would have ran out of gas on this trip.\n";
+		cout<<"You should probably put some gas in the truck.\n";
 		return;
 	}
 
@@ -159,6 +165,7 @@ void Truck::Drive(float miles)
 
 	if(oil_health <= 0) {
 		cout<<"Driving that far would have destroyed the truck's engine!\n";
+		cout<<"Change the oil NOW!\n";
 		return;
 	}
 
