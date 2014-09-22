@@ -7,30 +7,31 @@ using namespace std;
 class Truck
 {
 public:
-	Truck();	// Default constructor
 
-	// Constructor with parameters
-	Truck(int gas, int oil);
+	Truck();					// Default constructor
+	Truck(float gas, float oil); 	// Constructor with parameters
+	Truck(const Truck& aTruck); // Copy constructor
+	~Truck();					// Destructor
 
-	// Simulation functions
+	// Simulation functions (mutator)
 	void Health();
 	void Fill_up();
 	void Change_oil();
 	void Drive(float miles);
 
 	// Accessor functions
-	int get_GasLevel();
-	int get_OilHealth();
+	float get_GasLevel();
+	float get_OilHealth();
 
 private:
-	int m_gas;			// Gas tank is max 20 gallons.
-	int m_oil;			// Oil health - 1 - 10 scale.
+	float m_gas;		// Gas tank is max 20 gallons.
+	float m_oil;		// Oil health - 1 - 10 scale.
 	float m_miles_gas;	// How many miles driven since last fill up.
 	float m_miles_oil;	// Miles driven since last oil change.
 };
 
 // Default Constructor
-Truck::Truck()
+Truck::Truck(): m_gas(20), m_oil(10), m_miles_gas(0), m_miles_oil(0)
 {
 	cout<<"Default constructor without parameters.\n";
 	m_gas = 20;
@@ -40,7 +41,7 @@ Truck::Truck()
 }
 
 // Constructor with parameters
-Truck::Truck(int gas, int oil)
+Truck::Truck(float gas, float oil): m_gas(gas), m_oil(oil), m_miles_gas(0), m_miles_oil(0)
 {
 	cout<<"Constructor with parameters is called.\n";
 	m_gas = gas;
@@ -52,6 +53,23 @@ Truck::Truck(int gas, int oil)
 	m_miles_gas = 0;
 	m_miles_oil = 0;
 }
+
+// Copy constructor
+Truck::Truck(const Truck& aTruck)
+{
+	m_gas = aTruck.m_gas;
+	m_oil = aTruck.m_oil;
+	m_miles_gas = aTruck.m_miles_gas;
+	m_miles_oil = aTruck.m_miles_oil;
+
+	cout<<"The truck has been copied!\n";
+}
+
+// Destructor
+Truck::~Truck()
+{
+	cout<<"The truck has been destroyed!\n";
+}	
 
 // Check the health of your truck.
 void Truck::Health()
@@ -131,7 +149,7 @@ void Truck::Drive(float miles)
 		cout<<"Sorry, you need to fillup the truck first!\n";
 		return;
 	}
-	if(m_oil == 0) {
+	else if(m_oil == 0) {
 		cout<<"Sorry, you need to change the oil first!\n";
 		return;
 	}
@@ -180,40 +198,62 @@ void Truck::Drive(float miles)
 	cout<<"You've driven: "<<m_miles_oil<<" miles on this oil.\n";
 }
 
-int Truck::get_GasLevel()
+float Truck::get_GasLevel()
 {
 	return m_gas;
 }
 
-int Truck::get_OilHealth()
+float Truck::get_OilHealth()
 {
 	return m_oil;
 }
 
 int main()
 {
-	cout<<"Truck Simulator V1.1\n";
+	cout<<"Truck Simulator V1.2\n";
 	cout<<"This class simulator takes inputs of: \n";
-	cout<<"Gas level (int, max 20), Oil health (int, max 10) \n";
+	cout<<"Gas level (float max 20), Oil health (float max 10) \n";
 	cout<<"and miles (float, unlimited but you could run out of gas...) \n\n";
 
-	cout<<"First truck: \n";
+	// Make it so the numbers only output to 2 decimals.
+    cout.setf(ios::fixed);
+    cout.setf(ios::showpoint);
+    cout.precision(2);
+
+	// Default truck.
+	{
+		cout<<"Default truck: \n";
+		Truck truck0;
+		cout<<"The default truck has: "<<truck0.get_GasLevel()<<" gallons of gas left.\n";
+		cout<<"It also has "<<truck0.get_OilHealth()<<"/10.00 oil health.\n";
+	}
+
+	cout<<"\nFirst truck: \n";
 	cout<<"Enter the gas level and oil health: ";
-	int gas, oil;
+	float gas, oil;
 	cin>>gas>>oil;
 
-	Truck truck(gas, oil);	// Call constructor with parameters
+	Truck truck1(gas, oil);	// Call constructor with parameters
 	cout<<endl;
-	truck.Health();
+	truck1.Health();
 
 	cout<<endl;
-	truck.Fill_up();
+	truck1.Fill_up();
 
 	cout<<endl;
-	truck.Change_oil();
+	truck1.Change_oil();
 
 	cout<<endl;
-	truck.Drive(250);
+	truck1.Drive(250);
+
+	cout<<endl;
+	cout<<"Copying the first truck...\n";
+	Truck truck2(truck1);
+
+	cout<<"Truck2 has "<<truck2.get_GasLevel()<<" gallons of gas left.\n";
+	cout<<"Truck2 also has "<<truck2.get_OilHealth()<< "/10.00 oil health.\n";
+
+	cout<<endl;
 
 	return 0;
 }
