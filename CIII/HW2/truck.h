@@ -28,9 +28,7 @@ private:
 	float m_oil;		// Oil health - 1 - 10 scale.
 	float m_miles_gas;	// How many miles driven since last fill up.
 	float m_miles_oil;	// Miles driven since last oil change.
-	static int count;
+	static size_t count;
 };
-
-int Truck::count = 0;
 
 #endif

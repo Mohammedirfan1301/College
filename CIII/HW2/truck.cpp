@@ -6,6 +6,8 @@
 
 using namespace std;
 
+size_t Truck::count = 0;
+
 // Default Constructor
 Truck::Truck(): m_gas(20), m_oil(10), m_miles_gas(0), m_miles_oil(0)
 {
@@ -15,7 +17,7 @@ Truck::Truck(): m_gas(20), m_oil(10), m_miles_gas(0), m_miles_oil(0)
 	m_miles_gas = 0;
 	m_miles_oil = 0;
 	count++;
-	cout<<"There are "<<count<<" Trucks\n";
+	cout<<"\nThere are "<<count<<" Trucks\n\n";
 }
 
 // Constructor with parameters
@@ -30,6 +32,9 @@ Truck::Truck(float gas, float oil): m_gas(gas), m_oil(oil), m_miles_gas(0), m_mi
 	// They also always start at 0.
 	m_miles_gas = 0;
 	m_miles_oil = 0;
+
+	count++;
+	cout<<"\nThere are "<<count<<" Trucks\n";
 }
 
 // Copy constructor
@@ -40,15 +45,21 @@ Truck::Truck(const Truck& aTruck)
 	m_miles_gas = aTruck.m_miles_gas;
 	m_miles_oil = aTruck.m_miles_oil;
 
-	cout<<"The truck has been copied!\n";
+	cout<<"\nThe truck has been copied!\n";
+
+	count++;
+	cout<<"\nThere are "<<count<<" Trucks\n\n";
 }
 
 // Destructor
 Truck::~Truck()
 {
-	cout<<"The truck has been destroyed!\n";
-	count--;
-	cout<<"There are: "<<count<<" trucks\n";
+	if(count > 0)
+	{
+		cout<<"\nThe truck has been destroyed!\n";
+		count--;
+		cout<<"There are: "<<count<<" trucks\n";
+	}
 }	
 
 // Check the health of your truck.

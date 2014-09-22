@@ -27,7 +27,7 @@ int main()
 
     // This do while simulates one car.
 	do{
-		cout<<"\n\nThere are the following options: \n";
+		cout<<"\nThere are the following options: \n";
 		cout<<"1) Check the health of your truck. \n";
 		cout<<"2) Fill up your truck with gas. \n";
 		cout<<"3) Change the oil of your truck. \n";
@@ -73,7 +73,6 @@ int main()
 			case 7: 
 				cout<<"Good bye.\n";
 				truck.~Truck();
-				cout<<"No objects left.\n";
 				break;
 
 			default:
@@ -89,6 +88,7 @@ int main()
 		Truck truck0;
 		cout<<"The default truck has: "<<truck0.get_GasLevel()<<" gallons of gas left.\n";
 		cout<<"It also has "<<truck0.get_OilHealth()<<"/10.00 oil health.\n";
+		truck0.~Truck();
 	}
 
 	// Truck 1
