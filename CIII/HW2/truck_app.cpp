@@ -8,10 +8,10 @@ using namespace std;
 
 int main()
 {
-	int x = 0, count = 1;
+	int x = 0;
 	float miles = 0, temp = 0;
 
-	cout<<"Truck Simulator V1.2\n";
+	cout<<"Truck Simulator.\n";
 	cout<<"This class simulator takes inputs of: \n";
 	cout<<"Gas level (float max 20), Oil health (float max 10) \n";
 	cout<<"and miles (float, unlimited but you could run out of gas...) \n";
@@ -72,8 +72,8 @@ int main()
 
 			case 7: 
 				cout<<"Good bye.\n";
-				truck.~truck();
-				count--;
+				truck.~Truck();
+				cout<<"No objects left.\n";
 				break;
 
 			default:
@@ -118,6 +118,9 @@ int main()
 
 	cout<<"Truck2 has "<<truck2.get_GasLevel()<<" gallons of gas left.\n";
 	cout<<"Truck2 also has "<<truck2.get_OilHealth()<< "/10.00 oil health.\n\n";
+
+	truck1.~Truck();
+	truck2.~Truck();
 
 	return 0;
 }

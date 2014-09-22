@@ -14,6 +14,8 @@ Truck::Truck(): m_gas(20), m_oil(10), m_miles_gas(0), m_miles_oil(0)
 	m_oil = 10;
 	m_miles_gas = 0;
 	m_miles_oil = 0;
+	count++;
+	cout<<"There are "<<count<<" Trucks\n";
 }
 
 // Constructor with parameters
@@ -45,6 +47,8 @@ Truck::Truck(const Truck& aTruck)
 Truck::~Truck()
 {
 	cout<<"The truck has been destroyed!\n";
+	count--;
+	cout<<"There are: "<<count<<" trucks\n";
 }	
 
 // Check the health of your truck.
