@@ -2,7 +2,7 @@
 prompt_input:	.asciiz		"Enter a line of input: "
 prompt_output:	.asciiz		"You entered: "
 input:		.space		80		# 80 character array to hold the user's input
-output:		.space		80
+output:		.space		80		# 80 character array to hold the user's output
 saveReg:	.word		0
 
 
@@ -21,15 +21,13 @@ getline:
 		li	$v0, 8
 		syscall
 		
-		# Call two functions - printline to output what the user entered
-		# and inspect to see what types of characters were entered.
-		#jal	printline
-		#jal	
-		#jal	inspect
+		# We need to check each character that the user entered.
+		# Call the inspect function to do just that.
+		jal	inspect
 		
-		# Exit the program successfully, by calling code 10.
-		li	$v0, 10		
-		syscall
+		# The program should never end, so return to getline at this point.
+		# This will continuely prompt the user for a line of characters.
+		jal	getline
 	
 printline:	
 		# Print out "You Entered: "
@@ -38,7 +36,7 @@ printline:
 		syscall
 
 		# Print out what the user typed in.
-		la	$a0, input
+		la	$a0, output
 		li	$v0, 4
 		syscall
 		
@@ -55,9 +53,9 @@ inspect:
 		
 		jr 	$ra			# Return to main.
 else:		
-		li	$v0
-		syscall
-		jar $ra
+		#li	$v0
+		#syscall
+		#jal $ra
 
 done:
 
