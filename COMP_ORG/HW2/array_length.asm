@@ -1,30 +1,43 @@
-# NOT MY PROGRAM BUT ONE I FOUND TO TEST WITH
-# THIS SHOULD JUST LOOP THROUGH AN ARRAY AND FIND ITS LENGTH.
-        
+# Runs through an array and stores each character into another array
+      
+# VARIABLES  
         .data
-str:    .asciiz "abcde"
-
-tabchar:.asciiz " 5#6(4)4*3+3,4-3.4/3"
-
-output:	.space	20
-
+input:  	.asciiz "hello I'm testing to see if this works or not"		# This will be what the user inputs.	
+tabchar:	.asciiz " 5#6(4)4*3+3,4-3.4/3"					# Array to hold the values to compare to
+output:		.space	20							# This becomes input. It will become the 
+										# misc. numbers that we compare to though.
+# CODE
         .text
 main:
-        li      $s0, 0          # len = 1
-        la      $s1, str        # s = str
+
+# $s1 is the input array's address, stored in a register.
+# $s2 is the output array's address, stored in another register
+# $s3 is the current character we are looking at.
+
+        la      $s1, input     	# input is stored in $s1
+        la	$s2, output	# output is stored in $2
         
 test:
-        lb      $s2, 0($s1)     # c = *s
+        lb      $s3, 0($s1)     # Grab the current character from the input array.
         
-        # Save c into output
-        sb	$s2, output
+        # Save the char into output
+        sb	$s3, 0($s2)	# store the char in output
+        			# sb means store on byte.
+        			# characters are one byte so this just stores one of them.
         
-        beqz    $s2, done       # if c = '\0', branch to "done"
-        addi    $s0, $s0, 1     # len = len + 1
-        addi    $s1, $s1, 1     # s = s + 1
-        j       test
+        # CHECK TO SEE IF WE HIT THE END OF THE ARRAY
+        # beq is compare and see if equal. z means compare to 0.
+        # ex: if(c == '\0') -> if false, ignore, if true go to done.
+        beqz    $s3, done      
+        			
+        addi    $s1, $s1, 1     # Move the input array forward by one byte.
+        addi	$s2, $s2, 1	# Move the output array forward by one byte.
+        
+        # Pass go and collect $200. Return to test.
+        j       test		
         
 done:
+	# could have just gone to print, this spot is a place holder for future loops.
 	j print
 
 print:
@@ -33,6 +46,6 @@ print:
 	li	$v0, 4
 	syscall
 	
-	# Exit the program.
+	# Exit the program. In the future, this will loop back to main or getline.
        	li $v0, 10
 	syscall
