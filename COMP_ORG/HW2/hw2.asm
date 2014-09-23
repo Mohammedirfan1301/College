@@ -1,67 +1,90 @@
-# Runs through an array and stores each character into another array
-      
 # VARIABLES  
         	.data
 prompt_input:	.asciiz		"Enter a line of input: "
 prompt_output:	.asciiz		"You entered: "
 input:  	.space 80	# This will be what the user inputs.	
 output:		.space 80	# This is where the output codes are storeds.
+
 # CODE
         .text
 main:
 	# Print out "Enter a line of inptut: "
 	la 	$a0, prompt_input	# Loads prompt_input into $a0
-	li	$v0, 4			# Code 4 means string.
+	li	$v0, 4			# Code 4 means output string.
 	syscall
 	
 	# Take user input, store the entry in input.
 	la 	$a0, input		# Loads the address of input into $a0
 	li 	$a1, 80			# Buffer is 80 bytes long.
-	li	$v0, 8			# Code 8 - inputing a string.
+	li	$v0, 8			# Code 8 means input a string.
 	syscall
 
-# $s1 is the input array's address, stored in a register.
-# $s2 is the output array's address, stored in another register
-# $s3 is the current character we are looking at.
+# $s1 is the input array's address
+# $s2 is the output array's address
+# $s3 is the current character we are looking at in the input array.
+# $s4 is the Tabchar array
+# $s5 is the current character we are looking at in the Tabchar array.
 
-        la      $s1, input     	# input is stored in $s1
-        la	$s2, output	# output is stored in $2
+	# Store the address for input/output/Tabchar arrays
+        la      $s1, input     	
+        la	$s2, output
+        la	$s4, Tabchar
 
 # This loops character by character through the input array.
 test:
         lb      $s3, 0($s1)     # Grab the current character from the input array.
         
-        # Save the char into output
-        sb	$s3, 0($s2)	# store the char in output
-        			# sb means store on byte.
-        			# characters are one byte so this just stores one of them.
+	# Right here is where we will jump to another loop.
+	# That loop will compare this character with the entire Tabchar array to find 
+	# the code that corresponds with that type of character.
+	j compare
         
         # CHECK TO SEE IF WE HIT THE END OF THE ARRAY
         # beq is compare and see if equal. z means compare to 0.
         # ex: if(c == '\0') -> if false, ignore, if true go to done.
-        beqz    $s3, done      
+        beqz    $s3, print      
         			
-        addi    $s1, $s1, 1     # Move the input array forward by one byte.
-        addi	$s2, $s2, 1	# Move the output array forward by one byte.
+        # Move each array forward by one byte.
+        addi    $s1, $s1, 1     
+        addi	$s2, $s2, 1	
         
         # Pass go and collect $200. Return to test.
         j       test		
-        
-done:
-	# could have just gone to print, this spot is a place holder for future loops.
-	j print
 
+# This loops character by character though the Tabchar array.
+compare:
+	lb	$s5, 0($s4)
+	
+	# Compare each character to see if we have a match.
+	# When we find a match, go to the match part.
+	beq	$s3, $s5, match
+	
+	# Move Tabchar forward by 8, since each word is 4 bytes and 
+	# there's two of them per line
+	addi	$s5, $s5, 8
+	j	compare
+	
+# This part activates when we find a match between a character and Tabchar.
+match:
+	# Save the code into output
+	addi	$s5, $s5, 4	# Move forward by 4 to get the cocde.
+        sb	$s3, 0($s2)	# store the code in output.
+        
+        j	test
+
+# This prints out the final array and returns to main for more fun.
 print:
-	# Print out what the user typed in.
+	# Print out what the user typed in. See main for additional comments.
 	la	$a0, output
 	li	$v0, 4
 	syscall
 	
-	j main
-	
 	# Exit the program. In the future, this will loop back to main or getline.
        	li $v0, 10
 	syscall
+	
+	# Return to main for more looping fun! (THIS NEVER EVER ENDS >:D)
+	#j main
 
 
 # Array to compare to	
