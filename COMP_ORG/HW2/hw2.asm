@@ -3,12 +3,13 @@
 prompt_input:	.asciiz		"Enter a line of input: "
 prompt_output:	.asciiz		"You entered: "
 input:  	.space 80	# This will be what the user inputs.	
-output:		.space 80	# This is where the output codes are storeds.
+output:		.word  80	# This is where the output codes are storeds.
+pound:		.word	'#'	# Compare to this symbol
 
 # CODE
         .text
 main:
-	# Print out "Enter a line of inptut: "
+	# Print out "Enter a line of input: "
 	la 	$a0, prompt_input	# Loads prompt_input into $a0
 	li	$v0, 4			# Code 4 means output string.
 	syscall
@@ -21,55 +22,62 @@ main:
 
 # $s1 is the input array's address
 # $s2 is the output array's address
-# $s3 is the current character we are looking at in the input array.
-# $s4 is the Tabchar array
+# $s3 is the Tabchar array's address
+# $s4 is the current character we are looking at in the input array.
 # $s5 is the current character we are looking at in the Tabchar array.
+# $s6 is the pound symbol.
+# $s7 is the current int that is being printed.
 
 	# Store the address for input/output/Tabchar arrays
-        la      $s1, input     	
+        la      $s1, input
         la	$s2, output
-        la	$s4, Tabchar
+        la	$s6, pound
+        lb	$s6, 0($s6)
 
 # This loops character by character through the input array.
 test:
-        lb      $s3, 0($s1)     # Grab the current character from the input array.
+        la	$s3, Tabchar	# Each round needs a clean start for Tabchar
+        lb      $s4, 0($s1)    	# Grab the current character from the input array.
+        
+        # CHECK TO SEE IF WE HIT THE END OF THE ARRAY
+        # beq is compare and see if equal. z means compare to 0.
+        # ex: if(c == '\0') -> if false, ignore, if true go to done.
+        beqz    $s4, print  
         
 	# Right here is where we will jump to another loop.
 	# That loop will compare this character with the entire Tabchar array to find 
 	# the code that corresponds with that type of character.
 	j compare
-        
-        # CHECK TO SEE IF WE HIT THE END OF THE ARRAY
-        # beq is compare and see if equal. z means compare to 0.
-        # ex: if(c == '\0') -> if false, ignore, if true go to done.
-        beqz    $s3, print      
-        			
-        # Move each array forward by one byte.
-        addi    $s1, $s1, 1     
-        addi	$s2, $s2, 1	
-        
-        # Pass go and collect $200. Return to test.
-        j       test		
 
 # This loops character by character though the Tabchar array.
 compare:
-	lb	$s5, 0($s4)
+	lb	$s5, 0($s3)	# Load current Tabchar character into $s5
+	
+	# Compare to see if we hit the delimitor
+	beq	$s4, $s6, print
 	
 	# Compare each character to see if we have a match.
 	# When we find a match, go to the match part.
-	beq	$s3, $s5, match
+	beq	$s4, $s5, match
 	
 	# Move Tabchar forward by 8, since each word is 4 bytes and 
 	# there's two of them per line
-	addi	$s5, $s5, 8
+	addi	$s3, $s3, 8
 	j	compare
 	
 # This part activates when we find a match between a character and Tabchar.
 match:
 	# Save the code into output
-	addi	$s5, $s5, 4	# Move forward by 4 to get the cocde.
-        sb	$s3, 0($s2)	# store the code in output.
+	addi	$s3, $s3, 4	# Move forward by 4 to get the code.
+	lw	$s5, 0($s3)	# Load current Tabchar character into $s5
+        sw	$s5, 0($s2)	# store the code in output.
+        #lw	$s7, 0($s3)	# load the int code into $s7
+        #la	$a0, $s7
+        #li	$v0, 1		# print int
         
+        # Move each array forward by one byte.
+        addi    $s1, $s1, 1	# Move the input array forward     
+        addi	$s2, $s2, 1	# Also move the output array forward
         j	test
 
 # This prints out the final array and returns to main for more fun.
