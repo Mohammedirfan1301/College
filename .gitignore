@@ -1,3 +1,6 @@
 # Ignore these files #
 *.bak~
 *.out
+*~
+*.docx#
+*#
