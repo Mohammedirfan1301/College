@@ -44,6 +44,9 @@ printline:
 		
 # Below this point is messed up. Doesn't really work.
 
+
+
+
 inspect:
 		bge  	$t0, 72, done		# If we get to number 72, we've hit the end of the list.
 		lb	$a0, Tabchar($t0)	# Get the current char from Tabchar
