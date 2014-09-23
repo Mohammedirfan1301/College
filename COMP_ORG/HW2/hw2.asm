@@ -3,7 +3,7 @@
 prompt_input:	.asciiz		"Enter a line of input: "
 prompt_output:	.asciiz		"You entered: "
 input:  	.space 80	# This will be what the user inputs.	
-output:		.word  80	# This is where the output codes are storeds.
+output:		.space 80	# This is where the output codes are storeds.
 pound:		.word	'#'	# Compare to this symbol
 
 # CODE
@@ -70,14 +70,20 @@ match:
 	# Save the code into output
 	addi	$s3, $s3, 4	# Move forward by 4 to get the code.
 	lw	$s5, 0($s3)	# Load current Tabchar character into $s5
-        sw	$s5, 0($s2)	# store the code in output.
+
+	# Print out character by character
+	la	$v0, 1		# Load system code into $v0
+	move	$a0, $s5	# Move $s5's int value into $a0 to be printed.
+	syscall
+        
+        #sw	$s5, 0($s2)	# store the code in output.
         #lw	$s7, 0($s3)	# load the int code into $s7
         #la	$a0, $s7
         #li	$v0, 1		# print int
         
         # Move each array forward by one byte.
         addi    $s1, $s1, 1	# Move the input array forward     
-        addi	$s2, $s2, 1	# Also move the output array forward
+        addi	$s2, $s2, 4	# Also move the output array forward
         j	test
 
 # This prints out the final array and returns to main for more fun.
