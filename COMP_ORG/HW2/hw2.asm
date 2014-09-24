@@ -4,15 +4,15 @@
         	.data
 prompt_input:	.asciiz		"\nEnter a line of input: "	# Prompts
 prompt_output:	.asciiz		"You entered: "
-input:  	.space 80			# This will be what the user inputs.	
-pound:		.word  '#'			# Compare to this symbol
-pound_num:	.asciiz	"6"			# For the pound symbol's code.
-blank:		.asciiz " "			# Blank space to compare against.
+input:  	.space 		80				# This will be what the user inputs.	
+pound:		.word  		'#'				# Compare to this symbol
+blank:		.asciiz 	" "				# Blank space to compare against.
 
 # CODE
         .text
 main:
-	la 	$a0, prompt_input	# Loads prompt_input into $a0
+	# Print out prompt & take user input of a string. Store store in input array.
+	la 	$a0, prompt_input	# Loads addr of prompt_input into $a0
 	li	$v0, 4			# Code 4 means output string.
 	syscall				
 	
@@ -21,71 +21,82 @@ main:
 	li	$v0, 8			# Code 8 means input a string.
 	syscall				
 
-# $s1 is the input array's address
-# $s2 is the Tabchar array's address
-# $s3 is the current character we are looking at in the input array.
-# $s4 is the current character we are looking at in the Tabchar array.
-# $s5 is the pound symbol.
-# $s6 is the blank number
+#******************************************************************************
+# 	$s1 is the input array's address
+# 	$s2 is the Tabchar array's address
+# 	$s3 is the current character we are looking at in the input array.
+# 	$s4 is the current character we are looking at in the Tabchar array.
+# 	$s5 is the pound symbol.
+# 	$s6 is the blank number
+#
+#	General layout of the branches
+#	Main -> Get input, store it, fall through to Test.
+#	Test -> Loop through the entire input array. Call compare on each character, one at a time.
+#	Compare -> Loop through the entire Tabchar array. Branch based on what we find.
+#		IF we find a MATCH, go to MATCH
+#		IF we find a POUND sign, go to DONE.
+#	Match -> IF there's a blank (code 5), print a space. Otherwise fall through to Continue. Then return to test.
+#	Print_Blank -> when called, print blank space, go to continue to increment the input array. Then return to test.
+#	Done -> When pound sign is found, print a "6" and then return to main to continue looping. 
+#******************************************************************************
 
-        la      $s1, input	# Store the address for input array.
+        la      $s1, input		# Store the address for input array.
         la	$s5, pound
-        lb	$s5, 0($s5)	# Also load the pound symbol into $s5 
+        lb	$s5, 0($s5)		# Also load the pound symbol into $s5 
         la	$s6, blank
-        lb	$s6, 0($s6)	# and a space into $s6
+        lb	$s6, 0($s6)		# and a space into $s6
 
 # This loops character by character through the input array.
 test:
-        la	$s2, Tabchar	# Each round needs a clean start for Tabchar
-        lb      $s3, 0($s1)    	# Grab the current character from the input array.
-        
-	# Go to the next section and compare the current char against all of the chars in Tabchar
-	j compare
+        la	$s2, Tabchar		# Each round needs a clean start for Tabchar
+        lb      $s3, 0($s1)    		# Grab the current character from the input array.
+        	
+	j compare			# Go to the next section and compare the current char against all of the chars in Tabchar
 
 # This loops character by character though the Tabchar array.
 compare:
 	lb	$s4, 0($s2)		# Load current Tabchar character into $s4
+
+	beq	$s3, $s5, done		# if($s3 == $s5) go to done. $s3 is curr char, $s5 is the pound symbol.
+	beq	$s3, $s4, match		# if($s3 == $s4) go to match. $s3 is curr char, $s4 is Tabchar char
 	
-	beq	$s3, $s5, print		# See if we hit the delimitor -> if($s3 == $s5) go to print.
-	beq	$s3, $s4, match		# Compare each character to see if we have a match. -> if($s3 == $s4) go to match.
-	
-	# Move Tabchar forward by 8, since each word is 4 bytes and there's two of them per line
-	addi	$s2, $s2, 8
+	addi	$s2, $s2, 8		# Move Tabchar forward by 8, since each word is 4 bytes and there's two of them per line
 	j	compare
 	
 # This part activates when we find a match between a character and Tabchar.
 match:
-	addi	$s2, $s2, 4	# Move forward by 4 to get the code.
-	lw	$s4, 0($s2)	# Load current Tabchar character into $s4
+	addi	$s2, $s2, 4		# Move forward by 4 to get the code.
+	lw	$s4, 0($s2)		# Load current Tabchar character into $s4
 
-	# See if we have a blank symbol. If so, skip the printing of the number code.
-	beq	$s3, $s6, print_blank
-
-	# Print out the current character code.
-	li	$v0, 1		# Load system code into $v0 (int needs code 1)
-	move	$a0, $s4	# Move $s4's int value into $a0 to be printed.
-	syscall
+	beq	$s3, $s6, print_blank 	# See if we have a blank symbol. If so, skip the printing of the number code.
+	
+	li	$v0, 1			# Print out the current character code.		
+	move	$a0, $s4		# Load system code into $v0 (int needs code 1)
+	syscall				# Move $s4's int value into $a0 to be printed.
 
 # Used to prevent blank space codes (5s) from being printed
-continue:
+continue:				
         addi    $s1, $s1, 1	      	# Move the input array forward by one byte.
         j	test			# Go back and test some more characters.
 
 # Print a blank space instead of a 5.
 print_blank:
-	la	$a0, blank
+	la	$a0, blank		# Print a blank space instead of a 5.
 	li	$v0, 4
 	syscall
 	
-	j continue
+	j continue			# Go back to continue to move the input array forward.
 
-# This prints out the final array and returns to main for more fun.
-print:
-	la	$a0, pound_num		# One last thing - print out the code for the pound symbol!
-	li	$v0, 4
+# WE ARE DONE!
+done:					
+	la	$a0, 6			# One last thing though - print out the code for the pound symbol.
+	li	$v0, 1			
 	syscall
 	
 	j main				# Return to main for more fun!
+
+
+
 
 # Array to compare each character against and to get the code to print out.
 	.data
