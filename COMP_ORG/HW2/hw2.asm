@@ -80,17 +80,22 @@ match:
 	li	$v0, 1		# Load system code into $v0
 	move	$a0, $s4	# Move $s4's int value into $a0 to be printed.
 	syscall
-        
+
+# Used to prevent blank spaces (5s) from being printed
 continue:
         # Move the input array forward by one byte.
         addi    $s1, $s1, 1	     
         j	test
-        
+
+# Print a blank space instead of a 5.
 print_blank:
 	# Print out a blank space instead of a number 5
 	la	$a0, blank
 	li	$v0, 4
 	syscall
+	
+	# Head back to continue.
+	j continue
 
 # This prints out the final array and returns to main for more fun.
 print:
