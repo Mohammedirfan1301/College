@@ -76,7 +76,7 @@ match:
     
     	addi	$s4, $s4, 0x30
     	addi	$s7, $s7, 1		# Increase length of the output array
-    	sb 		$s4, 0($s1)     # Store the character in the output array         
+    	sb 	$s4, 0($s1)     	# Store the character in the output array         
 
 # Used to prevent blank space codes (5s) from being printed
 continue:               
@@ -91,6 +91,16 @@ print_blank:
     	sb 	$a0, 0($s1)        
     	
     	j 	continue        	# Go back to continue to move the input array forward.
+
+# Clear the output array
+clear:
+	beq	$t0, $t1, main		# done clearing
+	
+	sb 	$0, 0($t2)     		# Put a null throughout the array 
+	
+	addi    $t0, $t0, 1     	# Move the output
+        addi	$t2, $t2, 1
+        b clear
 
 # WE ARE DONE!
 done:                   
@@ -107,8 +117,14 @@ done:
 	li	$v0, 4
 	syscall
     	
+    	# Clear the array
+    	li	$t0, 0		# index
+    	li	$t1, 80		# max
+    	la	$t2, output	# output
+    	b clear
+    	
     	# Go back to main to loop.
-    	j 		main
+    	#j 		main
 
 # Array to compare each character against and to get the code to print out.
     .data
