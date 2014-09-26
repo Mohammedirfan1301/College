@@ -1,6 +1,6 @@
-Misc. Programs from Computing I & II at UMass Lowell.
-Written in C.
-Fall 2013 - Spring 2014
+Collection of programs written for courses at the University of Massachusetts, Lowell.
 
-Soon to be added - Computing III and IV, Fall 2014 and Spring 2015.
-Also Computer Organization and Assembly Language. Probably some MIPs and Intel 386 assembly code.
+Includes:
+C   -> for Computing I & II, as well as lab work.
+C++ -> for Computing III.
+Assembly (MIPS and soon IA32) -> for Computer Organization and Assembly Language Programming
