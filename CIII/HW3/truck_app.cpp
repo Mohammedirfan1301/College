@@ -13,9 +13,7 @@ int main()
 
 	cout<<"Truck Simulator.\n";
 	cout<<"This class simulator takes inputs of: \n";
-	cout<<"Gas level (float max 20), Oil health (float max 10) \n";
-	cout<<"and miles (float, unlimited but you could run out of gas...) \n";
-	cout<<"Note: max of 10 trucks for this simulator! \n\n";
+	cout<<"Gas level (float max 20), Oil health (float max 10) and miles (float max 400) \n\n";
 
 	// Make it so the numbers only output to 2 decimals.
     cout.setf(ios::fixed);
@@ -24,6 +22,9 @@ int main()
 
     // Make a default truck for the do/while.
     Truck truck;
+
+    // Make a mechanic as well.
+    Mechanic mechanic;
 
     // This do while simulates one car.
 	do{
@@ -34,11 +35,13 @@ int main()
 		cout<<"4) Drive your truck. \n";
 		cout<<"5) Get the fuel level of your truck.\n";
 		cout<<"6) Get the oil health of your truck.\n";
-		cout<<"7) Quit this simulator. \n";
+		cout<<"7) Ask the Mechanic for his opinion of your truck.\n";
+		cout<<"8) Use the MPG Calculator.\n";
+		cout<<"9) Quit this simulator. \n";
 
 		cout<<"Enter a selection: ";
 		cin>>x;
-		cout<<"\n\n";
+		cout<<"\n";
 
 		switch(x)
 		{
@@ -70,7 +73,15 @@ int main()
 				cout<<"Your truck is at "<<temp<<"/10.00 oil health.\n";
 				break;
 
-			case 7: 
+			case 7:
+				mechanic.Health_Report(truck);
+				break;
+
+			case 8:
+				MPG_Calculator(truck);
+				break;
+
+			case 9: 
 				cout<<"Good bye.\n";
 				truck.~Truck();
 				break;
@@ -80,8 +91,14 @@ int main()
 				break;
 		}
 
-	}while(x != 7);
+	}while(x != 9);
 
+	/*
+		The following is left over from the first program.
+		I commented it out since it isn't really being tested for this program.
+	*/
+
+	/*
 	// Default truck.
 	{
 		cout<<"Default truck: \n";
@@ -121,6 +138,7 @@ int main()
 
 	truck1.~Truck();
 	truck2.~Truck();
+	*/
 
 	return 0;
 }

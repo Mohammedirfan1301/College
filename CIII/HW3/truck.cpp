@@ -8,6 +8,66 @@ using namespace std;
 
 size_t Truck::count = 0;
 
+
+/* 	Function for the Mechanic class.
+	The Mechanic class is a friend of the Truck class.
+	So it has access to all of the private members of the Truck. */
+void Mechanic::Health_Report(const Truck& truck)
+{
+	cout<<"Let me take a look at the truck...\n";
+
+	// Check gas and report the fuel health.
+	if(truck.m_gas >= 15)
+		cout<<"Truck's great on gas!\n";
+	else if(truck.m_gas >= 10)
+		cout<<"Truck's halfway on gas.\n";
+	else if(truck.m_gas >= 5)
+	{
+		cout<<"Truck's pretty low on gas.\n";
+		cout<<"I don't recommend running it this low or you might break your fuel pump.\n";
+	}
+	else if(truck.m_gas >= 0)
+	{
+		cout<<"I'm surpised you drove here. You shouldn't ever run your truck this low on fuel!\n";
+		cout<<"I recommend filling it up right away.\n";
+		cout<<"Also - running the truck this low on fuel can burn your fuel pump!\n";
+	}
+
+	// Check oil level and report the oil health.
+	if(truck.m_oil >= 7.5)
+		cout<<"Oil health is great!\n";
+	else if(truck.m_oil >= 5)
+		cout<<"Oil health is OK, keep an eye on it though.\n";
+	else if(truck.m_oil >= 2.5)
+	{
+		cout<<"The truck's oil health is low. I'd recommend changing the oil\n";
+		cout<<"pretty soon, within the next 500 - 1,000 miles!\n";
+	}
+	else if(truck.m_oil >= 0)
+	{
+		cout<<"Your truck's oil is really low! I suggest changing the oil now.\n";
+		cout<<"If you wait any longer, you'll risk engine damage.\n";
+	}
+}
+
+
+/*
+	Friend function to the truck class.
+	It calculates out how many more miles you can drive on the current tank of gas.
+	It also prints out how many trucks are currently alive.
+*/
+void MPG_Calculator(const Truck& truck)
+{
+	float fuel_left = 400 - truck.m_miles_gas;
+	float oil_left = 3000 - truck.m_miles_oil;
+	float gallons = fuel_left / 20;
+
+	cout<<"Look's like you've got "<<fuel_left<<" miles left to drive on this tank of gas.\n";
+	cout<<"This translates into "<<gallons<<" gallons of gas left.\n";
+	cout<<"You also should get an oil change in "<<oil_left<<" miles.\n";
+}
+
+
 // Default Constructor
 Truck::Truck(): m_gas(20), m_oil(10), m_miles_gas(0), m_miles_oil(0)
 {
@@ -17,7 +77,7 @@ Truck::Truck(): m_gas(20), m_oil(10), m_miles_gas(0), m_miles_oil(0)
 	m_miles_gas = 0;
 	m_miles_oil = 0;
 	count++;
-	cout<<"\nThere are "<<count<<" Trucks\n\n";
+	cout<<"There are "<<count<<" Trucks\n";
 }
 
 // Constructor with parameters
@@ -34,7 +94,7 @@ Truck::Truck(float gas, float oil): m_gas(gas), m_oil(oil), m_miles_gas(0), m_mi
 	m_miles_oil = 0;
 
 	count++;
-	cout<<"\nThere are "<<count<<" Trucks\n";
+	cout<<"There are "<<count<<" Trucks\n";
 }
 
 // Copy constructor
@@ -48,7 +108,7 @@ Truck::Truck(const Truck& aTruck)
 	cout<<"\nThe truck has been copied!\n";
 
 	count++;
-	cout<<"\nThere are "<<count<<" Trucks\n\n";
+	cout<<"There are "<<count<<" Trucks\n";
 }
 
 // Destructor
@@ -133,7 +193,7 @@ void Truck::Change_oil()
 
 void Truck::Drive(float miles)
 {
-	cout<<"Going for a drive... \n";
+	cout<<"\nGoing for a drive... \n\n";
 
 	// Truck gets 20MPG. Max of 20 gallons. This means
 	// you can drive 400 miles on one tank of gas.
@@ -191,7 +251,7 @@ void Truck::Drive(float miles)
 
 	// If we get here, then the truck didn't explode or run out of gas.
 	cout<<"Gas usage is: "<<gas_usage<<" gallons\n";
-	cout<<"Oil usage is: "<<oil_usage<<endl;
+	cout<<"Oil usage is: "<<oil_usage<<endl<<"\n\n";
 	cout<<"You've driven: "<<m_miles_gas<<" miles on this tank of gas.\n";
 	cout<<"You've driven: "<<m_miles_oil<<" miles on this oil.\n";
 }
@@ -204,67 +264,4 @@ float Truck::get_GasLevel()
 float Truck::get_OilHealth()
 {
 	return m_oil;
-}
-
-
-/* 	Function for the Mechanic class.
-	The Mechanic class is a friend of the Truck class.
-	So it has access to all of the private members of
-	the Truck. */
-void Mechanic::Health_Report()
-{
-	cout<<"Let me take a look at the truck...\n";
-
-	// Check gas and report the fuel health.
-	if(m_gas >= 15)
-		cout<<"Truck's good on gas.\n";
-	if(m_gas >= 10)
-		cout<<"Truck's halfway on gas.\n";
-	if(m_gas >= 5)
-	{
-		cout<<"Truck's pretty low on gas.\n";
-		cout<<"I don't recommend running it this low or you might break your fuel pump.\n"
-	}
-	if(m_gas >= 0)
-	{
-		cout<<"I'm surpised you drove here. You shouldn't ever run your truck this low on fuel!\n";
-		cout<<"I recommend filling it up right away.\n";
-		cout<<"Also - running the truck this low on fuel can burn your fuel pump!\n"
-	}
-
-	// Check oil level and report the oil health.
-	if(m_oil >= 15)
-		cout<<"Oil health is great!\n";
-	if(m_oil >= 10)
-		cout<<"Oil health is OK, keep an eye on it though.\n";
-	if(m_oil >= 5)
-	{
-		cout<<"The truck's oil health is low. I'd recommend changing the oil\n";
-		cout<<"pretty soon, within the next 500 - 1,000 miles!\n"
-	}
-	if(m_oil >= 0)
-	{
-		cout<<"Your truck's oil is really low! I suggest changing the oil now.\n";
-		cout<<"If you wait any longer, you'll risk engine damage.\n"
-	}
-}
-
-
-/*
-	Friend function to the truck class.
-	It calculates out how many more miles you 
-	can drive on the current tank of gas.
-	It also prints out how many trucks are currently alive.
-*/
-void MPG_Calculator()
-{
-	float fuel_left = 400 - m_miles_gas;
-	float oil_left = 3000 - m_miles_oil;
-
-	float gallons = fuel_left / 20;
-
-
-	cout<<"Look's like you've got "<<fuel_left<<" miles left to drive on this tank of gas.\n";
-	cout<<"This translates into "<<gallons<<" gallons of gas left.\n";
-	cout<<"You also should get an oil change in "<<m_miles_oil<<" miles.\n";
 }
