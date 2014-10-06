@@ -1,5 +1,5 @@
 # Jason Downing
-# 
+# 10/6/2014
 
                  .data
 inArr:           .word     0:40
@@ -9,9 +9,20 @@ LOC:             .word     0
 
         .text
 main:
-        li      $t0,0x0400
-        sw      $t0, LOC
+	# Initialize variables.
+        li      $t0, 0x0400
+        sw      $t0, LOC	# LOC starts at 0x0400
 
+# DOCUMENTATION ON THE VARIABLES USED IN THIS PROGRAM.
+# $t0 -> index for inArr.
+# $t9 -> DEFN
+
+# $s0 -> inArr's value at the current position.
+# $s1 -> Used for comparing individual characters, to space.
+
+#
+# Get a line of input from getTokens. Then detect the ":" operator.
+#
 inLoop:
         jal     getTokens
 
@@ -19,21 +30,29 @@ inLoop:
         li      $t0, 0      # index to inArr
 
         lb      $s0, inArr+12($t0)
-        bne   	$s0, ':', operator
+        bne   	$s0, ':', operator	# If we find a ":", go to operator.
 
         jal     getLabel
 
+#
+# Found an operator.
+#
 operator:
         lb      $s0, ','
         lw     	$s1, inArr+20($t0)
 
+#
+# Check to see if we found a variable.
+#
 chkVar:
-        bne     $s1, 0x32, noVar
+        bne     $s1, 0x32, noVar		# IF we find a space, don't continue! Go to noVar.
         # found a variable
         # save the var and LOC into symTab
         jal     getVar
 
-
+#
+# Did not find a variable, so get the next 12 characters. 
+#
 noVar:
         addi    $t0, $t0, 12
         lb      $s0, inArr($t0)
@@ -81,14 +100,14 @@ getLabel:
 
 
 #
-# getVar:
+# getVar: Variable is found, save it in symTab
 #
 getVar:
 
 
 
 #
-# dumpSymTab
+# dumpSymTab: Print the symTab array to the screen.
 #
 dumpSymTab:
 
@@ -99,6 +118,7 @@ dumpSymTab:
 #
 clearInArr:
 	beq	$t0, $t1, main		# done clearing
+	beq	$t1, $0, main		# Seems need to end early.
 
 	sb 	$0, 0($t2)     		# Put a null throughout the array
 
