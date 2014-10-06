@@ -126,7 +126,7 @@ Truck::~Truck()
 void Truck::Health()
 {
 	cout<<"Checking the gas...\n";
-	
+
 	if(m_gas >= 15) {
 		cout<<"I'm good on gas. ";
 	}
@@ -141,6 +141,7 @@ void Truck::Health()
 	}
 
 	cout<<"\nChecking the oil health...\n";
+
 	if(m_oil >= 7) {
 		cout<<"Oil condition is good.\n";
 	}
@@ -151,7 +152,7 @@ void Truck::Health()
 		cout<<"You should probably change my oil\n";
 	}
 	else {
-		cout<<"CHANGE MY OIL!! I'll die if you don't! ;(\n";
+		cout<<"CHANGE MY OIL! I'll die if you don't! ;(\n";
 	}
 
 	cout<<"You've driven: "<<m_miles_gas<<" miles on this tank of gas.\n";
