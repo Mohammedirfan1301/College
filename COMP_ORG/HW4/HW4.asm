@@ -221,16 +221,16 @@ dumpSymTab:
 	beq	$t1, $t3, clearInArr		# Go nuke the array once we're done here.
 	
 	# Output the first word in the symbTab Array.
-    	lw  	$a0, symTab($t1)   		# Loads addr of prompt_input into $a0
-    	li  	$v0, 4          		# Code 4 means output string.
-    	syscall
+    	lw  	$a0, symTab($t1)   		# Loads the word from symTab into $a0
+    	li	$t6, 0				# Start at 0, go to 3.
+    	jal 	printWord			# Go print the next four bytes of $a0.
     	
     	addi	$t3, $t3, 4			# move forward one word.
     	
     	# Output the second word in the symbTab Array.
-    	lw  	$a0, symTab($t1)   		# Loads addr of prompt_input into $a0
-    	li  	$v0, 4          		# Code 4 means output string.
-    	syscall
+    	lw  	$a0, symTab($t1)   		# Loads the word from symTab into $a0
+	li	$t6, 0				# Start at 0, go to 3.
+    	jal 	printWord			# Go print the next four bytes of $a0.
     	
     	addi	$t3, $t3, 4			# move forward one word.
     	
@@ -258,12 +258,24 @@ printWord:
 	
 	# Next thing to do. Print out 4 bytes.
 	# Something like
-	if(4 == 4, return to dumpSymTab
+	beq	$t6, 4, returnToFunction	# Once we print out the 4 characters, go back to dumbSymTab
 	
-	otherwise
-	print char
-	index++
-	goto printWord.
+	# Print out one character.
+	la 	$a0, symTab($t1)
+	li 	$v0, 11
+	syscall
+	
+	# Increase the index by 1.
+	addi	$t1, $t1, 1
+	
+	# Increase the counter by 1.
+	addi	$t6, $t6, 1
+	
+	b 	printWord
+	
+returnToFunction:
+	jr	$ra	# Go back to where the jal call is from.
+
 
 #
 # Sets up the clearing inArr
