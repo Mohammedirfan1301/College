@@ -23,6 +23,9 @@ main:
 # $t1 -> index for symTab
 # $t2 -> DEFN
 # $t3 -> LOC
+# $t4 -> addr of inArr
+# $t5 -> addr of symbTab
+# $t6 -> Current value.
 
 # $s0 -> the value of the current input.
 # $s1 -> Used for comparing individual characters against
@@ -47,10 +50,10 @@ inLoop:
 # Check to see what we found.
 #
 chkVar:
-        beq     $s1, 0x32, label		# 0x32 = decimal #2, which is a label.
-        beq	$s1, 0x34, control		# 0x34 = decimal #4, which is a colon or comma.
-        beq	$s1, 0x35, money		# 0x35 = decimal #5, which is the money sign.
-        beq	$s1, 0x36, pound		# 0x36 = decimal #6, which is the pound sign.
+        beq     $t6, 2, label		# 0x32 = decimal #2, which is a label.
+        beq	$t6, 4, control		# 0x34 = decimal #4, which is a colon or comma.
+        beq	$t6, 5, money		# 0x35 = decimal #5, which is the money sign.
+        beq	$t6, 6, pound		# 0x36 = decimal #6, which is the pound sign.
 
         # If we get here, the user entered something strange so just quit!
         b exit
@@ -76,13 +79,14 @@ getTokens:
     	addi	$t0, $t0, 8
     	
     	# Input the number.
-    	la	$a0, inArr($t0)		# Move forward to the next word.
-    	li	$a1, 4			# Buffer is bytes long for an int.
 	li	$v0, 5			# Code 5 means input an integer.
 	syscall
+	
+	# Save the number to inArray
+	sw 	$v0, inArr($t0)
 
 	# Save the current inArray value to $s1
-	lw	$s1, inArr($t0)
+	lw	$t6, inArr($t0)
 
 	# Move the array forward by 4. Since we stored a 4 byte integer.
 	addi	$t0, $t0, 4
