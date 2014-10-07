@@ -1,5 +1,5 @@
 # Jason Downing
-# 10/6/2014
+# 10/7/2014
 
                 .data
 inArr:          .word     0:40
@@ -14,17 +14,16 @@ main:
         li	$t1, 0		# index for symTab
         li      $t2, 0 		# DEFN
         li	$t3, 0		# LOC
-        la	$t4, inArr	# addr of inArr.
-        la	$t5, symTab	# addr of symTab.
-        
+        #la	$t4, inArr	# addr of inArr.
+        #la	$t5, symTab	# addr of symTab.
+        li	$t6, 0		# TEMP index	
 
 # DOCUMENTATION ON THE VARIABLES USED IN THIS PROGRAM.
 # $t0 -> index for inArr.
 # $t1 -> index for symTab
 # $t2 -> DEFN
 # $t3 -> LOC
-# $t4 -> addr of inArr
-# $t5 -> addr of symbTab
+
 # $t6 -> Current value.
 
 # $s0 -> the value of the current input.
@@ -97,13 +96,55 @@ getTokens:
 # We found a label, so save the label & it's value into symTab. Also DEFN = 1.
 #
 label:
+	# Save the two words
+	subi 	$t7, $t0, 12		# Go back 12 spaces.
+	lw	$v0, inArr($t7)		# Load the first word into $v0
+	sw	$v0, symTab($t3)	# Save that word into symTab
+	addi	$t3, $t3, 4		# Move LOC forward by 4.
 	
-	b inLoop # Once we've added it to symTab, return to inLoop
+	addi	$t7, $t7, 4		# Go ahead 4 bytes to get the next word.	
+	lw	$v0, inArr($t7)		# Get the next word
+	sw	$v0, symTab($t3)	# Save this word into symTab
+	addi	$t3, $t3, 4		# Move LOC forward by 4.
+	
+	# Save the type (integer)
+	addi	$t7, $t7, 4		# Go ahead 4 bytes to get the next word.	
+	lw	$v0, inArr($t7)		# Save the int into $v0
+	sw	$v0, symTab($t3)	# Save the int into the symTab array
+	addi	$t3, $t3, 4		# Move LOC forward by 4.
+	
+	# Save the DEFN (integer)
+	li	$v0, 1			# Save 1 into $v0
+	sw	$v0, symTab($t3)	# Save DEFN into symTab
+	addi	$t3, $t3, 4		# Move LOC forward by 4.
+	
+	b inLoop # Once we've added the label, value & DEFN into symTab, return to inLoop
 
 #
 # Found a colon or a comma, so save that + it's value into symTab. Also DEFN = 0.
 #
 control:
+	# Save the comma or colon
+	subi 	$t7, $t0, 12		# Go back 12 spaces.
+	lw	$v0, inArr($t7)		# Load the first word into $v0
+	sw	$v0, symTab($t3)	# Save that word into symTab
+	addi	$t3, $t3, 4		# Move LOC forward by 4.
+	
+	addi	$t7, $t7, 4		# Go ahead 4 bytes to get the next word.	
+	lw	$v0, inArr($t7)		# Get the next word
+	sw	$v0, symTab($t3)	# Save this word into symTab
+	addi	$t3, $t3, 4		# Move LOC forward by 4.
+	
+	# Save the type (integer)
+	addi	$t7, $t7, 4		# Go ahead 4 bytes to get the next word.	
+	lw	$v0, inArr($t7)		# Save the int into $v0
+	sw	$v0, symTab($t3)	# Save the int into the symTab array
+	addi	$t3, $t3, 4		# Move LOC forward by 4.
+	
+	# Save the DEFN (integer)
+	li	$v0, 0			# Save 1 into $v0
+	sw	$v0, symTab($t3)	# Save DEFN into symTab
+	addi	$t3, $t3, 4		# Move LOC forward by 4
 	
 	b inLoop # Once we've added it to symTab, return to inLoop
 
@@ -111,6 +152,27 @@ control:
 # Found a money sign, so save a "$", its value (5) and DEFN = 0 into symTab.
 #
 money:
+	# Save the money sign
+	subi 	$t7, $t0, 12		# Go back 12 spaces.
+	lw	$v0, inArr($t7)		# Load the first word into $v0
+	sw	$v0, symTab($t3)	# Save that word into symTab
+	addi	$t3, $t3, 4		# Move LOC forward by 4.
+	
+	addi	$t7, $t7, 4		# Go ahead 4 bytes to get the next word.	
+	lw	$v0, inArr($t7)		# Get the next word
+	sw	$v0, symTab($t3)	# Save this word into symTab
+	addi	$t3, $t3, 4		# Move LOC forward by 4.
+	
+	# Save the type (integer)
+	addi	$t7, $t7, 4		# Go ahead 4 bytes to get the next word.	
+	lw	$v0, inArr($t7)		# Save the int into $v0
+	sw	$v0, symTab($t3)	# Save the int into the symTab array
+	addi	$t3, $t3, 4		# Move LOC forward by 4.
+	
+	# Save the DEFN (integer)
+	li	$v0, 0			# Save 1 into $v0
+	sw	$v0, symTab($t3)	# Save DEFN into symTab
+	addi	$t3, $t3, 4		# Move LOC forward by 4.
 	
 	b inLoop # Once we've added it to symTab, return to inLoop
 
@@ -118,45 +180,99 @@ money:
 # Found the pound sign, so we're done! Save the sign, its value (6) and DEFN = 0.
 #
 pound:
-	# Found the pound, so save it in symTab! Along with its value!
-        lb      $s0, inArr($t0)
+	# Save the pound sign
+	subi 	$t7, $t0, 12		# Go back 12 spaces.
+	lw	$v0, inArr($t7)		# Load the first word into $v0
+	sw	$v0, symTab($t3)	# Save that word into symTab
+	addi	$t3, $t3, 4		# Move LOC forward by 4.
+	
+	addi	$t7, $t7, 4		# Go ahead 4 bytes to get the next word.	
+	lw	$v0, inArr($t7)		# Get the next word
+	sw	$v0, symTab($t3)	# Save this word into symTab
+	addi	$t3, $t3, 4		# Move LOC forward by 4.
+	
+	# Save the type (integer)
+	addi	$t7, $t7, 4		# Go ahead 4 bytes to get the next word.	
+	lw	$v0, inArr($t7)		# Save the int into $v0
+	sw	$v0, symTab($t3)	# Save the int into the symTab array
+	addi	$t3, $t3, 4		# Move LOC forward by 4.
+	
+	# Save the DEFN (integer)
+	li	$v0, 1			# Save 1 into $v0
+	sw	$v0, symTab($t3)	# Save DEFN into symTab
+	addi	$t3, $t3, 4		# Move LOC forward by 4.
 
 
-	# Clear the array
-    	li	$t0, 0		# index
-    	li	$t1, 40		# max
-    	la	$t2, inArr	# inArr
-    	
+	# FIRST: Print symTab.
+	# SECOND: Clear inArr
+	# FINALLY: exit.
+	
+
     	# Load up the symTab array.
-    	li	$t3, 0		# index
-    	la 	$t4, symTab	# symbTab index.
-    	li	$t3, 40		# "max number to loop through".
+    	li	$t1, 0		# index for symTab. LOC ($t3) will be our max number to loop through.
 
         jal     dumpSymTab
-        jal     clearInArr
-
-        b       exit
+        
 
 #
 # dumpSymTab: Print the symTab array to the screen.
 #
 dumpSymTab:
-	beq	$t3, $t5, clearInArr		# Go nuke the array once we're done here.
+	beq	$t1, $t3, clearInArr		# Go nuke the array once we're done here.
 	
-	# First output the label?
-    	la  	$a0, symTab($t0)   		# Loads addr of prompt_input into $a0
+	# Output the first word in the symbTab Array.
+    	lw  	$a0, symTab($t1)   		# Loads addr of prompt_input into $a0
     	li  	$v0, 4          		# Code 4 means output string.
     	syscall
     	
     	addi	$t3, $t3, 4			# move forward one word.
     	
-    	# Then output the Value (2, 4, 5, 6)
+    	# Output the second word in the symbTab Array.
+    	lw  	$a0, symTab($t1)   		# Loads addr of prompt_input into $a0
+    	li  	$v0, 4          		# Code 4 means output string.
+    	syscall
     	
+    	addi	$t3, $t3, 4			# move forward one word.
+    	
+    	# Then output the value of the label/variable.
+    	lw  	$a0, symTab($t1)   		# Loads addr of prompt_input into $a0
+    	li  	$v0, 1          		# Code 1 means output integer.
+    	syscall
+    	
+    	addi	$t3, $t3, 4			# move forward one word.
     	
     	# Finally, output DEFN (0 or 1)
+    	lw  	$a0, symTab($t1)   		# Loads addr of prompt_input into $a0
+    	li  	$v0, 1          		# Code 1 means output integer.
+    	syscall
     	
+    	addi	$t3, $t3, 4			# move forward one word.
     	
 	b	dumpSymTab
+	
+	
+#
+# This function will print out 4 bytes - AKA a word.
+#
+printWord:
+	
+	# Next thing to do. Print out 4 bytes.
+	# Something like
+	if(4 == 4, return to dumpSymTab
+	
+	otherwise
+	print char
+	index++
+	goto printWord.
+
+#
+# Sets up the clearing inArr
+#
+setUpClear:
+	# Clear the array
+	li 	$t6, 0	# Index to use for clearing the array.     	
+
+        jal     clearInArr
 
 
 #
@@ -171,6 +287,7 @@ clearInArr:
 	addi    $t0, $t0, 4     	# Move the output
         addi	$t2, $t2, 4
         b clearInArr
+        
         
 #
 # Exiting the program at this point.
