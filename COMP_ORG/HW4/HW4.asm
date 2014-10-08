@@ -199,13 +199,16 @@ pound:
 	# FINALLY: exit.
 	
 	# DUMPING SYMBTAB.
-    	la  	$a0, dump_prompt   	# Loads addr of prompt_input into $a0
+    	la  	$a0, dump_prompt   	# Loads address of prompt_input into $a0
     	li  	$v0, 4          	# Sys Call Code 4 means output string.
     	syscall
 
     	# Load up the symTab array.
     	li	$t1, 0			# index for symTab. LOC ($t3) will be our max number to loop through.
 
+	# Get the address of symTab into $a1
+	la 	$a1, symTab		# Loads address of symTab into $a1.	
+        
         jal     dumpSymTab
         
 
@@ -216,24 +219,31 @@ dumpSymTab:
 	beq	$t1, $t3, setUpClear		# Go nuke the array once we're done here.
 	
 	# Output the first word in the symbTab Array.
-    	lw  	$a0, symTab($t1)   		# Loads the word from symTab into $a0
+    	#lw  	$a0, symTab($t1)   		# Loads the word from symTab into $a0
+    	
     	li	$t6, 0				# Start at 0, go to 3.
     	jal 	printWord			# Go print the next four bytes of $a0.
     	
-    	#addi	$t1, $t1, 4			# move forward one word.
+    	addi	$a1, $a1, 4			# move forward one word.
+    	addi	$t1, $t1, 4			# move forward one word.
     	
     	# Output the second word in the symbTab Array.
-    	lw  	$a0, symTab($t1)   		# Loads the word from symTab into $a0
+    	#lw  	$a0, symTab($t1)   		# Loads the word from symTab into $a0
+	
+	
+    	#la 	$a1, symTab			# Load address of symTab into $a1.
 	li	$t6, 0				# Start at 0, go to 3.
     	jal 	printWord			# Go print the next four bytes of $a0.
     	
-    	#addi	$t1, $t1, 4			# move forward one word.
+    	addi	$a1, $a1, 4			# move forward one word.
+    	addi	$t1, $t1, 4			# move forward one word.
     	
     	# Then output the value of the label/variable.
     	lw  	$a0, symTab($t1)   		# Loads addr of prompt_input into $a0
     	li  	$v0, 1          		# Code 1 means output integer.
     	syscall
     	
+    	addi	$a1, $a1, 4			# move forward one word.
     	addi	$t1, $t1, 4			# move forward one word.
     	
     	# Finally, output DEFN (0 or 1)
@@ -241,6 +251,7 @@ dumpSymTab:
     	li  	$v0, 1          		# Code 1 means output integer.
     	syscall
     	
+    	addi	$a1, $a1, 4			# move forward one word.
     	addi	$t1, $t1, 4			# move forward one word.
     	
 	b	dumpSymTab
@@ -255,13 +266,20 @@ printWord:
 	# Something like
 	beq	$t6, 4, returnToFunction	# Once we print out the 4 characters, go back to dumbSymTab
 	
+	
+	# TRY THIS
+	#la $t0, string
+	#lb $a0, ($t0)
+	#li $v0, 11
+	#syscall	
+	
 	# Print out one character.
-	la 	$a0, symTab($t1)
+	lb	$a0, ($a1)
 	li 	$v0, 11
 	syscall
 	
 	# Increase the index by 1.
-	addi	$t1, $t1, 1
+	addi	$a1, $a1, 1
 	
 	# Increase the counter by 1.
 	addi	$t6, $t6, 1
