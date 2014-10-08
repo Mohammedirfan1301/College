@@ -5,7 +5,8 @@
 inArr:          .word     0:40
 symTab:         .word     0:40
 prompt:         .asciiz   "Enter new set of tokens and types: "
-exit_prompt:	.asciiz	  "Exiting the program..."
+dump_prompt:	.asciiz	  "\nDumping symTab: \n\n"
+exit_prompt:	.asciiz	  "\n\nExiting the program..."
 
         .text
 main:
@@ -14,17 +15,7 @@ main:
         li	$t1, 0		# index for symTab
         li      $t2, 0 		# DEFN
         li	$t3, 0		# LOC
-        #la	$t4, inArr	# addr of inArr.
-        #la	$t5, symTab	# addr of symTab.
-        li	$t6, 0		# TEMP index	
-
-# DOCUMENTATION ON THE VARIABLES USED IN THIS PROGRAM.
-# $t0 -> index for inArr.
-# $t1 -> index for symTab
-# $t2 -> DEFN
-# $t3 -> LOC
-
-# $t6 -> Current value.
+        li	$t6, 0		# TEMP index for looping, clearing, dumping, etc.
 
 # $s0 -> the value of the current input.
 # $s1 -> Used for comparing individual characters against
@@ -34,7 +25,7 @@ main:
 # THEN enter.
 # Followed by a number 2 - 6
 
-# Need to store:
+# Need to store the following in symTab:
 # The TOKEN (two words / 8 characters)
 # The value (one word / 1 integer / 4 bytes)
 # The status (one word / 1 integer / 4 bytes)
@@ -198,7 +189,7 @@ pound:
 	addi	$t3, $t3, 4		# Move LOC forward by 4.
 	
 	# Save the DEFN (integer)
-	li	$v0, 1			# Save 1 into $v0
+	li	$v0, 0			# Save 0 into $v0
 	sw	$v0, symTab($t3)	# Save DEFN into symTab
 	addi	$t3, $t3, 4		# Move LOC forward by 4.
 
@@ -207,9 +198,13 @@ pound:
 	# SECOND: Clear inArr
 	# FINALLY: exit.
 	
+	# DUMPING SYMBTAB.
+    	la  	$a0, dump_prompt   	# Loads addr of prompt_input into $a0
+    	li  	$v0, 4          	# Sys Call Code 4 means output string.
+    	syscall
 
     	# Load up the symTab array.
-    	li	$t1, 0		# index for symTab. LOC ($t3) will be our max number to loop through.
+    	li	$t1, 0			# index for symTab. LOC ($t3) will be our max number to loop through.
 
         jal     dumpSymTab
         
@@ -218,35 +213,35 @@ pound:
 # dumpSymTab: Print the symTab array to the screen.
 #
 dumpSymTab:
-	beq	$t1, $t3, clearInArr		# Go nuke the array once we're done here.
+	beq	$t1, $t3, setUpClear		# Go nuke the array once we're done here.
 	
 	# Output the first word in the symbTab Array.
     	lw  	$a0, symTab($t1)   		# Loads the word from symTab into $a0
     	li	$t6, 0				# Start at 0, go to 3.
     	jal 	printWord			# Go print the next four bytes of $a0.
     	
-    	addi	$t3, $t3, 4			# move forward one word.
+    	#addi	$t1, $t1, 4			# move forward one word.
     	
     	# Output the second word in the symbTab Array.
     	lw  	$a0, symTab($t1)   		# Loads the word from symTab into $a0
 	li	$t6, 0				# Start at 0, go to 3.
     	jal 	printWord			# Go print the next four bytes of $a0.
     	
-    	addi	$t3, $t3, 4			# move forward one word.
+    	#addi	$t1, $t1, 4			# move forward one word.
     	
     	# Then output the value of the label/variable.
     	lw  	$a0, symTab($t1)   		# Loads addr of prompt_input into $a0
     	li  	$v0, 1          		# Code 1 means output integer.
     	syscall
     	
-    	addi	$t3, $t3, 4			# move forward one word.
+    	addi	$t1, $t1, 4			# move forward one word.
     	
     	# Finally, output DEFN (0 or 1)
     	lw  	$a0, symTab($t1)   		# Loads addr of prompt_input into $a0
     	li  	$v0, 1          		# Code 1 means output integer.
     	syscall
     	
-    	addi	$t3, $t3, 4			# move forward one word.
+    	addi	$t1, $t1, 4			# move forward one word.
     	
 	b	dumpSymTab
 	
@@ -291,14 +286,13 @@ setUpClear:
 # clearInArr: wipes the inArry array.
 #
 clearInArr:
-	beq	$t0, $t1, exit		# done clearing
-	beq	$t1, $0,  exit		# Seems we needed to end early if we hit this.
+	beq	$t0, $t6, exit		# done clearing if $t6 is equal to the max number of bytes in inArr
 
-	sb 	$0, 0($t2)     		# Put a null throughout the array
+	sb 	$0, inArr($t6)     	# Put a null throughout the array
 
-	addi    $t0, $t0, 4     	# Move the output
-        addi	$t2, $t2, 4
-        b clearInArr
+        addi	$t6, $t6, 1		# Move the index forward by 1.
+
+        b clearInArr			# Keep looping
         
         
 #
