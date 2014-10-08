@@ -61,7 +61,7 @@ getTokens:
 
 	# Input the label.
     	la  	$a0, inArr($t0)      	# Loads the address of input into $a0
-    	li  	$a1, 8         		# Buffer is 8 bytes long for 8 characters.
+    	li  	$a1, 10         	# Buffer is 8 bytes long for 8 characters.
     	li  	$v0, 8          	# Code 8 means input a string.
     	syscall
     	
@@ -297,7 +297,9 @@ setUpClear:
 	# Clear the array
 	li 	$t6, 0	# Index to use for clearing the array.     	
 
-        jal     clearInArr
+	# FOR TESTING WE'LL JUST EXIT RATHER THAN CLEAR THE ARRAY!
+        jal	exit
+        #jal     clearInArr
 
 
 #
