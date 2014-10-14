@@ -235,12 +235,9 @@ printWords:
 	lb	$a0, ($a1)
 	li 	$v0, 11
 	syscall
-	
-	# Increase the index by 1.
-	addi	$a1, $a1, 1
-	
-	# Increase the counter by 1.
-	addi	$t6, $t6, 1
+
+	addi	$a1, $a1, 1		# Increase the index by 1.
+	addi	$t6, $t6, 1		# Increase the counter by 1.
 	
 	b 	printWords
 
