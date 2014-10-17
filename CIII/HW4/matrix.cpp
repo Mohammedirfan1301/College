@@ -25,7 +25,8 @@ class Matrix
         friend istream& operator >>(istream& in, Matrix& trix);
         friend ostream& operator <<(ostream& out, Matrix& trix);
         friend bool operator ==(const Matrix& one, const Matrix& two);
-        friend Matrix operator +(const Matrix& one, const Matrix& two);
+        Matrix& operator=(const Matrix& trix);
+        friend Matrix& operator +(const Matrix& one, const Matrix& two);
         friend Matrix operator -(const Matrix& one, const Matrix& two);
         friend Matrix operator -(const Matrix& only);
         friend Matrix operator *(const Matrix& one, const Matrix& two);
@@ -77,25 +78,10 @@ Matrix::Matrix(int d)
 // Function which computes the determinant of a matrix.
 int Matrix::det()
 {
-    // Since we are dealing with a 3x3 Matrix, this formula can be useful:
     /*
-
-            A = [ a b c ]
-                [ d e f ]
-                [ g h i ]
-
-    it could also be written like:
-
-    [ 00 01 02 ]
-    [ 10 11 12 ]
-    [ 20 21 22 ]
-
-    A = [ [0][0] [0][1] [0][2] ]
-        [ [1][0] [1][1] [1][2] ]
-        [ [2][0] [2][1] [2][2] ]
+    Since we are dealing with a 3x3 Matrix, this formula can be useful:
 
     |A| = a(ei - fh) - b(di - fg) + c(dh - eg)
-
     */
 
     // Long forumula that calculates the determinate.
@@ -156,6 +142,7 @@ bool operator ==(const Matrix& one, const Matrix& two)
             // two matrixes are not equal to each other.
             if(one.e[i][x] != two.e[i][x])
             {
+                cout<<"FALSE.\n";
                 return false;
             }
         }
@@ -163,12 +150,32 @@ bool operator ==(const Matrix& one, const Matrix& two)
     }
 
     // If we get here, then matrix one is equal to matrix two.
+    cout<<"TRUE.\n";
     return true;
 }
 
 
+// Copies a matrix
+Matrix& Matrix::operator=(const Matrix& trix)
+{
+    Matrix temp;
+
+    for(int i = 0; i < 3; i++)
+    {
+        for(int x = 0; x < 3; x++)
+        {
+            // Copy the right matrix into the left matrix.
+            temp.e[i][x] = trix.e[i][x];
+        }
+    }
+
+    //return temp;
+    return *this;       // Return the temp object. this  is just a pointer to the object we worked on.
+}
+
+
 // Adds the two matrixes.
-Matrix operator +(const Matrix& one, const Matrix& two)
+Matrix& operator +(const Matrix& one, const Matrix& two)
 {
     // Object to hold the addition.
     Matrix temp;
@@ -184,7 +191,7 @@ Matrix operator +(const Matrix& one, const Matrix& two)
     }
 
     // Return this object.
-    return temp;
+    return *temp;
 }
 
 
@@ -228,35 +235,25 @@ Matrix operator -(const Matrix& only)
 }
 
 
-/*
-    THIS FUNCTION NEEDS WORK, IT PROBABLY ISN'T RIGHT.
-*/
+// Multiple two matrixes
 Matrix operator *(const Matrix& one, const Matrix& two)
 {
     // Object to hold the addition.
     Matrix temp;
 
-    //temp.e[i][j] = one.e[i][k] * two.e[k][j];     // From k = 0 to 2.
-
-    /*
-
-    0, 1, 2 for i
-    0, 1, 2 for j
-    0, 1, 2 for k
-    */
-
-    for (int i = 0; i < temp.n; i++)
+    // Multiply 3x3 matrixes. Using 3 loops we can do it.
+    for(int i = 0; i < 3; i++)
     {
-        for (int x = 0; x < temp.n; x++)
+        for(int j = 0; j < 3; j++)
         {
-
-            // Multiply all the matrix spots into temp's matrix e.
-            temp.e[i][x] = one.e[i][x] * two.e[i][x];
+            for (int k = 0; k < 3; k++)
+            {
+                   temp.e[i][j] += one.e[i][k] * two.e[k][j];
+            }
         }
 
     }
 
-    // Return this object.
     return temp;
 }
 
@@ -305,8 +302,44 @@ int main()
     cout << "A: \n" << A << "\n";     // Also testing it via standard IO.
 
     // B needs to be a copy of A, and need to check that B == A using ==.
+    Matrix B=A;
+    B == A;
 
+    cout << "A: \n" << A << "\n";     // Also testing it via standard IO.
+    cout << "B: \n" << B << "\n";     // Also testing it via standard IO.
 
+    //A+D;
+    cout<<"A+D==\n";
+    A+D;
+    cout<<A;
+
+    //<<A+D<<endl;
+
+/*
+    A-D;
+    cout<<"A: \n"<<A<<"\n";
+
+    A*D;
+    cout<<"A: \n"<<A<<"\n";
+
+    cout<<"Check that A-B==Z\n";
+    A-B==Z;
+    -A==Z-A;
+    A+B==A*D;
+    A*E==A;
+    A*D==2*A;
+
+    cout<<"Computing determinants: \n";
+    cout<<"E: "<<E.det()<<"\n";
+    cout<<"D: "<<D.det()<<"\n";
+
+    cout<<"CREATING C FROM FILE: \n";
+    Matrix C;
+    out_stream << C;
+
+    cout<<"CHECK THE FOLLOWING DETERMINANT: \n";
+    cout<<"(A*C).det()==A.det()*C.det()"<<(A*C).det()==A.det()*C.det();
+*/
     /*
 
     After all of the above, need to do the next part.

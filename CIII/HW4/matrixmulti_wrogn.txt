@@ -1,0 +1,26 @@
+Matrix operator * (const Matrix& m, const Matrix& n)
+{
+    Matrix temp;
+	int temp2 = 0;
+	int val;
+    int i, j, k, l;
+
+    if (m.size != n.size)
+    {
+        cout << "ERROR: MATRIX SIZE IS NOT THE SAME";
+        return 0;
+    }
+
+    for(i = 0; i < m.size; i++, temp2 = 0)
+    {
+        for(j = 0; j < m.size; j++)
+        {
+            for (l = 0; l < 3; l++)
+			{
+				temp.e[i][j] += n.e[i][l] * m.e[l][j];
+			}
+        }
+		
+    }
+    return temp;
+}
