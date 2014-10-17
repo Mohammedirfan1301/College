@@ -24,7 +24,7 @@ class Matrix
         int det();
 
         // Overloaded operators
-        //friend istream& Matrix operator >>(istream& in, Matrix& trix);
+        friend istream& operator >>(istream& in, Matrix& trix);
         friend ostream& operator <<(ostream& out, Matrix& trix);
         friend bool operator ==(const Matrix& one, const Matrix& two);
         friend Matrix operator +(const Matrix& one, const Matrix& two);
@@ -59,22 +59,21 @@ Matrix::Matrix()
 // And 0's everywhere else.
 Matrix::Matrix(int d)
 {
-    /*
-        1 0 0
-        0 1 0
-        0 0 1
-    */
-
     // Set the diagonals equal to d.
-    e[0][0] = d;
-    e[0][1] = 0;
-    e[0][2] = 0;
-    e[1][0] = 0;
-    e[1][1] = d;
-    e[1][2] = 0;
-    e[2][0] = 0;
-    e[2][1] = 0;
-    e[2][2] = d;
+    for(int i = 0; i < n; i++)
+    {
+        for(int x = 0; x < n; x++)
+        {
+            if(i == x)  // When i equals x, it's a diagonal.
+            {
+                e[i][x] = d;
+            }
+            else        // When they aren't equal, make it 0.
+            {
+                e[i][x] = 0;
+            }
+        }
+    }
 }
 
 
@@ -112,13 +111,21 @@ int Matrix::det()
     return determinant;
 }
 
-/*
-Matrix operator >>(istream& in, Matrix& trix)
-{
-    ;
 
+istream& operator >>(istream& in, Matrix& trix)
+{
+    // Input the Matrix.
+    for(int i = 0; i < 3; i++)
+    {
+        for(int x = 0; x < 3; x++)
+        {
+            in >> trix.e[i][x];        // This double for loop should do the job nicely.
+        }
+    }
+
+    return in;
 }
-*/
+
 
 ostream& operator <<(ostream& out, Matrix& trix)
 {
@@ -280,7 +287,11 @@ int main()
     Matrix D - diagonal matrix with 2 on the main diagonal, 0's everywhere else. Output D.
     Matrix A - elements inputted from a file, output A.
     Matrix B - a copy of A. Check that B == A using the == operator.
+    */
 
+
+
+    /*
     Compute and output the following to the screen:
     A + D
     A - D
@@ -304,6 +315,8 @@ int main()
 
     */
 
+    // Extra tests down here. Nothing to see here, move along.
+
     Matrix Z(1);
 
     cout<<"OUTPUTTING THE DIAGONAL FUNCTION: \n";
@@ -324,6 +337,11 @@ int main()
     // Output this to screen.
     cout << Z;
 
+    cout<<"\n\nTESTING THE INPUT FUNCTION USING CIN: \n";
+    cin >> Z;
+
+    cout<<"\n\nOUPUTTING TO THE SCREEN VIA OSTREAM FUNCTIONS: \n";
+    cout << Z;
 
     return 0;
 }
