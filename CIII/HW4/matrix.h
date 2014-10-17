@@ -4,7 +4,7 @@
 #ifndef MATRIX_H
 #define MATRIX_H
 
-class matrix
+class Matrix
 {
 	public:
 
@@ -39,9 +39,27 @@ class matrix
 		C=A*B means for all i,j: C.e[i][j]= i-th row of A * j-th column of B=sum for k of (A.e[i][k]*B.e[k][j]) for k from 0 to 2.
 
 		*/
+		/*
+		friend Money operator +(const Money& amount1, const Money& amount2);
+    	friend Money operator -(const Money& amount1, const Money& amount2);
+    	friend Money operator -(const Money& amount);
+    	friend bool operator ==(const Money& amount1, const Money& amount2);
+		*/
+
+/*
+		istream& Matrix operator >>(istream& in, Matrix& trix);
+		ostream& Matrix operator <<(ostream& out, Matrix& trix);
+		bool operator ==(const Matrix& one, const Matrix& two);
+		Matrix operator +(const Matrix& one, const Matrix& two);
+		Matrix operator -(const Matrix& one, const Matrix& two);
+		Matrix operator -(const Matrix& only);
+		Matrix operator *(const Matrix& one, const Matrix& two);
+*/
 
 	private:
 
 		// Does anything need to be private?
 
-}
+};
+
+#endif

@@ -1,6 +1,9 @@
 // matrix_app.cpp
 // Application file
 #include <iostream>
+#include <fstream>
+#include <cstdlib>
+#include <cctype>
 #include "matrix.h"
 
 using namespace std;
@@ -39,6 +42,13 @@ int main()
 	THEN YOU ARE DONE AND CAN SUBMIT THIS STUFF.
 
 	*/
+
+	Matrix Z(0);
+	ifstream in_stream;
+	ofstream out_stream;
+
+	// Output this to screen.
+	cout << Z;
 
 
 	return 0;
