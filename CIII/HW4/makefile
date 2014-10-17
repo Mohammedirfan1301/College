@@ -1,4 +1,4 @@
 CC		= g++
 
 all:
-	$(CC) matrix_app.cpp matrix.cpp -o Matrix
+	$(CC) matrix_app.cpp -o Matrix

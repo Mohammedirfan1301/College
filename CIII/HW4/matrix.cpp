@@ -12,9 +12,9 @@ using namespace std;
 Matrix::Matrix()
 {
 	// Put 0's throughout the matrix.
-	for(int i = 0; i < 3; i++)
+	for(int i = 0; i < n; i++)
 	{
-		for(int x = 0; x < 3; x++)
+		for(int x = 0; x < n; x++)
 		{
 			e[i][x] = 0;		// This double for loop should do the job nicely.
 		}
@@ -36,6 +36,7 @@ Matrix::Matrix(int d)
 	e[1][1] = d;
 	e[2][2] = d;
 }
+
 
 // Function which computes the determinant of a matrix.
 int Matrix::det()
@@ -71,20 +72,38 @@ int Matrix::det()
 	return determinant;
 }
 
+/*
 Matrix operator >>(istream& in, Matrix& trix)
 {
-
+	;
 
 }
 
 Matrix operator <<(ostream& out, Matrix& trix)
 {
+	/*
 	// Output the Matrix.
 	for(int i = 0; i < 3; i++)
 	{
 		for(int x = 0; x < 3; x++)
 		{
 			outs << e[i][x];		// This double for loop should do the job nicely.
+		}
+		outs<<"\n";
+	}
+	*/
+//}
+
+
+// Temp output function
+void Matrix::output(ostream& outs) const
+{
+	// Output all the values in the matrix.
+	for(int i = 0; i < n; i++)
+	{
+		for(int x = 0; x < n; x++)
+		{
+			outs<<e[i][x];		// This double for loop should do the job nicely.
 		}
 		outs<<"\n";
 	}
@@ -95,9 +114,9 @@ bool operator ==(const Matrix& one, const Matrix& two)
 {
 	Matrix temp;
 
-	for (int i = 0; i < temp.n; i++);
+	for(int i = 0; i < temp.n; i++)
 	{
-		for (int x = 0; x < temp.n; x++)
+		for(int x = 0; x < temp.n; x++)
 		{
 			// If one spot is not equal, then the 
 			// two matrixes are not equal to each other.
@@ -119,12 +138,12 @@ Matrix operator +(const Matrix& one, const Matrix& two)
 	// Object to hold the addition.
 	Matrix temp;
 
-	for (int i = 0; i < temp.n; i++);
+	for (int i = 0; i < temp.n; i++)
 	{
 		for (int x = 0; x < temp.n; x++)
 		{
 			// Add all the matrix spots into temp's matrix e.
-			temp.e[i][j] = one.e[i][j] + two.e[i][j];
+			temp.e[i][x] = one.e[i][x] + two.e[i][x];
 		}
 
 	}
@@ -139,12 +158,12 @@ Matrix operator -(const Matrix& one, const Matrix& two)
 	// Object to hold the addition.
 	Matrix temp;
 
-	for (int i = 0; i < temp.n; i++);
+	for (int i = 0; i < temp.n; i++)
 	{
 		for (int x = 0; x < temp.n; x++)
 		{
 			// Subtract all the matrix spots into temp's matrix e.
-			temp.e[i][j] = one.e[i][j] - two.e[i][j];
+			temp.e[i][x] = one.e[i][x] - two.e[i][x];
 		}
 	}
 
@@ -158,12 +177,12 @@ Matrix operator -(const Matrix& only)
 	// Object to hold the addition.
 	Matrix temp;
 
-	for (int i = 0; i < temp.n; i++);
+	for (int i = 0; i < temp.n; i++)
 	{
 		for (int x = 0; x < temp.n; x++)
 		{
 			// Add all the matrix spots into temp's matrix e.
-			temp.e[i][j] = -only.e[i][j];
+			temp.e[i][x] = -only.e[i][x];
 		}
 	}
 
@@ -177,15 +196,26 @@ Matrix operator *(const Matrix& one, const Matrix& two)
 	// Object to hold the addition.
 	Matrix temp;
 
-	temp.e[i][j] = one.e[i][k] * two.e[k][j]; 	// From k = 0 to 2.
+	//temp.e[i][j] = one.e[i][k] * two.e[k][j]; 	// From k = 0 to 2.
 
-	for (int i = 0; i < temp.n; i++);
+	/* 
+
+	0, 1, 2 for i
+	0, 1, 2 for j
+	0, 1, 2 for k
+
+	
+	
+
+	*/
+
+	for (int i = 0; i < temp.n; i++)
 	{
 		for (int x = 0; x < temp.n; x++)
 		{
 
 			// Multiply all the matrix spots into temp's matrix e.
-			temp.e[i][j] = one.e[i][j] * two.e[i][j];
+			temp.e[i][x] = one.e[i][x] * two.e[i][x];
 		}
 
 	}

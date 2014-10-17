@@ -19,13 +19,16 @@ class Matrix
 		int det();		
 						
 		// Overloaded operators
-		friend istream& Matrix operator >>(istream& in, Matrix& trix);
-		friend ostream& Matrix operator <<(ostream& out, Matrix& trix);
+		//friend istream& Matrix operator >>(istream& in, Matrix& trix);
+		//friend ostream& Matrix operator <<(ostream& out, Matrix& trix);
 		friend bool operator ==(const Matrix& one, const Matrix& two);
 		friend Matrix operator +(const Matrix& one, const Matrix& two);
 		friend Matrix operator -(const Matrix& one, const Matrix& two);
 		friend Matrix operator -(const Matrix& only);
 		friend Matrix operator *(const Matrix& one, const Matrix& two);
+
+		// Test function!
+		void output(ostream& outs) const;
 
 	private:
 		// Member variables
