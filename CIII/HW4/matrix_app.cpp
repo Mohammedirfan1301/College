@@ -67,7 +67,13 @@ Matrix::Matrix(int d)
 
 	// Set the diagonals equal to d.
 	e[0][0] = d;
+	e[0][1] = 0;
+	e[0][2] = 0;
+	e[1][0] = 0;
 	e[1][1] = d;
+	e[1][2] = 0;
+	e[2][0] = 0;
+	e[2][1] = 0;
 	e[2][2] = d;
 }
 
@@ -139,13 +145,11 @@ void Matrix::output()
 		{
 			cout<<e[i][x];		// This double for loop should do the job nicely.
 
-			cout<<"i is "<<i<<endl;
-			cout<<"x is "<<x<<endl;
+			//cout<<"i is "<<i<<endl;
+			//cout<<"x is "<<x<<endl;
 		}
 		cout<<"\n";
 	}
-
-	cout<<"THIS WILL BE WEIRD: "<<e[2][0];
 }
 
 
@@ -299,8 +303,16 @@ int main()
 
 	*/
 
-	Matrix Z(0);
+	Matrix Z(1);
+
+	cout<<"OUTPUTTING THE DIAGONAL FUNCTION: \n";
 	Z.output();
+
+	Matrix a;
+
+	cout<<"\n\nOUTPUTTING JUST THE DEFAULT CONSTRUCTOR: \n";
+	a.output();
+
 
 	//ifstream in_stream;
 	//ofstream out_stream;
