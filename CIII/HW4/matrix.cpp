@@ -49,9 +49,9 @@ int Matrix::det()
 
 	it could also be written like:
 	
-	00 01 02
-	10 11 12
-	20 21 22
+	[ 00 01 02 ]
+	[ 10 11 12 ]
+	[ 20 21 22 ]
 
 	A = [ [0][0] [0][1] [0][2] ]
 		[ [1][0] [1][1] [1][2] ]
@@ -65,10 +65,10 @@ int Matrix::det()
 	int A = ( e[0][0] * ( (e[1][1] * e[2][2]) - (e[1][2] * e[2][1]) ) );
 	int B = ( e[0][1] * ( (e[1][0] * e[2][2]) - (e[1][2] * e[2][0]) ) );
 	int C = ( e[0][2] * ( (e[1][0] * e[2][1]) - (e[1][1] * e[2][0]) ) );
-	int final = A - B + C;
+	int determinant = A - B + C;
 
 	// Return the final determinant result.
-	return final;
+	return determinant;
 }
 
 Matrix operator >>(istream& in, Matrix& trix)
@@ -93,34 +93,103 @@ Matrix operator <<(ostream& out, Matrix& trix)
 
 bool operator ==(const Matrix& one, const Matrix& two)
 {
+	Matrix temp;
 
+	for (int i = 0; i < temp.n; i++);
+	{
+		for (int x = 0; x < temp.n; x++)
+		{
+			// If one spot is not equal, then the 
+			// two matrixes are not equal to each other.
+			if(one.e[i][x] != two.e[i][x])
+			{
+				return false;
+			}
+		}
 
+	}
+
+	// If we get here, then matrix one is equal to matrix two.
+	return true;
 }
 
 
 Matrix operator +(const Matrix& one, const Matrix& two)
 {
+	// Object to hold the addition.
+	Matrix temp;
 
+	for (int i = 0; i < temp.n; i++);
+	{
+		for (int x = 0; x < temp.n; x++)
+		{
+			// Add all the matrix spots into temp's matrix e.
+			temp.e[i][j] = one.e[i][j] + two.e[i][j];
+		}
 
+	}
+
+	// Return this object.
+	return temp;
 }
 
 
 Matrix operator -(const Matrix& one, const Matrix& two)
 {
+	// Object to hold the addition.
+	Matrix temp;
 
+	for (int i = 0; i < temp.n; i++);
+	{
+		for (int x = 0; x < temp.n; x++)
+		{
+			// Subtract all the matrix spots into temp's matrix e.
+			temp.e[i][j] = one.e[i][j] - two.e[i][j];
+		}
+	}
 
+	// Return this object.
+	return temp;
 }
 
 
 Matrix operator -(const Matrix& only)
 {
+	// Object to hold the addition.
+	Matrix temp;
 
+	for (int i = 0; i < temp.n; i++);
+	{
+		for (int x = 0; x < temp.n; x++)
+		{
+			// Add all the matrix spots into temp's matrix e.
+			temp.e[i][j] = -only.e[i][j];
+		}
+	}
 
+	// Return this object.
+	return temp;
 }
 
 
 Matrix operator *(const Matrix& one, const Matrix& two)
 {
+	// Object to hold the addition.
+	Matrix temp;
 
+	temp.e[i][j] = one.e[i][k] * two.e[k][j]; 	// From k = 0 to 2.
 
+	for (int i = 0; i < temp.n; i++);
+	{
+		for (int x = 0; x < temp.n; x++)
+		{
+
+			// Multiply all the matrix spots into temp's matrix e.
+			temp.e[i][j] = one.e[i][j] * two.e[i][j];
+		}
+
+	}
+
+	// Return this object.
+	return temp;
 }
