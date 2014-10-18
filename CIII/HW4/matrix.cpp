@@ -23,7 +23,7 @@ class Matrix
 
         // Overloaded operators
         friend istream& operator >>(istream& in, Matrix& trix);
-        friend ostream& operator <<(ostream& out, Matrix& trix);
+        friend ostream& operator <<(ostream& out, const Matrix& trix);
         friend bool operator ==(const Matrix& one, const Matrix& two);
         Matrix& operator=(const Matrix& trix);
         friend Matrix operator +(const Matrix& one, const Matrix& two);
@@ -112,7 +112,7 @@ istream& operator >>(istream& in, Matrix& trix)
 
 
 // Output function to either a file or standard IO
-ostream& operator <<(ostream& out, Matrix& trix)
+ostream& operator <<(ostream& out, const Matrix& trix)
 {
     // Output the Matrix.
     for(int i = 0; i < 3; i++)
@@ -177,12 +177,11 @@ Matrix& Matrix::operator=(const Matrix& trix)
 // Adds the two matrixes.
 Matrix operator +(const Matrix& one, const Matrix& two)
 {
-    // Object to hold the addition.
-    Matrix temp;
+	Matrix temp;
 
-    for (int i = 0; i < temp.n; i++)
+    for (int i = 0; i < 3; i++)
     {
-        for (int x = 0; x < temp.n; x++)
+        for (int x = 0; x < 3; x++)
         {
             // Add all the matrix spots into temp's matrix e.
             temp.e[i][x] = one.e[i][x] + two.e[i][x];
@@ -190,7 +189,7 @@ Matrix operator +(const Matrix& one, const Matrix& two)
 
     }
 
-    // Return this object.
+    // Return the object.
     return temp;
 }
 
@@ -263,14 +262,14 @@ int main()
     ifstream in_stream;
     ofstream out_stream;
 
-    in_stream.open("input.txt");
+    in_stream.open("inputfile.txt");
     if ( in_stream.fail() )
     {
         cout << "Input file opening failed.\n";
         exit(1);
     }
 
-    out_stream.open("output.txt");
+    out_stream.open("outputfile.txt");
     if ( out_stream.fail() )
     {
         cout << "Output file opening failed.\n";
@@ -309,17 +308,13 @@ int main()
     cout<<"B: \n"<<B<<"\n";     // Also testing it via standard IO.
 
     // A+D
-    Matrix temp;
-    temp=A+D;
-    cout<<"A+D==\n"<<temp<<endl;
+    cout<<"A+D:\n"<<A+D<<endl;
     
     // A-D
-    temp=A-D;
-    cout<<"A-D:\n"<<temp<<endl;
+    cout<<"A-D:\n"<<A-D<<endl;
 
     // A*D
-    temp=A*D;
-    cout<<"A*D:\n"<<temp<<endl;
+    cout<<"A*D:\n"<<A*D<<endl;
 
     // A-B==Z
     A-B==Z;
@@ -343,63 +338,12 @@ int main()
     
     // Create C from inputed file.
     Matrix C;
+    in_stream >> C;
     out_stream << C;
     cout<<"C: \n"<<C;
 
     cout<<"\nCHECK THE FOLLOWING DETERMINANT: \n";
     //cout<<"(A*C).det()==A.det()*C.det()"<<((A*C).det())==(A.det()*C.det());
-
-/*
-    A-D;
-    cout<<"A: \n"<<A<<"\n";
-
-    A*D;
-    cout<<"A: \n"<<A<<"\n";
-
-    cout<<"Check that A-B==Z\n";
-    A-B==Z;
-    -A==Z-A;
-    A+B==A*D;
-    A*E==A;
-    A*D==2*A;
-
-    cout<<"Computing determinants: \n";
-    cout<<"E: "<<E.det()<<"\n";
-    cout<<"D: "<<D.det()<<"\n";
-
-    cout<<"CREATING C FROM FILE: \n";
-    Matrix C;
-    out_stream << C;
-
-    cout<<"CHECK THE FOLLOWING DETERMINANT: \n";
-    cout<<"(A*C).det()==A.det()*C.det()"<<(A*C).det()==A.det()*C.det();
-*/
-    /*
-
-    After all of the above, need to do the next part.
-
-    Compute and output the following to the screen:
-    A + D
-    A - D
-    A * D
-
-    Check with == that
-    A-B == Z
-    -A == Z-A
-    A+B == A*D
-    A*E = A
-    A*D = 2*A
-
-    Compute the determinants of E and D (should = 1 and 8?)
-
-    Create C with the elements inputted from file (uh, what? Again? Ok...)
-
-    check the following property of the determinant:
-    (A*C).det() == A.det()*C.det()
-
-    THEN YOU ARE DONE AND CAN SUBMIT THIS STUFF.
-
-    */
 
     return 0;
 }
