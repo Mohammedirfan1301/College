@@ -37,6 +37,7 @@ A*D==2*A
 
 compute determinants of E and D (should = 1 and 8)
 create C with elements inputted from file;
-check the following property of the determinant: (A*C).det()==A.det()*C.det().
+check the following property of the determinant: 
+(A*C).det()==A.det()*C.det().
 
 Submit input file, code, and output.

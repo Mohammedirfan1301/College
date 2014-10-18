@@ -1,6 +1,64 @@
-	1   	2   	3   	
-	4   	5   	6   	
-	7   	8   	9   	
-	0   	1   	0   	
-	2   	0   	0   	
-	1   	0   	1   	
+Z: 
+         0     0     0
+         0     0     0
+         0     0     0
+
+E: 
+         1     0     0
+         0     1     0
+         0     0     1
+
+D: 
+         2     0     0
+         0     2     0
+         0     0     2
+
+         1     2     3
+         4     5     6
+         7     8     9
+A: 
+         1     2     3
+         4     5     6
+         7     8     9
+
+A == B: 	
+A: 
+         1     2     3
+         4     5     6
+         7     8     9
+
+B: 
+         1     2     3
+         4     5     6
+         7     8     9
+
+A+D:
+         3     2     3
+         4     7     6
+         7     8    11
+
+A-D:
+        -1     2     3
+         4     3     6
+         7     8     7
+
+A*D:
+         2     4     6
+         8    10    12
+        14    16    18
+
+A - B == Z: 		   -A == Z - A: 	A + B == A * D: 	A * E == A: 		A * D == 2 * A: 	
+Computing determinants for E & D: 
+Determinant of E: 1
+Determinant of D: 8
+
+         0     1     0
+         2     0     0
+         1     0     1
+C: 
+         0     1     0
+         2     0     0
+         1     0     1
+
+CHECK THE FOLLOWING DETERMINANT: 
+(A*C).det()==A.det()*C.det(): 	

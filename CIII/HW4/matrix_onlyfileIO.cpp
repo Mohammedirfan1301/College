@@ -284,67 +284,67 @@ int main()
 
     // Testing class Matrix, its functions and its operators.
     Matrix Z;
-    cout << "Z: \n" << Z << "\n";       
+    out_stream << "Z: \n" << Z << "\n";       
                                         
     Matrix E(1);
-    cout << "E: \n" << E << "\n";
+    out_stream << "E: \n" << E << "\n";
 
     Matrix D(2);
-    cout << "D: \n" << D << "\n";
+    out_stream << "D: \n" << D << "\n";
 
     Matrix A;
     in_stream >> A;
     out_stream << A;                    // Testing the output to a file function.
-    cout << "A: \n" << A << "\n";       // Also testing it via standard IO.
+    out_stream << "A: \n" << A << "\n";       // Also testing it via standard IO.
 
     Matrix B=A;
-    cout<<"A == B: \t";
+    out_stream<<"A == B: \t";
     B == A;
 
-    cout << "\nA: \n" << A << "\n";       // Also testing it via standard IO.
-    cout << "B: \n" << B << "\n";       // Also testing it via standard IO.
+    out_stream << "\nA: \n" << A << "\n";       // Also testing it via standard IO.
+    out_stream << "B: \n" << B << "\n";       // Also testing it via standard IO.
 
 
     // Compute and output to the screen the following matrices
-    cout << "A+D:\n" << A+D << endl;
-    cout << "A-D:\n" << A-D << endl;
-    cout << "A*D:\n" << A*D << endl;
+    out_stream << "A+D:\n" << A+D << endl;
+    out_stream << "A-D:\n" << A-D << endl;
+    out_stream << "A*D:\n" << A*D << endl;
 
 
     // Checking the following with ==
-    cout << "A - B == Z: \t\t";
+    out_stream << "A - B == Z: \t\t";
     A-B==Z;
 
-    cout << "   -A == Z - A: \t";
+    out_stream << "   -A == Z - A: \t";
     -A==Z-A;
 
-    cout << "A + B == A * D: \t";
+    out_stream << "A + B == A * D: \t";
     A+B==A*D;
 
-    cout << "A * E == A: \t\t";
+    out_stream << "A * E == A: \t\t";
     A*E==A;
 
-    cout << "A * D == 2 * A: \t";
+    out_stream << "A * D == 2 * A: \t";
     A*D==2*A;
 
 
     // Computing the determinants of E and D, 
     // where E should equal 1 and D should equal 8.
-    cout << "\nComputing determinants for E & D: \n";
-    cout << "Determinant of E: " << E.det() << "\n";
-    cout << "Determinant of D: " << D.det() << "\n\n";
+    out_stream << "\nComputing determinants for E & D: \n";
+    out_stream << "Determinant of E: " << E.det() << "\n";
+    out_stream << "Determinant of D: " << D.det() << "\n\n";
     
 
     // Create C from inputed file.
     Matrix C;
     in_stream >> C;
     out_stream << C;
-    cout << "C: \n" << C;
+    out_stream << "C: \n" << C;
 
 
     // Need to check the following property of the determinant.
-    cout << "\nCHECK THE FOLLOWING DETERMINANT: \n";
-    cout << "(A*C).det()==A.det()*C.det(): \t";
+    out_stream << "\nCHECK THE FOLLOWING DETERMINANT: \n";
+    out_stream << "(A*C).det()==A.det()*C.det(): \t";
     A*C.det()==A.det()*C.det();
 
 
