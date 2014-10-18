@@ -26,7 +26,7 @@ class Matrix
         friend ostream& operator <<(ostream& out, Matrix& trix);
         friend bool operator ==(const Matrix& one, const Matrix& two);
         Matrix& operator=(const Matrix& trix);
-        friend Matrix& operator +(const Matrix& one, const Matrix& two);
+        friend Matrix operator +(const Matrix& one, const Matrix& two);
         friend Matrix operator -(const Matrix& one, const Matrix& two);
         friend Matrix operator -(const Matrix& only);
         friend Matrix operator *(const Matrix& one, const Matrix& two);
@@ -142,7 +142,7 @@ bool operator ==(const Matrix& one, const Matrix& two)
             // two matrixes are not equal to each other.
             if(one.e[i][x] != two.e[i][x])
             {
-                cout<<"FALSE.\n";
+                cout<<"THE TWO MATRIXES ARE NOT EQUAL.\n\n";
                 return false;
             }
         }
@@ -150,7 +150,7 @@ bool operator ==(const Matrix& one, const Matrix& two)
     }
 
     // If we get here, then matrix one is equal to matrix two.
-    cout<<"TRUE.\n";
+    cout<<"THE TWO MATRIXES ARE EQUAL.\n\n";
     return true;
 }
 
@@ -175,7 +175,7 @@ Matrix& Matrix::operator=(const Matrix& trix)
 
 
 // Adds the two matrixes.
-Matrix& operator +(const Matrix& one, const Matrix& two)
+Matrix operator +(const Matrix& one, const Matrix& two)
 {
     // Object to hold the addition.
     Matrix temp;
@@ -191,7 +191,7 @@ Matrix& operator +(const Matrix& one, const Matrix& two)
     }
 
     // Return this object.
-    return *temp;
+    return temp;
 }
 
 
@@ -287,33 +287,67 @@ int main()
     */
 
     Matrix Z;
-    cout << "Z: \n" << Z << "\n";
+    cout<<"Z: \n"<<Z<<"\n";
 
     Matrix E(1);
-    cout << "E: \n" << E << "\n";
+    cout<<"E: \n"<<E<< "\n";
 
     Matrix D(2);
-    cout << "D: \n" << D << "\n";
+    cout<<"D: \n"<<D<< "\n";
 
     // A needs to be inputted from a file. Then output A.
     Matrix A;
     in_stream >> A;
-    out_stream << A;                        // Testing the output to a file function.
-    cout << "A: \n" << A << "\n";     // Also testing it via standard IO.
+    out_stream << A;             // Testing the output to a file function.
+    cout<<"A: \n"<<A<< "\n";     // Also testing it via standard IO.
 
     // B needs to be a copy of A, and need to check that B == A using ==.
     Matrix B=A;
     B == A;
 
-    cout << "A: \n" << A << "\n";     // Also testing it via standard IO.
-    cout << "B: \n" << B << "\n";     // Also testing it via standard IO.
+    cout<<"A: \n"<<A<<"\n";     // Also testing it via standard IO.
+    cout<<"B: \n"<<B<<"\n";     // Also testing it via standard IO.
 
-    //A+D;
-    cout<<"A+D==\n";
-    A+D;
-    cout<<A;
+    // A+D
+    Matrix temp;
+    temp=A+D;
+    cout<<"A+D==\n"<<temp<<endl;
+    
+    // A-D
+    temp=A-D;
+    cout<<"A-D:\n"<<temp<<endl;
 
-    //<<A+D<<endl;
+    // A*D
+    temp=A*D;
+    cout<<"A*D:\n"<<temp<<endl;
+
+    // A-B==Z
+    A-B==Z;
+
+    // -A==Z-A
+    -A==Z-A;
+
+    // A+B==A*D
+    A+B==A*D;
+
+    // A*E==A
+    A*E==A;
+
+    // A*D==2*A
+    A*D==2*A;
+
+    // Compute the determinants of E and D
+    cout<<"Computing determinants: \n";
+    cout<<"E: "<<E.det()<<"\n";
+    cout<<"D: "<<D.det()<<"\n\n";
+    
+    // Create C from inputed file.
+    Matrix C;
+    out_stream << C;
+    cout<<"C: \n"<<C;
+
+    cout<<"\nCHECK THE FOLLOWING DETERMINANT: \n";
+    //cout<<"(A*C).det()==A.det()*C.det()"<<((A*C).det())==(A.det()*C.det());
 
 /*
     A-D;
