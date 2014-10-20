@@ -1,0 +1,47 @@
+Jason Downing
+HW5
+Pseudo Code
+
+# This is just a pseudo code example for Comp Org.
+# Actual program will be written in MIPS.
+
+symStatus:
+
+			# 	The following numbers mean: 
+			# (First time the token has appeared, already defined, DEFN)
+
+			if 0 0 0
+				# Forward Reference.
+				Store LOC in the token value field (TVF) of NODE.
+				Return previous contents of the TVF.
+
+			if 0 0 1
+				# Previously used token has been defined for the 1st time.
+				Store LOC in the TVF of NODE.
+				Return the previous contents of TVF.
+
+
+			if 0 1 0
+				# Previously defined TOKEN is used.
+				return TVF
+
+			if 0 1 1
+				# Previously defined TOKEN is defined again.
+				print "Double Definition Error"
+				return -1 # FFFFx
+
+			if 1 0 0
+				# TOKEN seen for first time, as forward reference.
+				store LOC in TVF of NODE
+				return -1 # FFFFx
+
+			if 1 0 1
+				# TOKEN seen for first time as definition
+				store LOC in TVF of NODE
+				mark TOKEN as defined.
+
+			if 1 1 0
+				Do nothing.
+
+			if 1 1 1
+				Do nothing.
