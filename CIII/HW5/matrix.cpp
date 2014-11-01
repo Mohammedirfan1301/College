@@ -11,14 +11,17 @@ class Matrix
 {
     public:
 
-        // Default constructor, matrix elements = 0.
+        // Default constructor, creates 3x3 matrix with elements = 0.
         Matrix();
 
-        // Constructor making diagonal matrix. (d's on main diagonal, 0's everywhere else.)
-        Matrix(int d);
+        // Default constructor, creates n by m matrix with elements = 0.
+        Matrix(int _m, int _n);
 
-        // Function which computes the determinant of a matrix.
-        int det();
+        // Constructor, creates n by m matrix with elements on the diagonal = d, elsewhere = 0.
+        Matrix(int _m, int _n, int d);
+
+        // Function which computes the determinant of a matrix. (EXTRA CREDIT)
+        // int det();
 
         // Overloaded operators
         friend istream& operator >>(istream& in, Matrix& trix);
@@ -33,18 +36,39 @@ class Matrix
     private:
 
         // Member variables
-        const static int n = 3;
-        int e[n][n];                // nxn array of integers, where n is equal to 3.
+        int n, m;                   // Dimensions of the matrix
+        int** e;                     // nxm array of integers, where n is equal to 3.
 };
 
 
 // Default constructor which puts 0's all throughout the matrix
 Matrix::Matrix()
 {
+    m = 3;
+    n = 3;
+    e = new(nothrow) int*[m];       // Allocate the array of pointers.
+
+    // Make sure the memory allocated! If it didn't, print an error.
+    if(e == NULL) {
+        cout << "Error: memory could not be allocated.\n";
+        return;
+    }
+
+    for(int i = 0; i < m; i++)
+    {
+        e[i] = new(nothrow) int[n];     // This will allocate each individual array.
+
+        // Make sure the memory allocated! If it didn't, print an error!
+        if(e[i] == NULL) {
+            cout << "Error: memory could not be allocated.\n";
+            return;
+        }
+    }
+
     // Put 0's throughout the matrix.
     for(int i = 0; i < n; i++)
     {
-        for(int x = 0; x < n; x++)
+        for(int x = 0; x < m; x++)
         {
             e[i][x] = 0;        // This double for loop should do the job nicely.
         }
@@ -52,21 +76,76 @@ Matrix::Matrix()
 }
 
 
-// Constructor which creates a diagonal matrix with d's on the diagonal
-// And 0's everywhere else.
-Matrix::Matrix(int d)
+// Default constructor, creates n by m matrix with elements = 0.
+Matrix::Matrix(int _m, int _n)
 {
-    // Set the diagonals equal to d.
+    n = _n;
+    m = _m;
+    e = new(nothrow) int*[m];       // Allocate the array of pointers.
+
+    // Make sure the memory allocated! If it didn't, print an error.
+    if(e == NULL) {
+        cout << "Error: memory could not be allocated.\n";
+        return;
+    }
+
+    for(int i = 0; i < m; i++)
+    {
+        e[i] = new(nothrow) int[n];     // This will allocate each individual array.
+
+        // Make sure the memory allocated! If it didn't, print an error!
+        if(e[i] == NULL) {
+            cout << "Error: memory could not be allocated.\n";
+            return;
+        }
+    }
+
+    // Put 0's throughout the matrix.
     for(int i = 0; i < n; i++)
     {
-        for(int x = 0; x < n; x++)
+        for(int x = 0; x < m; x++)
         {
-            if(i == x)  
-            {	// When i equals x, it's a diagonal.
+            e[i][x] = 0;        // This double for loop should do the job nicely.
+        }
+    }
+}
+
+
+// Constructor, creates n by m matrix with elements on the diagonal = d, elsewhere = 0.
+Matrix::Matrix(int _m, int _n, int d)
+{
+    n = _n;
+    m = _m;
+    e = new(nothrow) int*[m];       // Allocate the array of pointers.
+
+    // Make sure the memory allocated! If it didn't, print an error.
+    if(e == NULL) {
+        cout << "Error: memory could not be allocated.\n";
+        return;
+    }
+
+    for(int i = 0; i < m; i++)
+    {
+        e[i] = new(nothrow) int[n];     // This will allocate each individual array.
+
+        // Make sure the memory allocated! If it didn't, print an error!
+        if(e[i] == NULL) {
+            cout << "Error: memory could not be allocated.\n";
+            return;
+        }
+    }
+
+    // Put 0's throughout the matrix, except for the diagonals.
+    for(int i = 0; i < n; i++)
+    {
+        for(int x = 0; x < m; x++)
+        {
+            if(i == x) 
+            {   // When i equals x, it's a diagonal.
                 e[i][x] = d;
             }
             else        
-            {	// When they aren't equal, make it 0.
+            {   // When they aren't equal, make it 0.
                 e[i][x] = 0;
             }
         }
@@ -74,34 +153,13 @@ Matrix::Matrix(int d)
 }
 
 
-// Function which computes the determinant of a matrix.
-int Matrix::det()
-{
-    /*
-    Since we are dealing with a 3x3 Matrix, this formula can be useful:
-
-    |A| = a(ei - fh) - b(di - fg) + c(dh - eg)
-    */
-
-    // Long forumula that calculates the determinate.
-    // I split them up to make it easier to read.
-    int A = ( e[0][0] * ( (e[1][1] * e[2][2]) - (e[1][2] * e[2][1]) ) );
-    int B = ( e[0][1] * ( (e[1][0] * e[2][2]) - (e[1][2] * e[2][0]) ) );
-    int C = ( e[0][2] * ( (e[1][0] * e[2][1]) - (e[1][1] * e[2][0]) ) );
-    int determinant = A - B + C;
-
-    // Return the final determinant result.
-    return determinant;
-}
-
-
 // Input function from either a file or standard IO
 istream& operator >>(istream& in, Matrix& trix)
 {
     // Input the Matrix.
-    for(int i = 0; i < 3; i++)
+    for(int i = 0; i < trix.n; i++)
     {
-        for(int x = 0; x < 3; x++)
+        for(int x = 0; x < trix.m; x++)
         {
             in >> trix.e[i][x];       // >> will redirect the input to the 3x3 array.
         }
@@ -115,14 +173,14 @@ istream& operator >>(istream& in, Matrix& trix)
 ostream& operator <<(ostream& out, const Matrix& trix)
 {
     // Output the Matrix.
-    for(int i = 0; i < 3; i++)
+    for(int i = 0; i < trix.n; i++)
     {
         out << "    ";                    // Tabs make output look pretty.
 
-        for(int x = 0; x < 3; x++)
+        for(int x = 0; x < trix.m; x++)
         {
-            out << setw(6) << right;   // Make the output look pretty.
-            out << trix.e[i][x];        			// << will redirect the output to the output stream.
+            out << setw(6) << right;      // Make the output look pretty.
+            out << trix.e[i][x];          // << will redirect the output to the output stream.
         }
 
         out << "\n";                      // More pretty.
@@ -138,23 +196,33 @@ bool operator ==(const Matrix& one, const Matrix& two)
 {
     Matrix temp;
 
-    for(int i = 0; i < temp.n; i++)
+    // First make sure the two matrixes are the same size.
+    // n and m should be the same for one and two
+    if( (one.n != two.n) || (one.m != two.m) )
     {
-        for(int x = 0; x < temp.n; x++)
+        // Either n wasn't the same, m wasn't the same 
+        // or both were not the same.
+        // Therefor they are not equal matrixes.
+        cout << "False.\n";
+        return false;
+    }
+
+    for(int i = 0; i < one.n; i++)
+    {
+        for(int x = 0; x < one.m; x++)
         {
             // If one spot is not equal, then the
             // two matrices are not equal to each other.
             if(one.e[i][x] != two.e[i][x])
             {
-                cout << "False\n";
+                cout << "False.\n";
                 return false;
             }
         }
-
     }
 
     // If we get here, then matrix one is equal to matrix two.
-    cout << "True\n";
+    cout << "True.\n";
     return true;
 }
 
@@ -162,11 +230,12 @@ bool operator ==(const Matrix& one, const Matrix& two)
 // Copies a matrix
 Matrix& Matrix::operator=(const Matrix& trix)
 {
-    Matrix temp;
+    Matrix temp(trix.n, trix.m);        // Call the default construct with trix's dimensions.
 
-    for(int i = 0; i < 3; i++)
+    // Go through and copy every int over to temp.
+    for(int i = 0; i < temp.n; i++)
     {
-        for(int x = 0; x < 3; x++)
+        for(int x = 0; x < temp.m; x++)
         {
             // Copy the right matrix into the left matrix.
             temp.e[i][x] = trix.e[i][x];
@@ -174,23 +243,33 @@ Matrix& Matrix::operator=(const Matrix& trix)
     }
 
     // Return the temp object. this is just a pointer to the object we worked on.
-    return *this;       
+    return *this;
 }
 
 
 // Adds the two matrices.
 Matrix operator +(const Matrix& one, const Matrix& two)
 {
-    Matrix temp;
-
-    for (int i = 0; i < 3; i++)
+    // First make sure the two matrixes are the same size.
+    // n and m should be the same for one and two
+    if( (one.n != two.n) || (one.m != two.m) )
     {
-        for (int x = 0; x < 3; x++)
+        // Either n wasn't the same, m wasn't the same 
+        // or both were not the same.
+        // Therefor they are not equal matrixes.
+        cout << "Couldn't add the two matrixes, as they were not equal.\n";
+        return one;
+    }
+
+    Matrix temp(one.n, one.m);        // Call the default construct with one's dimensions.
+
+    for (int i = 0; i < temp.n; i++)
+    {
+        for (int x = 0; x < temp.m; x++)
         {
             // Add all the matrix spots into temp's matrix e.
             temp.e[i][x] = one.e[i][x] + two.e[i][x];
         }
-
     }
 
     // Return a copy of this object.
@@ -201,8 +280,18 @@ Matrix operator +(const Matrix& one, const Matrix& two)
 // Binary "-" operator, subtracts two matrices.
 Matrix operator -(const Matrix& one, const Matrix& two)
 {
-    // Object to hold the addition.
-    Matrix temp;
+    // First make sure the two matrixes are the same size.
+    // n and m should be the same for one and two
+    if( (one.n != two.n) || (one.m != two.m) )
+    {
+        // Either n wasn't the same, m wasn't the same 
+        // or both were not the same.
+        // Therefor they are not equal matrixes.
+        cout << "Couldn't add the two matrixes, as they were not equal.\n";
+        return one;
+    }
+
+    Matrix temp(one.n, one.m);        // Call the default construct with one's dimensions.
 
     for (int i = 0; i < temp.n; i++)
     {
@@ -222,7 +311,7 @@ Matrix operator -(const Matrix& one, const Matrix& two)
 Matrix operator -(const Matrix& only)
 {
     // Object to hold the addition.
-    Matrix temp;
+    Matrix temp(only.n, only.m);
 
     for (int i = 0; i < temp.n; i++)
     {
@@ -238,10 +327,10 @@ Matrix operator -(const Matrix& only)
 }
 
 
+// THIS ONE HASN'T BEEN STARTED, WILL DO LATER.
 // Multiple two matrices
 Matrix operator *(const Matrix& one, const Matrix& two)
 {
-    // Object to hold the addition.
     Matrix temp;
 
     // Multiply 3x3 matrices. Using 3 loops will do it.
@@ -281,72 +370,11 @@ int main()
         exit(1);                                    // error message for the user.
     }
 
+    // 3x3 Matrix with all zeroes, basically the default constructor with no parameters.
+    Matrix Z3;      
 
-    // Testing class Matrix, its functions and its operators.
-    Matrix Z;
-    cout << "Z: \n" << Z << "\n";       
-                                        
-    Matrix E(1);
-    cout << "E: \n" << E << "\n";
-
-    Matrix D(2);
-    cout << "D: \n" << D << "\n";
-
-    Matrix A;
-    in_stream >> A;
-    out_stream << A;                    // Testing the output to a file function.
-    cout << "A: \n" << A << "\n";       // Also testing it via standard IO.
-
-    Matrix B=A;
-    cout<<"A == B: \t";
-    B == A;
-
-    cout << "\nA: \n" << A << "\n";       // Also testing it via standard IO.
-    cout << "B: \n" << B << "\n";       // Also testing it via standard IO.
-
-
-    // Compute and output to the screen the following matrices
-    cout << "A+D:\n" << A+D << endl;
-    cout << "A-D:\n" << A-D << endl;
-    cout << "A*D:\n" << A*D << endl;
-
-
-    // Checking the following with ==
-    cout << "A - B == Z: \t\t";
-    A-B==Z;
-
-    cout << "   -A == Z - A: \t";
-    -A==Z-A;
-
-    cout << "A + B == A * D: \t";
-    A+B==A*D;
-
-    cout << "A * E == A: \t\t";
-    A*E==A;
-
-    cout << "A * D == 2 * A: \t";
-    A*D==2*A;
-
-
-    // Computing the determinants of E and D, 
-    // where E should equal 1 and D should equal 8.
-    cout << "\nComputing determinants for E & D: \n";
-    cout << "Determinant of E: " << E.det() << "\n";
-    cout << "Determinant of D: " << D.det() << "\n\n";
-    
-
-    // Create C from inputed file.
-    Matrix C;
-    in_stream >> C;
-    out_stream << C;
-    cout << "C: \n" << C;
-
-
-    // Need to check the following property of the determinant.
-    cout << "\nCHECK THE FOLLOWING DETERMINANT: \n";
-    cout << "(A*C).det()==A.det()*C.det(): \t";
-    A*C.det()==A.det()*C.det();
-
+    // Output it to the screen.
+    cout << Z3;
 
     // Finally done. ^^
     return 0;
