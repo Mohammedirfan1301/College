@@ -36,8 +36,6 @@ class Matrix
 
         // Assignment operator
         Matrix& operator=(const Matrix& trix);
-
-        //Matrix& operator=(Matrix& trix);
         
         friend Matrix operator +(const Matrix& one, const Matrix& two);
         friend Matrix operator -(const Matrix& one, const Matrix& two);
@@ -298,7 +296,6 @@ Matrix& Matrix::operator=(const Matrix& trix)
         // Make sure the memory allocated! If it didn't, print an error.
         if(new_array == NULL) {
             cout << "Error: memory could not be allocated.\n";
-            //return NULL;
         }
 
         for(int i = 0; i < trix.m; i++)
@@ -308,7 +305,6 @@ Matrix& Matrix::operator=(const Matrix& trix)
             // Make sure the memory allocated! If it didn't, print an error!
             if(new_array[i] == NULL) {
                 cout << "Error: memory could not be allocated.\n";
-                //return NULL;
             }
         }
 
@@ -541,14 +537,14 @@ int main( )
     A*E==A;
 
     // Set A equal to C.
-    cout << "A is: \n" << A << endl;
-    cout << "C is: \n" << C << endl;
+    cout << endl << "A (before) is: \n" << A << endl;
+    cout << "C (before) is: \n" << C << endl;
 
     // Set A = to C.
-    A=C;    // this does jack shit right now.
+    A=C;
 
-    cout << "A IS: \n" << A << endl;
-    cout << "B IS: \n" << B;
+    cout << "A (after) is: \n" << A << endl;
+    cout << "C (after) is: \n" << C << endl;
 
     // This should be false.
     cout << "A==B: ";
@@ -558,6 +554,6 @@ int main( )
     cout << "A==C: ";
     A==C;
 
-    // Finally done. ^^
+    // Finally done. ^_^
     return 0;
 }
