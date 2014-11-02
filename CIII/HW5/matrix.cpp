@@ -33,7 +33,12 @@ class Matrix
         friend istream& operator >>(istream& in, Matrix& trix);
         friend ostream& operator <<(ostream& out, const Matrix& trix);
         friend bool operator ==(const Matrix& one, const Matrix& two);
-        Matrix operator=(const Matrix& trix);
+
+        // Assignment operator
+        Matrix& operator=(const Matrix& trix);
+
+        //Matrix& operator=(Matrix& trix);
+        
         friend Matrix operator +(const Matrix& one, const Matrix& two);
         friend Matrix operator -(const Matrix& one, const Matrix& two);
         friend Matrix operator -(const Matrix& only);
@@ -200,7 +205,6 @@ Matrix::~Matrix()
 {
     // Need to free every array in the 2D array.
     // Then free the array of arrays.
-    
     for(int i = 0; i < m; i++)
     {
             delete [] e[i];     // Delete the array within an array.
@@ -252,8 +256,6 @@ ostream& operator <<(ostream& out, const Matrix& trix)
 // Returns true if they are, otherwise it returns false.
 bool operator ==(const Matrix& one, const Matrix& two)
 {
-    Matrix temp;
-
     // First make sure the two matrixes are the same size.
     // n and m should be the same for one and two
     if( (one.m != two.m) || (one.n != two.n) )
@@ -286,32 +288,61 @@ bool operator ==(const Matrix& one, const Matrix& two)
 
 
 // Copies a matrix
-Matrix Matrix::operator=(const Matrix& trix)
+Matrix& Matrix::operator=(const Matrix& trix)
 {
-    int _m = trix.m;
-    int _n = trix.n;
-
-    Matrix temp(_m, _n);        // Call the default construct with trix's dimensions.
-
-    // Go through and copy every int over to temp.
-    for(int i = 0; i < temp.m; i++)
+    if(this != &trix)
     {
-        for(int x = 0; x < temp.n; x++)
-        {
-            // Copy the right matrix into the left matrix.
-            temp.e[i][x] = trix.e[i][x];
+        // 1: Allocate new memory
+        int** new_array = new(nothrow) int*[trix.m];       // Allocate the array of pointers.
+
+        // Make sure the memory allocated! If it didn't, print an error.
+        if(new_array == NULL) {
+            cout << "Error: memory could not be allocated.\n";
+            //return NULL;
         }
+
+        for(int i = 0; i < trix.m; i++)
+        {
+            new_array[i] = new(nothrow) int[trix.n];     // This will allocate each individual array.
+
+            // Make sure the memory allocated! If it didn't, print an error!
+            if(new_array[i] == NULL) {
+                cout << "Error: memory could not be allocated.\n";
+                //return NULL;
+            }
+        }
+
+        // 2: Make the new memory equal to the old memory.
+        for(int i = 0; i < trix.m; i++)
+        {
+            for(int x = 0; x < trix.n; x++)
+            {
+                new_array[i][x] = trix.e[i][x];
+            }
+        }
+
+        // 3: Delete old memory
+        // Need to free every array in the 2D array.
+        // Then free the array of arrays.
+        for(int i = 0; i < m; i++)
+        {
+                delete [] e[i];     // Delete the array within an array.
+        }
+
+        // Delete the array of arrays.
+        delete [] e;
+
+        // 4: Assign new memory to the object.
+        e = new_array;
     }
 
-    cout << "TEMP IS: \n" << temp;
-
-    // Return the temp object. this is just a pointer to the object we worked on.
-    return temp;
+    // Return *this by convention.
+    return *this;
 }
 
 
 // Adds the two matrices.
-Matrix operator +(const Matrix& one, const Matrix& two)
+Matrix operator+(const Matrix& one, const Matrix& two)
 {
     // First make sure the two matrixes are the same size.
     // n and m should be the same for one and two
@@ -341,7 +372,7 @@ Matrix operator +(const Matrix& one, const Matrix& two)
 
 
 // Binary "-" operator, subtracts two matrices.
-Matrix operator -(const Matrix& one, const Matrix& two)
+Matrix operator-(const Matrix& one, const Matrix& two)
 {
     // First make sure the two matrixes are the same size.
     // n and m should be the same for one and two
@@ -371,7 +402,7 @@ Matrix operator -(const Matrix& one, const Matrix& two)
 
 
 // Unary "-" operator, just negates whatever it is given.
-Matrix operator -(const Matrix& only)
+Matrix operator-(const Matrix& only)
 {
     // Object to hold the addition.
     Matrix temp(only.m, only.n);
@@ -392,7 +423,7 @@ Matrix operator -(const Matrix& only)
 
 // TEST THIS ONE IT MAY WORK.
 // Multiple two matrices
-Matrix operator *(const Matrix& one, const Matrix& two)
+Matrix operator*(const Matrix& one, const Matrix& two)
 {
     int _m = one.m;
     int _n = two.n;
@@ -419,7 +450,7 @@ Matrix operator *(const Matrix& one, const Matrix& two)
 }
 
 
-int main()
+int main( )
 {
     ifstream in_stream;
     ofstream out_stream;
@@ -513,7 +544,11 @@ int main()
     cout << "A is: \n" << A << endl;
     cout << "C is: \n" << C << endl;
 
-    A=C;
+    // Set A = to C.
+    A=C;    // this does jack shit right now.
+
+    cout << "A IS: \n" << A << endl;
+    cout << "B IS: \n" << B;
 
     // This should be false.
     cout << "A==B: ";
