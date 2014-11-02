@@ -33,7 +33,7 @@ class Matrix
         friend istream& operator >>(istream& in, Matrix& trix);
         friend ostream& operator <<(ostream& out, const Matrix& trix);
         friend bool operator ==(const Matrix& one, const Matrix& two);
-        Matrix& operator=(const Matrix& trix);
+        Matrix operator=(const Matrix& trix);
         friend Matrix operator +(const Matrix& one, const Matrix& two);
         friend Matrix operator -(const Matrix& one, const Matrix& two);
         friend Matrix operator -(const Matrix& only);
@@ -286,9 +286,12 @@ bool operator ==(const Matrix& one, const Matrix& two)
 
 
 // Copies a matrix
-Matrix& Matrix::operator=(const Matrix& trix)
+Matrix Matrix::operator=(const Matrix& trix)
 {
-    Matrix temp(trix.m, trix.n);        // Call the default construct with trix's dimensions.
+    int _m = trix.m;
+    int _n = trix.n;
+
+    Matrix temp(_m, _n);        // Call the default construct with trix's dimensions.
 
     // Go through and copy every int over to temp.
     for(int i = 0; i < temp.m; i++)
@@ -300,8 +303,10 @@ Matrix& Matrix::operator=(const Matrix& trix)
         }
     }
 
+    cout << "TEMP IS: \n" << temp;
+
     // Return the temp object. this is just a pointer to the object we worked on.
-    return *this;
+    return temp;
 }
 
 
@@ -385,20 +390,26 @@ Matrix operator -(const Matrix& only)
 }
 
 
-// THIS ONE HASN'T BEEN STARTED, WILL DO LATER.
+// TEST THIS ONE IT MAY WORK.
 // Multiple two matrices
 Matrix operator *(const Matrix& one, const Matrix& two)
 {
-    Matrix temp;
+    int _m = one.m;
+    int _n = two.n;
+    Matrix temp(_m, _n);
 
-    // Multiply 3x3 matrices. Using 3 loops will do it.
+    //  Temp = mxp
+    //     A = mxn
+    //     B = nxp
+
+    // Multiply the two matrixes.
     for(int i = 0; i < temp.m; i++)
     {
         for(int j = 0; j < temp.n; j++)
         {
             for (int k = 0; k < temp.n; k++)
             {
-                   temp.e[i][j] += one.e[i][k] * two.e[k][j];
+                temp.e[i][j] += one.e[i][k] * two.e[k][j];
             }
         }
     }
@@ -487,16 +498,20 @@ int main()
     A-B==Z;
 
     // True.
-    cout << "-A==Z-A: \n";
-    //–A==Z-A;
+    cout << "-A==Z-A: ";
+    -A==Z-A;
 
     // True.
-    cout << "A+B==A*D: \n";
-    //A+B==A*D;
+    cout << "A+B==A*D: ";
+    A+B==A*D;
 
     // True.
-    cout << "A*E==A: \n";
-    //A*E==A;
+    cout << "A*E==A: ";
+    A*E==A;
+
+    // Set A equal to C.
+    cout << "A is: \n" << A << endl;
+    cout << "C is: \n" << C << endl;
 
     A=C;
 
