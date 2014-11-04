@@ -8,6 +8,7 @@ prompt:         .asciiz   "Enter a new token: "
 prompt2:        .asciiz   "Enter a new  type: "
 dump_prompt:	.asciiz	  "\nDumping symTab: \n\n"
 exit_prompt:	.asciiz	  "\n\nExiting the program..."
+error_prompt:	.asciiz	  "\n****** ERROR: DOUBLE DEFINITION!****** \n\n"
 
         .text
 main:
@@ -17,6 +18,7 @@ main:
         li      $t2, 0 		# DEFN
         li	$t3, 0		# LOC
         li	$t6, 0		# TEMP index for looping, clearing, dumping, etc.
+	li	$t7, 0		# This will hold the return address for the VARIABLE function.
 
 
 # NOTES
@@ -80,6 +82,14 @@ chkVar:
 
 # We found a label, so save the label & it's value into symTab. Also DEFN = 1.
 label:
+
+	# Sounds like for HW6 we need to check each variable and see if it has been defined before?
+	# And I guess if it has been defined, return something?
+	# I'm not quite sure on this part.
+	
+	# So... Let's call VARIABLE and check this TOKEN, VALUE, STATUS.
+	jal variable			# Return address stored in $ra
+
 	# Save the two words
 	subi 	$t7, $t0, 12		# Go back 12 spaces.
 	lw	$v0, inArr($t7)		# Load the first word into $v0
@@ -107,6 +117,10 @@ label:
 
 # Found a colon or a comma, so save that + it's value into symTab. Also DEFN = 0.
 control:
+
+	# Same as label, call VARIABLE.
+	jal variable			# Return address stored in $ra
+
 	# Save the comma or colon
 	subi 	$t7, $t0, 12		# Go back 12 spaces.
 	lw	$v0, inArr($t7)		# Load the first word into $v0
@@ -134,6 +148,10 @@ control:
 
 # Found a money sign, so save a "$", its value (5) and DEFN = 0 into symTab.
 money:
+
+	# Same as label, call VARIABLE.
+	jal variable			# Return address stored in $ra
+
 	# Save the money sign
 	subi 	$t7, $t0, 12		# Go back 12 spaces.
 	lw	$v0, inArr($t7)		# Load the first word into $v0
@@ -159,8 +177,74 @@ money:
 	b getTokens 			# Once we've added the label, value & DEFN into symTab, return to getTokens
 
 
+# This is the new function for HW6, which will check the token/value/status and see if it has already been defined yet.
+# It appears we always return FFFFx for no reason, so instead I'll do the following:
+# IF the TOKEN is already defined, then print out an error.
+# IF the TOKEN is not already defined, simply return because that's A OK.
+variable:
+	
+	# Let's loop through the inArr and see if we can find the current label. If we can, let's print out:
+	# “ERROR: DOUBLE DEFINITION!”
+	# If we don't find it, just return like normal.
+	
+	# Let's start by saving the return address to where we came from. Otherwise we might lose it and that would be bad.
+	move	$t7, $ra
+
+	# Setup $t6 as the index to inArr. Note that $t0 is the highest index to go to.
+	la	$t6, inArr
+
+	# Now let's loop through inArr and see if we find any dups.
+	b loopdeloop
+	
+
+# This loop just loops through inArr, searching for the current label.
+loopdeloop:
+	beq	$t0, $t6, loopdone	# done looping once we get here.
+	
+	# Let's compare and see if we found a match!
+
+	# Need to compare against 8 bits, then jump 8 bits ahead and keep comparing.
+	# This is because the inArr array is setup as following:
+	#
+	# [][][][] [][][][]  [][][][]  [][][][]
+	# ----- TOKEN -----  --TYPE--  --DEFN--
+	# We only care about TOKEN. TYPE and DEFN doesn't matter.
+	
+	# Therefore we need to continuosly loop through 8 bit words and see if we
+	# find a complete match for 8 whole bits.
+	
+	# Let's use another function to compare against each individual word. This function will serve as the master
+	# function that keeps looping through all the words.
+	li	$t7, 0		# $t7 will index through each word.
+	jal compare_word
+	
+	# Increase $t6 by 8 to make it to the next word.
+	add	$t6, $t6, 8
+	
+	b loopdeloop			# Just keep looping, just keep looping...
+
+compare_word:
+	# 
+
+# When we're done looping through inArr, let's just return to where ever we came from.
+loopdone:
+	jr	$t7			# Return to where we came from, prob Label/Control/Money sub labels
+
+# This gets called when we detect a duplicate in the inArr table.
+double_error:
+	
+	# Print out error prompt, since we found a double input.
+    	la  	$a0, error_prompt   	# Loads addr of prompt_input into $a0
+    	li  	$v0, 4          	# Sys Call Code 4 means output string.
+    	syscall
+    	
+    	jr	$t7			# Return to where we came from, prob Label/Control/Money sub labels
+
 # Found the pound sign, so we're done! Save the sign, its value (6) and DEFN = 0.
 pound:
+
+	# Since we're done if we find the pound sign, we do not need to call VARIABLE.
+
 	# Save the pound sign
 	subi 	$t7, $t0, 12		# Go back 12 spaces.
 	lw	$v0, inArr($t7)		# Load the first word into $v0
