@@ -1,0 +1,20 @@
+# List of registries and what I'm using them for.
+# $t0 index to inArr
+# $t1 index to symTab
+# $t2 is DEFN
+# $t3 LOC, WHICH IS ACTUALLY THE SYMTAB INDEX!
+# $t4 ??
+# $t5 ??
+# $t6 TEMP
+# $t7 index to current inArry position
+# $t8 index for looping through each word
+# $t9 ??
+# 
+# Other registries - mostly for finding duplicates.
+# $s0 
+# $s1 main loop for checking words
+# $s2 temp index for inArr
+# $s3 temp index for symTab
+# $s4 MATCH bit. 0 means we have a match, 1 means not a match.
+# $s5 is the location to return to after checking symTab
+# $s6 

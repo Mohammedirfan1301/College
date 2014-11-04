@@ -20,8 +20,25 @@ main:
         li	$t6, 0		# TEMP index for looping, clearing, dumping, etc.
 
 # List of registries and what I'm using them for.
-# $s2
+# $t0 index to inArr
+# $t1 index to symTab
+# $t2 is DEFN
+# $t3 LOC, WHICH IS ACTUALLY THE SYMTAB INDEX!
+# $t4 ??
+# $t5 ??
+# $t6 TEMP
+# $t7 index to current inArry position
+# $t8 index for looping through each word
+# $t9 ??
 
+# Other registries - mostly for finding duplicates.
+# $s0 
+# $s1 main loop for checking words
+# $s2 temp index for inArr
+# $s3 temp index for symTab
+# $s4 MATCH bit. 0 means we have a match, 1 means not a match.
+# $s5 is the location to return to after checking symTab
+# $s6 
 
 # NOTES
 # Input should be a label
@@ -91,6 +108,9 @@ label:
 	# And I guess if it has been defined, return something?
 	# I'm not quite sure on this part.
 
+	# So... Let's call VARIABLE and check this TOKEN, VALUE, STATUS.
+	jal variable			# Return address stored in $ra
+
 	# Save the two words
 	subi 	$t7, $t0, 12		# Go back 12 spaces.
 	lw	$v0, inArr($t7)		# Load the first word into $v0
@@ -101,12 +121,9 @@ label:
 	lw	$v0, inArr($t7)		# Get the next word
 	sw	$v0, symTab($t3)	# Save this word into symTab
 	addi	$t3, $t3, 4		# Move LOC forward by 4.
+	addi	$t7, $t7, 4		# Go ahead 4 bytes to get the next word.
 	
-	# So... Let's call VARIABLE and check this TOKEN, VALUE, STATUS.
-	jal variable			# Return address stored in $ra
-	
-	# Save the type (integer)
-	addi	$t7, $t7, 4		# Go ahead 4 bytes to get the next word.	
+	# Save the type (integer)	
 	lw	$v0, inArr($t7)		# Save the int into $v0
 	sw	$v0, symTab($t3)	# Save the int into the symTab array
 	addi	$t3, $t3, 4		# Move LOC forward by 4.
@@ -122,6 +139,9 @@ label:
 # Found a colon or a comma, so save that + it's value into symTab. Also DEFN = 0.
 control:
 
+	# Same as label, call VARIABLE.
+	jal variable			# Return address stored in $ra
+
 	# Save the comma or colon
 	subi 	$t7, $t0, 12		# Go back 12 spaces.
 	lw	$v0, inArr($t7)		# Load the first word into $v0
@@ -132,9 +152,6 @@ control:
 	lw	$v0, inArr($t7)		# Get the next word
 	sw	$v0, symTab($t3)	# Save this word into symTab
 	addi	$t3, $t3, 4		# Move LOC forward by 4.
-	
-	# Same as label, call VARIABLE.
-	jal variable			# Return address stored in $ra
 	
 	# Save the type (integer)
 	addi	$t7, $t7, 4		# Go ahead 4 bytes to get the next word.	
@@ -153,6 +170,9 @@ control:
 # Found a money sign, so save a "$", its value (5) and DEFN = 0 into symTab.
 money:
 
+	# Same as label, call VARIABLE.
+	jal variable			# Return address stored in $ra
+	
 	# Save the money sign
 	subi 	$t7, $t0, 12		# Go back 12 spaces.
 	lw	$v0, inArr($t7)		# Load the first word into $v0
@@ -163,9 +183,6 @@ money:
 	lw	$v0, inArr($t7)		# Get the next word
 	sw	$v0, symTab($t3)	# Save this word into symTab
 	addi	$t3, $t3, 4		# Move LOC forward by 4.
-	
-	# Same as label, call VARIABLE.
-	jal variable			# Return address stored in $ra
 	
 	# Save the type (integer)
 	addi	$t7, $t7, 4		# Go ahead 4 bytes to get the next word.	
@@ -192,20 +209,10 @@ variable:
 	# If we don't find it, just return like normal.
 	
 	# Let's start by saving the return address to where we came from. Otherwise we might lose it and that would be bad.
-	move	$t9, $ra
-
-	# Setup $s2 as the index to inArr. Note that $t0 is the highest index to go to.
-	la	$s2, inArr
+	move	$s5, $ra
 	
-	# $s3 will be the main loop index.
-	li	$s3, 0
-	
-	# $s5 will hold inArr address to compare against.
-	subi	$t7, $t7, 8		# Remove 8 from $t7 to compare against.
-	la	$s5, inArr($t7)		# This will be our compare against address,
-	
-	# $s6 will hold starting symTab address to compare against
-	la	$s6, symTab		# We can start at the beginning of symTab
+	# $s1 will be the main loop index.
+	li	$s1, 0
 
 	# Now let's loop through inArr and see if we find any dups.
 	b loopdeloop
@@ -213,7 +220,7 @@ variable:
 
 # This loop just loops through inArr, searching for the current label.
 loopdeloop:
-	beq	$t0, $s3, loopdone	# done looping once we get here.
+	beq	$t3, $s1, loopdone	# done looping once we get here.
 	
 	# Let's compare and see if we found a match!
 
@@ -227,20 +234,24 @@ loopdeloop:
 	# Therefore we need to continuosly loop through 8 bit words and see if we
 	# find a complete match for 8 whole bits.
 	
+	# Let's use another function to compare against each individual word. This function will serve as the master
+	# function that keeps looping through all the words.
+	add	$s2, $t7, 0		# $s2 needs to stay at the same point throughout this function	
+	sub	$s2, $s2, 8		# Move back 8 to get to the right position.
+	move	$s3, $s1		# For each check, $s3 should start at where ever symTab currently is at.
+	
 	# $s4 will hold the MATCH bit. If it stays 0, then we have a match! If it becomes equal to 1,then it isn't a match.
 	li	$s4, 0
 	
-	# Let's use another function to compare against each individual word. This function will serve as the master
-	# function that keeps looping through all the words.
-	li	$t8, 0			# $t7 will index through each word.
+	li	$t8, 0			# $t8 will index through each word.
+	
 	jal compare_word
 	
 	# If $s4 stayed equal to 0, we have a match!!
 	beq	$s4, 0, double_error
 	
-	# Increase $t6 by 12 to make it to the next word.
-	add	$t6, $t6, 12
-	add	$s3, $s3, 12
+	# Increase $s3 by 12 to make it to the next word.
+	add	$s1, $s1, 12
 	
 	b loopdeloop			# Just keep looping, just keep looping...
 
@@ -255,15 +266,16 @@ compare_word:
 	# compare the first bit.
 	# $a0 holds token bit. $a1 holds inArr bit.
 	# If they the same, keep $s4 the same. If they differ, make $s4 equal 1.
-	lb	$a0, inArr($t7)
+	lb	$a0, inArr($s2)
 	lb	$a1, symTab($s3)
 	
 	# If they are different, we must set $s4 equal to 0. And stop looping at this word.
 	bne 	$a0, $a1, differ
 	
 	# Increase by one.
-	add	$t7, $t7, 1
-	add	$t8, $t8, 1
+	add	$s2, $s2, 1		# inArr current word index
+	add	$s3, $s3, 1		# symTab index for all words
+	add	$t8, $t8, 1		# counter for 8 bits
 	
 	# Keep looping til we done.
 	b 	compare_word
@@ -282,7 +294,8 @@ done_word:
 
 # When we're done looping through inArr, let's just return to where ever we came from.
 loopdone:
-	jr	$t7		# Return to where we came from, prob Label/Control/Money sub labels
+	jr	$s5		# Return to where we came from, prob Label/Control/Money sub labels
+
 
 # This gets called when we detect a duplicate in the inArr table.
 double_error:
@@ -293,6 +306,7 @@ double_error:
     	syscall
     	
     	jr	$t9			# Return to where we came from, prob Label/Control/Money sub labels
+
 
 # Found the pound sign, so we're done! Save the sign, its value (6) and DEFN = 0.
 pound:
