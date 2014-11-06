@@ -29,11 +29,11 @@ int main()
 
     // Output the 6 objects.
     cout << "Y coordinate: " << xyz_coordinates.get_element(2) << "\n";
-    cout << name_initials.get_element(1) << "\n";
-    cout <<  << "\n";
-    cout <<  << "\n";
-    cout <<  << "\n";
-    cout <<  << "\n";
+    cout << "1st Initial: " << name_initials.get_element(1) << "\n";
+    cout << "3rd Full name: " << full_name.get_element(3) << "\n";
+    cout << "Car Model: " << car.get_element(2) << "\n";
+    cout << "Top student: " << top_students.get_element(1) << "\n";
+    cout << "Winner of the contest: " << winners.get_element(1) << "\n";
 
     return 0;
 }
