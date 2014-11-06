@@ -87,6 +87,8 @@ class Student
         void set_element(int position, int set);
 
     private:
+        string name;
+        string 
         int GPA;
 };
 
