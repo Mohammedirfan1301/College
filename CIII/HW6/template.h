@@ -27,7 +27,10 @@ class Student
 class Winner
 {
     public:
-
+        Winner();
+        Winner(int set_person, int set_age, int set_DOB);
+        string get_element(int position);
+        void set_element(int position, int value);
 
     private:
         int person;
@@ -122,6 +125,9 @@ void Trio<T>::set_element(int position, T value)
 }
 
 
+// **************************************************************************
+//      Class Student Functions
+// **************************************************************************
 Student::Student()
 {
     // tell the compiler to stfu.
@@ -161,6 +167,71 @@ string Student::get_element(int position)
 
 
 void Student::set_element(int position, string value)
+{
+    // Choose position
+    if(position == 1)
+    {
+        name = value;
+    }
+    else if(position == 2)
+    {
+        grade = value;
+    }
+    else if(position == 3)
+    {
+        homework = value;
+    }
+    else
+    {
+        // Error, need to pick 1, 2 or 3.
+        cout << "\nError: Position must be either 1, 2, or 3! \n";
+    }
+}
+
+
+// **********************************************************************
+//      Class Winner Functions
+// **********************************************************************
+
+Winner::Winner()
+{
+    // tell the compiler to stfu.
+}
+
+
+// Default constructor for Class Student. Similar to class Trio.
+Winner::Winner()
+{
+    person = set_person;
+    age = set_age;
+    DOB = set_DOB;
+}
+
+
+string Winner::get_element(int position)
+{
+    // Choose position
+    if(position == 1)
+    {
+        return name;                // Once we pick a position, just return whatever
+    }                                       // variable is at that position in the class.
+    else if(position == 2)
+    {
+        return grade;
+    }
+    else if(position == 3)
+    {
+        return homework;
+    }
+    else
+    {
+        // Error, need to pick 1, 2 or 3.
+        return "\nError: Position must be either 1, 2, or 3! \n";
+    }
+}
+
+
+void Winner::set_element(int position, string value)
 {
     // Choose position
     if(position == 1)
