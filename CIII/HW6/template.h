@@ -117,6 +117,7 @@ void Trio<T>::set_element(int position, T value)
 // **************************************************************************
 //      Class Student Functions
 // **************************************************************************
+
 Student::Student()
 {
     // tell the compiler to shut up.
