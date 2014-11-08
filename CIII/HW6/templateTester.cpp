@@ -48,33 +48,65 @@ int main()
     winners.set_element(3, Dom);
 
     // Output the 6 objects.
-    cout << "Y coordinate: " << xyz_coordinates.get_element(2) << "\n";
-    cout << "1st Initial: " << name_initials.get_element(1) << "\n";
-    cout << "3rd Full name: " << full_name.get_element(3) << "\n";
-    cout << "Car Model: " << car.get_element(2) << "\n\n";
 
-    // This is like hacking, or voodo magic, but apparently getting a class and then getting
-    // a string of that class and outputting it works.
+    // XYZ object
+    cout << "X coordinate: " << xyz_coordinates.get_element(1) << "\n";
+    cout << "Y coordinate: " << xyz_coordinates.get_element(2) << "\n";
+    cout << "Z coordinate: " << xyz_coordinates.get_element(3) << "\n";
+
+    // Testing the error catcher
+    cout << "\nThis will not work: ";
+    cout << xyz_coordinates.get_element(5);
+
+    // Initials object
+    cout << "\n\n1st Initial: " << name_initials.get_element(1) << "\n";
+    cout << "2nd Initial: " << name_initials.get_element(2) << "\n";
+    cout << "3rd Initial: " << name_initials.get_element(3) << "\n\n";
+
+    // Full_name object
+    cout << "1st Full name: " << full_name.get_element(1) << "\n";
+    cout << "2nd Full name: " << full_name.get_element(2) << "\n";
+    cout << "3rd Full name: " << full_name.get_element(3) << "\n\n";
+
+    // Car object
+    cout << "Car  Make: " << car.get_element(1) << "\n";
+    cout << "Car Model: " << car.get_element(2) << "\n";
+    cout << "Car License Plate: " << car.get_element(3) << "\n\n";
+
+    // This is like voodo magic, but apparently getting a class and then getting
+    // a string of that class and outputting that works.
     cout << "Top student: " << top_students.get_element(1).get_element(1) << "\n";
-    cout << "His grade: " << top_students.get_element(1).get_element(2) << "\n";
-    cout << "Homework : " << top_students.get_element(1).get_element(3) << "\n";
+    cout << "Runner up student: " << top_students.get_element(2).get_element(1) << "\n";
+    cout << "Last student: " << top_students.get_element(3).get_element(1) << "\n\n";
+
+    cout << "Top student's grade: " << top_students.get_element(1).get_element(2) << "\n";
+    cout << "Runner up student's grade: " << top_students.get_element(2).get_element(2) << "\n";
+    cout << "Last student's grade: " << top_students.get_element(3).get_element(2) << "\n\n";
+
+    cout << "Top student's Homework : " << top_students.get_element(1).get_element(3) << "\n";
+    cout << "Runner up student's Homework : " << top_students.get_element(2).get_element(3) << "\n";
+    cout << "Last student's Homework : " << top_students.get_element(3).get_element(3) << "\n\n";
     
     // Testing else error catcher
-    cout << "\nThis will not work : " << top_students.get_element(1).get_element(5) << "\n";
-
-    // More class student testing
-    cout << "Runner up: " << top_students.get_element(2).get_element(1) << "\n";
-    cout << "Last student: " << top_students.get_element(3).get_element(1) << "\n";
+    cout << "This will not work: " << top_students.get_element(1).get_element(5);
 
     // This part tests class winners
     cout << "\nWinner of the contest: " << winners.get_element(1).get_element(1) << "\n";
-    cout << "Runner up: " << winners.get_element(3).get_element(1) << "\n";
+    cout << "Runner  up: " << winners.get_element(2).get_element(1) << "\n";
+    cout << "Last place: " << winners.get_element(3).get_element(1) << "\n\n";
 
-    cout << "First place price: " << winners.get_element(1).get_element(3) << "\n";
-    cout << "Second place price: " << winners.get_element(3).get_element(3) << "\n";
+    // Hometowns
+    cout << "Winner's hometown: " << winners.get_element(1).get_element(2) << "\n";
+    cout << "Runner up's hometown: " << winners.get_element(2).get_element(2) << "\n";
+    cout << "Last place's hometown: " << winners.get_element(3).get_element(2) << "\n\n";
+
+    // Prizes
+    cout << "First place prize: " << winners.get_element(1).get_element(3) << "\n";
+    cout << "Second place prize: " << winners.get_element(2).get_element(3) << "\n";
+    cout << "Last place prize: " << winners.get_element(3).get_element(3) << "\n\n";
 
     // Test the error catcher for winners as well.
-    cout << "\nThis will not work : " << winners.get_element(1).get_element(5) << "\n";
+    cout << "This will not work: " << winners.get_element(1).get_element(5);
 
     return 0;
 }

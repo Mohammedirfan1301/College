@@ -64,6 +64,9 @@ Trio<T>::Trio(T one, T two, T three)
     third = three;
 }
 
+// ***************************************************************
+//      Trio class functions
+// ***************************************************************
 
 // Get's an element at position 1 or 2 or 3
 template <class T>
@@ -85,7 +88,9 @@ T Trio<T>::get_element(int position)
     else
     {
         // Error, need to pick 1, 2 or 3.
-        cout << "\nError: Position must be either 1, 2, or 3! \n";
+        T fourth;
+        cout << "\nError: Position must be either 1, 2, or 3! Returning nothing: ";
+        return fourth;
     }
 }
 
@@ -110,7 +115,8 @@ void Trio<T>::set_element(int position, T value)
     else
     {
         // Error, need to pick 1, 2 or 3.
-        cout << "\nError: Position must be either 1, 2, or 3! \n";    }
+        cout << "\nError: Position must be either 1, 2, or 3! \n";    
+    }
 }
 
 
@@ -216,7 +222,7 @@ string Winner::get_element(int position)
     else
     {
         // Error, need to pick 1, 2 or 3.
-        return "\nError: Position must be either 1, 2, or 3! \n";
+        return "Error: Position must be either 1, 2, or 3! \n";
     }
 }
 
