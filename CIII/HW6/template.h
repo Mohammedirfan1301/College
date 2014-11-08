@@ -28,14 +28,14 @@ class Winner
 {
     public:
         Winner();
-        Winner(int set_person, int set_age, int set_DOB);
+        Winner(string set_name, string set_home_town, string set_prize);
         string get_element(int position);
-        void set_element(int position, int value);
+        void set_element(int position, string value);
 
     private:
-        int person;
-        int age;
-        int DOB;
+        string name;
+        string home_town;
+        string prize;
 };
 
 
@@ -44,8 +44,6 @@ template <class T>
 class Trio
 {
     public:
-        //Trio(T student);
-        //Trio(const Winner& copy);
         Trio(T one, T two, T three);
         T get_element(int position);
         void set_element(int position, T value);
@@ -55,15 +53,6 @@ class Trio
         T second;
         T third;
 };
-
-// Copies an object of class Student into the Trio class.
-// template <class T>
-// Trio<T>::Trio(T student)
-// {
-//     //first = copy.name;
-//     //second = copy.grade;
-//     //third = copy.homework;
-// }
 
 
 // Default constructor which takes 3 parameters.
@@ -130,7 +119,7 @@ void Trio<T>::set_element(int position, T value)
 // **************************************************************************
 Student::Student()
 {
-    // tell the compiler to stfu.
+    // tell the compiler to shut up.
 }
 
 
@@ -149,7 +138,7 @@ string Student::get_element(int position)
     if(position == 1)
     {
         return name;                // Once we pick a position, just return whatever
-    }                                       // variable is at that position in the class.
+    }                               // variable is at that position in the class.
     else if(position == 2)
     {
         return grade;
@@ -195,16 +184,16 @@ void Student::set_element(int position, string value)
 
 Winner::Winner()
 {
-    // tell the compiler to stfu.
+    // tell the compiler to shut up.
 }
 
 
 // Default constructor for Class Student. Similar to class Trio.
-Winner::Winner()
+Winner::Winner(string set_name, string set_home_town, string set_prize)
 {
-    person = set_person;
-    age = set_age;
-    DOB = set_DOB;
+    name = set_name;
+    home_town = set_home_town;
+    prize = set_prize;
 }
 
 
@@ -213,15 +202,15 @@ string Winner::get_element(int position)
     // Choose position
     if(position == 1)
     {
-        return name;                // Once we pick a position, just return whatever
-    }                                       // variable is at that position in the class.
+        return name;            // Once we pick a position, just return whatever
+    }                           // variable is at that position in the class.
     else if(position == 2)
     {
-        return grade;
+        return home_town;
     }
     else if(position == 3)
     {
-        return homework;
+        return prize;
     }
     else
     {
@@ -240,11 +229,11 @@ void Winner::set_element(int position, string value)
     }
     else if(position == 2)
     {
-        grade = value;
+        home_town = value;
     }
     else if(position == 3)
     {
-        homework = value;
+        prize = value;
     }
     else
     {
