@@ -27,10 +27,6 @@ class ComputerLabs
             first [] is a vector (lab) of computers
             second [] is a specific computer in that lab    */
         vector < vector <string> > labs;
-        
-        // Only used for the initialization of the vector of vectors.
-        int row;
-        int column;
 };
 
 
@@ -105,6 +101,8 @@ int main()
 
 ComputerLabs::ComputerLabs()
 {
+    int column, row;
+
     // User input
     cout << "How many labs should I create?\nEnter an integer here: ";
     cin >> column;
@@ -151,7 +149,7 @@ void ComputerLabs::show_labs(void)
 void ComputerLabs::login(void)
 {
     string user_ID;
-    int lab_num, computer_num;
+    int lab_num, comp_num;
 
     cout << "\nComputer Lab Login System\n";
     
@@ -163,24 +161,29 @@ void ComputerLabs::login(void)
     cin >> lab_num;
 
     cout << "Please enter the computer number: ";
-    cin >> computer_num;
+    cin >> comp_num;
 
-    // Check and make sure the input is valid
-    if(lab_num <= labs.size() - 1)
+    // Check for errors first.
+    if(lab_num >= labs.size() || lab_num < 0)
     {
-        if(computer_num <= labs[lab_num].size() - 1)
-        {
-            // Set that user_ID to that specific computer
-            labs[lab_num][computer_num] = user_ID;
-        }
-        else{
-            cout << "\nSorry, that computer number does not exist.\n";
-        }
-    }
-    else{
-        cout << "\nSorry, that lab or computer number doesn't exist.\n";
-    }
+        // Too large, so it can't exist.
+        cout << "\nSorry, that lab number doesn't exist.\n";
 
+        // We alerted the user, so exit from this function.
+        return;
+    }
+    else if(comp_num >= labs[lab_num].size() || comp_num < 0)
+    {
+        // Too large, so it can't exist.
+        cout << "\nSorry, that computer number is too high to insert at.\n";
+
+        cout << "Comp number: " << comp_num << "lab number: " << lab_num << endl;
+
+        // We alerted the user, so exit from this function.
+        return;
+    }    // Set that user_ID to that specific computer
+
+    labs[lab_num][comp_num] = user_ID;
 }
 
 
