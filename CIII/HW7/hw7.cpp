@@ -34,7 +34,7 @@ int main()
 {
     ComputerLabs computer_lab;
 
-    int ans = 1;
+    int ans;
     do{
         cout << "\nPlease enter one of the following options \n";
         cout << "1) Display all the labs, computers, and users \n";
@@ -90,9 +90,10 @@ int main()
             default:
                 cout << "\n*********************************\n";
                 cout << "Error, you entered invalid input!\n";
-                cout << "*********************************\n\n";
+                cout << "*********************************\n";
                 break;
         }
+
     }while(ans != 9);
 
 	return 0;
@@ -130,6 +131,7 @@ ComputerLabs::ComputerLabs()
 
 void ComputerLabs::show_labs(void)
 {
+    // Print out these before the loop so they don't show up all the time.
     cout << "\nComputer Lab Display System\n";
     cout << "Labs:\tComputers:\n";
 
@@ -151,6 +153,7 @@ void ComputerLabs::login(void)
     string user_ID;
     int lab_num, comp_num;
 
+    // User input
     cout << "\nComputer Lab Login System\n";
     
     cout << "Please enter your user ID: ";
@@ -189,6 +192,7 @@ void ComputerLabs::login(void)
 
 void ComputerLabs::logoff(void)
 {
+    // User input
     cout << "\nComputer Lab Logoff System\n";
     string user_ID;
 
@@ -201,8 +205,11 @@ void ComputerLabs::logoff(void)
     {
         for(int y = 0; y < labs[x].size(); y++)
         {
+            // We found the USER ID in the vector!
             if(labs[x][y] == user_ID)
             {
+                // Let the user know we're removing that ID, and then set that
+                // spot in the vector equal to "empty"
                 cout << "Removing " << user_ID << " from the computer system.\n";
                 labs[x][y] = "empty";
 
@@ -219,6 +226,7 @@ void ComputerLabs::logoff(void)
 
 void ComputerLabs::searchUser(void)
 {
+    // User input
     cout << "\nComputer Lab Search System\n";
     string user_ID;
 
@@ -230,7 +238,8 @@ void ComputerLabs::searchUser(void)
     for(int x = 0; x < labs.size(); x++)
     {
         for(int y = 0; y < labs[x].size(); y++)
-        {
+        { 
+            // We found the USER ID in the vector!
             if(labs[x][y] == user_ID)
             {
                 // We found it!
@@ -252,6 +261,7 @@ void ComputerLabs::addLab(void)
 {
     int lab_num, comp_num;
 
+    // User input
     cout << "\nComputer Lab Add Lab System\n";
     cout << "Enter the position you'd like to add a lab at: ";
     cin >> lab_num;
@@ -259,10 +269,18 @@ void ComputerLabs::addLab(void)
     cout << "Enter the number of computers this lab should have: ";
     cin >> comp_num;
 
-    // HMM.
-    // Seg faults if we go too high.
-    // need to double check when we add stuff. can we fill up extra labs 
-    // or computers??
+    // Check the bounds, make sure the number isn't too large or too small.
+    // The user should be able to insert a computer at the beginning, middle
+    // or very end of the vector.
+    if(lab_num > labs.size() || lab_num < 0)
+    {
+        // Too large or is a negative number.
+        cout << "\nSorry, that lab number is either too high to insert at\n";
+        cout << "or is a negative number.\n";
+
+        // We alerted the user, so exit from this function.
+        return;
+    }
 
     // Make a new vector of strings
     vector <string> newlab;
@@ -282,6 +300,7 @@ void ComputerLabs::addComp(void)
 {
     int lab_num, comp_num;
 
+    // User input
     cout << "\nComputer Lab Add Computer System\n";
     cout << "Enter the lab you'd like to add a computer at: ";
     cin >> lab_num;
@@ -289,7 +308,10 @@ void ComputerLabs::addComp(void)
     cout << "Enter the position you'd like to insert the computer at: ";
     cin >> comp_num;
 
-    if(lab_num >= labs.size() || lab_num < 0)
+    // Check the bounds, make sure the number isn't too large or too small.
+    // The user should be able to insert a computer at the beginning, middle
+    // or very end of the vector.
+    if(lab_num > labs.size() || lab_num < 0)
     {
         // Too large, so it can't exist.
         cout << "\nSorry, that lab number doesn't exist.\n";
@@ -297,7 +319,7 @@ void ComputerLabs::addComp(void)
         // We alerted the user, so exit from this function.
         return;
     }
-    else if(comp_num >= labs[lab_num].size() || comp_num < 0)
+    else if(comp_num > labs[lab_num].size() || comp_num < 0)
     {
         // Too large, so it can't exist.
         cout << "\nSorry, that computer number is too high to insert at.\n";
@@ -316,6 +338,7 @@ void ComputerLabs::removeLab(void)
 {
     int lab_num;
 
+    // User input
     cout << "\nComputer Lab Remove Lab System\n";
     cout << "Enter a lab to remove: ";
     cin >> lab_num;
@@ -349,6 +372,7 @@ void ComputerLabs::removeComp(void)
 {
     int lab_num, comp_num;
 
+    // User input
     cout << "\nComputer Lab Remove Computer System\n";
     cout << "Enter a computer and its location to remove it.\n";
 
