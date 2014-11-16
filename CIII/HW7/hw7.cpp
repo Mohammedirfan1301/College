@@ -119,8 +119,11 @@ ComputerLabs::ComputerLabs()
     {
         // Make a new vector of strings
         vector <string> newlab;
+
+        // Push the vector of strings into the lab vector
         labs.push_back(newlab);
 
+        // Push back empty strings into that vector of strings.
         for(int y = 0; y < row; y++)
         {
             labs[x].push_back("empty");
@@ -184,8 +187,9 @@ void ComputerLabs::login(void)
 
         // We alerted the user, so exit from this function.
         return;
-    }    // Set that user_ID to that specific computer
+    }    
 
+    // Set that user_ID to that specific computer
     labs[lab_num][comp_num] = user_ID;
 }
 
