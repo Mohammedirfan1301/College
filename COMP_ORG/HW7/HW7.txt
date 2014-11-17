@@ -96,7 +96,7 @@ B.  j = %ecx
     i = %edi 
 
 C.
-    void transpose(int (*arg)[M])
+    void transpose(int arg[][M])
     {
         int x,y;
         int *a = arg[1];
@@ -119,9 +119,17 @@ C.
 3.64
 
 A. 
-
+     8(%ebp) is a pointer to a struct. 
+    12(%ebp) is s1.a
+    16(%ebp) is s1.p
 B. 
+    These fields get used as strings integers, found in the two structures.
 
 C. 
+    To a pass a struture as an argument to a function, you put the name of
+    the structure first and then the variable name for the structure, such
+    as str1 s1 in the example "str2 word_sum(str1 s1"
 
 D. 
+    To return a structure, you just type the name of the structure that you
+    will be returning, such as "str" in the example word_sum function.
