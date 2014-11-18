@@ -17,17 +17,17 @@ int switch3(int *p1, int *p2, mode_t action)
         case MODE_E:
             result = 17;
             goto default:
-        
+
         case MODE_A:
         // LONG PART
 
         // ebp+8 (p1) goes into eax (tmp), then that goes into edx (result).
             tmp = &p1;
-            result = *tmp;   
+            result = *tmp;
         // ebp + 12 (p2) goes into ecx (tmp2), that goes into eax (tmp).
             tmp2 = &p2;
             tmp = *tmp2;     // which is p1 = *p2;
-            tmp2 = tmp;      // which is p2 = p1 
+            tmp2 = tmp;      // which is p2 = p1
             *tmp2 = tmp;     // which is *p2 = p1
 
             // Simplified version:
@@ -91,45 +91,47 @@ int switch3(int *p1, int *p2, mode_t action)
 3.62
 
 A.  M = 13
-    
+
 B.  j = %ecx
-    i = %edi 
+    i = %edi
 
 C.
-    void transpose(int arg[][M])
+    void transpose(int arg[][M])        //  2d array, compiler requires the 2nd index
     {
         int x,y;
-        int *a = arg[1];
-        
+        int *a = arg[0];        // get the first row
+
         for(x = 1; x < M; x++)
         {
-            int *b = &arg[0][x];
+            int *b = &arg[0][x];        // get the first column
 
             for(y = 0; y < x; y++)
             {
-                int tmp = a[y];
+                int tmp = a[y];             // swap the values using a temp variable
                 a[y] = *b;
                 *b = tmp;
-                b += M; 
+                b += M;                         // go to the next column
             }
-            a += M;
+
+            a += M;                             // next row
         }
     }
 
 3.64
 
-A. 
-     8(%ebp) is a pointer to a struct. 
+A.
+     8(%ebp) is a pointer to a struct.
     12(%ebp) is s1.a
     16(%ebp) is s1.p
-B. 
-    These fields get used as strings integers, found in the two structures.
+B.
+    These fields get used as integers, found in the two structures. since five 4 byte allocations
+    would probably be integers I think.
 
-C. 
+C.
     To a pass a struture as an argument to a function, you put the name of
     the structure first and then the variable name for the structure, such
     as str1 s1 in the example "str2 word_sum(str1 s1"
 
-D. 
+D.
     To return a structure, you just type the name of the structure that you
     will be returning, such as "str" in the example word_sum function.
