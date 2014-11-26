@@ -10,7 +10,7 @@ class BankAccount
         double getBalance();
         void deposit(float amount);
         int withdraw(float amount);
-        void transfer(float amount, BankAccount &ToAccount);
+        virtual void transfer(float amount, BankAccount &ToAccount);
         friend ostream& operator <<(ostream& out, const BankAccount& Acc);
 
     protected:
@@ -22,25 +22,40 @@ class BankAccount
 class MoneyMarketAccount:public BankAccount
 {
     public:
-        // Reuse the constructors by just calling BankAccount's constructors.
-        MoneyMarketAccount() : BankAccount() {}
-        MoneyMarketAccount(string set_name, double set_balance) : BankAccount(set_name, set_balance) {}
+        // I was going to just reuse the BankAccount's functions, but then we have 
+        // withdraws to deal with.
+        //MoneyMarketAccount();
+        MoneyMarketAccount(string set_name, double set_balance, int set_withdraws);
+        friend ostream& operator <<(ostream& out, const MoneyMarketAccount& Acc);
+
+        // Testing reusing the default constructor.
+        MoneyMarketAccount(): BankAccount()
+        {
+            withdraws = 0;
+        }
+
+        // Reuse the transfer function
+        // void transfer(float amount, BankAccount &ToAccount)
+        // {
+        //     BankAccount::transfer(amount, ToAccount);
+        // }
 
         // Override the withdraw function
         int withdraw(float amount);
 
     protected:
         int withdraws;
-
 };
 
 
 class CDAccount:public BankAccount
 {
     public:
-        // Reuse the constructors by just calling BankAccount's constructors.
-        CDAccount() : BankAccount() {}
-        CDAccount(string set_name, double set_balance) : BankAccount(set_name, set_balance) {}
+        // I was going to just reuse the BankAccount's functions, but then we 
+        // have the interest rate to deal with.
+        CDAccount();
+        CDAccount(string set_name, double set_balance, float set_interest_rate);
+        friend ostream& operator <<(ostream& out, const CDAccount& Acc);
 
         // Increase balance by doing balance += interest rate * balance
         void apply_interest();
@@ -73,12 +88,12 @@ int main()
     cout << "\nBank Account testing (removed $5000, too much)" << test;
 
     // Testing the MoneyMarketAccount
-    MoneyMarketAccount JAccount("John", 5.00);
+    MoneyMarketAccount JAccount("John", 5.00, 0);
 
     cout << "\n\nTesting the Money Market Account (BEFORE): " << JAccount;
 
-    JAccount.deposit(5.00);
-    cout << "\nMoney Market Account testing (added $5)" << JAccount;
+    JAccount.deposit(15.00);
+    cout << "\nMoney Market Account testing (added $15)" << JAccount;
 
     JAccount.deposit(-5);
     cout << "\nMoney Market  Account testing (added -$5, can't do)" << JAccount;
@@ -90,7 +105,7 @@ int main()
     cout << "\nMoney Market  Account testing (removed $5000, too much)" << JAccount;
 
     // Testing the CDAccount
-    CDAccount Fun("FUN", 50000);
+    CDAccount Fun("FUN", 50000, .1);
 
     cout << "\n\nTesting the CD Account (BEFORE): " << Fun;
 
@@ -103,13 +118,44 @@ int main()
     Fun.withdraw(15.00);
     cout << "\nMoney Market  Account testing (removed $15)" << Fun;
 
-    Fun.withdraw(5000.0);
-    cout << "\nMoney Market  Account testing (removed $5000, too much)" << Fun;
+    Fun.withdraw(50000.0);
+    cout << "\nMoney Market  Account testing (removed $50000, too much)" << Fun;
 
+    // Transfer tests
+    // BankAccount to MoneyMarket
+    cout << "\n\nTesting the transfer function:";
+    cout << "\nBEFORE: (test)"        << test;
+    cout << "\nBEFORE: (JAccount)"    << JAccount;
+
+    test.transfer(100, JAccount);
+
+    cout << "\nAFTER: (test)"        << test;
+    cout << "\nAFTER: (JAccount)"    << JAccount;
+
+    // MoneyMarket to CD
+    cout << "\nBEFORE: (JAccount)" << JAccount;
+    cout << "\nBEFORE: (Fun)"      << Fun;
+
+    JAccount.transfer(110, Fun);
+
+    cout << "\nAFTER: (JAccount)" << JAccount;
+    cout << "\nAFTER: (Fun)"      << Fun;
+   
+    // CD to BankAccount
+    cout << "\nBEFORE: (Fun)"  << Fun;
+    cout << "\nBEFORE: (test)" << test;
+
+    Fun.transfer(100, test);
+
+    cout << "\nAFTER: (Fun)"  << Fun;
+    cout << "\nAFTER: (test)" << test;
+
+    // Done ^^
     return 0;
 }
 
 
+// Bank Account's default constructor
 BankAccount::BankAccount()
 {
     name = "Default";
@@ -117,6 +163,7 @@ BankAccount::BankAccount()
 }
 
 
+// Bank Account's constructor with parameters
 BankAccount::BankAccount(string set_name, double set_balance)
 {
     name = set_name;
@@ -124,6 +171,7 @@ BankAccount::BankAccount(string set_name, double set_balance)
 }
 
 
+// getName function
 string BankAccount::getName()
 {
     // Return the name of this account
@@ -131,6 +179,7 @@ string BankAccount::getName()
 }
 
 
+// getBalance function
 double BankAccount::getBalance()
 {
     // Return the balance of this account
@@ -138,6 +187,7 @@ double BankAccount::getBalance()
 }
 
 
+// Bank Account's deposit function
 void BankAccount::deposit(float amount)
 {
     // Add the amount they want into the account.
@@ -150,9 +200,11 @@ void BankAccount::deposit(float amount)
 
     // If we get here, good to just add the amount.
     balance += amount;
-    cout << "\nTransaction complete.\n";
+    //cout << "\nTransaction complete.\n";
 }
 
+
+// Bank Account's withdraw function
 int BankAccount::withdraw(float amount)
 {
     // Remove the amount from the account.
@@ -175,6 +227,7 @@ int BankAccount::withdraw(float amount)
 }
 
 
+// Bank Account's transfer function
 void BankAccount::transfer(float amount, BankAccount &ToAccount)
 {
     int worked = withdraw(amount);
@@ -191,14 +244,46 @@ void BankAccount::transfer(float amount, BankAccount &ToAccount)
     }
 }
 
+
+// Bank Account's << operator function
 ostream& operator <<(ostream& out, const BankAccount& Acc)
 {
-    cout << "\nAccount Name: " << Acc.name << endl;
+    cout << "\nAccount Name: "  << Acc.name << endl;
     cout << "Account Balance: " << Acc.balance << endl;
 }
 
 
 // *******************************************************************
+//      Money Market Account functions go here
+// *******************************************************************
+// Default constructor
+// MoneyMarketAccount::MoneyMarketAccount()
+// {
+//     name = "Default";
+//     balance = 100;
+//     withdraws = 0;
+// }
+
+
+// Constructor with parameters
+MoneyMarketAccount::MoneyMarketAccount(string set_name, double set_balance, int set_withdraws)
+{
+    name = set_name;
+    balance = set_balance;
+    withdraws = set_withdraws;
+}
+
+
+// << operator
+ostream& operator <<(ostream& out, const MoneyMarketAccount& Acc)
+{
+    cout << "\nAccount Name: "  << Acc.name << endl;
+    cout << "Account Balance: " << Acc.balance << endl;
+    cout << "Withdraws: "       << Acc.withdraws << endl;
+}
+
+
+// MoneyMarket's overridden withdraw function
 int MoneyMarketAccount::withdraw(float amount)
 {
     // Check to see if they've used any withdraws yet.
@@ -247,12 +332,43 @@ int MoneyMarketAccount::withdraw(float amount)
 }
 
 // *******************************************************************
+//      CD Account's functions go here
+// *******************************************************************
+// CD Account default constructor
+CDAccount::CDAccount()
+{
+    name = "Default";
+    balance = 100;
+    interest_rate = .1;
+}
+
+
+// CD Account constructor with parameters
+CDAccount::CDAccount(string set_name, double set_balance, float set_interest_rate)
+{
+    name = set_name;
+    balance = set_balance;
+    interest_rate = set_interest_rate;
+}
+
+
+// << operator
+ostream& operator <<(ostream& out, const CDAccount& Acc)
+{
+    cout << "\nAccount Name: "  << Acc.name << endl;
+    cout << "Account Balance: " << Acc.balance << endl;
+    cout << "Interest rate: "   << Acc.interest_rate << endl;
+}
+
+
+// Apply interest function
 void CDAccount::apply_interest()
 {
     balance += interest_rate * balance;
 }
 
 
+// Overridden withdraw function
 int CDAccount::withdraw(float amount)
 {
     // ANY withdraw gets a 25% fee, so don't bother keeping track of that.
@@ -264,7 +380,7 @@ int CDAccount::withdraw(float amount)
         return 1;
     }
     // Withdraw isn't allowed, they don't have enough money in their account.
-    else if(balance - amount >= 0)   // Must be greater than 0 for it to be allowed.
+    else if(balance - amount < 0)   // Must be greater than 0 for it to be allowed.
     {
         cout << "\nInsufficient funds.\n";
         return 1;
