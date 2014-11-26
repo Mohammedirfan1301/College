@@ -12,7 +12,7 @@ class Student
 {
     public:
         Student();
-        Student(string set_name, string set_grade, string set_HW);
+        void Student(string set_name, string set_grade, string set_HW);
         string get_element(int position);
         void set_element(int position, string value);
 
