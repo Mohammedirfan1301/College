@@ -10,44 +10,41 @@
 
 using namespace std;
 
+
 class Game
 {
 public:
+    Game();
     void instructions();
-    char askYesNo(string question);
-    int askNumber(string question, int high, int low = 0);
-    void announceWinner(char winner, char computer, char human);
+    void askYesNo(void);
+    void askNumber(void);
+    void announceWinner(int Winner);
 
-    // constants
-    const char X = 'X';
-    const char O = 'O';
-    const char EMPTY = ' ';
-    const char TIE = 'T';
-    const char NO_ONE = 'N';
-
-private:
+protected:
     char response;
     int number;
     char firstMove;
-
-    vector<char> board;
     int move;
-    Board Game_Board;
-    AbstractPlayer Player;
-    Computer CPU;
-    Human The_Human;
+    int low, high;
+    vector<char> board;
 
+    // Board Game_Board;
+    // AbstractPlayer Player;
+    // Computer CPU;
+    // Human The_Human;
 };
+
 
 class Board: public Game
 {
 public:
+    void displayBoard(void);
     bool isLegal(const vector<char>& board, int move);
     char winner(const vector<char>& board);
 };
 
 
-class AbstractPlayer
+class AbstractPlayer: public Game
 {
 public:
     virtual void selectPiece();
@@ -74,47 +71,33 @@ public:
 // main function
 int main()
 {
+    Game PlayTheGame;
 
-
-    int move;
-    const int NUM_SQUARES = 9;
-    vector<char> board(NUM_SQUARES, EMPTY);
-
-    instructions();
-    char human = humanPiece();
-    char computer = opponent(human);
-    char turn = X;
-    displayBoard(board);
-
-    while (winner(board) == NO_ONE)
-    {
-        if (turn == human) 
-        {
-            move = humanMove(board, human);
-            board[move] = human;
-        }
-        else
-        {
-            move = computerMove(board, computer);
-            board[move] = computer;
-        }
-        displayBoard(board);
-        turn = opponent(turn);
-    }
-
-    announceWinner(winner(board), computer, human);
+    PlayTheGame.instructions();
+    PlayTheGame.askYesNo();
+    PlayTheGame.askNumber();
+    //PlayTheGame.displayBoard();
+    PlayTheGame.announceWinner(1);
 
     return 0;
 }
 
 
-// functions
+// Functions
+Game::Game()
+{
+    response = '-';
+    number = 0;
+    firstMove = '-';
+}
+
+
 void Game::instructions()
 {
     cout << "Welcome to tic-tac-toe.\n";
     cout << "This will be a friendly battle of human vs computer.\n\n";
 
-    cout << "Make your move known by entering a number, 1 - 9.  The number\n";
+    cout << "Make your move by entering a number, 1 - 9.  The number\n";
     cout << "corresponds to the desired board position, as illustrated:\n\n";
 
     // I'm changing this because the original game was very counterintuitive
@@ -128,28 +111,27 @@ void Game::instructions()
 }
 
 
-void Game::askYesNo(string question)
+void Game::askYesNo(void)
 {
     do{
-        cout << question << " (y/n): ";
+        cout << "Do you require the first move? (y/n): ";
         cin >> response;
     }while (response != 'y' && response != 'n');
 }
 
 
-void Game::askNumber(string question, int high, int low)
+void Game::askNumber(void)
 {
-    do{
-        cout << question << " (" << low << " - " << high << "): ";
-        cin >> number;
-    }while (number > high || number < low);
+    cout << "Where will you move? -> ";
+    cin >> number;
 }
 
 
 void AbstractPlayer::move()
 {
-    char go_first = askYesNo("Do you require the first move?");
-    if(go_first == 'y')
+    askYesNo();
+    
+    if(response == 'y')
     {
         cout << "\nPlease feel free to take a number.\n";
         firstMove = 'X';
@@ -164,15 +146,15 @@ void AbstractPlayer::move()
 
 void Board::displayBoard(void)
 {
-    cout << "\n\t" << board[0] << " | " << board[1] << " | " << board[2];
+    cout << "\n\t" << board[6] << " | " << board[7] << " | " << board[8];    
     cout << "\n\t" << "---------";
     cout << "\n\t" << board[3] << " | " << board[4] << " | " << board[5];
     cout << "\n\t" << "---------";
-    cout << "\n\t" << board[6] << " | " << board[7] << " | " << board[8];
+    cout << "\n\t" << board[0] << " | " << board[1] << " | " << board[2];
     cout << "\n\n";
 }
 
-
+/*
 char winner(void)
 {
     // all possible winning rows
@@ -205,15 +187,15 @@ char winner(void)
     // since nobody has won and it isn't a tie, the game ain't over
     return NO_ONE;
 }
-
-
+*/
+/*
 inline bool isLegal(int move, const vector<char>& board)
 {
     return (board[move] == EMPTY);
 }
-
-
-int Move(const vector<char>& board, char human)
+*/
+/*
+void Move()
 {
     int move = askNumber("Where will you move?", (board.size() - 1));
     while (!isLegal(move, board))
@@ -272,20 +254,20 @@ int Move(const vector<char>& board, char human)
         }
     }
 }
-
+*/
 
 void Game::announceWinner(int Winner)
 {
     switch(Winner)
     {
         case 1:
-            cout << winner << "'s won!\n";
+            cout << "The Computer won!\n";
             cout << "As I predicted, human, I am triumphant once more -- proof\n";
             cout << "that computers are superior to humans in all regards.\n";
             break;
 
         case 2:
-            cout << winner << "'s won!\n";
+            cout << "You won!\n";
             cout << "No, no!  It cannot be!  Somehow you tricked me, human.\n";
             cout << "But never again!  I, the computer, so swear it!\n";
             break;
@@ -294,7 +276,7 @@ void Game::announceWinner(int Winner)
             cout << "It's a tie.\n";
             cout << "You were most lucky, human, and somehow managed to tie me.\n";
             cout << "Celebrate... for this is the best you will ever achieve.\n";
-            break
+            break;
     }
 }
 
