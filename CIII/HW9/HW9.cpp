@@ -10,6 +10,7 @@
 
 using namespace std;
 
+class Board;
 
 class Game
 {
@@ -28,10 +29,10 @@ protected:
     int low, high;
     vector<char> board;
 
-    // Board Game_Board;
-    // AbstractPlayer Player;
-    // Computer CPU;
-    // Human The_Human;
+    Board *Game_Board;
+    AbstractPlayer *Player;
+    Computer *CPU;
+    Human *The_Human;
 };
 
 
@@ -39,8 +40,10 @@ class Board: public Game
 {
 public:
     void displayBoard(void);
-    bool isLegal(const vector<char>& board, int move);
+    bool isLegal(const vector<char>& board);
     char winner(const vector<char>& board);
+protected:
+
 };
 
 
@@ -75,7 +78,7 @@ int main()
 
     PlayTheGame.instructions();
     PlayTheGame.askYesNo();
-    PlayTheGame.askNumber();
+    //PlayTheGame.
     //PlayTheGame.displayBoard();
     PlayTheGame.announceWinner(1);
 
@@ -114,7 +117,7 @@ void Game::instructions()
 void Game::askYesNo(void)
 {
     do{
-        cout << "Do you require the first move? (y/n): ";
+        cout << "Do you want to make the first move? (y/n): ";
         cin >> response;
     }while (response != 'y' && response != 'n');
 }
