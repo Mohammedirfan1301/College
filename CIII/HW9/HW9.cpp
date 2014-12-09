@@ -1,6 +1,7 @@
-// Tic-Tac-Toe
-// Plays the game of tic-tac-toe against a human opponent
-
+/*
+    Jason Downing, Copyright (C)2014
+    12/8/2014
+*/
 #include <iostream>
 #include <string>
 #include <vector>
@@ -9,29 +10,72 @@
 
 using namespace std;
 
-// global constants
-const char X = 'X';
-const char O = 'O';
-const char EMPTY = ' ';
-const char TIE = 'T';
-const char NO_ONE = 'N';
+class Game
+{
+public:
+    void instructions();
+    char askYesNo(string question);
+    int askNumber(string question, int high, int low = 0);
+    void announceWinner(char winner, char computer, char human);
 
-// function prototypes
-void instructions();
-char askYesNo(string question);
-int askNumber(string question, int high, int low = 0);
-char humanPiece();
-char opponent(char piece);
-void displayBoard(const vector<char>& board);
-char winner(const vector<char>& board);
-bool isLegal(const vector<char>& board, int move);
-int humanMove(const vector<char>& board, char human);
-int computerMove(vector<char>& board, char computer);
-void announceWinner(char winner, char computer, char human);
+    // constants
+    const char X = 'X';
+    const char O = 'O';
+    const char EMPTY = ' ';
+    const char TIE = 'T';
+    const char NO_ONE = 'N';
+
+private:
+    char response;
+    int number;
+    char firstMove;
+
+    vector<char> board;
+    int move;
+    Board Game_Board;
+    AbstractPlayer Player;
+    Computer CPU;
+    Human The_Human;
+
+};
+
+class Board: public Game
+{
+public:
+    bool isLegal(const vector<char>& board, int move);
+    char winner(const vector<char>& board);
+};
+
+
+class AbstractPlayer
+{
+public:
+    virtual void selectPiece();
+    virtual void move();
+};
+
+
+class Computer: public AbstractPlayer
+{
+public:
+    virtual void selectPiece();
+    virtual void move();
+};
+
+
+class Human: public AbstractPlayer
+{
+public:
+    virtual void selectPiece();
+    virtual void move();
+};
+
 
 // main function
 int main()
 {
+
+
     int move;
     const int NUM_SQUARES = 9;
     vector<char> board(NUM_SQUARES, EMPTY);
@@ -44,7 +88,7 @@ int main()
 
     while (winner(board) == NO_ONE)
     {
-        if (turn == human)
+        if (turn == human) 
         {
             move = humanMove(board, human);
             board[move] = human;
@@ -63,70 +107,62 @@ int main()
     return 0;
 }
 
-// functions
-void instructions()
-{
-    cout << "Welcome to the ultimate man-machine showdown: Tic-Tac-Toe.\n";
-    cout << "--where human brain is pit against silicon processor\n\n";
 
-    cout << "Make your move known by entering a number, 0 - 8.  The number\n";
+// functions
+void Game::instructions()
+{
+    cout << "Welcome to tic-tac-toe.\n";
+    cout << "This will be a friendly battle of human vs computer.\n\n";
+
+    cout << "Make your move known by entering a number, 1 - 9.  The number\n";
     cout << "corresponds to the desired board position, as illustrated:\n\n";
 
+    // I'm changing this because the original game was very counterintuitive
     cout << "       7 | 8 | 9\n";
-    cout << "       ---------\n";
+    cout << "      -----------\n";
     cout << "       4 | 5 | 6\n";
-    cout << "       ---------\n";
+    cout << "      -----------\n";
     cout << "       1 | 2 | 3\n\n";
 
-    cout << "Prepare yourself, human.  The battle is about to begin.\n\n";
+    cout << "Prepare yourself.  The battle is about to begin.\n\n";
 }
 
-char askYesNo(string question)
+
+void Game::askYesNo(string question)
 {
-    char response;
     do{
-    	cout << question << " (y/n): ";
+        cout << question << " (y/n): ";
         cin >> response;
     }while (response != 'y' && response != 'n');
-
-    return response;
 }
 
-int askNumber(string question, int high, int low)
+
+void Game::askNumber(string question, int high, int low)
 {
-    int number;
     do{
         cout << question << " (" << low << " - " << high << "): ";
         cin >> number;
-    } while (number > high || number < low);
-
-    return number;
+    }while (number > high || number < low);
 }
 
-char humanPiece()
+
+void AbstractPlayer::move()
 {
     char go_first = askYesNo("Do you require the first move?");
-    if (go_first == 'y'){
-        cout << "\nThen take the first move.  You will need it.\n";
-        return X;
+    if(go_first == 'y')
+    {
+        cout << "\nPlease feel free to take a number.\n";
+        firstMove = 'X';
     }
-    else{
-        cout << "\nYour bravery will be your undoing... I will go first.\n";
-        return O;
-    }
-}
-
-char opponent(char piece)
-{
-    if (piece == X){
-        return O;
-    }
-    else{
-        return X;
+    else
+    {
+        cout << "\nI will go first.\n";
+        firstMove = 'O';
     }
 }
 
-void displayBoard(const vector<char>& board)
+
+void Board::displayBoard(void)
 {
     cout << "\n\t" << board[0] << " | " << board[1] << " | " << board[2];
     cout << "\n\t" << "---------";
@@ -136,7 +172,8 @@ void displayBoard(const vector<char>& board)
     cout << "\n\n";
 }
 
-char winner(const vector<char>& board)
+
+char winner(void)
 {
     // all possible winning rows
     const int WINNING_ROWS[8][3] = { {0, 1, 2},
@@ -169,26 +206,24 @@ char winner(const vector<char>& board)
     return NO_ONE;
 }
 
+
 inline bool isLegal(int move, const vector<char>& board)
 {
     return (board[move] == EMPTY);
 }
 
-int humanMove(const vector<char>& board, char human)
+
+int Move(const vector<char>& board, char human)
 {
     int move = askNumber("Where will you move?", (board.size() - 1));
     while (!isLegal(move, board))
     {
-        cout << "\nThat square is already occupied, foolish human.\n";
+        cout << "\nThat square is already occupied, fool.\n";
         move = askNumber("Where will you move?", (board.size() - 1));
     }
     cout << "Fine...\n";
-    return move;
-}
-
-int computerMove(vector<char> &board, char computer)
-{
-    cout << "I shall take square number ";
+   
+    cout << "I will take the number: ";
 
     // if computer can win on next move, make that move
     for(int move = 0; move < board.size(); ++move)
@@ -225,6 +260,7 @@ int computerMove(vector<char> &board, char computer)
 
     // the best moves to make, in order
     const int BEST_MOVES[] = {4, 0, 2, 6, 8, 1, 3, 5, 7};
+
     // since no one can win on next move, pick best open square
     for(int i = 0; i < board.size(); ++i)
     {
@@ -237,27 +273,28 @@ int computerMove(vector<char> &board, char computer)
     }
 }
 
-void announceWinner(char winner, char computer, char human)
+
+void Game::announceWinner(int Winner)
 {
-    if (winner == computer)
+    switch(Winner)
     {
-        cout << winner << "'s won!\n";
-        cout << "As I predicted, human, I am triumphant once more -- proof\n";
-        cout << "that computers are superior to humans in all regards.\n";
-    }
+        case 1:
+            cout << winner << "'s won!\n";
+            cout << "As I predicted, human, I am triumphant once more -- proof\n";
+            cout << "that computers are superior to humans in all regards.\n";
+            break;
 
-    else if (winner == human)
-    {
-        cout << winner << "'s won!\n";
-        cout << "No, no!  It cannot be!  Somehow you tricked me, human.\n";
-        cout << "But never again!  I, the computer, so swear it!\n";
-    }
+        case 2:
+            cout << winner << "'s won!\n";
+            cout << "No, no!  It cannot be!  Somehow you tricked me, human.\n";
+            cout << "But never again!  I, the computer, so swear it!\n";
+            break;
 
-    else
-    {
-        cout << "It's a tie.\n";
-        cout << "You were most lucky, human, and somehow managed to tie me.\n";
-        cout << "Celebrate... for this is the best you will ever achieve.\n";
+        case 3:
+            cout << "It's a tie.\n";
+            cout << "You were most lucky, human, and somehow managed to tie me.\n";
+            cout << "Celebrate... for this is the best you will ever achieve.\n";
+            break
     }
 }
 
