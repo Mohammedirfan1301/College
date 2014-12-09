@@ -60,24 +60,27 @@ public:
 	void buy_car(string model);
 		
 private:
-	float sale;					// Chrsyler's are only 5% off, better wait til next month.
+	float sale;					// chrysler's are only 5% off, better wait til next month.
 };
 
 
 int main()
 {
-	Dealership Lowell_GM_Dealer;
-	Lowell_GM_Dealer.printInventory();
+	// Dealership testing here
+	Dealership Lowell_Generic_Dealer;
+	Lowell_Generic_Dealer.printInventory();
 
-	Lowell_GM_Dealer.add_car("Chevrolet Camaro", 30999);
-	Lowell_GM_Dealer.add_car("Chevy Cruze", 20995);
-	Lowell_GM_Dealer.add_car("Chevy Impala", 23998);
-	Lowell_GM_Dealer.printInventory();
+	Lowell_Generic_Dealer.add_car("Generic Truck", 30999);
+	Lowell_Generic_Dealer.add_car("Generic Sedan", 20995);
+	Lowell_Generic_Dealer.add_car("Super Awesome Generic 300", 23998);
+	Lowell_Generic_Dealer.printInventory();
 
-	Lowell_GM_Dealer.buy_car("Chevy Cruze");
+	Lowell_Generic_Dealer.buy_car("Chevy Cruze");		// This will fail.
+	Lowell_Generic_Dealer.buy_car("Generic Truck");		// This won't.
 
-	Lowell_GM_Dealer.printInventory();
+	Lowell_Generic_Dealer.printInventory();
 
+	// Testing the Ford class (dealership) here
 	Ford Lowell_Ford;
 	Lowell_Ford.printInventory();
 
@@ -86,9 +89,45 @@ int main()
 	Lowell_Ford.add_car("Focus", 16810);
 	Lowell_Ford.add_car("Fusion", 22010);
 
-	Lowell_Ford.buy_car("Fiesta");
+	Lowell_Ford.buy_car("Fiesta");		// This one won't fail.
+	Lowell_Ford.buy_car("Fiesta"); 		// This one will fail, since it no longer exists.
 
 	Lowell_Ford.printInventory();
+
+	// Now to test this GM class over here
+	GM Lowell_GM;
+	Lowell_GM.printInventory();
+
+	Lowell_GM.add_car("Chevy Spark", 12170);
+	Lowell_GM.add_car("Buick Lacrosse", 33635);
+	Lowell_GM.add_car("GMC Sierra 1500", 26605);
+	Lowell_GM.add_car("Cadillac ATS", 33065);
+	Lowell_GM.add_car("Chevy Traverse", 30995);
+
+	Lowell_GM.buy_car("Fiesta");		// This will fail, that's a Ford car not a GM!
+	Lowell_GM.buy_car("Chevy Spark");	// This won't fail.
+
+	Lowell_GM.printInventory();
+
+	// Finally, just the chrysler class to test
+	Chrysler Lowell_Chrysler;
+	Lowell_Chrysler.printInventory();
+
+	// Turns out Chrysler only makes 3 cars! So I included a Jeep and a Dodge
+	// Since Chrysler owns them anyway.
+	Lowell_Chrysler.add_car("Chrysler 200", 21700);
+	Lowell_Chrysler.add_car("Chrysler 300", 31395);
+	Lowell_Chrysler.add_car("Chrysler Town & Country", 30765);
+	Lowell_Chrysler.add_car("Jeep Grand Cherokee", 29895);
+	Lowell_Chrysler.add_car("Dodge RAM 1500", 25060);
+
+	Lowell_Chrysler.buy_car("Chrysler 300");					// This person is buying a cool car.
+	Lowell_Chrysler.buy_car("Chrysler Town & Country");			// This person is buying a not so cool car.
+	Lowell_Chrysler.buy_car("Chrysler Town & Country");			// This will fail, we already sold that van!
+
+	Lowell_Chrysler.printInventory();
+
+	return 0;
 }
 
 //******************************************************************************
@@ -323,9 +362,9 @@ void Chrysler::buy_car(string model)
 			// Let the user know we found their car.
 			cout << "Found that car right here! Let me bring it up to the front for you.\n";
 			cout << "Don't forget to buy the super awesome protection warranty too!\n";
-			cout << "Oh, by the way, you saved 5% this month! Thanks for buying a Chrsyler!\n";
+			cout << "Oh, by the way, you saved 5% this month! Thanks for buying a chrysler!\n";
 			cout << "Price you would have paid: $" << car_ptr -> second << endl;
-			cout << "Price you paid thanks to the Chrsyler Big Finish Event: $" << price << endl;
+			cout << "Price you paid thanks to the chrysler Big Finish Event: $" << price << endl;
 			cout << "Total savings: $" << total_savings << endl;
 
 			// Make sure to remove the car from the map.
