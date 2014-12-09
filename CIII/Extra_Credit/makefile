@@ -1,4 +1,4 @@
 CC		= g++
 
 all:
-	$(CC) 	ecp.cpp -o ecp.out
+	$(CC) 	dealership.cpp -o dealership.out
