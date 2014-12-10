@@ -37,7 +37,7 @@ void Game::PlayGame(void)
 	// Loop through the game now until we find a winner.
 	while (Game_Board.winner() == NO_ONE)
 	{
-		if (Game_Board.turn == 'X')
+		if (Game_Board.turn == 'H')
 		{
 			// Human goes
 			human.move(Game_Board);
@@ -109,40 +109,54 @@ int Board::getSize(void)
 
 void Board::askYesNo(void)
 {
+	notYN except;
+
 	do{
 		cout << "Do you want to make the first move? (y/n): ";
 		cin >> response;
+
+		try{
+			if(response != 'y' || response != 'Y' || response != 'n' || response != 'N')
+			{
+				throw except;
+			}
+			else
+			{
+				break;
+			}
+		}
+		catch(exception& e)
+		{
+			cout << endl << e.what() << endl << endl;
+		}
 	}while(response != 'y' && response != 'n');
 
-	// This is from humanPiece, I didn't feel like it was
-	// necessary to have another function for this.
 	if(response == 'y')
 	{
 		cout << "\nPlease feel free to take a number.\n";
-		firstMove = 'X';
-		turn = 'X';
+		firstMove = 'H';
+		turn = 'H';
 	}
 	else
 	{
 		cout << "\nI will go first.\n";
-		firstMove = 'O';
-		turn = 'O';
+		firstMove = 'C';
+		turn = 'C';
 	}
 }
 
 
 char Board::winner(void)
 {
-	// all possible winning rows
+	// All possible winning rows
 	const int WIN[8][3] = {{0, 1, 2}, {3, 4, 5},{6, 7, 8},{0, 3, 6},{1, 4, 7},{2, 5, 8},{0, 4, 8},{2, 4, 6} };
 	const int TOTAL_ROWS = 8;
 
-	// if any winning row has three values that are the same (and not EMPTY),
+	// If any winning row has three values that are the same (and not EMPTY),
 	// then we have a winner
 	for(int row = 0; row < TOTAL_ROWS; ++row)
 	{
-		if( (board[WIN[row][0]] != ' ') &&
-			  (board[WIN[row][0]] == board[WIN[row][1]]) &&
+		if( (board[WIN[row][0]] != ' ') && (board[WIN[row][0]] == board[WIN[row][1]]) &&
 			  (board[WIN[row][1]] == board[WIN[row][2]]) )
 		{
 			the_winner = board[WIN[row][0]];
@@ -173,7 +187,7 @@ void Board::announceWinner(void)
 		return;
 	}
 	else if(the_winner == 'X')	// The Human is always "X".
-{															// Note: Human cannot win the way this program is
+	{														// Note: Human cannot win the way this program is
 		cout << "You won!\n";			// programmed.
 		cout << "No, no!  It cannot be!  Somehow you tricked me, human.\n";
 		cout << "But never again!  I, the computer, so swear it!\n";
@@ -207,7 +221,12 @@ AbstractPlayer::AbstractPlayer()
 
 void AbstractPlayer::move()
 {
-    // Left empty
+  // Left empty
+}
+
+char AbstractPlayer::selectPiece(Board& board)
+{
+	// Left empty
 }
 
 
@@ -232,54 +251,64 @@ void Human::move(Board& board)
 		// Basically if the move is on an empty spot.
 		if(isLegal(board, board.number - 1) == true)
 		{
-			board.board[board.number - 1] = 'X';
+			board.board[board.number - 1] = selectPiece(board);
 			x = 1;
-			board.turn = 'O';
+			board.turn = 'C';
 		}
 	}while(x == 0);
 }
 
+char Human::selectPiece(Board& board)
+{
+	if(board.firstMove == 'H')
+	{
+		return X;
+	}
+	else{
+		return O;
+	}
+}
 
-// Same as Human, requires just one function since it too inherits from AbstractPlayer.
+
+// Same as Human, requires just one function since it inherits from AbstractPlayer.
 void Computer::move(Board& board)
 {
   cout << "I will take the number: ";
 
-  // if computer can win on next move, make that move
+	// I combined the two for loops in to one, since that made more logical sense.
   for(int move = 0; move < board.getSize(); ++move)
   {
-      if (isLegal(board, move))
-      {
-          board.board[move] = 'O';
-          if (board.winner() == 'O')
-          {
-              cout << move << endl;
-              board.board[move] = 'O';
-              board.turn = 'X';
-              return;
-          }
-          // done checking this move, undo it
-          board.board[move] = EMPTY;
-      }
+		// if computer can win on next move, make that move
+		if (isLegal(board, move))
+		{
+		    board.board[move] = selectPiece(board);
+		    if (board.winner() == selectPiece(board))
+		    {
+		        cout << move << endl;
+		        board.board[move] = selectPiece(board);
+		        board.turn = 'H';
+		        return;
+		    }
+		    // done checking this move, undo it
+		    board.board[move] = EMPTY;
+		}
+
+		// if human can win on next move, block that move
+		if (isLegal(board, move))
+		{
+			board.board[move] = selectPiece(board);
+			if (board.winner() == selectPiece(board))
+			{
+				cout << move << endl;
+				board.board[move] = selectPiece(board);
+				board.turn = 'H';
+				return;
+			}
+			// done checking this move, undo it
+			board.board[move] = EMPTY;
+		}
   }
 
-  // if human can win on next move, block that move
-  for(int move = 0; move < board.getSize(); ++move)
-  {
-      if (isLegal(board, move))
-      {
-          board.board[move] = 'X';
-          if (board.winner() == 'X')
-          {
-              cout << move << endl;
-              board.board[move] = 'O';
-              board.turn = 'X';
-              return;
-          }
-          // done checking this move, undo it
-          board.board[move] = EMPTY;
-      }
-  }
 
   // the best moves to make, in order
   const int BEST_MOVES[] = {4, 0, 2, 6, 8, 1, 3, 5, 7};
@@ -291,9 +320,20 @@ void Computer::move(Board& board)
       if (isLegal(board,move))
       {
           cout << move << endl;
-          board.board[move] = 'O';
-          board.turn = 'X';
+          board.board[move] = selectPiece(board);
+          board.turn = 'H';
           return;
       }
   }
+}
+
+char Computer::selectPiece(Board& board)
+{
+	if(board.firstMove == 'C')
+	{
+		return X;
+	}
+	else{
+		return O;
+	}
 }

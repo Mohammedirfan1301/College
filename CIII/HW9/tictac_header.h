@@ -41,6 +41,7 @@ class AbstractPlayer
 public:
   AbstractPlayer();
   virtual void move();
+  virtual char selectPiece(Board& board);
   inline bool isLegal(Board& board, int move);
 };
 
@@ -50,6 +51,7 @@ class Computer: public AbstractPlayer
 {
 public:
   void move(Board& board);
+  char selectPiece(Board& board);
 };
 
 
@@ -58,6 +60,7 @@ class Human: public AbstractPlayer
 {
 public:
   void move(Board& board);
+  char selectPiece(Board& board);
 };
 
 
@@ -75,5 +78,13 @@ protected:
   Computer computer;
 };
 
+// Exception classes
+class notYN: public exception
+{
+  virtual const char* what() const throw()
+  {
+    return "Error - please enter y/Y or n/N!";
+  }
+};
 
 #endif
