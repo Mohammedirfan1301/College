@@ -9,14 +9,13 @@
 
 using namespace std;
 
-
 // Board Class.
 class Board
 {
 public:
   Board();
   void displayBoard(void);
-  bool isLegal(void);
+  //bool isLegal(void);
   char winner(void);
   void askYesNo(void);
   inline bool isLegal(int move);
@@ -34,16 +33,16 @@ protected:
   int move;
   int low, high;
   vector<char> board;
-
 };
 
 
 // Abstract Player Class. Child classes: Computer, Human.
-class AbstractPlayer: public Board
+class AbstractPlayer
 {
 public:
   virtual void selectPiece();
   virtual void move();
+  bool isLegal(Board& board);
 };
 
 
@@ -51,8 +50,8 @@ public:
 class Computer: public AbstractPlayer
 {
 public:
-  virtual void selectPiece();
-  virtual void move();
+  void selectPiece(Board& board);
+  void move(Board& board);
 };
 
 
@@ -60,9 +59,10 @@ public:
 class Human: public AbstractPlayer
 {
 public:
-  virtual void selectPiece();
-  virtual void move();
+  void selectPiece(Board& board);
+  void move(Board& board);
 };
+
 
 
 // Game Class. Uses the other classes
@@ -74,8 +74,8 @@ public:
 
 protected:
   Board Game_Board;
-  AbstractPlayer* Human;
-  AbstractPlayer* Computer;
+  Human human;
+  Computer computer;
 };
 
 
