@@ -83,8 +83,6 @@ Board::Board()
 	low = 1;
 	high = 9;
 
-
-
 	// Make sure to set the board up to be empty.
 	for(int i = 0; i < 9; i++)
 	{
