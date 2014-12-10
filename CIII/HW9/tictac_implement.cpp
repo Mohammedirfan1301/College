@@ -35,9 +35,9 @@ void Game::PlayGame(void)
 	Game_Board.displayBoard();
 
 	// Loop through the game now until we find a winner.
-	while (Game_Board.winner() == NO_ONE)
+	while(Game_Board.winner() == NO_ONE)
 	{
-		if (Game_Board.turn == 'H')
+		if(Game_Board.turn == 'H')
 		{
 			// Human goes
 			human.move(Game_Board);
@@ -49,7 +49,6 @@ void Game::PlayGame(void)
 		}
 		Game_Board.displayBoard();				// Display the board after each turn.
 	}
-
 	// We got a winner, so call that function.
 	Game_Board.announceWinner();
 }
@@ -116,13 +115,13 @@ void Board::askYesNo(void)
 		cin >> response;
 
 		try{
-			if(response != 'y' || response != 'Y' || response != 'n' || response != 'N')
+			if(response == 'y' || response == 'Y' || response == 'n' || response == 'N')
 			{
-				throw except;
+				// Don't throw an exception, we're good.
 			}
-			else
-			{
-				break;
+			else{
+				// throw one, the user didn't follow instructions.
+				throw except;
 			}
 		}
 		catch(exception& e)
@@ -159,6 +158,7 @@ char Board::winner(void)
 		if( (board[WIN[row][0]] != ' ') && (board[WIN[row][0]] == board[WIN[row][1]]) &&
 			  (board[WIN[row][1]] == board[WIN[row][2]]) )
 		{
+
 			the_winner = board[WIN[row][0]];
 			return board[WIN[row][0]];
 		}
@@ -179,14 +179,14 @@ char Board::winner(void)
 
 void Board::announceWinner(void)
 {
-	if(the_winner == 'O')			// The computer is always "O"
+	if(the_winner == 'X' && firstMove == 'C' || the_winner == 'O' && firstMove == 'H')
 	{
 		cout << "The Computer won!\n";
 		cout << "As I predicted, human, I am triumphant once more -- proof\n";
 		cout << "that computers are superior to humans in all regards.\n";
 		return;
 	}
-	else if(the_winner == 'X')	// The Human is always "X".
+	else if(the_winner == 'X' && firstMove == 'H' || the_winner == 'O' && firstMove == 'C')
 	{														// Note: Human cannot win the way this program is
 		cout << "You won!\n";			// programmed.
 		cout << "No, no!  It cannot be!  Somehow you tricked me, human.\n";
@@ -273,6 +273,7 @@ char Human::selectPiece(Board& board)
 // Same as Human, requires just one function since it inherits from AbstractPlayer.
 void Computer::move(Board& board)
 {
+	char human;
   cout << "I will take the number: ";
 
 	// I combined the two for loops in to one, since that made more logical sense.
@@ -296,11 +297,20 @@ void Computer::move(Board& board)
 		// if human can win on next move, block that move
 		if (isLegal(board, move))
 		{
-			board.board[move] = selectPiece(board);
-			if (board.winner() == selectPiece(board))
+			char computer = selectPiece(board);
+			if(computer == 'X')
+			{
+				human = 'O';
+			}
+			else{
+				human = 'X';
+			}
+			board.board[move] = human;
+
+			if (board.winner() == human)
 			{
 				cout << move << endl;
-				board.board[move] = selectPiece(board);
+				board.board[move] = computer;
 				board.turn = 'H';
 				return;
 			}
