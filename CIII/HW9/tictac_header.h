@@ -19,7 +19,9 @@ public:
   bool isLegal(void);
   char winner(void);
   void askYesNo(void);
+  inline bool isLegal(int move);
   void askNumber(void);
+  void CPU(void);
   void announceWinner(void);
   friend class Game;
 
@@ -63,7 +65,7 @@ public:
 };
 
 
-// Game Class. Main class that the others derive from.
+// Game Class. Uses the other classes
 class Game
 {
 public:
@@ -72,7 +74,8 @@ public:
 
 protected:
   Board Game_Board;
-  
+  AbstractPlayer* Human;
+  AbstractPlayer* Computer;
 };
 
 
