@@ -16,6 +16,9 @@ int main()
 {
     Game TheGame;
 
+    // Using the magic of inheritance and OOP, this main requires
+    // just one object and a call to "PlayGame".
+    // The magic stuff happens in classes Game, Board, Human & Computer
     TheGame.PlayGame();
 
     return 0;

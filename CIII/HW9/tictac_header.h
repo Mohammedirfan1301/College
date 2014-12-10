@@ -15,7 +15,6 @@ class Board
 public:
   Board();
   void displayBoard(void);
-  //bool isLegal(void);
   char winner(void);
   void askYesNo(void);
   inline bool isLegal(int move);
@@ -23,6 +22,9 @@ public:
   void CPU(void);
   void announceWinner(void);
   friend class Game;
+  friend class AbstractPlayer;
+  friend class Computer;
+  friend class Human;
 
 protected:
   char firstMove;
@@ -40,9 +42,9 @@ protected:
 class AbstractPlayer
 {
 public:
-  virtual void selectPiece();
+  //virtual void selectPiece();
   virtual void move();
-  bool isLegal(Board& board);
+  inline bool isLegal(Board& board, int move);
 };
 
 
@@ -50,7 +52,7 @@ public:
 class Computer: public AbstractPlayer
 {
 public:
-  void selectPiece(Board& board);
+  //void selectPiece(Board& board);
   void move(Board& board);
 };
 
@@ -59,10 +61,9 @@ public:
 class Human: public AbstractPlayer
 {
 public:
-  void selectPiece(Board& board);
+  //void selectPiece(Board& board);
   void move(Board& board);
 };
-
 
 
 // Game Class. Uses the other classes

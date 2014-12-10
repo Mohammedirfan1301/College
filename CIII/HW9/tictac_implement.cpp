@@ -35,12 +35,12 @@ void Game::PlayGame(void)
 		if (Game_Board.turn == 'X')
 		{
 			// Human goes
-			Game_Board.askNumber();
+			human.move(Game_Board);
 		}
 		else
 		{
 			// CPU goes
-			Game_Board.CPU();
+			computer.move(Game_Board);
 		}
 		// Display the board after each turn.
 		Game_Board.displayBoard();
@@ -109,27 +109,6 @@ void Board::askYesNo(void)
 		firstMove = 'O';
 		turn = 'O';
 	}
-}
-
-
-void Board::askNumber(void)
-{
-    int x = 0;
-    do{
-    	do{
-    		cout << "Where will you move? -> ";
-    		cin >> number;
-    	}while(number > high || number < low);
-
-    	// Only let the player continue if the move is legal.
-    	// Basically if the move is on an empty spot.
-    	if(isLegal(number - 1) == true)
-    	{
-    		board[number - 1] = 'X';
-    		x = 1;
-    		turn = 'O';
-    	}
-    }while(x == 0);
 }
 
 
@@ -208,14 +187,29 @@ void AbstractPlayer::move()
 }
 
 
-bool AbstractPlayer::isLegal(Board& board, int move)
+inline bool AbstractPlayer::isLegal(Board& board, int move)
 {
-    return (board[move] == EMPTY);
+    return (board.board[move] == EMPTY);
 }
 
 void Human::move(Board& board)
 {
+	int x = 0;
+	do{
+		do{
+			cout << "Where will you move? -> ";
+			cin >> board.number;
+		}while(board.number > board.high || board.number < board.low);
 
+		// Only let the player continue if the move is legal.
+		// Basically if the move is on an empty spot.
+		if(isLegal(board, board.number - 1) == true)
+		{
+			board.board[board.number - 1] = 'X';
+			x = 1;
+			board.turn = 'O';
+		}
+	}while(x == 0);
 }
 
 
@@ -224,38 +218,38 @@ void Computer::move(Board& board)
     cout << "I will take the number: ";
 
     // if computer can win on next move, make that move
-    for(int move = 0; move < board.size(); ++move)
+    for(int move = 0; move < board.board.size(); ++move)
     {
-        if (isLegal(move))
+        if (isLegal(board, move))
         {
-            board[move] = 'O';
-            if (winner() == 'O')
+            board.board[move] = 'O';
+            if (board.winner() == 'O')
             {
                 cout << move << endl;
-                board[move] = 'O';
-                turn = 'X';
+                board.board[move] = 'O';
+                board.turn = 'X';
                 return;
             }
             // done checking this move, undo it
-            board[move] = EMPTY;
+            board.board[move] = EMPTY;
         }
     }
 
     // if human can win on next move, block that move
-    for(int move = 0; move < board.size(); ++move)
+    for(int move = 0; move < board.board.size(); ++move)
     {
-        if (isLegal(move))
+        if (isLegal(board, move))
         {
-            board[move] = 'X';
-            if (winner() == 'X')
+            board.board[move] = 'X';
+            if (board.winner() == 'X')
             {
                 cout << move << endl;
-                board[move] = 'O';
-                turn = 'X';
+                board.board[move] = 'O';
+                board.turn = 'X';
                 return;
             }
             // done checking this move, undo it
-            board[move] = EMPTY;
+            board.board[move] = EMPTY;
         }
     }
 
@@ -263,14 +257,14 @@ void Computer::move(Board& board)
     const int BEST_MOVES[] = {4, 0, 2, 6, 8, 1, 3, 5, 7};
 
     // since no one can win on next move, pick best open square
-    for(int i = 0; i < board.size(); ++i)
+    for(int i = 0; i < board.board.size(); ++i)
     {
         int move = BEST_MOVES[i];
-        if (isLegal(move))
+        if (isLegal(board,move))
         {
             cout << move << endl;
-            board[move] = 'O';
-            turn = 'X';
+            board.board[move] = 'O';
+            board.turn = 'X';
             return;
         }
     }
