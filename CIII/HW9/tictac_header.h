@@ -16,7 +16,6 @@ class Board
     Board();
     void displayBoard(void);
     void askYesNo(void);
-    void askNumber(void);
     inline bool isLegal(int move);
     int getSize(void);
     char winner(void);
@@ -66,6 +65,7 @@ public:
 class Game
 {
 public:
+  Game();
   void instructions(void);
   void PlayGame(void);
 

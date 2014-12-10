@@ -17,6 +17,11 @@ const char NO_ONE = 'N';
 /*************************************************************
 // Game Functions
 *************************************************************/
+// Default Constructor
+Game::Game()
+{
+	// There isn't anything really to set so I left it empty.
+}
 
 // This function will have all the game related stuff.
 void Game::PlayGame(void)
