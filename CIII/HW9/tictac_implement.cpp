@@ -131,11 +131,11 @@ void Board::askNumber(void)
 
 		// Only let the player continue if the move is legal.
 		// Basically if the move is on an empty spot.
-
 		if(isLegal(number - 1) == true)
 		{
 			board[number - 1] = 'X';
 			x = 1;
+			turn = 'O';
 		}
 	}while(x == 0);
 }
@@ -144,17 +144,19 @@ void Board::askNumber(void)
 void Board::CPU(void)
 {
 	cout << "I will take the number: ";
-/*
+
 	// if computer can win on next move, make that move
 	for(int move = 0; move < board.size(); ++move)
 	{
-		if (isLegal(move, board))
+		if (isLegal(move))
 		{
-			board[move] = computer;
-			if (winner(board) == computer)
+			board[move] = 'O';
+			if (winner() == 'O')
 			{
 				cout << move << endl;
-				return move;
+				board[move] = 'O';
+				turn = 'X';
+				return;
 			}
 			// done checking this move, undo it
 			board[move] = EMPTY;
@@ -162,16 +164,17 @@ void Board::CPU(void)
 	}
 
 	// if human can win on next move, block that move
-	char human = opponent(computer);
 	for(int move = 0; move < board.size(); ++move)
 	{
-		if (isLegal(move, board))
+		if (isLegal(move))
 		{
-			board[move] = human;
-			if (winner(board) == human)
+			board[move] = 'X';
+			if (winner() == 'X')
 			{
 				cout << move << endl;
-				return move;
+				board[move] = 'O';
+				turn = 'X';
+				return;
 			}
 			// done checking this move, undo it
 			board[move] = EMPTY;
@@ -185,26 +188,21 @@ void Board::CPU(void)
 	for(int i = 0; i < board.size(); ++i)
 	{
 		int move = BEST_MOVES[i];
-		if (isLegal(move, board))
+		if (isLegal(move))
 		{
 			cout << move << endl;
+			board[move] = 'O';
+			turn = 'X';
+			return;
 		}
 	}
-	*/
 }
 
 
 char Board::winner(void)
 {
 	// all possible winning rows
-	const int WIN[8][3] = { {0, 1, 2},
-													{3, 4, 5},
-													{6, 7, 8},
-													{0, 3, 6},
-													{1, 4, 7},
-													{2, 5, 8},
-													{0, 4, 8},
-													{2, 4, 6} };
+	const int WIN[8][3] = {{0, 1, 2}, {3, 4, 5},{6, 7, 8},{0, 3, 6},{1, 4, 7},{2, 5, 8},{0, 4, 8},{2, 4, 6} };
 	const int TOTAL_ROWS = 8;
 
 	// if any winning row has three values that are the same (and not EMPTY),
@@ -274,78 +272,3 @@ void AbstractPlayer::move()
 {
 
 }
-
-
-// Misc to be figured out
-
-// Functions
-/*
-
-*/
-/*
-inline bool isLegal(int move, const vector<char>& board)
-{
-return (board[move] == EMPTY);
-}
-*/
-/*
-void Move()
-{
-int move = askNumber("Where will you move?", (board.size() - 1));
-while (!isLegal(move, board))
-{
-cout << "\nThat square is already occupied, fool.\n";
-move = askNumber("Where will you move?", (board.size() - 1));
-}
-cout << "Fine...\n";
-
-cout << "I will take the number: ";
-
-// if computer can win on next move, make that move
-for(int move = 0; move < board.size(); ++move)
-{
-if (isLegal(move, board))
-{
-board[move] = computer;
-if (winner(board) == computer)
-{
-cout << move << endl;
-return move;
-}
-// done checking this move, undo it
-board[move] = EMPTY;
-}
-}
-
-// if human can win on next move, block that move
-char human = opponent(computer);
-for(int move = 0; move < board.size(); ++move)
-{
-if (isLegal(move, board))
-{
-board[move] = human;
-if (winner(board) == human)
-{
-cout << move << endl;
-return move;
-}
-// done checking this move, undo it
-board[move] = EMPTY;
-}
-}
-
-// the best moves to make, in order
-const int BEST_MOVES[] = {4, 0, 2, 6, 8, 1, 3, 5, 7};
-
-// since no one can win on next move, pick best open square
-for(int i = 0; i < board.size(); ++i)
-{
-int move = BEST_MOVES[i];
-if (isLegal(move, board))
-{
-cout << move << endl;
-return move;
-}
-}
-}
-*/
