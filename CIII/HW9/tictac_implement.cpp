@@ -42,8 +42,7 @@ void Game::PlayGame(void)
 			// CPU goes
 			computer.move(Game_Board);
 		}
-		// Display the board after each turn.
-		Game_Board.displayBoard();
+		Game_Board.displayBoard();				// Display the board after each turn.
 	}
 
 	// We got a winner, so call that function.
@@ -76,19 +75,32 @@ void Game::instructions()
 // Default Constructor
 Board::Board()
 {
-	response = NO_ONE;
+	// Preset all the variables for safety.
+	firstMove = EMPTY;
+	response = EMPTY;
+	turn = EMPTY;
+	the_winner = EMPTY;
+
+	// These need to be set, especially low / high.
 	number = 0;
-	firstMove = NO_ONE;
 	move = 0;
 	low = 1;
 	high = 9;
 
-	// Make sure to set the board up to be empty.
-	for(int i = 0; i < 9; i++)
+	// Make vector size 9 and have every space equal to ' '.
+	for(int i = 0; i < 9; i ++)
 	{
-		board.push_back(' ');
+		board.push_back(EMPTY);
 	}
 }
+
+
+// Small function to get the size of the vector. Used in Human/Computer classes.
+int Board::getSize(void)
+{
+	return board.size();
+}
+
 
 void Board::askYesNo(void)
 {
@@ -97,6 +109,8 @@ void Board::askYesNo(void)
 		cin >> response;
 	}while(response != 'y' && response != 'n');
 
+	// This is from humanPiece, I didn't feel like it was
+	// necessary to have another function for this.
 	if(response == 'y')
 	{
 		cout << "\nPlease feel free to take a number.\n";
@@ -131,14 +145,14 @@ char Board::winner(void)
 		}
 	}
 
-	// since nobody has won, check for a tie (no empty squares left)
+	// Since nobody has won, check for a tie (no empty squares left)
 	if (count(board.begin(), board.end(), EMPTY) == 0)
 	{
 		the_winner = 'T';
 		return 'T';
 	}
 
-	// since nobody has won and it isn't a tie, the game ain't over
+	// Since nobody has won and it isn't a tie, the game ain't over
 	the_winner = 'N';
 	return 'N';
 }
@@ -146,16 +160,16 @@ char Board::winner(void)
 
 void Board::announceWinner(void)
 {
-	if(the_winner == 'O')
+	if(the_winner == 'O')			// The computer is always "O"
 	{
 		cout << "The Computer won!\n";
 		cout << "As I predicted, human, I am triumphant once more -- proof\n";
 		cout << "that computers are superior to humans in all regards.\n";
 		return;
 	}
-	else if(the_winner == 'X')
-	{
-		cout << "You won!\n";
+	else if(the_winner == 'X')	// The Human is always "X".
+{															// Note: Human cannot win the way this program is
+		cout << "You won!\n";			// programmed.
 		cout << "No, no!  It cannot be!  Somehow you tricked me, human.\n";
 		cout << "But never again!  I, the computer, so swear it!\n";
 		return;
@@ -181,6 +195,11 @@ void Board::displayBoard(void)
 /*************************************************************
 // AbstractPlayer Functions
 *************************************************************/
+AbstractPlayer::AbstractPlayer()
+{
+	// Empty because there are no member variables to set.
+}
+
 void AbstractPlayer::move()
 {
     // Left empty
@@ -192,6 +211,9 @@ inline bool AbstractPlayer::isLegal(Board& board, int move)
     return (board.board[move] == EMPTY);
 }
 
+
+// Human really only needs one function, since it inherits the default constructor
+// and the isLegal function.
 void Human::move(Board& board)
 {
 	int x = 0;
@@ -213,59 +235,60 @@ void Human::move(Board& board)
 }
 
 
+// Same as Human, requires just one function since it too inherits from AbstractPlayer.
 void Computer::move(Board& board)
 {
-    cout << "I will take the number: ";
+  cout << "I will take the number: ";
 
-    // if computer can win on next move, make that move
-    for(int move = 0; move < board.board.size(); ++move)
-    {
-        if (isLegal(board, move))
-        {
-            board.board[move] = 'O';
-            if (board.winner() == 'O')
-            {
-                cout << move << endl;
-                board.board[move] = 'O';
-                board.turn = 'X';
-                return;
-            }
-            // done checking this move, undo it
-            board.board[move] = EMPTY;
-        }
-    }
+  // if computer can win on next move, make that move
+  for(int move = 0; move < board.getSize(); ++move)
+  {
+      if (isLegal(board, move))
+      {
+          board.board[move] = 'O';
+          if (board.winner() == 'O')
+          {
+              cout << move << endl;
+              board.board[move] = 'O';
+              board.turn = 'X';
+              return;
+          }
+          // done checking this move, undo it
+          board.board[move] = EMPTY;
+      }
+  }
 
-    // if human can win on next move, block that move
-    for(int move = 0; move < board.board.size(); ++move)
-    {
-        if (isLegal(board, move))
-        {
-            board.board[move] = 'X';
-            if (board.winner() == 'X')
-            {
-                cout << move << endl;
-                board.board[move] = 'O';
-                board.turn = 'X';
-                return;
-            }
-            // done checking this move, undo it
-            board.board[move] = EMPTY;
-        }
-    }
+  // if human can win on next move, block that move
+  for(int move = 0; move < board.getSize(); ++move)
+  {
+      if (isLegal(board, move))
+      {
+          board.board[move] = 'X';
+          if (board.winner() == 'X')
+          {
+              cout << move << endl;
+              board.board[move] = 'O';
+              board.turn = 'X';
+              return;
+          }
+          // done checking this move, undo it
+          board.board[move] = EMPTY;
+      }
+  }
 
-    // the best moves to make, in order
-    const int BEST_MOVES[] = {4, 0, 2, 6, 8, 1, 3, 5, 7};
+  // the best moves to make, in order
+  const int BEST_MOVES[] = {4, 0, 2, 6, 8, 1, 3, 5, 7};
 
-    // since no one can win on next move, pick best open square
-    for(int i = 0; i < board.board.size(); ++i)
-    {
-        int move = BEST_MOVES[i];
-        if (isLegal(board,move))
-        {
-            cout << move << endl;
-            board.board[move] = 'O';
-            board.turn = 'X';
-            return;
-        }
-    }
+  // since no one can win on next move, pick best open square
+  for(int i = 0; i < board.getSize(); ++i)
+  {
+      int move = BEST_MOVES[i];
+      if (isLegal(board,move))
+      {
+          cout << move << endl;
+          board.board[move] = 'O';
+          board.turn = 'X';
+          return;
+      }
+  }
 }

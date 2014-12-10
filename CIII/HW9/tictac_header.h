@@ -12,29 +12,27 @@ using namespace std;
 // Board Class.
 class Board
 {
-public:
-  Board();
-  void displayBoard(void);
-  char winner(void);
-  void askYesNo(void);
-  inline bool isLegal(int move);
-  void askNumber(void);
-  void CPU(void);
-  void announceWinner(void);
-  friend class Game;
-  friend class AbstractPlayer;
-  friend class Computer;
-  friend class Human;
+  public:
+    Board();
+    void displayBoard(void);
+    void askYesNo(void);
+    void askNumber(void);
+    inline bool isLegal(int move);
+    int getSize(void);
+    char winner(void);
+    void announceWinner(void);
 
-protected:
-  char firstMove;
-  char response;
-  char turn;
-  char the_winner;
-  int number;
-  int move;
-  int low, high;
-  vector<char> board;
+    // Made these friends so that they can access Board's variables.
+    friend class Game;
+    friend class AbstractPlayer;
+    friend class Computer;
+    friend class Human;
+
+  protected:
+    // Variables used in the class
+    char firstMove, response, turn, the_winner;
+    int number, move, low, high;
+    vector<char> board;
 };
 
 
@@ -42,7 +40,7 @@ protected:
 class AbstractPlayer
 {
 public:
-  //virtual void selectPiece();
+  AbstractPlayer();
   virtual void move();
   inline bool isLegal(Board& board, int move);
 };
@@ -52,7 +50,6 @@ public:
 class Computer: public AbstractPlayer
 {
 public:
-  //void selectPiece(Board& board);
   void move(Board& board);
 };
 
@@ -61,12 +58,11 @@ public:
 class Human: public AbstractPlayer
 {
 public:
-  //void selectPiece(Board& board);
   void move(Board& board);
 };
 
 
-// Game Class. Uses the other classes
+// Game Class. Uses the other classes to play a game of TicTacToe
 class Game
 {
 public:
