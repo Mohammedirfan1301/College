@@ -1,4 +1,4 @@
 CC		= g++
 
 all:
-	$(CC) 	tictac_main tictac_implement -o tictactoe.out
+	$(CC) 	tictac_main.cpp tictac_implement.cpp -o tictactoe.out

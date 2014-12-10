@@ -1,9 +1,259 @@
 #include <iostream>
+#include <string>
+#include <vector>
+#include <algorithm>
+#include <exception>
+#include "tictac_header.h"
 
 using namespace std;
 
-int main()
+// global constants
+const char X = 'X';
+const char O = 'O';
+const char EMPTY = ' ';
+const char TIE = 'T';
+const char NO_ONE = 'N';
+
+/*************************************************************
+// Game Functions
+*************************************************************/
+
+// This function will have all the game related stuff.
+void Game::PlayGame(void)
 {
-	
-	return 0;
+	// Show the user how to play.
+	instructions();
+
+	// Now time to set up the game.
+	Game_Board.askYesNo();
+
+	// Loop through the game now until we find a winner.
+	while (Game_Board.winner() == NO_ONE)
+	{
+		if (Game_Board.turn == 'X')
+		{
+			// Human goes
+			Board.
+		}
+		else
+		{
+			// CPU goes
+		}
+		// Update turn
+	}
+
+	// We got a winner, so call that function.
+	Game_Board.announceWinner();
 }
+
+
+void Game::instructions()
+{
+	cout << "Welcome to tic-tac-toe.\n";
+	cout << "This will be a friendly battle of human vs computer.\n\n";
+
+	cout << "Make your move by entering a number, 1 - 9.  The number\n";
+	cout << "corresponds to the desired board position, as illustrated:\n\n";
+
+	// I'm changing this because the original game was very counterintuitive
+	cout << "       7 | 8 | 9\n";
+	cout << "      -----------\n";
+	cout << "       4 | 5 | 6\n";
+	cout << "      -----------\n";
+	cout << "       1 | 2 | 3\n\n";
+
+	cout << "Prepare yourself.  The battle is about to begin.\n\n";
+}
+
+
+/*************************************************************
+// Board Functions
+*************************************************************/
+// Default Constructor
+Board::Board()
+{
+	response = ' ';
+	number = 0;
+	firstMove = ' ';
+	move = 0;
+	low = 1;
+	high = 9;
+}
+
+void Board::askYesNo(void)
+{
+	do{
+		cout << "Do you want to make the first move? (y/n): ";
+		cin >> response;
+	}while (response != 'y' && response != 'n');
+
+	if(response == 'y')
+	{
+		cout << "\nPlease feel free to take a number.\n";
+		firstMove = 'X';
+		turn = 'X';
+	}
+	else
+	{
+		cout << "\nI will go first.\n";
+		firstMove = 'O';
+		turn = 'O';
+	}
+}
+
+
+void Board::askNumber(void)
+{
+	cout << "Where will you move? -> ";
+	cin >> number;
+}
+
+
+char Board::winner(void)
+{
+	// all possible winning rows
+	const int WIN[8][3] = { {1,2,3},{4,5,6},{7,8,9},{1,4,7},{2,5,8},{3,6,9},{1,5,9},{3,5,7}};
+	const int TOTAL_ROWS = 8;
+
+	// if any winning row has three values that are the same (and not EMPTY),
+	// then we have a winner
+	for(int row = 0; row < TOTAL_ROWS; ++row)
+	{
+		if( (board[WIN[row][0]] != ' ') &&
+			  (board[WIN[row][0]] == board[WIN[row][1]]) &&
+			  (board[WIN[row][1]] == board[WIN[row][2]]) )
+		{
+			the_winner = board[WIN[row][0]];
+			return board[WIN[row][0]];
+		}
+	}
+
+	// since nobody has won, check for a tie (no empty squares left)
+	if (count(board.begin(), board.end(), EMPTY) == 0)
+	{
+		the_winner = 'T';
+		return 'T';
+	}
+
+	// since nobody has won and it isn't a tie, the game ain't over
+	the_winner = 'N';
+	return 'N';
+}
+
+
+void Board::announceWinner(void)
+{
+	if(the_winner == 'O')
+	{
+		cout << "The Computer won!\n";
+		cout << "As I predicted, human, I am triumphant once more -- proof\n";
+		cout << "that computers are superior to humans in all regards.\n";
+		return;
+	}
+	else if(the_winner == 'X')
+	{
+		cout << "You won!\n";
+		cout << "No, no!  It cannot be!  Somehow you tricked me, human.\n";
+		cout << "But never again!  I, the computer, so swear it!\n";
+		return;
+	}
+
+	cout << "It's a tie.\n";
+	cout << "You were most lucky, human, and somehow managed to tie me.\n";
+	cout << "Celebrate... for this is the best you will ever achieve.\n";
+}
+
+
+void Board::displayBoard(void)
+{
+	cout << "\n\t" << board[6] << " | " << board[7] << " | " << board[8];
+	cout << "\n\t" << "---------";
+	cout << "\n\t" << board[3] << " | " << board[4] << " | " << board[5];
+	cout << "\n\t" << "---------";
+	cout << "\n\t" << board[0] << " | " << board[1] << " | " << board[2];
+	cout << "\n\n";
+}
+
+
+/*************************************************************
+// AbstractPlayer Functions
+*************************************************************/
+void AbstractPlayer::move()
+{
+
+}
+
+
+// Misc to be figured out
+
+// Functions
+/*
+
+*/
+/*
+inline bool isLegal(int move, const vector<char>& board)
+{
+return (board[move] == EMPTY);
+}
+*/
+/*
+void Move()
+{
+int move = askNumber("Where will you move?", (board.size() - 1));
+while (!isLegal(move, board))
+{
+cout << "\nThat square is already occupied, fool.\n";
+move = askNumber("Where will you move?", (board.size() - 1));
+}
+cout << "Fine...\n";
+
+cout << "I will take the number: ";
+
+// if computer can win on next move, make that move
+for(int move = 0; move < board.size(); ++move)
+{
+if (isLegal(move, board))
+{
+board[move] = computer;
+if (winner(board) == computer)
+{
+cout << move << endl;
+return move;
+}
+// done checking this move, undo it
+board[move] = EMPTY;
+}
+}
+
+// if human can win on next move, block that move
+char human = opponent(computer);
+for(int move = 0; move < board.size(); ++move)
+{
+if (isLegal(move, board))
+{
+board[move] = human;
+if (winner(board) == human)
+{
+cout << move << endl;
+return move;
+}
+// done checking this move, undo it
+board[move] = EMPTY;
+}
+}
+
+// the best moves to make, in order
+const int BEST_MOVES[] = {4, 0, 2, 6, 8, 1, 3, 5, 7};
+
+// since no one can win on next move, pick best open square
+for(int i = 0; i < board.size(); ++i)
+{
+int move = BEST_MOVES[i];
+if (isLegal(move, board))
+{
+cout << move << endl;
+return move;
+}
+}
+}
+*/
