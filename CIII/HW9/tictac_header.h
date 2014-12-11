@@ -83,7 +83,26 @@ class notYN: public exception
 {
   virtual const char* what() const throw()
   {
+    // Flush the cin buffer since the user didn't follow instructions.
+    cin.clear();
+    cin.ignore(10000, '\n');
     return "Error - please enter y/Y or n/N!";
+  }
+};
+
+class nonDigit: public exception
+{
+  virtual const char* what() const throw()
+  {
+    return "Error - please enter an integer!";
+  }
+};
+
+class OutOfRange: public exception
+{
+  virtual const char* what() const throw()
+  {
+    return "Error - please enter a number between 1 and 9!";
   }
 };
 

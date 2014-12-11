@@ -240,11 +240,39 @@ inline bool AbstractPlayer::isLegal(Board& board, int move)
 // and the isLegal function.
 void Human::move(Board& board)
 {
+	char buffer;
 	int x = 0;
+	nonDigit except_integer;
+	OutOfRange except_range;
+
 	do{
 		do{
 			cout << "Where will you move? -> ";
-			cin >> board.number;
+			cin >> buffer;
+
+			try{
+				// Flush the cin buffer to be safe in case they didn't follow instructions.
+				cin.clear();
+				cin.ignore(10000, '\n');
+
+				// Convert a char to an integer by subtracting the ASCII value of "ZERO" from the character.
+				board.number = buffer - '0';
+
+				if(!isdigit(buffer))
+				{
+					// Throw an exception
+					throw except_integer;
+				}
+
+				if(board.number > board.high || board.number < board.low)
+				{
+					throw except_range;
+				}
+			}
+			catch(exception& e){
+				cout << endl << e.what() << endl << endl;
+			}
+
 		}while(board.number > board.high || board.number < board.low);
 
 		// Only let the player continue if the move is legal.
