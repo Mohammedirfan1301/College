@@ -258,6 +258,7 @@ void Human::move(Board& board)
 	}while(x == 0);
 }
 
+
 char Human::selectPiece(Board& board)
 {
 	if(board.firstMove == 'H')
