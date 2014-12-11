@@ -36,7 +36,7 @@ class Board
 
 
 // Abstract Player Class. Child classes: Computer, Human.
-class AbstractPlayer
+class AbstractPlayer: public Board
 {
 public:
   AbstractPlayer();

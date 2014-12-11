@@ -327,7 +327,7 @@ void Computer::move(Board& board)
   for(int i = 0; i < board.getSize(); ++i)
   {
       int move = BEST_MOVES[i];
-      if (isLegal(board,move))
+      if (isLegal(board, move))
       {
           cout << move << endl;
           board.board[move] = selectPiece(board);
