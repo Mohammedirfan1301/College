@@ -240,7 +240,8 @@ inline bool AbstractPlayer::isLegal(Board& board, int move)
 // and the isLegal function.
 void Human::move(Board& board)
 {
-	char buffer;
+	string buffer;
+	int number;
 	int x = 0;
 	nonDigit except_integer;
 	OutOfRange except_range;
@@ -255,23 +256,33 @@ void Human::move(Board& board)
 				cin.clear();
 				cin.ignore(10000, '\n');
 
-				// Convert a char to an integer by subtracting the ASCII value of "ZERO" from the character.
-				board.number = buffer - '0';
+				// Convert a string to an integer by subtracting the ASCII value of "ZERO" from the character.
+				number = atoi(buffer.c_str());
 
-				if(!isdigit(buffer))
+				if(number > board.high || number < board.low)
 				{
 					// Throw an exception
-					throw except_integer;
-				}
-
-				if(board.number > board.high || board.number < board.low)
-				{
 					throw except_range;
 				}
+
+				// Loop through the entire string to catch any random slips.
+				for(int i = 0; i < buffer.size(); i++)
+				{
+					if(!isdigit(buffer.c_str()[i]))
+					{
+						// Throw an exception
+						throw except_integer;
+					}
+				}
+
 			}
+			// Catches any exception that is thrown in the above code block.
 			catch(exception& e){
 				cout << endl << e.what() << endl << endl;
 			}
+
+			// set board.number equal to the converted string.
+			board.number = number;
 
 		}while(board.number > board.high || board.number < board.low);
 
@@ -282,6 +293,9 @@ void Human::move(Board& board)
 			board.board[board.number - 1] = selectPiece(board);
 			x = 1;
 			board.turn = 'C';
+		}
+		else{
+			cout << "\nThat spot was already taken foolish human!\n\n";
 		}
 	}while(x == 0);
 }
@@ -314,10 +328,12 @@ void Computer::move(Board& board)
 		    board.board[move] = selectPiece(board);
 		    if (board.winner() == selectPiece(board))
 		    {
-		        cout << move << endl;
-		        board.board[move] = selectPiece(board);
-		        board.turn = 'H';
-		        return;
+					// +1 is for adjusting the numberpad.
+					// Under the hood this program uses 0 - 8, but the user enters 1-9
+	        cout << move + 1 << endl;
+	        board.board[move] = selectPiece(board);
+	        board.turn = 'H';
+	        return;
 		    }
 		    // done checking this move, undo it
 		    board.board[move] = EMPTY;
@@ -338,7 +354,9 @@ void Computer::move(Board& board)
 
 			if (board.winner() == human)
 			{
-				cout << move << endl;
+				// +1 is for adjusting the numberpad.
+				// Under the hood this program uses 0 - 8, but the user enters 1-9
+				cout << move + 1 << endl;
 				board.board[move] = computer;
 				board.turn = 'H';
 				return;
@@ -347,7 +365,6 @@ void Computer::move(Board& board)
 			board.board[move] = EMPTY;
 		}
   }
-
 
   // the best moves to make, in order
   const int BEST_MOVES[] = {4, 0, 2, 6, 8, 1, 3, 5, 7};
@@ -358,10 +375,12 @@ void Computer::move(Board& board)
       int move = BEST_MOVES[i];
       if (isLegal(board, move))
       {
-          cout << move << endl;
-          board.board[move] = selectPiece(board);
-          board.turn = 'H';
-          return;
+				// +1 is for adjusting the numberpad.
+				// Under the hood this program uses 0 - 8, but the user enters 1-9
+        cout << move + 1 << endl;
+        board.board[move] = selectPiece(board);
+        board.turn = 'H';
+        return;
       }
   }
 }
