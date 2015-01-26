@@ -9,15 +9,18 @@ int main()
 {
   // Set the size of the window.
   // In this case I make it 605 by 605. The title is "Program 0".
-  sf::RenderWindow window(sf::VideoMode(605, 605), "Program 0: Doge Meme");
+  sf::RenderWindow window(sf::VideoMode(605, 605), "Program 0: Doge Sprite Moves");
+
+  // Change the framerate to make it easier to see the image moving.
+  window.setFramerateLimit(1);
 
   // Loads a doge from file - in this case a doge
   sf::Texture image_texture;
 
   // Check to see if the file loaded correctly.
-  // I make just the dog part of the image load - it's actually 300 by 372
+  // I make just the doge part of the image load - it's actually 300 by 372
   // but I cut off 50 pixels from the height.
-  if (!image_texture.loadFromFile( "doge.png",  sf::IntRect(0, 50, 300, 300) ) )
+  if (!image_texture.loadFromFile( "sprite.png",  sf::IntRect(0, 50, 300, 300) ) )
   {
     // Return failure if the image doesn't load
     cout << "Failed to load image!\n";
@@ -35,7 +38,30 @@ int main()
   // Set the origin for rotation to the center of the doge.
   doge.setOrigin(150, 125);
 
-  doge.move(302, 200);
+  // Move to the top left corner.
+  doge.move(150, 100);    // Top left corner
+
+  // Create an image to move in a rectangle pattern
+  sf::Texture image2_texture;
+
+  // Load the image
+  if (!image2_texture.loadFromFile( "doge.png"))
+  {
+    // Return failure if the image doesn't load
+    cout << "Failed to load image!\n";
+    return EXIT_FAILURE;
+  }
+
+  image2_texture.setSmooth(true);
+
+  // Second doge settings
+  sf::Sprite doge2;
+  doge2.setTexture(image2_texture);
+  doge2.scale(.25f, .25f);
+  doge2.setOrigin(732, 620);
+  doge2.move(300, 300);
+
+  int dir = 1;
 
   // Create a graphical text to display
   sf::Font font;
@@ -55,11 +81,10 @@ int main()
     // Process events
     sf::Event event;
 
-    // See if the window closes
     while(window.pollEvent(event))
     {
       // Close window : exit
-      if (sf::Event::Closed)
+      if (event.type == sf::Event::Closed)
       {
         window.close();
       }
@@ -71,37 +96,37 @@ int main()
         // expected direction.
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
         {
-          doge.move(-15, 0);
+          doge2.move(-15, 0);
         }
         else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
         {
-          doge.move(15, 0);
+          doge2.move(15, 0);
         }
         else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
         {
-          doge.move(0, -15);
+          doge2.move(0, -15);
         }
         else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
         {
-          doge.move(0, 15);
+          doge2.move(0, 15);
         }
 
         // Enter will rotate the doge
         else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
         {
-          doge.rotate(45);
+          doge2.rotate(45);
         }
 
         // Pressing + will increase the size of the doge.
         else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Add))
         {
-          doge.scale(1.05f, 1.05f);
+          doge2.scale(1.05f, 1.05f);
         }
 
         // Pressing - will decrease the size of the doge.
         else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Subtract))
         {
-          doge.scale(.95f, .95f);
+          doge2.scale(.95f, .95f);
         }
 
         // Pressing escape will quit the program.
@@ -110,15 +135,45 @@ int main()
           return 0;
         }
       }
-
     }
 
     // Clear the screen - so that the doge's previous image
     // gets erased.
     window.clear();
 
+    // Ifs that will keep the Doge sprite moving in a rectangle pattern.
+    switch(dir)
+    {
+      case 1:
+        doge.move(300, 0);      // Top right corner
+        dir++;
+        break;
+
+      case 2:
+        doge.move(0, 325);      // Bottom right corner
+        dir++;
+        break;
+
+      case 3:
+        doge.move(-300, 0);     // Bottom left corner
+        dir++;
+        break;
+
+      case 4:
+        doge.move(0, -325);     // Top left corner again.
+        dir++;
+        break;
+
+      default:
+        dir = 1;
+        break;
+    }
+
     // Redraw the doge
     window.draw(doge);
+
+    // This is the second doge - the one that moves in a rectangle.
+    window.draw(doge2);
 
     // Draw the string
     window.draw(text);
