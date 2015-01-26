@@ -32,7 +32,6 @@ int main()
 
   // Now set the doge using the texture
   Sprite doge;
-
   doge.setTexture(image_texture);
 
   // Set the origin for rotation to the center of the doge.
@@ -56,10 +55,10 @@ int main()
 
   // Second doge settings
   Sprite doge2;
-  doge2.setTexture(image2_texture);
-  doge2.scale(.25f, .25f);
-  doge2.setOrigin(732, 620);
-  doge2.move(300, 300);
+  doge2.setTexture(image2_texture);  // Set the texture
+  doge2.scale(.25f, .25f);           // Shrink the image
+  doge2.setOrigin(732, 620);         // Set the center of the image
+  doge2.move(300, 300);              // Move the image to the top left corner
 
   int dir = 1;
 
@@ -139,8 +138,7 @@ int main()
       }
     }
 
-    // Clear the screen - so that the doge's previous image
-    // gets erased.
+    // Clear the screen - so that the doge's previous image gets erased.
     window.clear();
 
     // Ifs that will keep the Doge sprite moving in a rectangle pattern.
