@@ -60,18 +60,19 @@ I think as CS students a lot of what we do is online, so there could
 be potential for students to help each other on programs and projects,
 as well as possibly breaking any of the other rules listed (a) through
 (e). As a result we need to keep those rules in mind when assisting
-other students on programs, studying for exams - basically help point
+other students on programs, studying for exams, etc - basically help point
 students in the right direction, but don't share code/completely worked
 out examples/etc, and just tips / tricks, or possibly a line or two of
 code if someone can't figure out why they keep getting an error message
-or a program won't compile. That way everyone ends up learning something
-in the end and no one just slips by having done little or no work.
+or a program won't compile.
 
 /**********************************************************************
  *  List whatever help (if any) you received from TAs, the instructor,
  *  classmates, or anyone else.
  **********************************************************************/
-N/A
+
+I mainly used the sfml website to find examples and how to use the SFML API.
+http://www.sfml-dev.org/
 
 
 /**********************************************************************

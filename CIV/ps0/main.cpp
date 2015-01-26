@@ -9,18 +9,18 @@ int main()
 {
   // Set the size of the window.
   // In this case I make it 605 by 605. The title is "Program 0".
-  sf::RenderWindow window(sf::VideoMode(605, 605), "Program 0: Doge Sprite Moves");
+  RenderWindow window(VideoMode(605, 605), "Program 0: Doge Sprite Moves");
 
   // Change the framerate to make it easier to see the image moving.
   window.setFramerateLimit(1);
 
   // Loads a doge from file - in this case a doge
-  sf::Texture image_texture;
+  Texture image_texture;
 
   // Check to see if the file loaded correctly.
   // I make just the doge part of the image load - it's actually 300 by 372
   // but I cut off 50 pixels from the height.
-  if (!image_texture.loadFromFile( "sprite.png",  sf::IntRect(0, 50, 300, 300) ) )
+  if (!image_texture.loadFromFile( "sprite.png",  IntRect(0, 50, 300, 300) ) )
   {
     // Return failure if the image doesn't load
     cout << "Failed to load image!\n";
@@ -31,7 +31,7 @@ int main()
   image_texture.setSmooth(true);
 
   // Now set the doge using the texture
-  sf::Sprite doge;
+  Sprite doge;
 
   doge.setTexture(image_texture);
 
@@ -42,7 +42,7 @@ int main()
   doge.move(150, 100);    // Top left corner
 
   // Create an image to move in a rectangle pattern
-  sf::Texture image2_texture;
+  Texture image2_texture;
 
   // Load the image
   if (!image2_texture.loadFromFile( "doge.png"))
@@ -55,7 +55,7 @@ int main()
   image2_texture.setSmooth(true);
 
   // Second doge settings
-  sf::Sprite doge2;
+  Sprite doge2;
   doge2.setTexture(image2_texture);
   doge2.scale(.25f, .25f);
   doge2.setOrigin(732, 620);
@@ -64,13 +64,15 @@ int main()
   int dir = 1;
 
   // Create a graphical text to display
-  sf::Font font;
+  Font font;
   if (!font.loadFromFile("arial.ttf"))
   {
     cout << "Failed to load font!\n";
     return EXIT_FAILURE;
   }
-  sf::Text text("Woof", font, 70);
+
+  // Create a text.
+  Text text("Woof", font, 70);
 
   // Move the text to the bottom center (roughly)
   text.move(230,500);
@@ -79,58 +81,58 @@ int main()
   while (window.isOpen())
   {
     // Process events
-    sf::Event event;
+    Event event;
 
     while(window.pollEvent(event))
     {
       // Close window : exit
-      if (event.type == sf::Event::Closed)
+      if (event.type == Event::Closed)
       {
         window.close();
       }
 
       // Move the image if an arrow key is pressed.
-      else if(sf::Event::KeyPressed)
+      else if(Event::KeyPressed)
       {
         // Arrow keys will move the doge in the
         // expected direction.
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+        if (Keyboard::isKeyPressed(Keyboard::Left))
         {
           doge2.move(-15, 0);
         }
-        else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+        else if (Keyboard::isKeyPressed(Keyboard::Right))
         {
           doge2.move(15, 0);
         }
-        else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+        else if (Keyboard::isKeyPressed(Keyboard::Up))
         {
           doge2.move(0, -15);
         }
-        else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+        else if (Keyboard::isKeyPressed(Keyboard::Down))
         {
           doge2.move(0, 15);
         }
 
         // Enter will rotate the doge
-        else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+        else if (Keyboard::isKeyPressed(Keyboard::Space))
         {
           doge2.rotate(45);
         }
 
         // Pressing + will increase the size of the doge.
-        else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Add))
+        else if (Keyboard::isKeyPressed(Keyboard::Add))
         {
           doge2.scale(1.05f, 1.05f);
         }
 
         // Pressing - will decrease the size of the doge.
-        else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Subtract))
+        else if (Keyboard::isKeyPressed(Keyboard::Subtract))
         {
           doge2.scale(.95f, .95f);
         }
 
         // Pressing escape will quit the program.
-        else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
+        else if (Keyboard::isKeyPressed(Keyboard::Escape))
         {
           return 0;
         }
@@ -142,6 +144,8 @@ int main()
     window.clear();
 
     // Ifs that will keep the Doge sprite moving in a rectangle pattern.
+    // Basically they increase int dir by 1 until it reaches 5, then it resets
+    // the int dir to 1.
     switch(dir)
     {
       case 1:
