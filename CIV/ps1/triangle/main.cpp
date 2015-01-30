@@ -30,28 +30,28 @@ int main()
   polygon2.setFillColor(Color::Red);
 
   sf::ConvexShape polygon3;
-  polygon2.setPointCount(3);
-  polygon2.setPoint(0, sf::Vector2f(200, 400));
-  polygon2.setPoint(1, sf::Vector2f(600, 400));
-  polygon2.setPoint(2, sf::Vector2f(400, 800));
-  polygon2.setPosition(0, 0);
-  polygon2.setFillColor(Color::Blue);
+  polygon3.setPointCount(3);
+  polygon3.setPoint(0, sf::Vector2f(400, 400));
+  polygon3.setPoint(1, sf::Vector2f(500, 600));
+  polygon3.setPoint(2, sf::Vector2f(300, 600));
+  polygon3.setPosition(0, 0);
+  polygon3.setFillColor(Color::Blue);
 
-  sf::ConvexShape polygon4;
-  polygon2.setPointCount(3);
-  polygon2.setPoint(0, sf::Vector2f(200, 400));
-  polygon2.setPoint(1, sf::Vector2f(600, 400));
-  polygon2.setPoint(2, sf::Vector2f(400, 800));
-  polygon2.setPosition(0, 0);
-  polygon2.setFillColor(Color::Blue);
-
-  sf::ConvexShape polygon5;
-  polygon2.setPointCount(3);
-  polygon2.setPoint(0, sf::Vector2f(200, 400));
-  polygon2.setPoint(1, sf::Vector2f(600, 400));
-  polygon2.setPoint(2, sf::Vector2f(400, 800));
-  polygon2.setPosition(0, 0);
-  polygon2.setFillColor(Color::Blue);
+//   sf::ConvexShape polygon4;
+//   polygon2.setPointCount(3);
+//   polygon2.setPoint(0, sf::Vector2f(200, 400));
+//   polygon2.setPoint(1, sf::Vector2f(600, 400));
+//   polygon2.setPoint(2, sf::Vector2f(400, 800));
+//   polygon2.setPosition(0, 0);
+//   polygon2.setFillColor(Color::Blue);
+//
+//   sf::ConvexShape polygon5;
+//   polygon2.setPointCount(3);
+//   polygon2.setPoint(0, sf::Vector2f(200, 400));
+//   polygon2.setPoint(1, sf::Vector2f(600, 400));
+//   polygon2.setPoint(2, sf::Vector2f(400, 800));
+//   polygon2.setPosition(0, 0);
+//   polygon2.setFillColor(Color::Blue);
 
   // Window loop
   while (window.isOpen())
@@ -76,6 +76,7 @@ int main()
 
     window.draw(polygon);
     window.draw(polygon2);
+    window.draw(polygon3);
     window.display();
   }
 
