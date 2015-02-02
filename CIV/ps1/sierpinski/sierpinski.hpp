@@ -15,9 +15,6 @@ public:
   // Destructor
   ~Sierpinski();
 
-  // Deletes all the allocated members
-  void clear(Sierpinski* n);
-
   // Make a vector of shapes to print out
   vector <sf::ConvexShape> make_vector(Sierpinski* const& tri, vector<sf::ConvexShape>& triangles) const;
 

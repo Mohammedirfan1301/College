@@ -92,51 +92,16 @@ Sierpinski::~Sierpinski()
 {
   // Need to destroy all the objects that were created
   // To do so, I created a clear function that recursively calls itself until all objects are null.
-  clear(_triangle1);
-  clear(_triangle2);
-  clear(_triangle3);
+
+  if(_triangle1 != NULL)
+  {
+    delete _triangle1;
+    delete _triangle2;
+    delete _triangle3;
+  }
 
   // After we clear the allocated objects, we don't have to worry about stuff allocated
   // on the stack since that will be handled automagically.
-  cout << "Cleaned up all the memory we allocated! ^_^ \n";
-}
-
-
-// Deletes all the allocated members
-void Sierpinski::clear(Sierpinski* n)
-{
-  if(n->_triangle1 != NULL)
-  {
-    clear(n->_triangle1);
-  }
-  if(n->_triangle2 != NULL)
-  {
-    clear(n->_triangle2);
-  }
-  if(n->_triangle3 != NULL)
-  {
-    clear(n->_triangle3);
-  }
-
-//   if(n->_triangle1 != NULL)
-//   {
-//     delete n->_triangle1;
-//     n->_triangle1 = NULL;
-//   }
-//
-//   if(n->_triangle1 != NULL)
-//   {
-//     delete n->_triangle2;
-//     n->_triangle2 = NULL;
-//   }
-//
-//   if(n->_triangle1 != NULL)
-//   {
-//     delete n->_triangle3;
-//     n->_triangle3 = NULL;
-//   }
-
-  return;
 }
 
 
