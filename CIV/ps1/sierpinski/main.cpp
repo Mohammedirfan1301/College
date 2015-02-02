@@ -15,6 +15,8 @@ int main(int argc, char* argv[])
     return -1;
   }
 
+  // test
+
   int depth = atoi(argv[1]);
   int side = atoi(argv[2]);
 

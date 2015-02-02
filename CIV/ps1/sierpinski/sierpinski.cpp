@@ -25,7 +25,7 @@ using namespace std;
 
  */
 
-// Constructor                               (Initialize private variables)
+// Constructor                              (Initialize private variables)
 Sierpinski::Sierpinski(int depth, int side) : _depth (depth)
 {
   // Initialize other member variables - top, left, right
@@ -34,6 +34,7 @@ Sierpinski::Sierpinski(int depth, int side) : _depth (depth)
   // Calculate the height using triangle geometry
   float height = .5 * sqrt(3.0) * (float) side;
 
+  // Calculate left and right using the height.
   _left = sf::Vector2f(0, height);
   _right = sf::Vector2f(side-1, height);
 
@@ -44,8 +45,6 @@ Sierpinski::Sierpinski(int depth, int side) : _depth (depth)
    * ( ( (x1 + x2) / 2) , ( (y1 + y2) / 2) )
    *
    */
-
-
   _p1 = sf::Vector2f( ((_top.x + _left.x) / 2), ((_top.y + _left.y) / 2) );
   _p2 = sf::Vector2f( ((_left.x + _right.x) / 2), ((_left.y + _right.y) / 2) );
   _p3 = sf::Vector2f( ((_top.x + _right.x) / 2), ((_top.y + _right.y) / 2) );
@@ -76,7 +75,7 @@ Sierpinski::Sierpinski(sf::Vector2f top, sf::Vector2f left,
   _left = left;
   _right = right;
 
-  // Set the filled triangle points
+  // Set the filled triangle points - use midpoint formula
   _p1 = sf::Vector2f( ((top.x + left.x) / 2), ((top.y + left.y) / 2) );
   _p2 = sf::Vector2f( ((left.x + right.x) / 2), ((left.y + right.y) / 2) );
   _p3 = sf::Vector2f( ((top.x + right.x) / 2), ((top.y + right.y) / 2) );
@@ -92,8 +91,52 @@ Sierpinski::Sierpinski(sf::Vector2f top, sf::Vector2f left,
 Sierpinski::~Sierpinski()
 {
   // Need to destroy all the objects that were created
+  // To do so, I created a clear function that recursively calls itself until all objects are null.
+  clear(_triangle1);
+  clear(_triangle2);
+  clear(_triangle3);
+
+  // After we clear the allocated objects, we don't have to worry about stuff allocated
+  // on the stack since that will be handled automagically.
+  cout << "Cleaned up all the memory we allocated! ^_^ \n";
+}
 
 
+// Deletes all the allocated members
+void Sierpinski::clear(Sierpinski* n)
+{
+  if(n->_triangle1 != NULL)
+  {
+    clear(n->_triangle1);
+  }
+  if(n->_triangle2 != NULL)
+  {
+    clear(n->_triangle2);
+  }
+  if(n->_triangle3 != NULL)
+  {
+    clear(n->_triangle3);
+  }
+
+//   if(n->_triangle1 != NULL)
+//   {
+//     delete n->_triangle1;
+//     n->_triangle1 = NULL;
+//   }
+//
+//   if(n->_triangle1 != NULL)
+//   {
+//     delete n->_triangle2;
+//     n->_triangle2 = NULL;
+//   }
+//
+//   if(n->_triangle1 != NULL)
+//   {
+//     delete n->_triangle3;
+//     n->_triangle3 = NULL;
+//   }
+
+  return;
 }
 
 
@@ -103,7 +146,7 @@ vector <sf::ConvexShape> Sierpinski::make_vector(Sierpinski* const& tri, vector<
   // Check for the end of the recursion
   if(tri->_depth == 0)
   {
-    return triangles;
+    return triangles;   // returns the vector of shapes
   }
 
   // Check the dimensions of the triangle
@@ -127,7 +170,7 @@ vector <sf::ConvexShape> Sierpinski::make_vector(Sierpinski* const& tri, vector<
   triangles = make_vector(tri->_triangle2, triangles);
   triangles = make_vector(tri->_triangle3, triangles);
 
-  return triangles;
+  return triangles;   // returns the vector of shapes
 }
 
 
