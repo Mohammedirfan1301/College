@@ -1,4 +1,7 @@
 #include <SFML/Graphics.hpp>
+#include <vector>
+
+using namespace std;
 
 class Sierpinski : public sf::Drawable
 {
@@ -12,10 +15,8 @@ public:
   // Destructor
   ~Sierpinski();
 
-  // Accessors
-  Sierpinski get_triangle(int num);
-
-  // Mutators
+  // Make a vector of shapes to print out
+  vector <sf::ConvexShape> make_vector(Sierpinski* const& tri, vector<sf::ConvexShape>& triangles) const;
 
 private:
 
@@ -28,5 +29,5 @@ private:
   sf::Vector2f _p1, _p2, _p3;
 
   // Ptrs to additional triangles.
-  Sierpinski *triangle1, *triangle2, *triangle3;
+  Sierpinski *_triangle1, *_triangle2, *_triangle3;
 };

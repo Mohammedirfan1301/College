@@ -56,6 +56,5 @@ int main(int argc, char* argv[])
     window.display();
   }
 
-
   return 0;
 }
