@@ -18,9 +18,6 @@ public:
   // Destructor
   ~Sierpinski();
 
-  // Make a vector of shapes to print out
-  vector <sf::ConvexShape> make_vector(Sierpinski* const& tri, vector<sf::ConvexShape>& triangles) const;
-
 private:
 
   // Draw method

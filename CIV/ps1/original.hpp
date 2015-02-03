@@ -13,14 +13,10 @@ public:
   Original(int depth);
 
   // Constructor that takes three points and depth
-  Original(sf::Vector2f tleft, sf::Vector2f tright,
-           sf::Vector2f bleft, sf::Vector2f bright, float side, int depth);
+  Original(float radius, int depth);
 
   // Destructor
   ~Original();
-
-  // Make a vector of shapes to print out
-  vector <sf::ConvexShape> make_vector(Original* const& squ, vector<sf::ConvexShape>& squares) const;
 
 private:
 
@@ -29,10 +25,10 @@ private:
 
   // Member variables
   int _depth;
-  sf::Vector2f _tleft, _bleft, _tright, _bright;
+  float _radius;
 
   // Pointers to additional triangles.
-  Original *_square1, *_square2, *_square3, *_square4;
+  Original *_circle;
 };
 
 #endif

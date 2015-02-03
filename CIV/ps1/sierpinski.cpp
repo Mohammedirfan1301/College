@@ -105,40 +105,6 @@ Sierpinski::~Sierpinski()
 }
 
 
-// Generates a vector of Sierpinski triangles to draw.
-vector <sf::ConvexShape> Sierpinski::make_vector(Sierpinski* const& tri, vector<sf::ConvexShape>& triangles) const
-{
-  // Check for the end of the recursion
-  if(tri->_depth == 0)
-  {
-    return triangles;   // returns the vector of shapes
-  }
-
-  // Check the dimensions of the triangle
-//   cout << "_depth is: " << tri->_depth << endl;
-//   cout << "_top is: (" << tri->_top.x << ", " << _top.y << ") \n";
-//   cout << "_left is (" << tri->_left.x << ", " << _left.y << ") \n";
-//   cout << "_right is (" << tri->_right.x << ", " << _right.y << ") \n";
-
-  // Otherwise free to make points and add them to the vector.
-  sf::ConvexShape triangle;
-  triangle.setPointCount(3);
-  triangle.setPoint(0, tri->_p1);
-  triangle.setPoint(1, tri->_p2);
-  triangle.setPoint(2, tri->_p3);
-  triangle.setFillColor(sf::Color::Black);
-
-  triangles.push_back(triangle);   // Add to the back of the vector
-
-  // Recursive calls
-  triangles = make_vector(tri->_triangle1, triangles);
-  triangles = make_vector(tri->_triangle2, triangles);
-  triangles = make_vector(tri->_triangle3, triangles);
-
-  return triangles;   // returns the vector of shapes
-}
-
-
 void Sierpinski::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
   // Check the beginning dimensions of the overall triangle
@@ -146,9 +112,6 @@ void Sierpinski::draw(sf::RenderTarget& target, sf::RenderStates states) const
 //   cout << "_top is: (" << _top.x << ", " << _top.y << ") \n";
 //   cout << "_left is (" << _left.x << ", " << _left.y << ") \n";
 //   cout << "_right is (" << _right.x << ", " << _right.y << ") \n";
-
-  // This vector will hold all the triangles we want to draw.
-  vector <sf::ConvexShape> vec_triangle;
 
   // The outside triangle.
   sf::ConvexShape triangle;
@@ -163,30 +126,16 @@ void Sierpinski::draw(sf::RenderTarget& target, sf::RenderStates states) const
   triangle2.setPoint(0, _p1);
   triangle2.setPoint(1, _p2);
   triangle2.setPoint(2, _p3);
-  triangle2.setFillColor(sf::Color::Black);
+  triangle2.setFillColor(sf::Color::Red);
 
   // Draw the two triangles above.
   target.draw(triangle);
   target.draw(triangle2);
 
-  if(_depth < 1)
+  if(_triangle1 != NULL)
   {
-    return;
+    _triangle1->draw(target, states);
+    _triangle2->draw(target, states);
+    _triangle3->draw(target, states);
   }
-
-  // Now generate a vector to draw all the other triangles (if any)
-  vec_triangle = make_vector(_triangle1, vec_triangle);
-  vec_triangle = make_vector(_triangle2, vec_triangle);
-  vec_triangle = make_vector(_triangle3, vec_triangle);
-
-  // Now we can draw everything in the vector
-
-  // Test the size of the vector.
-  cout << "Size of the vector is: " << vec_triangle.size() << endl;
-
-  for(vector<sf::ConvexShape>::iterator it = vec_triangle.begin();
-      it != vec_triangle.end(); it++)
-      {
-        target.draw(*it);
-      }
 }
