@@ -24,25 +24,25 @@ Original::Original(int depth) : _depth (depth)
   _tright = sf::Vector2f(  0, 800);
 
   // Define a side variable
-  float side = 800;
+  float side = 800.0;
   side = side / 2;    // Divide by two to make more squares
 
   // Create four new squares
   // Top left square
-  _square1 = new Original(sf::Vector2f(    0,    0), sf::Vector2f( side,    0),
-                         sf::Vector2f( side, side), sf::Vector2f(    0, side), side, depth - 1);
+  _square1 = new Original(sf::Vector2f(    0,    0), sf::Vector2f( 0, side),
+                          sf::Vector2f( side, 0), sf::Vector2f( side, side), side, depth - 1);
 
   // Top right square
-  _square2 = new Original(sf::Vector2f(    0, side), sf::Vector2f( side, side),
-                         sf::Vector2f( side, side * 2), sf::Vector2f(    0, side * 2), side, depth - 1);
+  _square2 = new Original(sf::Vector2f(    0, side), sf::Vector2f( 0, side * 2.0),
+                          sf::Vector2f( side, side), sf::Vector2f( side, side * 2.0), side, depth - 1);
 
   // Bottom left square
   _square3 = new Original(sf::Vector2f( side,    0),  sf::Vector2f( side, side),
-                         sf::Vector2f( side * 2, 0), sf::Vector2f( side * 2, side), side, depth - 1);
+                          sf::Vector2f( side * 2.0, 0), sf::Vector2f( side * 2.0, side), side, depth - 1);
 
   // Bottom right square
-  _square4 = new Original(sf::Vector2f( side, side), sf::Vector2f(side, side * 2),
-                         sf::Vector2f( side * 2, side), sf::Vector2f(side * 2, side * 2), side, depth - 1);
+  _square4 = new Original(sf::Vector2f( side, side), sf::Vector2f(side, side * 2.0),
+                          sf::Vector2f( side * 2.0, side), sf::Vector2f(side * 2.0, side * 2.0), side, depth - 1);
 
 }
 
@@ -64,22 +64,27 @@ Original::Original(sf::Vector2f tleft, sf::Vector2f tright,
 
   side = side / 2;    // Divide by two to make more squares
 
+  _tleft  = tleft;
+  _bleft  = bleft;
+  _bright = bright;
+  _tright = tright;
+
   // Create four new squares
   // Top left square
-  _square1 = new Original(sf::Vector2f(    0,    0), sf::Vector2f( side,    0),
-                         sf::Vector2f( side, side), sf::Vector2f(    0, side), side, depth - 1);
+  _square1 = new Original(sf::Vector2f(    0,    0), sf::Vector2f( 0, side),
+                          sf::Vector2f( side, 0), sf::Vector2f( side, side), side, depth - 1);
 
   // Top right square
-  _square2 = new Original(sf::Vector2f(    0, side), sf::Vector2f( side, side),
-                         sf::Vector2f( side, side * 2), sf::Vector2f(    0, side * 2), side, depth - 1);
+  _square2 = new Original(sf::Vector2f(    0, side), sf::Vector2f( 0, side * 2.0),
+                          sf::Vector2f( side, side), sf::Vector2f( side, side * 2.0), side, depth - 1);
 
   // Bottom left square
   _square3 = new Original(sf::Vector2f( side,    0),  sf::Vector2f( side, side),
-                         sf::Vector2f( side * 2, 0), sf::Vector2f( side * 2, side), side, depth - 1);
+                          sf::Vector2f( side * 2.0, 0), sf::Vector2f( side * 2.0, side), side, depth - 1);
 
   // Bottom right square
-  _square4 = new Original(sf::Vector2f( side, side), sf::Vector2f(side, side * 2),
-                         sf::Vector2f( side * 2, side), sf::Vector2f(side * 2, side * 2), side, depth - 1);
+  _square4 = new Original(sf::Vector2f( side, side), sf::Vector2f(side, side * 2.0),
+                          sf::Vector2f( side * 2.0, side), sf::Vector2f(side * 2.0, side * 2.0), side, depth - 1);
 
   return;
 }
@@ -103,11 +108,11 @@ vector <sf::ConvexShape> Original::make_vector(Original* const& squ, vector<sf::
     return squares;
   }
 
-  cout << "_depth is: " << squ->_depth << endl;
-  cout << "_top left is: (" << squ->_tleft.x << ", " << squ->_tleft.y << ") \n";
-  cout << "_bottom left is (" << squ->_bleft.x << ", " << squ->_bleft.y << ") \n";
-  cout << "_bottom right is (" << squ->_bright.x << ", " << squ->_bright.y << ") \n";
-  cout << "_top right is (" << squ->_tright.x << ", " << squ->_tright.y << ") \n";
+//   cout << "_depth is: " << squ->_depth << endl;
+//   cout << "_top left is: (" << squ->_tleft.x << ", " << squ->_tleft.y << ") \n";
+//   cout << "_bottom left is (" << squ->_bleft.x << ", " << squ->_bleft.y << ") \n";
+//   cout << "_bottom right is (" << squ->_bright.x << ", " << squ->_bright.y << ") \n";
+//   cout << "_top right is (" << squ->_tright.x << ", " << squ->_tright.y << ") \n";
 
   sf::ConvexShape square;
   square.setPointCount(4);
@@ -115,9 +120,49 @@ vector <sf::ConvexShape> Original::make_vector(Original* const& squ, vector<sf::
   square.setPoint(1, squ->_bleft);
   square.setPoint(2, squ->_bright);
   square.setPoint(3, squ->_tright);
-  square.setOutlineThickness(2);
+  square.setOutlineThickness(1);
   square.setOutlineColor(sf::Color::Red);
-//   square.setFillColor(sf::Color::Blue);
+  square.setFillColor(sf::Color::Black);
+  square.setPosition(sf::Vector2f(25, 25));
+
+//   switch(_depth)
+//   {
+//     case 1:
+//       square.setOutlineColor(sf::Color::Red);
+//       square.setFillColor(sf::Color::Black);
+//       break;
+//
+//     case 2:
+//       square.setOutlineColor(sf::Color::Red);
+//       square.setFillColor(sf::Color::Blue);
+//       break;
+//
+//     case 3:
+//       square.setOutlineColor(sf::Color::Red);
+//       square.setFillColor(sf::Color::Yellow);
+//       break;
+//
+//     case 4:
+//       square.setOutlineColor(sf::Color::Red);
+//       square.setFillColor(sf::Color::Green);
+//       break;
+//
+//     case 5:
+//       square.setOutlineColor(sf::Color::Red);
+//       square.setFillColor(sf::Color::Magenta);
+//       break;
+//
+//
+//     case 6:
+//       square.setOutlineColor(sf::Color::Red);
+//       square.setFillColor(sf::Color::Cyan);
+//       break;
+//
+//     case 7:
+//       square.setOutlineColor(sf::Color::Red);
+//       square.setFillColor(sf::Color::Black);
+//       break;
+//   }
 
   squares.push_back(square);        // Add to the back of the vector
 
@@ -152,7 +197,8 @@ void Original::draw(sf::RenderTarget& target, sf::RenderStates states) const
   square.setPoint(3, _tright);
   square.setOutlineThickness(2);
   square.setOutlineColor(sf::Color::Red);
-  square.setFillColor(sf::Color::Blue);
+//   square.setFillColor(sf::Color::Blue);
+  square.setPosition(sf::Vector2f(25, 25));
 
   // Draw the two triangles above.
   target.draw(square);
