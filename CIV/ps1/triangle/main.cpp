@@ -1,3 +1,4 @@
+#include <cmath>
 #include <iostream>
 #include <SFML/Graphics.hpp>
 #include <string>
@@ -7,12 +8,52 @@ using namespace sf;
 
 int main()
 {
+  // Settings to make stuff look pretty.
+  sf::ContextSettings settings;
+  settings.antialiasingLevel = 8;
+
   // Set the size of the window.
   // In this case I make it 605 by 605. The title is "Program 0".
-  RenderWindow window(VideoMode(800, 800), "Program 1: Triangles");
+  RenderWindow window(VideoMode(800, 800), "Program 1: Circles of death");
 
   // Change the framerate to make it easier to see the image moving.
   window.setFramerateLimit(1);
+
+  sf::CircleShape shape1(200);
+  shape1.setFillColor(sf::Color::Cyan);
+  shape1.setOrigin(200, 200);
+  shape1.setPosition(400, 400);
+  shape1.setPointCount(10000);
+
+  sf::CircleShape shape2(190);
+  shape2.setFillColor(sf::Color::Red);
+  shape2.setOrigin(190, 190);
+  shape2.setPosition(400, 400);
+  shape2.setPointCount(10000);
+
+  sf::CircleShape shape3(180);
+  shape3.setFillColor(sf::Color::Green);
+  shape3.setOrigin(180, 180);
+  shape3.setPosition(400, 400);
+  shape3.setPointCount(10000);
+
+  sf::CircleShape shape4(170);
+  shape4.setFillColor(sf::Color::Yellow);
+  shape4.setOrigin(170, 170);
+  shape4.setPosition(400, 400);
+  shape4.setPointCount(10000);
+
+  sf::CircleShape shape5(160);
+  shape5.setFillColor(sf::Color::Blue);
+  shape5.setOrigin(160, 160);
+  shape5.setPosition(400, 400);
+  shape5.setPointCount(10000);
+
+  sf::CircleShape shape6(150);
+  shape6.setFillColor(sf::Color::Magenta);
+  shape6.setOrigin(150, 150);
+  shape6.setPosition(400, 400);
+  shape6.setPointCount(10000);
 
   sf::ConvexShape polygon;
   polygon.setPointCount(3);
@@ -74,9 +115,15 @@ int main()
       }
     }
 
-    window.draw(polygon);
-    window.draw(polygon2);
-    window.draw(polygon3);
+    window.clear();
+
+    window.draw(shape1);
+    window.draw(shape2);
+    window.draw(shape3);
+    window.draw(shape4);
+    window.draw(shape5);
+    window.draw(shape6);
+
     window.display();
   }
 
