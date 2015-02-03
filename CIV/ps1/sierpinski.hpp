@@ -1,3 +1,6 @@
+#ifndef SIERPINSKI_HPP
+#define SIERPINSKI_HPP
+
 #include <SFML/Graphics.hpp>
 #include <vector>
 
@@ -31,3 +34,5 @@ private:
   // Pointers to additional triangles.
   Sierpinski *_triangle1, *_triangle2, *_triangle3;
 };
+
+#endif

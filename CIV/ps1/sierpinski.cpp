@@ -7,6 +7,7 @@
 using namespace std;
 
 /*
+
          _top
            .
           / \
@@ -60,7 +61,7 @@ Sierpinski::Sierpinski(sf::Vector2f top, sf::Vector2f left,
                        sf::Vector2f right, int depth) : _depth (depth)
 {
   // End of the recurrsion.
-  if(_depth == 0)
+  if(_depth < 0)
   {
     // Set the 3 triangle pointers to null
     _triangle1 = NULL;
@@ -91,10 +92,9 @@ Sierpinski::Sierpinski(sf::Vector2f top, sf::Vector2f left,
 Sierpinski::~Sierpinski()
 {
   // Need to destroy all the objects that were created
-  // To do so, I created a clear function that recursively calls itself until all objects are null.
-
   if(_triangle1 != NULL)
   {
+    // Recusively call the destructor
     delete _triangle1;
     delete _triangle2;
     delete _triangle3;
@@ -168,6 +168,11 @@ void Sierpinski::draw(sf::RenderTarget& target, sf::RenderStates states) const
   // Draw the two triangles above.
   target.draw(triangle);
   target.draw(triangle2);
+
+  if(_depth < 1)
+  {
+    return;
+  }
 
   // Now generate a vector to draw all the other triangles (if any)
   vec_triangle = make_vector(_triangle1, vec_triangle);

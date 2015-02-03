@@ -1,33 +1,25 @@
 #include <cmath>
 #include <iostream>
 #include <SFML/Graphics.hpp>
-#include "sierpinski.hpp"
+#include "original.hpp"
 
 using namespace std;
 
 int main(int argc, char* argv[])
 {
-  // Make sure we are given exactly 3 arguments
-  if(argc < 3 || argc > 4)
+  // Make sure we are given exactly 2 arguments
+  if(argc < 2 || argc > 3)
   {
     // Let the user know the correct way of calling the program.
-    cout << "sierpinski [recursion-depth] [side-length]" << endl;
+    cout << "./original [recursion-depth]" << endl;
     return -1;
   }
 
-  // test
-
   int depth = atoi(argv[1]);
-  int side = atoi(argv[2]);
 
-  cout << "depth: " << depth << endl;
-  cout << "side: " << side << endl;
+  Original obj(depth);
 
-  Sierpinski s(depth, side);
-
-  int window_height = (int)(0.5*sqrt(3.0)*(float)side);
-
-  sf::RenderWindow window(sf::VideoMode(side, window_height), "Sierpinkski");
+  sf::RenderWindow window(sf::VideoMode(900, 900), "Original Recursive Image");
 
   // Change the framerate to make it easier to see the image moving.
   window.setFramerateLimit(1);
@@ -54,7 +46,7 @@ int main(int argc, char* argv[])
     }
 
     window.clear();
-    window.draw(s);
+    window.draw(obj);     // Call the draw object in the Original class
     window.display();
   }
 
