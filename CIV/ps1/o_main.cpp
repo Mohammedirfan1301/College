@@ -22,7 +22,7 @@ int main(int argc, char* argv[])
   sf::RenderWindow window(sf::VideoMode(800, 800), "Original Recursive Image");
 
   // Change the framerate to make it easier to see the image moving.
-  window.setFramerateLimit(5);
+  window.setFramerateLimit(60);
 
   // Window loop
   while (window.isOpen())
