@@ -1,9 +1,15 @@
-CC		= g++
+# Makefile for the sierpinski project
+all:	sierpinski
 
-all:
-	$(CC) -c main.cpp -Wall -Werror -ansi -pedantic
-	$(CC) main.o -o sfml-app -lsfml-graphics -lsfml-window -lsfml-system
+sierpinski:	main.o sierpinski.o
+		g++ main.o sierpinski.o -o sierpinski -lsfml-graphics -lsfml-window -lsfml-system
+
+main.o:		main.cpp sierpinski.hpp
+		g++ -c main.cpp -Wall -Werror -ansi -pedantic
+
+sierpinski.o: 	sierpinski.cpp sierpinski.hpp
+		g++ -c sierpinski.cpp -Wall -Werror -ansi -pedantic
 
 clean:
-	rm main.o
-	rm sfml-app
+		rm *.o
+		rm sierpinski
