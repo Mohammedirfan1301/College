@@ -50,10 +50,18 @@ Sierpinski::Sierpinski(int depth, int side) : _depth (depth)
   _p2 = sf::Vector2f( ((_left.x + _right.x) / 2), ((_left.y + _right.y) / 2) );
   _p3 = sf::Vector2f( ((_top.x + _right.x) / 2), ((_top.y + _right.y) / 2) );
 
-  // Now that we have the points, create 3 triangles
-  _triangle1 = new Sierpinski(_p1, _left, _p2, depth - 1);
-  _triangle2 = new Sierpinski(_top, _p1, _p3, depth - 1);
-  _triangle3 = new Sierpinski(_p3, _p2, _right, depth - 1);
+  if(_depth - 1 > 0)
+  {
+    // Now that we have the points, create 3 triangles
+    _triangle1 = new Sierpinski(_p1, _left, _p2, depth - 1);
+    _triangle2 = new Sierpinski(_top, _p1, _p3, depth - 1);
+    _triangle3 = new Sierpinski(_p3, _p2, _right, depth - 1);
+  }
+  else{
+    _triangle1 = NULL;
+    _triangle2 = NULL;
+    _triangle3 = NULL;
+  }
 }
 
 
@@ -61,7 +69,7 @@ Sierpinski::Sierpinski(sf::Vector2f top, sf::Vector2f left,
                        sf::Vector2f right, int depth) : _depth (depth)
 {
   // End of the recurrsion.
-  if(_depth < 0)
+  if(depth <= 0)
   {
     // Set the 3 triangle pointers to null
     _triangle1 = NULL;
@@ -130,7 +138,12 @@ void Sierpinski::draw(sf::RenderTarget& target, sf::RenderStates states) const
 
   // Draw the two triangles above.
   target.draw(triangle);
-  target.draw(triangle2);
+
+  // Make _depth just print out a blank triangle
+  if(_depth > 0)
+  {
+    target.draw(triangle2);
+  }
 
   if(_triangle1 != NULL)
   {
