@@ -1,0 +1,1 @@
+/home/jason/AndroidStudioProjects/HW_2/Skeletons/ActivityLab/app/build/intermediates/classes/debug
