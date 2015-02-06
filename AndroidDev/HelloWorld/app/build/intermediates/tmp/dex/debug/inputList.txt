@@ -1,0 +1,5 @@
+/home/jason/AndroidStudioProjects/HelloWorld/app/build/intermediates/classes/debug
+/home/jason/AndroidStudioProjects/HelloWorld/app/build/intermediates/pre-dexed/debug/support-annotations-21.0.3-af1c6d1a9795310c8530830a3ba5e09b9aed5a5d.jar
+/home/jason/AndroidStudioProjects/HelloWorld/app/build/intermediates/pre-dexed/debug/internal_impl-21.0.3-91f792f193a0f3b5c14f30ea2c7b1b8920e770f1.jar
+/home/jason/AndroidStudioProjects/HelloWorld/app/build/intermediates/pre-dexed/debug/classes-2167806a219bae24d69300d6524c2e58b49539a8.jar
+/home/jason/AndroidStudioProjects/HelloWorld/app/build/intermediates/pre-dexed/debug/classes-c874b514f72b551e70241753004845ba8ebe96d5.jar

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- From: file:/home/jason/AndroidStudioProjects/HW_2/ActivityLab/app/src/main/res/values/strings.xml -->
+    <!-- From: file:/home/jason/Github/School/College/AndroidDev/HW2/_New/ActivityLab/app/src/main/res/values/strings.xml -->
     <eat-comment/>
     <string name="app_name">ActivityLab</string>
     <string name="button">Start Activity Two</string>
@@ -11,7 +11,7 @@
     <string name="onResume">onResume() calls: 0</string>
     <string name="onStart">onStart() calls: 0</string>
     <string name="title_activity_activity_two">Activity Two</string>
-    <!-- From: file:/home/jason/AndroidStudioProjects/HW_2/ActivityLab/app/src/main/res/values/styles.xml -->
+    <!-- From: file:/home/jason/Github/School/College/AndroidDev/HW2/_New/ActivityLab/app/src/main/res/values/styles.xml -->
     <eat-comment/>
     <style name="AppBaseTheme" parent="android:Theme.Light">
         <!--

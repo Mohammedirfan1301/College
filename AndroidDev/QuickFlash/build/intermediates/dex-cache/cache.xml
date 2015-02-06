@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        jar="/home/jason/Android/Sdk/extras/android/m2repository/com/android/support/support-annotations/21.0.3/support-annotations-21.0.3.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="4b74cefe1f0c1b819e7260c8627a14674e37fd35">
+        <dex dex="/home/jason/AndroidStudioProjects/QuickFlash/app/build/intermediates/pre-dexed/debug/support-annotations-21.0.3-af1c6d1a9795310c8530830a3ba5e09b9aed5a5d.jar" />
+    </item>
+    <item
+        jar="/home/jason/AndroidStudioProjects/QuickFlash/app/build/intermediates/exploded-aar/com.android.support/support-v4/21.0.3/libs/internal_impl-21.0.3.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="01ec05bfbafcc07646ba813000bf2ef11742dd03">
+        <dex dex="/home/jason/AndroidStudioProjects/QuickFlash/app/build/intermediates/pre-dexed/debug/internal_impl-21.0.3-457b6a5703e16de7184d49e76af0afc9fa3ccbf6.jar" />
+    </item>
+    <item
+        jar="/home/jason/AndroidStudioProjects/QuickFlash/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="81d42bf983a8741f4888a6e333e454e4a5e0eeb7">
+        <dex dex="/home/jason/AndroidStudioProjects/QuickFlash/app/build/intermediates/pre-dexed/debug/classes-4e17e250ae1420ed81e32c782d28be36da71f224.jar" />
+    </item>
+    <item
+        jar="/home/jason/AndroidStudioProjects/QuickFlash/app/build/intermediates/exploded-aar/com.android.support/support-v4/21.0.3/classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="2c91c949a45a21cdecf26e03951e46c7beec9ad8">
+        <dex dex="/home/jason/AndroidStudioProjects/QuickFlash/app/build/intermediates/pre-dexed/debug/classes-7c442aafb9880f2aaf14ee98783b815ba638780e.jar" />
+    </item>
+
+</items>

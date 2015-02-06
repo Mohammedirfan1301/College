@@ -1,0 +1,2 @@
+configurations.create("default")
+artifacts.add("default", file('robotium-solo-5.2.1.jar'))
