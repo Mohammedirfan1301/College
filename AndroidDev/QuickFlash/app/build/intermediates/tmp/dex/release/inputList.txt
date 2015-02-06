@@ -1,5 +1,0 @@
-/home/jason/AndroidStudioProjects/QuickFlash/app/build/intermediates/classes/release
-/home/jason/AndroidStudioProjects/QuickFlash/app/build/intermediates/pre-dexed/release/support-annotations-21.0.3-af1c6d1a9795310c8530830a3ba5e09b9aed5a5d.jar
-/home/jason/AndroidStudioProjects/QuickFlash/app/build/intermediates/pre-dexed/release/internal_impl-21.0.3-457b6a5703e16de7184d49e76af0afc9fa3ccbf6.jar
-/home/jason/AndroidStudioProjects/QuickFlash/app/build/intermediates/pre-dexed/release/classes-4e17e250ae1420ed81e32c782d28be36da71f224.jar
-/home/jason/AndroidStudioProjects/QuickFlash/app/build/intermediates/pre-dexed/release/classes-7c442aafb9880f2aaf14ee98783b815ba638780e.jar
