@@ -19,7 +19,6 @@ public class ActivityTwo extends Activity {
 	private final static String TAG = "Lab-ActivityTwo";
 
 	// Lifecycle counters
-
 	// Create counter variables for onCreate(), onRestart(), onStart() and
 	// onResume(), called mCreate, etc.
 	// You will need to increment these variables' values when their
