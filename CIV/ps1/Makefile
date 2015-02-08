@@ -15,7 +15,7 @@ o_main.o:	o_main.cpp original.hpp
 		$(CC) -c o_main.cpp $(CFLAGS)
 
 original.o:	original.cpp original.hpp
-		$(CC) -c original.cpp $(CFLGAGS)
+		$(CC) -c original.cpp $(CFLAGS)
 
 
 # Sierpinski triangle related code
