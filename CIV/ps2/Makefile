@@ -4,11 +4,11 @@ CC= g++
 CFLAGS= -Wall -Werror -ansi -pedantic
 
 # Make both projects
-all:	main.out
+all:	ps2a
 
 # Main tester
-main.out:	main.o LFSR.o
-	$(CC) main.o LFSR.o -o main.out
+ps2a:	main.o LFSR.o
+	$(CC) main.o LFSR.o -o ps2a
 
 main.o:		main.cpp LFSR.hpp
 	$(CC) -c main.cpp $(CFLAGS)
@@ -19,4 +19,4 @@ LFSR.o:		LFSR.cpp LFSR.hpp
 # Cleanup
 clean:
 		rm *.o
-		rm *.out
+		rm ps2a

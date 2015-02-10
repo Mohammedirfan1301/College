@@ -9,9 +9,7 @@
 // Constructor
 LFSR::LFSR(std::string seed, int t)
 {
-  // Constructor
-  std::cout << "Hello world.\n";
-
+  // Sets inital seed / tap position
   bits = seed;
   tap = t;
 }
@@ -63,8 +61,15 @@ int LFSR::step()
 // simulates k steps
 int LFSR::generate(int k)
 {
-  std::cout << k << " number of steps.\n";
-  return 1;
+  // Intialize variable to zero.
+  int x = 0;
+
+  for(int i = 0; i < k; i++)
+  {
+    x = (x * 2) + step();
+  }
+
+  return x;
 }
 
 
