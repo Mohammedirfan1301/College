@@ -30,9 +30,15 @@ int main()
   }
 
   LFSR test3("0101", 2);
-  int num = test.generate(2);
+  int num = test3.generate(2);
 
   std::cout << test3 << " " << num <<  std::endl;
+
+  LFSR test4("0011010010", 3);
+
+  int num2 = test4.generate(4);
+
+  std::cout << num2;
 
   return 0;
 }
