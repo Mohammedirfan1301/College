@@ -29,5 +29,10 @@ int main()
     std::cout << test2 << " " << r << std::endl;
   }
 
+  LFSR test3("0101", 2);
+  int num = test.generate(2);
+
+  std::cout << test3 << " " << num <<  std::endl;
+
   return 0;
 }
