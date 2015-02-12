@@ -1,0 +1,2 @@
+/home/jason/AndroidStudioProjects/DangerousApp/app/build/intermediates/classes/debug
+/home/jason/AndroidStudioProjects/DangerousApp/app/build/intermediates/pre-dexed/debug/support-v4-18.0.0-c8f56897b65ef749361cf8a9c6d5be3c50a5686f.jar
