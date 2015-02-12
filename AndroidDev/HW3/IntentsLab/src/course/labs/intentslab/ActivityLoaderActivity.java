@@ -69,7 +69,7 @@ public class ActivityLoaderActivity extends Activity {
 		Intent launch_explicit = new Intent(this, ExplicitlyLoadedActivity.class);
 
 		// Start an Activity using that intent and the request code defined above
-        startActivity(launch_explicit, GET_TEXT_REQUEST_CODE);
+        startActivity(launch_explicit);
 
 	}
 
@@ -89,7 +89,7 @@ public class ActivityLoaderActivity extends Activity {
 		// chooserIntent variable below. HINT: using the Intent class' 
 		// createChooser())
 		
-		Intent chooserIntent.createChooser(webIntent, "Pick a web browser");
+		Intent chooserIntent = Intent.createChooser(webIntent, "Pick a web browser");
 
 		Log.i(TAG,"Chooser Intent Action:" + chooserIntent.getAction());
 
