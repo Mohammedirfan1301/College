@@ -29,12 +29,9 @@ public class ExplicitlyLoadedActivity extends Activity {
 		enterButton.setOnClickListener(new OnClickListener() {
 
 			// Call enterClicked() when pressed
-
 			@Override
 			public void onClick(View v) {
-
 				enterClicked();
-			
 			}
 		});
 
@@ -48,8 +45,11 @@ public class ExplicitlyLoadedActivity extends Activity {
 
 		// Save user provided input from the EditText field
 		// Create a new intent and save the input from the EditText field as an extra
+        String usertext = mEditText.getText().toString();
+
+        // Put the user entered text into the intent.
         Intent data = new Intent();
-        data.putExtra("string", mEditText.toString());
+        data.putExtra("UserEnteredString", usertext);
 
         // Set Activity's result with result code RESULT_OK
 		setResult(RESULT_OK, data);
@@ -57,6 +57,4 @@ public class ExplicitlyLoadedActivity extends Activity {
 		// Finish the Activity
         finish();
 	}
-
-
 }

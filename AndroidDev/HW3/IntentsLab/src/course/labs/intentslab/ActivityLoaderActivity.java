@@ -55,7 +55,6 @@ public class ActivityLoaderActivity extends Activity {
 			
 			}
 		});
-
 	}
 
 	
@@ -66,11 +65,11 @@ public class ActivityLoaderActivity extends Activity {
 		Log.i(TAG,"Entered startExplicitActivation()");
 		
 		// Create a new intent to launch the ExplicitlyLoadedActivity class
-		Intent launch_explicit = new Intent(this, ExplicitlyLoadedActivity.class);
+		Intent launch_explicit = new Intent(ActivityLoaderActivity.this, ExplicitlyLoadedActivity.class);
 
 		// Start an Activity using that intent and the request code defined above
-        startActivity(launch_explicit);
-
+        //startActivity(launch_explicit);
+        startActivityForResult(launch_explicit, GET_TEXT_REQUEST_CODE);
 	}
 
 	// Start a Browser Activity to view a web page or its URL
@@ -88,28 +87,24 @@ public class ActivityLoaderActivity extends Activity {
 		// will carry out the baseIntent. Store the Intent in the 
 		// chooserIntent variable below. HINT: using the Intent class' 
 		// createChooser())
-		
-		Intent chooserIntent = Intent.createChooser(webIntent, "Pick a web browser");
+		Intent chooserIntent = Intent.createChooser(webIntent, CHOOSER_TEXT);
 
 		Log.i(TAG,"Chooser Intent Action:" + chooserIntent.getAction());
 
 		// Start the chooser Activity, using the chooser intent
 		startActivity(chooserIntent);
-
 	}
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
-		Log.i(TAG, "Entered onActivityResult()");
-		
-		// Process the result only if this method received both a
-		// RESULT_OK result code and a recognized request code
-		// If so, update the Textview showing the user-entered text.
-        if(resultCode == RESULT_OK)
-        {
-            mUserTextView.setText("Hello there m8.");
-        }
+        Log.i(TAG, "Entered onActivityResult()");
 
-	}
+        // Process the result only if this method received both a
+        // RESULT_OK result code and a recognized request code
+        // If so, update the Textview showing the user-entered text.
+        if (resultCode == RESULT_OK && requestCode == GET_TEXT_REQUEST_CODE) {
+            mUserTextView.setText(data.getStringExtra("UserEnteredString"));
+        }
+    }
 }
