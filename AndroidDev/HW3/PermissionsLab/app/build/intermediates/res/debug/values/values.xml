@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- From: file:/home/jason/AndroidStudioProjects/PermissionsLab/app/src/main/res/values/strings.xml -->
+    <!-- From: file:/home/jason/Github/School/College/AndroidDev/HW3/PermissionsLab/app/src/main/res/values/strings.xml -->
     <eat-comment/>
     <string name="app_name">PermissionsLab</string>
     <string name="cust_button1">Start Dangerous Activity</string>
@@ -12,7 +12,7 @@
     <string name="title_activity_customization">Customization</string>
     <string name="title_main">PermissionsLab</string>
     <string name="title_permissions">Permissions</string>
-    <!-- From: file:/home/jason/AndroidStudioProjects/PermissionsLab/app/src/main/res/values/styles.xml -->
+    <!-- From: file:/home/jason/Github/School/College/AndroidDev/HW3/PermissionsLab/app/src/main/res/values/styles.xml -->
     <eat-comment/>
     <style name="AppBaseTheme" parent="android:Theme.Light">
         <!--
