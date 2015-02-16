@@ -21,4 +21,5 @@ LFSR.o:		LFSR.cpp LFSR.hpp
 # Cleanup
 clean:
 	rm *.o
-	rm ps2b
+	rm PhotoMagic
+
