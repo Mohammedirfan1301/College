@@ -7,18 +7,12 @@
 #include "LFSR.hpp"
 
 
-/*
- *
- *
- */
-
-
 int main(int argc, char* argv[])
 {
-  // Must have
+  // Must enter
   if(argc != 5)
   {
-    std::cout << "Usage: $ ./PhotoMagic input-file.png output-file.png 01101000010100010000 16 \n";
+    std::cout << "Usage: $ ./PhotoMagic [input file] [output file] [seed] [tap] \n";
     return -1;
   }
 
@@ -47,28 +41,28 @@ int main(int argc, char* argv[])
   // p is a pixel
   sf::Color p;
 
+  // Setup the two windows
+  sf::Vector2u size = input_image.getSize();
+  sf::RenderWindow input_window(sf::VideoMode(size.x, size.y), "Input Image");
+  sf::RenderWindow output_window(sf::VideoMode(size.x, size.y), "Output Image");
+
   // Randomize the bits in the image
-  for (int x= 0; x < 300; x++)
+  for(int x= 0; x < (signed)size.x; x++)
   {
-    for (int y = 0; y < 372; y++)
+    for(int y = 0; y < (signed)size.y; y++)
     {
       // Get the current pixel from the input image
       p = input_image.getPixel(x, y);
 
-      // Change these to XOR
-      p.r = p.r ^ randomizer.generate(8);
-      p.g = p.g ^ randomizer.generate(8);
-      p.b = p.b ^ randomizer.generate(8);
+      // XOR the pixels
+      p.r = p.r ^ randomizer.generate(tap);
+      p.g = p.g ^ randomizer.generate(tap);
+      p.b = p.b ^ randomizer.generate(tap);
 
       // Modify just the output image
       output_image.setPixel(x, y, p);
     }
   }
-
-  // Setup the two windows
-  sf::Vector2u size = input_image.getSize();
-  sf::RenderWindow input_window(sf::VideoMode(size.x, size.y), "Input Image");
-  sf::RenderWindow output_window(sf::VideoMode(size.x, size.y), "Output Image");
 
   // Load the images into textures
   sf::Texture input_texture, output_texture;
