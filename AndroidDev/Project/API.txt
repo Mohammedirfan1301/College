@@ -1,0 +1,65 @@
+**********************
+www.uml.edu/routes
+(Unofficial) API Docs
+**********************
+
+Awesome site: http://jsbeautifier.org/
+
+API calls appear to be RESTFUL
+
+GET Requests:
+
+setMoreInfoContent() 	-> contentString + currentRouteID
+getMessages()		-> /api/Transportation/RoadsterRoutes/Messages/
+trackBuses()		-> appDomain + "/api/Transportation/RoadsterRoutes/BusesOnLine/?apiKey=" + apiKey + "&lineId=" + selectedLine.Id,
+loadInitialData()	-> appDomain + "/api/Transportation/RoadsterRoutes/Lines/?apiKey=" + apiKey,
+
+Mysterious GET on something:	-> url: b.src
+NOTE: this one is some sort of script GET request?
+
+Another strange request @ line 3373
+
+***********************
+For tracking the buses:
+***********************
+
+Seems every bus line has its own ID, which if you ping it with a GET will return a data object
+with:
+
+Number objects, going from 0 to however many buses there are.
+These objects each contain a location object, with a "Number" variable for the Bus number.
+You can ID each bus by this number - ex: T104 is marked with the GPS location of 42.6505193, -71.3241743
+
+Bus line IDs:
+
+Green East: lineId=5&_=1424152932247
+Red Nights & Weekends: lineId=2&_=1424152953286
+Yellow East: lineId=8&_=1424152984046
+
+Example objects for pinging:
+
+{
+    "isError": false,
+    "message": null,
+    "statusCode": 200,
+    "data": [{
+        "Id": 41,
+        "Number": "T105",
+        "Location": {
+            "Latitude": 42.6524188,
+            "Longitude": -71.3208788
+        },
+        "Timestamp": "2015-02-14T16:45:53",
+        "Heading": 270
+    }, {
+        "Id": 39,
+        "Number": "T104",
+        "Location": {
+            "Latitude": 42.6505193,
+            "Longitude": -71.3241743
+        },
+        "Timestamp": "2015-02-14T16:45:48",
+        "Heading": 45
+    }],
+    "copyright": "Copyright (c) University of Massachusetts Lowell. Terms of Service: https://www.uml.edu/api/Static/tos.html"
+}
