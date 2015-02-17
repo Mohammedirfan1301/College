@@ -63,3 +63,12 @@ Example objects for pinging:
     }],
     "copyright": "Copyright (c) University of Massachusetts Lowell. Terms of Service: https://www.uml.edu/api/Static/tos.html"
 }
+
+
+
+API Keys:
+
+87C6ACB0-C2A4-460A-AAF2-9493BAA3917B
+87C6ACB0-C2A4-460A-AAF2-9493BAA3917B
+
+THE API KEY DOESN'T SEEM TO CHANGE...
