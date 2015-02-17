@@ -1,0 +1,13 @@
+API calls appear to be RESTFUL
+
+GET:
+
+setMoreInfoContent() 	-> contentString + currentRouteID
+getMessages()		-> /api/Transportation/RoadsterRoutes/Messages/
+trackBuses()		-> appDomain + "/api/Transportation/RoadsterRoutes/BusesOnLine/?apiKey=" + apiKey + "&lineId=" + selectedLine.Id,
+loadInitialData()	-> appDomain + "/api/Transportation/RoadsterRoutes/Lines/?apiKey=" + apiKey,
+
+Mysterious GET on something:	-> url: b.src
+NOTE: this one is some sort of script GET request?
+
+Another strange request @ line 3373
