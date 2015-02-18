@@ -7,16 +7,16 @@ SFMLFLAGS= -lsfml-graphics -lsfml-window -lsfml-system
 # Make ps2b
 all:	NBody
 
-# NBody executable
-NBody:		main.o nbody.o
-	$(CC) main.o nbody.o -o NBody $(SFMLFLAGS)
+# body executable
+NBody:	main.o body.o
+	$(CC) main.o body.o -o NBody $(SFMLFLAGS)
 
 # object files
-main.o:		main.cpp nbody.hpp
-	$(CC) -c main.cpp nbody.hpp $(CFLAGS)
+main.o:	main.cpp body.hpp
+	$(CC) -c main.cpp body.hpp $(CFLAGS)
 
-nbody.o:	nbody.cpp nbody.hpp
-	$(CC) -c nbody.cpp nbody.hpp $(CFLAGS)
+body.o:	body.cpp body.hpp
+	$(CC) -c body.cpp body.hpp $(CFLAGS)
 
 # Cleanup
 clean:
