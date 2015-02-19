@@ -13,10 +13,10 @@ public:
   body(sf::Vector2f pos, sf::Vector2f vel, float obj_mass, std::string file_name);
 
   // Overridden operator >> for inputing from a file
-  friend std::istream& operator>> (std::istream &in, body &cBody);
+  friend std::istream& operator>> (std::istream &input, body &cBody);
 
   // Overriddden operator << for debugging
-  friend std::ostream& operator<< (std::ostream &out, body &cBody);
+  friend std::ostream& operator<< (std::ostream &output, body &cBody);
 
 private:
 
@@ -26,6 +26,7 @@ private:
   sf::Vector2f _pos;
   sf::Vector2f _vel;
   float _mass;
+  std::string _filename;
 
   sf::Image _image;
   sf::Sprite _sprite;

@@ -15,6 +15,7 @@ body::body(sf::Vector2f pos, sf::Vector2f vel, float obj_mass, std::string file_
   _pos = pos;
   _vel = vel;
   _mass = obj_mass;
+  _filename = file_name;
 
   // Load the image into an image object
   if (!_image.loadFromFile(file_name))
@@ -42,25 +43,50 @@ void body::draw(sf::RenderTarget& target, sf::RenderStates states) const
 
 
 // Overridden operator >> for inputing from a file
-std::istream& operator>> (std::istream &in, body &cBody)
+std::istream& operator>> (std::istream &input, body &cBody)
 {
+  // Read input into the object
+  input >> cBody._pos.x >> cBody._pos.y;
+  input >> cBody._vel.x >> cBody._vel.y;
+  input >> cBody._mass;
+  input >> cBody._filename;
 
-  return in;
+  // Now set up the images
+  // Just like the constructor
+
+  // Load the image into an image object
+  if (!cBody._image.loadFromFile(cBody._filename))
+  {
+    return input;    // Quit if the file doesn't exist.
+  }
+
+  // Load the image into a texture
+  cBody._texture.loadFromImage(cBody._image);
+
+  // Load the texture into a sprite
+  cBody._sprite.setTexture(cBody._texture);
+
+  // Set the position from the Vector2f for position
+  cBody._sprite.setPosition(sf::Vector2f(cBody._pos.x, cBody._pos.y));
+
+  return input;
 }
 
 
 // Overriddden operator << for debugging
-std::ostream& operator<< (std::ostream &out, body &cBody)
+std::ostream& operator<< (std::ostream &output, body &cBody)
 {
   // For debugging, output all the data stored in the object.
-  out << "Pos (x): " << cBody._pos.x << std::endl;
-  out << "Pos (y): " << cBody._pos.y << std::endl;
+  output << "Pos (x): " << cBody._pos.x << std::endl;
+  output << "Pos (y): " << cBody._pos.y << std::endl;
 
-  out << "Vel (x): " << cBody._vel.x << std::endl;
-  out << "Vel (y): " << cBody._vel.y << std::endl;
+  output << "Vel (x): " << cBody._vel.x << std::endl;
+  output << "Vel (y): " << cBody._vel.y << std::endl;
 
-  out << "Mass: " << cBody._mass << std::endl;
+  output << "Mass: " << cBody._mass << std::endl;
 
-  return out;
+  output << "Filename: " << cBody._filename << std::endl;
+
+  return output;
 }
 

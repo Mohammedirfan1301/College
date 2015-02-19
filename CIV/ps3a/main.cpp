@@ -26,8 +26,9 @@ int main(int argc, char* argv[])
   // the universe.
   std::string num_planets, radius;
 
-  getline(planets_file, num_planets, '\n');
-  getline(planets_file, radius, '\n');
+  // Use cin to redirect the input
+  std::cin >> num_planets;
+  std::cin >> radius;
 
   // Now we know how many planets + the radius. Convert these from std::strings to int / float
   int number_planets = atoi(num_planets.c_str());
@@ -45,25 +46,17 @@ int main(int argc, char* argv[])
   // Loop through, create 5 (or how ever many we're asked for) body objects using the input file.
   for(int i = 0; i < number_planets; i++)
   {
-    // Get input from the file
-
-    /*
-     *  turns out this should actually be using
-     *  the >> operator
-     *  so I should stop here and fix this tomorrow or whenever.
-     *
-     */
-
-    getline(planets_file, x_pos, ' ');
-    getline(planets_file, y_pos, ' ');
-    getline(planets_file, x_vel, ' ');
-    getline(planets_file, y_vel, ' ');
-    getline(planets_file, mass, ' ');
-    getline(planets_file, filename, ' ');
-
     // Create a new object
-    
+    body* tmp = new body();
 
+    // Read input into the object
+    std::cin >> *tmp;
+
+    // Save the object to the vector
+    body_vector.push_back(*tmp);
+
+    // Test the object (debugging)
+    std::cout << *tmp;
   }
 
 
@@ -102,6 +95,14 @@ int main(int argc, char* argv[])
     }
 
     window.clear();
+
+    // Display the vector of objects
+    std::vector<body>::iterator it;
+
+    for(it = body_vector.begin(); it != body_vector.end(); it++)
+    {
+      window.draw(*it);
+    }
 
     // Draw the objects we made above. (manually)
 //     window.draw(sun);
