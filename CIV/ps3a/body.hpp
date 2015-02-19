@@ -1,5 +1,7 @@
 #include <iostream>
 #include <string>
+#include <fstream>
+#include <vector>
 #include <SFML/System.hpp>
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
@@ -10,8 +12,11 @@ public:
   body();
   body(sf::Vector2f pos, sf::Vector2f vel, float obj_mass, std::string file_name);
 
-  // Overridden operator
-  //friend std::ostream& operator>> (std::ostream &out, body &cBODY);
+  // Overridden operator >> for inputing from a file
+  friend std::istream& operator>> (std::istream &in, body &cBody);
+
+  // Overriddden operator << for debugging
+  friend std::ostream& operator<< (std::ostream &out, body &cBody);
 
 private:
 

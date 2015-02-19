@@ -39,3 +39,28 @@ void body::draw(sf::RenderTarget& target, sf::RenderStates states) const
   // Testing outputting an image.
   target.draw(_sprite);
 }
+
+
+// Overridden operator >> for inputing from a file
+std::istream& operator>> (std::istream &in, body &cBody)
+{
+
+  return in;
+}
+
+
+// Overriddden operator << for debugging
+std::ostream& operator<< (std::ostream &out, body &cBody)
+{
+  // For debugging, output all the data stored in the object.
+  out << "Pos (x): " << cBody._pos.x << std::endl;
+  out << "Pos (y): " << cBody._pos.y << std::endl;
+
+  out << "Vel (x): " << cBody._vel.x << std::endl;
+  out << "Vel (y): " << cBody._vel.y << std::endl;
+
+  out << "Mass: " << cBody._mass << std::endl;
+
+  return out;
+}
+
