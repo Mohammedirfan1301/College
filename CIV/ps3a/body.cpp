@@ -10,8 +10,9 @@ body::body()
 
 
 // Constructor with parameters
-body::body(sf::Vector2f pos, sf::Vector2f vel, float obj_mass, std::string file_name)
+body::body(sf::Vector2f pos, sf::Vector2f vel, float obj_mass, float radius, std::string file_name)
 {
+  // Set member variables
   _pos = pos;
   _vel = vel;
   _mass = obj_mass;
@@ -28,6 +29,55 @@ body::body(sf::Vector2f pos, sf::Vector2f vel, float obj_mass, std::string file_
 
   // Load the texture into a sprite
   _sprite.setTexture(_texture);
+
+  // Set the position from the Vector2f for position
+  _sprite.setPosition(sf::Vector2f(_pos.x, _pos.y));
+}
+
+
+// Sets the universe radius
+void body::set_radius(float radius)
+{
+  _radius = radius;
+  return;
+}
+
+
+// Sets the planets position
+void body::set_position()
+{
+  /*
+   * The math here probably needs some explaing:
+   *
+   * First thing I do is divide the pos by the radius. This gets me a nice
+   * ratio I can use. For the earth this value comes out to .5984.
+   *
+   * Next, I use this ratio and multiply it by EITHER half the width or height of the window
+   * (depends on whether its a x or y coordinate. x corsponds to wide, y corsponds with height)
+   * which gets me a position that is actually in the SFML coordinate system.
+   *
+   * Finally, now that I have the position in SFML coordinates, I adjust for the fact
+   * that the SFML window's center is half the height and side. Example would be
+   * a window of 500 by 500 has its center at 250, 250. The coordinates that we are
+   * given in the planets.txt file actually have their center at 0,0. So even though
+   * I have the SFML coordinates, I must add 250 to both the x and y coordinates to
+   * make the planets show up in the center of the screen.
+   *
+   * Example math for the earth:
+   * [pos to radius ratio] * [side OR height / 2]
+   * .5984 * 250 = 149.6
+   *
+   * The 149.6 in this case works perfectly with the SFML coordinate system.
+   * We just add 250 to get the center for SFML coordinate, which would come out
+   * to 399.6
+   *
+   * A quick note - y coordinates all have a '0' by default, so the below math
+   * actually just sets all the y coordinates to 250 - which is the center of the SFML
+   * height (0 to 500, 250 is the middle).
+   *
+   */
+  _pos.x = ( (_pos.x / _radius) * (window_side / 2) ) + (window_side / 2);
+  _pos.y = ( (_pos.y / _radius) * (window_height / 2) ) + (window_height / 2);
 
   // Set the position from the Vector2f for position
   _sprite.setPosition(sf::Vector2f(_pos.x, _pos.y));
@@ -74,6 +124,7 @@ std::istream& operator>> (std::istream &input, body &cBody)
 
 
 // Overriddden operator << for debugging
+// Very useful for finding out why stuff doesn't work.
 std::ostream& operator<< (std::ostream &output, body &cBody)
 {
   // For debugging, output all the data stored in the object.

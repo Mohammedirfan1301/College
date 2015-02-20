@@ -1,10 +1,6 @@
 #include <iostream>
 #include "body.hpp"
 
-// Constants for the window size.
-const int window_height = 500;
-const int window_side = 500;
-
 int main(int argc, char* argv[])
 {
   // Get the center of the window.
@@ -51,6 +47,10 @@ int main(int argc, char* argv[])
 
     // Read input into the object
     std::cin >> *tmp;
+
+    // Set the radius and the planet positions.
+    tmp->set_radius(universe_radius);
+    tmp->set_position();
 
     // Save the object to the vector
     body_vector.push_back(*tmp);
