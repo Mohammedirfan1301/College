@@ -7,16 +7,6 @@ int main(int argc, char* argv[])
 //   int c_height = window_height / 2;
 //   int c_side = window_side / 2;
 
-  // File I/O - open the planets.txt file
-  std::fstream planets_file("planets.txt", std::ios::in);
-
-  // Make sure the file open opened correctly.
-  if(!planets_file.is_open())
-  {
-    std::cout << "planets.txt failed to open!\n";
-    return -1;
-  }
-
   // Get the first two numbers in the text file. The first should be an int telling us
   // how many planets there are. The second should be a float telling us the radius of
   // the universe.
@@ -73,6 +63,26 @@ int main(int argc, char* argv[])
   // Change the framerate to make it easier to see the image moving.
   window.setFramerateLimit(1);
 
+  // Background image
+  sf::Image background_image;
+
+  // Background image
+  if (!background_image.loadFromFile("stars.jpg"))
+  {
+    return -1;    // Quit if the file doesn't exist.
+  }
+
+  // Load the image into a texture
+  sf::Texture background_texture;
+  background_texture.loadFromImage(background_image);
+
+  // Load the texture into a sprite
+  sf::Sprite background_sprite;
+  background_sprite.setTexture(background_texture);
+
+  // Set the position to make the background look cool
+  background_sprite.setPosition(sf::Vector2f(-700, -700));
+
   // Window loop
   while (window.isOpen())
   {
@@ -95,6 +105,8 @@ int main(int argc, char* argv[])
     }
 
     window.clear();
+
+    window.draw(background_sprite);
 
     // Display the vector of objects
     std::vector<body>::iterator it;
