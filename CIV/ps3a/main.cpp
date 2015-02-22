@@ -106,6 +106,7 @@ int main(int argc, char* argv[])
 
     window.clear();
 
+    // Draws the starry background (black backgrounds are so lame for a solar system)
     window.draw(background_sprite);
 
     // Display the vector of objects
