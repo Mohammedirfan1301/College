@@ -6,7 +6,7 @@ Name:   Jason Downing
 OS:     Xubuntu 14.04LTS 64bit
 Machine: ASUS Laptop / Custom built Desktop (Intel/Nvidia PCs)
 Text editor:  Kate Text Editor (KDE editor)
-Hours to complete assignment (optional):  ~5 hours or so. Probably more. I lost track at some point.
+Hours to complete assignment:  ~5 hours or so. Probably more. I lost track at some point.
 
 /**********************************************************************
  *  Briefly explain the workings of the features you implemented.
@@ -14,10 +14,12 @@ Hours to complete assignment (optional):  ~5 hours or so. Probably more. I lost 
  **********************************************************************/
 1. Displays the planets in an SFML window. I first checked this manually.
    (I left my manual code in, as comments for future reference)
+
 2. Reads input from a file, by using the < operator on a text file
    Ex: ./NBody < planets.txt
    I used cin to do this, so technically someone could just type all these
    commands out by hand. (that would be lame though!)
+
 3. To do the above, I overloaded the >> operator.
    I also overloaded the << operator for debug output.
    (just like we did for the last program - ps2b)
@@ -54,15 +56,15 @@ Hours to complete assignment (optional):  ~5 hours or so. Probably more. I lost 
  *  List whatever help (if any) you received from the instructor,
  *  classmates, or anyone else.
  **********************************************************************/
-None (besides any code that was given during lectures).
+  None (besides any code that was given during lectures).
 
 /**********************************************************************
  *  Describe any serious problems you encountered.
  **********************************************************************/
-No major problems! Yay!
+  No major problems! Yay!
 
 /**********************************************************************
  *  List any other comments here.
  **********************************************************************/
-My code is really well commented, so it should be easy to see
-how and why I did most things.
+  My code is really well commented, so it should be easy to see
+  how and why I did most things.
