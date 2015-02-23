@@ -1,11 +1,21 @@
-#include <iostream>
 #include "body.hpp"
 
 int main(int argc, char* argv[])
 {
+  /*
+   * Inital manual code - left in for future reference
+   */
   // Get the center of the window.
-//   int c_height = window_height / 2;
-//   int c_side = window_side / 2;
+  // int c_height = window_height / 2;
+  // int c_side = window_side / 2;
+
+  // body objects (manually created)
+  // body sun(sf::Vector2f(c_height, c_side), sf::Vector2f(0,0), 200.99, "sun.gif");
+  // body mercury(sf::Vector2f(c_height + 50, c_side), sf::Vector2f(0,0), 200.99, "mercury.gif");
+  // body venus(sf::Vector2f(c_height + 100, c_side), sf::Vector2f(0,0), 200.99, "venus.gif");
+  // body earth(sf::Vector2f(c_height + 160, c_side), sf::Vector2f(0,0), 200.99, "earth.gif");
+  // body mars(sf::Vector2f(c_height + 210, c_side), sf::Vector2f(0,0), 200.99, "mars.gif");
+
 
   // Get the first two numbers in the text file. The first should be an int telling us
   // how many planets there are. The second should be a float telling us the radius of
@@ -21,13 +31,10 @@ int main(int argc, char* argv[])
   float universe_radius = atof(radius.c_str());
 
   std::cout << "Num of planets: " << number_planets << std::endl;
-  std::cout << "Radius: " << universe_radius << std::endl;
+  std::cout << "Radius: " << universe_radius << std::endl << std::endl;
 
   // Create a vector of body objects
   std::vector<body> body_vector;
-
-  // strings to hold in values
-  std::string x_pos, y_pos, x_vel, y_vel, mass, filename;
 
   // Loop through, create 5 (or how ever many we're asked for) body objects using the input file.
   for(int i = 0; i < number_planets; i++)
@@ -48,14 +55,6 @@ int main(int argc, char* argv[])
     // Test the object (debugging)
     std::cout << *tmp;
   }
-
-
-  // body objects (manually created)
-//   body sun(sf::Vector2f(c_height, c_side), sf::Vector2f(0,0), 200.99, "sun.gif");
-//   body mercury(sf::Vector2f(c_height + 50, c_side), sf::Vector2f(0,0), 200.99, "mercury.gif");
-//   body venus(sf::Vector2f(c_height + 100, c_side), sf::Vector2f(0,0), 200.99, "venus.gif");
-//   body earth(sf::Vector2f(c_height + 160, c_side), sf::Vector2f(0,0), 200.99, "earth.gif");
-//   body mars(sf::Vector2f(c_height + 210, c_side), sf::Vector2f(0,0), 200.99, "mars.gif");
 
   // SFML Window
   sf::RenderWindow window(sf::VideoMode(window_side, window_height), "The Solar System");

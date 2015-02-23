@@ -1,20 +1,22 @@
-#include <iostream>
 #include "body.hpp"
 
 // Default Constructor
 body::body()
 {
-  // We don't really need a default constructor it seems.
+  // Does nothing since I call the setter methods and the >> operator.
   return;
 }
 
 
 // Constructor with parameters
-body::body(sf::Vector2f pos, sf::Vector2f vel, float obj_mass, float radius, std::string file_name)
+body::body(double pos_x, double pos_y, double vel_x, double vel_y,
+           double obj_mass, double radius, std::string file_name)
 {
   // Set member variables
-  _pos = pos;
-  _vel = vel;
+  _pos_x = pos_x;
+  _pos_y = pos_y;
+  _vel_x = vel_x;
+  _vel_y = vel_y;
   _mass = obj_mass;
   _filename = file_name;
 
@@ -31,7 +33,7 @@ body::body(sf::Vector2f pos, sf::Vector2f vel, float obj_mass, float radius, std
   _sprite.setTexture(_texture);
 
   // Set the position from the Vector2f for position
-  _sprite.setPosition(sf::Vector2f(_pos.x, _pos.y));
+  _sprite.setPosition(sf::Vector2f(_pos_x, _pos_y));
 }
 
 
@@ -76,11 +78,11 @@ void body::set_position()
    * height (0 to 500, 250 is the middle).
    *
    */
-  _pos.x = ( (_pos.x / _radius) * (window_side / 2) ) + (window_side / 2);
-  _pos.y = ( (_pos.y / _radius) * (window_height / 2) ) + (window_height / 2);
+  _pos_x = ( (_pos_x / _radius) * (window_side / 2) ) + (window_side / 2);
+  _pos_y = ( (_pos_y / _radius) * (window_height / 2) ) + (window_height / 2);
 
   // Set the position from the Vector2f for position
-  _sprite.setPosition(sf::Vector2f(_pos.x, _pos.y));
+  _sprite.setPosition(sf::Vector2f(_pos_x, _pos_y));
 }
 
 
@@ -96,10 +98,9 @@ void body::draw(sf::RenderTarget& target, sf::RenderStates states) const
 std::istream& operator>> (std::istream &input, body &cBody)
 {
   // Read input into the object
-  input >> cBody._pos.x >> cBody._pos.y;
-  input >> cBody._vel.x >> cBody._vel.y;
-  input >> cBody._mass;
-  input >> cBody._filename;
+  input >> cBody._pos_x >> cBody._pos_y;
+  input >> cBody._vel_y >> cBody._vel_y;
+  input >> cBody._mass  >> cBody._filename;
 
   // Now set up the images
   // Just like the constructor
@@ -116,8 +117,8 @@ std::istream& operator>> (std::istream &input, body &cBody)
   // Load the texture into a sprite
   cBody._sprite.setTexture(cBody._texture);
 
-  // Set the position from the Vector2f for position
-  cBody._sprite.setPosition(sf::Vector2f(cBody._pos.x, cBody._pos.y));
+  // Set the initial position
+  cBody._sprite.setPosition(sf::Vector2f(cBody._pos_x, cBody._pos_y));
 
   return input;
 }
@@ -128,15 +129,12 @@ std::istream& operator>> (std::istream &input, body &cBody)
 std::ostream& operator<< (std::ostream &output, body &cBody)
 {
   // For debugging, output all the data stored in the object.
-  output << "Pos (x): " << cBody._pos.x << std::endl;
-  output << "Pos (y): " << cBody._pos.y << std::endl;
-
-  output << "Vel (x): " << cBody._vel.x << std::endl;
-  output << "Vel (y): " << cBody._vel.y << std::endl;
-
-  output << "Mass: " << cBody._mass << std::endl;
-
   output << "Filename: " << cBody._filename << std::endl;
+  output << "Pos (x): " << cBody._pos_x << std::endl;
+  output << "Pos (y): " << cBody._pos_y << std::endl;
+  output << "Vel (x): " << cBody._vel_x << std::endl;
+  output << "Vel (y): " << cBody._vel_y << std::endl;
+  output << "Mass: " << cBody._mass << std::endl << std::endl;
 
   return output;
 }

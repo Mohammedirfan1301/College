@@ -4,7 +4,7 @@
 
 Name:   Jason Downing
 OS:     Xubuntu 14.04LTS 64bit
-Machine (e.g., Dell Latitude, MacBook Pro): ASUS Laptop / Custom built Desktop (Intel/Nvidia PCs)
+Machine: ASUS Laptop / Custom built Desktop (Intel/Nvidia PCs)
 Text editor:  Kate Text Editor (KDE editor)
 Hours to complete assignment (optional):  ~5 hours or so. Probably more. I lost track at some point.
 
@@ -19,16 +19,36 @@ Hours to complete assignment (optional):  ~5 hours or so. Probably more. I lost 
    I used cin to do this, so technically someone could just type all these
    commands out by hand. (that would be lame though!)
 3. To do the above, I overloaded the >> operator.
+   I also overloaded the << operator for debug output.
+   (just like we did for the last program - ps2b)
+   Both operators are pretty similar - they just use an ostream or an istream
+   to redirect input. For the operator << it is an ostream that makes it possible
+   to just call cout << obj and have all the values inside of the object be outputted
+   to the screen or a file or w/e. The >> operator works similarly, but uses an istream
+   to take input from stdin (cin in this case) and redirect that input into the member
+   variables of the object. Examples:
+
+   cin >> c_body;
+   // inside the >> operator, I then do:
+   input >> c_body._mass;
+   input >> c_body._pos_x;
+   etc
+
+   For outputting to standard IO I just do:
+   cout << c_body;
+   // which inside of the << operator:
+   output << c_body._mass;
+   output << c_body.pos_x;
+   etc
+
 4. I also created methods for setting the radius and x / y positions.
-   I made sure to conver the huge numbers (something * 10 ^ 11!)
+   I made sure to convert the huge numbers (something * 10 ^ 11!)
    to workable numbers by dividing by the universe radius. This got me a
    ratio and I then multiplied that ratio by half the window height or side
    to get an SFML coordinate. From here, I adjusted for the SFML coordinate
    system using 0,0 as the upper left corner. Adding half the height or side
    of the given window lets me adjust the positions of the planets.
    (please see the huge comment block in body.cpp for more details)
-5. Side note: I also overloaded the << operator for debug output.
-   (just like we did for the last program - ps2b)
 
 /**********************************************************************
  *  List whatever help (if any) you received from the instructor,

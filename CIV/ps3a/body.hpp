@@ -16,7 +16,8 @@ public:
 
   // Constructors
   body();
-  body(sf::Vector2f pos, sf::Vector2f vel, float obj_mass, float radius, std::string file_name);
+  body(double pos_x, double pos_y, double vel_x, double vel_y,
+       double obj_mass, double radius, std::string file_name);
 
   void set_radius(float radius);
   void set_position();              // Sets the planets positions
@@ -33,16 +34,14 @@ private:
   void virtual draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
   // Member variables
-  sf::Vector2f _pos;
-  sf::Vector2f _vel;
-  float _mass;
+  double _pos_x, _pos_y;
+  double _vel_x, _vel_y;
+  double _mass;
+  double _radius;
   std::string _filename;
 
   // Image related objects
   sf::Image _image;
   sf::Sprite _sprite;
   sf::Texture _texture;
-
-  // Universe Radius
-  float _radius;
 };
