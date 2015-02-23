@@ -2,20 +2,17 @@
 
 int main(int argc, char* argv[])
 {
-  /*
-   * Inital manual code - left in for future reference
-   */
-  // Get the center of the window.
-  // int c_height = window_height / 2;
-  // int c_side = window_side / 2;
+  if(argc != 3)
+  {
+    std::cout << "Usage: ./NBody [simulation time] [time step] < planets.txt\n";
+    return -1;
+  }
 
-  // body objects (manually created)
-  // body sun(sf::Vector2f(c_height, c_side), sf::Vector2f(0,0), 200.99, "sun.gif");
-  // body mercury(sf::Vector2f(c_height + 50, c_side), sf::Vector2f(0,0), 200.99, "mercury.gif");
-  // body venus(sf::Vector2f(c_height + 100, c_side), sf::Vector2f(0,0), 200.99, "venus.gif");
-  // body earth(sf::Vector2f(c_height + 160, c_side), sf::Vector2f(0,0), 200.99, "earth.gif");
-  // body mars(sf::Vector2f(c_height + 210, c_side), sf::Vector2f(0,0), 200.99, "mars.gif");
+  std::string sim_time(argv[1]);
+  std::string step_time(argv[2]);
 
+  std::cout << "Simulation time: " << sim_time << "\n";
+  std::cout << "Time Step: " << step_time << "\n\n";
 
   // Get the first two numbers in the text file. The first should be an int telling us
   // how many planets there are. The second should be a float telling us the radius of
