@@ -100,7 +100,7 @@ int main(int argc, char* argv[])
 
   // Setup the sound buffer
   sf::Music music;
-  if(!music.openFromFile("2001.mid"))
+  if(!music.openFromFile("2001.ogg"))
   {
     return -1;    // error
   }
