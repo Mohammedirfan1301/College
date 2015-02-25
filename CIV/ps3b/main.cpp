@@ -9,11 +9,17 @@ int main(int argc, char* argv[])
     return -1;
   }
 
+  // Get the simulation time / time step from the command line arguments
   std::string sim_time(argv[1]);
   std::string step_time(argv[2]);
+  std::string::size_type sz;     // alias of size_t
 
   std::cout << "Simulation time: " << sim_time << "\n";
   std::cout << "Time Step: " << step_time << "\n\n";
+
+  // Convert these strings to doubles
+  double simulation_time = 0;
+  double time_step = std::stod(step_time, &sz);
 
   // Get the first two numbers in the text file. The first should be an int telling us
   // how many planets there are. The second should be a float telling us the radius of
@@ -28,6 +34,7 @@ int main(int argc, char* argv[])
   int number_planets = atoi(num_planets.c_str());
   float universe_radius = atof(radius.c_str());
 
+  // Debugging
   std::cout << "Num of planets: " << number_planets << std::endl;
   std::cout << "Radius: " << universe_radius << std::endl << std::endl;
 
@@ -69,9 +76,35 @@ int main(int argc, char* argv[])
     return -1;    // Quit if the file doesn't exist.
   }
 
+  // Declare and load a font
+  sf::Font time_font;
+  time_font.loadFromFile("arial.ttf");
+
+  sf::Text time_text;
+
+  // Select the font
+  time_text.setFont(time_font); // font is a sf::Font
+
+  // Set the string to display
+  time_text.setString("Elapsed time " + std::to_string(simulation_time));
+
+  // Set the character size
+  time_text.setCharacterSize(14);      // in pixels, not points!
+
+  // Set the color
+  time_text.setColor(sf::Color::White);
+
   // Load the image into a texture
   sf::Texture background_texture;
   background_texture.loadFromImage(background_image);
+
+  // Setup the sound buffer
+  sf::Music music;
+  if(!music.openFromFile("2001.midi"))
+  {
+    return -1;    // error
+  }
+  music.play();
 
   // Load the texture into a sprite
   sf::Sprite background_sprite;
@@ -106,22 +139,23 @@ int main(int argc, char* argv[])
     // Draws the starry background (black backgrounds are so lame for a solar system)
     window.draw(background_sprite);
 
+    // Update the time string
+    time_text.setString("Elapsed time: " + std::to_string(simulation_time));
+
+    // Display the time in the left hand corner of the window
+    window.draw(time_text);
+
     // Display the vector of objects
     std::vector<body>::iterator it;
-
     for(it = body_vector.begin(); it != body_vector.end(); it++)
     {
       window.draw(*it);
     }
 
-    // Draw the objects we made above. (manually)
-//     window.draw(sun);
-//     window.draw(mercury);
-//     window.draw(venus);
-//     window.draw(earth);
-//     window.draw(mars);
-
     window.display();
+
+    // Increase simulation time variable by the simulation step
+    simulation_time += time_step;
   }
 
   return 0;

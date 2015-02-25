@@ -2,9 +2,10 @@
 #include <string>
 #include <fstream>
 #include <vector>
+#include <SFML/Audio.hpp>
+#include <SFML/Graphics.hpp>
 #include <SFML/System.hpp>
 #include <SFML/Window.hpp>
-#include <SFML/Graphics.hpp>
 
 // Constants for the window size.
 const int window_height = 500;
@@ -19,8 +20,12 @@ public:
   body(double pos_x, double pos_y, double vel_x, double vel_y,
        double obj_mass, double radius, std::string file_name);
 
+  // Set radius / image position
   void set_radius(float radius);
   void set_position();              // Sets the planets positions
+
+  // Time step
+  void step(double time_t);
 
   // Overridden operator >> for inputing from a file
   friend std::istream& operator>> (std::istream &input, body &cBody);

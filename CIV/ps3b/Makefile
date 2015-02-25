@@ -1,8 +1,8 @@
 # Makefile for the sierpinski project / original recursive image
 # Flags to save on typing all this out
 CC= g++
-CFLAGS= -Wall -Werror -ansi -pedantic
-SFMLFLAGS= -lsfml-graphics -lsfml-window -lsfml-system
+CFLAGS= -Wall -Werror -std=c++0x -pedantic
+SFMLFLAGS= -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio
 
 # Make ps2b
 all:	NBody

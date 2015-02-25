@@ -45,7 +45,7 @@ void body::set_radius(float radius)
 }
 
 
-void body::step()
+void body::step(double time_t)
 {
   /*
    * Probably want a step(double t) and a add_to_vel(double vx, vy) methods
@@ -67,7 +67,7 @@ void body::step()
   /*
    * Convert forces into acceleration
    *
-   * 
+   *
    *
    *  F =  m * a
    * Ax = Fx / m
