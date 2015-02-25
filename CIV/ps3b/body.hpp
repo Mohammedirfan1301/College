@@ -34,10 +34,11 @@ private:
   void virtual draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
   // Member variables
+  double _acc_x, _acc_y;
+  double _for_x, _for_y;
   double _pos_x, _pos_y;
   double _vel_x, _vel_y;
-  double _mass;
-  double _radius;
+  double _mass, _radius;
   std::string _filename;
 
   // Image related objects

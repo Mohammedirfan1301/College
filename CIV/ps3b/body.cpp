@@ -45,6 +45,54 @@ void body::set_radius(float radius)
 }
 
 
+void body::step()
+{
+  /*
+   * Probably want a step(double t) and a add_to_vel(double vx, vy) methods
+   *
+   * Could have more methods too.
+   *
+   */
+
+  /*
+   * Calculate forces for each body
+   *
+   * This should probably be in main - the bodys need to know the force of the sun on them.
+   * Unless you pass the force of the sun into a method...
+   *
+   * force =
+   *
+   */
+
+  /*
+   * Convert forces into acceleration
+   *
+   * 
+   *
+   *  F =  m * a
+   * Ax = Fx / m
+   * Ay = Fy / m
+   *
+   */
+
+  /*
+   * Calculate change in velocity
+   *
+   * dvelx = (ax * time_step)
+   * _velx = = _velx + (ax * time_step)
+   *
+   */
+
+  /*
+   * Body moves based on its velocity
+   *
+   * _xpos = _xpos + (_xvel * time_step)
+   *
+   */
+
+}
+
+
 // Sets the planets position
 void body::set_position()
 {
@@ -78,11 +126,14 @@ void body::set_position()
    * height (0 to 500, 250 is the middle).
    *
    */
-  _pos_x = ( (_pos_x / _radius) * (window_side / 2) ) + (window_side / 2);
-  _pos_y = ( (_pos_y / _radius) * (window_height / 2) ) + (window_height / 2);
+
+  // Note - using temp variables to avoid modifying the member variables and having
+  // to switch back and forth between astronomical and pixel measurements.
+  double pos_x = ( (_pos_x / _radius) * (window_side / 2) ) + (window_side / 2);
+  double pos_y = ( (_pos_y / _radius) * (window_height / 2) ) + (window_height / 2);
 
   // Set the position from the Vector2f for position
-  _sprite.setPosition(sf::Vector2f(_pos_x, _pos_y));
+  _sprite.setPosition(sf::Vector2f(pos_x, pos_y));
 }
 
 

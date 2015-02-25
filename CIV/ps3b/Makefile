@@ -21,5 +21,6 @@ body.o:	body.cpp body.hpp
 # Cleanup
 clean:
 	rm *.o
+	rm *.gch
 	rm NBody
 

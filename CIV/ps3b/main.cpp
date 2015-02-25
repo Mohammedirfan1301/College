@@ -4,6 +4,7 @@ int main(int argc, char* argv[])
 {
   if(argc != 3)
   {
+    // ./NBody 157788000.0 25000.0 < planets.txt
     std::cout << "Usage: ./NBody [simulation time] [time step] < planets.txt\n";
     return -1;
   }
