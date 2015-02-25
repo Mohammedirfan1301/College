@@ -11,6 +11,9 @@
 const int window_height = 500;
 const int window_side = 500;
 
+// Physics Constants
+const double gravity = 667000000000;
+
 class body: public sf::Drawable
 {
 public:

@@ -22,7 +22,7 @@ int main(int argc, char* argv[])
   double time_step = std::stod(step_time, &sz);
 
   // Get the first two numbers in the text file. The first should be an int telling us
-  // how many planets there are. The second should be a float telling us the radius of
+  // how many planets there are. The second should be a double telling us the radius of
   // the universe.
   std::string num_planets, radius;
 
@@ -31,8 +31,8 @@ int main(int argc, char* argv[])
   std::cin >> radius;
 
   // Now we know how many planets + the radius. Convert these from std::strings to int / float
-  int number_planets = atoi(num_planets.c_str());
-  float universe_radius = atof(radius.c_str());
+  int number_planets = std::stoi(num_planets, &sz);
+  double universe_radius = std::stod(radius, &sz);
 
   // Debugging
   std::cout << "Num of planets: " << number_planets << std::endl;
@@ -85,26 +85,23 @@ int main(int argc, char* argv[])
   // Select the font
   time_text.setFont(time_font); // font is a sf::Font
 
-  // Set the string to display
-  time_text.setString("Elapsed time " + std::to_string(simulation_time));
-
   // Set the character size
   time_text.setCharacterSize(14);      // in pixels, not points!
 
   // Set the color
   time_text.setColor(sf::Color::White);
 
-  // Load the image into a texture
-  sf::Texture background_texture;
-  background_texture.loadFromImage(background_image);
-
-  // Setup the sound buffer
+  // Load the music file
   sf::Music music;
   if(!music.openFromFile("2001.ogg"))
   {
     return -1;    // error
   }
   music.play();
+
+  // Load the image into a texture
+  sf::Texture background_texture;
+  background_texture.loadFromImage(background_image);
 
   // Load the texture into a sprite
   sf::Sprite background_sprite;
