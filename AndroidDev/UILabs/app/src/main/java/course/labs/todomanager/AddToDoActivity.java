@@ -1,8 +1,4 @@
 package course.labs.todomanager;
-
-import java.util.Calendar;
-import java.util.Date;
-
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
@@ -20,6 +16,10 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.TimePicker;
+
+import java.util.Calendar;
+import java.util.Date;
+
 import course.labs.todomanager.ToDoItem.Priority;
 import course.labs.todomanager.ToDoItem.Status;
 
@@ -34,7 +34,6 @@ public class AddToDoActivity extends Activity {
 	private static String dateString;
 	private static TextView dateView;
 	private static TextView timeView;
-
 	
 	private Date mDate;
 	private RadioGroup mPriorityRadioGroup;
@@ -57,12 +56,10 @@ public class AddToDoActivity extends Activity {
 		timeView = (TextView) findViewById(R.id.time);
 
 		// Set the default date and time
-
 		setDefaultDateTime();
 
 		// OnClickListener for the Date button, calls showDatePickerDialog() to show
 		// the Date dialog
-
 		final Button datePickerButton = (Button) findViewById(R.id.date_picker_button);
 		datePickerButton.setOnClickListener(new OnClickListener() {
 
@@ -74,49 +71,45 @@ public class AddToDoActivity extends Activity {
 
 		// OnClickListener for the Time button, calls showTimePickerDialog() to show
 		// the Time Dialog
-
 		final Button timePickerButton = (Button) findViewById(R.id.time_picker_button);
 		timePickerButton.setOnClickListener(new OnClickListener() {
-
 			@Override
 			public void onClick(View v) {
 				showTimePickerDialog();
 			}
 		});
 
-		// OnClickListener for the Cancel Button, 
-
+		// OnClickListener for the Cancel Button
 		final Button cancelButton = (Button) findViewById(R.id.cancelButton);
 		cancelButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				log("Entered cancelButton.OnClickListener.onClick()");
 
-				//TODO - Implement onClick().  
-
+				// Implement onClick().
+                setResult(RESULT_CANCELED);
+                finish();
 			}
 		});
 
 		//OnClickListener for the Reset Button
-
 		final Button resetButton = (Button) findViewById(R.id.resetButton);
 		resetButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				log("Entered resetButton.OnClickListener.onClick()");
 
-				//TODO - Reset data fields to default values
-				
+				// Reset data fields to default values
+                setDefaultDateTime();
 
-			
-			
-			
+                mTitleText.setText("");
+                mPriorityRadioGroup.check(R.id.medPriority);
+                mStatusRadioGroup.check(R.id.statusNotDone);
 			}
 		});
 
 		// OnClickListener for the Submit Button
 		// Implement onClick().
-		
 		final Button submitButton = (Button) findViewById(R.id.submitButton);
 		submitButton.setOnClickListener(new OnClickListener() {
 			@Override
@@ -125,14 +118,14 @@ public class AddToDoActivity extends Activity {
 
 				// Gather ToDoItem data  
 				
-				//TODO - Get Priority
-				Priority priority = null;
+				// Get Priority
+				Priority priority = getPriority();
 
-				//TODO -  Get Status
-				Status status = null;
+				// Get Status
+				Status status = getStatus();
 
-				//TODO -  Title
-				String titleString = null;
+				// Title
+				String titleString = mTitleText.getText().toString();;
 
 				// Date
 				String fullDate = dateString + " " + timeString;
@@ -141,18 +134,18 @@ public class AddToDoActivity extends Activity {
 				Intent data = new Intent();
 				ToDoItem.packageIntent(data, titleString, priority, status, fullDate);
 
-				//TODO - return data Intent and finish
-				
-
-				
-				
+				// return data Intent and finish
+                setResult(RESULT_OK, data);
+                finish();
 			}
 		});
 	}
 
-	// Do not modify below here
-	
-	// Use this method to set the default date and time
+    // *********************************************************************************************
+    // Do not modify below here
+    // *********************************************************************************************
+
+    // Use this method to set the default date and time
 	
 	private void setDefaultDateTime() {
 
