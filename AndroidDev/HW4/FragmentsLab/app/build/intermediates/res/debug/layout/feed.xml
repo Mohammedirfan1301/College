@@ -1,0 +1,11 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <TextView
+        android:id="@+id/feed_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/greeting" />
+
+</ScrollView><!-- From: file:/home/jason/Github/School/College/AndroidDev/HW4/FragmentsLab/app/src/main/res/layout/feed.xml -->
