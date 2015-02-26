@@ -166,17 +166,14 @@ public class DownloaderTask extends AsyncTask<String, Void, String[]> {
 						// Check whether the result code is RESULT_OK
 						if(getResultCode() != Activity.RESULT_OK) {
 
-							// If so, create a PendingIntent using the
-							// restartMainActivityIntent and set its flags
-							// to FLAG_UPDATE_CURRENT
+							// If so, create a PendingIntent using the restartMainActivityIntent
+							// and set its flags to FLAG_UPDATE_CURRENT
 							final PendingIntent pendingIntent = PendingIntent.getActivity(
                                     mApplicationContext, 0, restartMainActivtyIntent,
                                     PendingIntent.FLAG_UPDATE_CURRENT);
 
-							// Uses R.layout.custom_notification for the
-							// layout of the notification View. The xml 
-							// file is in res/layout/custom_notification.xml
-
+							// Uses R.layout.custom_notification for the layout of the
+							// notification View. The xml file is in res/layout/custom_notification.xml
 							RemoteViews mContentView = new RemoteViews(
 									mApplicationContext.getPackageName(),
 									R.layout.custom_notification);
@@ -190,19 +187,19 @@ public class DownloaderTask extends AsyncTask<String, Void, String[]> {
                                 mContentView.setTextViewText(R.id.text, failMsg);
                             }
 
-							// create the Notification. You will have to set
-							// several pieces of information. You can use
-							// android.R.drawable.stat_sys_warning
-							// for the small icon. You should also setAutoCancel(true). 
-
-                            Notification.Builder notificationBuilder = new Notification.Builder(mApplicationContext)
-                                    .setContent(mContentView).setContentIntent(pendingIntent)
-                                    .setAutoCancel(true).setSmallIcon(android.R.drawable.stat_sys_warning);
+							// create the Notification. You will have to set several pieces of
+							// information. You can use android.R.drawable.stat_sys_warning
+							// for the small icon. You should also setAutoCancel(true).
+                            Notification.Builder notificationBuilder = new Notification.Builder(mApplicationContext);
+                            notificationBuilder.setContent(mContentView);
+                            notificationBuilder.setContentIntent(pendingIntent);
+                            notificationBuilder.setSmallIcon(android.R.drawable.stat_sys_warning);
+                            notificationBuilder.setAutoCancel(true);
 
 							// Send the notification
-                            NotificationManager mNotificationManager =
+                            NotificationManager downloadNotification =
                                 (NotificationManager) mApplicationContext.getSystemService(Context.NOTIFICATION_SERVICE);
-                            mNotificationManager.notify(MY_NOTIFICATION_ID, notificationBuilder.build());
+                            downloadNotification.notify(MY_NOTIFICATION_ID, notificationBuilder.build());
 							
 							log("Notification Area Notification sent");
 						}

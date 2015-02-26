@@ -24,8 +24,7 @@ import java.io.InputStreamReader;
 public class MainActivity extends Activity implements SelectionListener {
 
 	public static final String TWEET_FILENAME = "tweets.txt";
-	public static final String[] FRIENDS = { "taylorswift13", "msrebeccablack",
-			"ladygaga" };
+	public static final String[] FRIENDS = { "taylorswift13", "msrebeccablack", "ladygaga" };
 	public static final String DATA_REFRESHED_ACTION = "course.labs.notificationslab.DATA_REFRESHED";
 	
 	private static final int NUM_FRIENDS = 3;
@@ -88,8 +87,8 @@ public class MainActivity extends Activity implements SelectionListener {
                     Toast.LENGTH_LONG).show();
 
 			// Start new AsyncTask to download Tweets from network
-            DownloaderTask downloaderTask = new DownloaderTask(this);
-            downloaderTask.execute(URL_TSWIFT, URL_RBLACK, URL_LGAGA);
+            DownloaderTask downloadTweets = new DownloaderTask(this);
+            downloadTweets.execute(URL_TSWIFT, URL_RBLACK, URL_LGAGA);
 
 			// Set up a BroadcastReceiver to receive an Intent when download finishes.
 			mRefreshReceiver = new BroadcastReceiver() {
