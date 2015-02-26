@@ -1,3 +1,4 @@
+#include <math.h>
 #include <iostream>
 #include <string>
 #include <fstream>
@@ -26,6 +27,10 @@ public:
   // Set radius / image position
   void set_radius(float radius);
   void set_position();              // Sets the planets positions
+
+  // Finds the force between two body objects, adds to force vector
+  // (sums all the forces together essentially)
+  friend void find_force(body &Body1, body &Body2);
 
   // Time step
   void step(double time_t);

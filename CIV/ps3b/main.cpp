@@ -110,6 +110,15 @@ int main(int argc, char* argv[])
   // Set the position to make the background look cool
   background_sprite.setPosition(sf::Vector2f(-700, -700));
 
+  // Calculate the forces on the objects
+  std::vector<body>::iterator it;
+  for(it = body_vector.begin(); it != body_vector.end(); it++)
+  {
+    it->find_force(it, it);
+
+  }
+
+
   // Window loop
   while (window.isOpen())
   {
@@ -136,14 +145,13 @@ int main(int argc, char* argv[])
     // Draws the starry background (black backgrounds are so lame for a solar system)
     window.draw(background_sprite);
 
-    // Update the time string
-    time_text.setString("Elapsed time: " + std::to_string(simulation_time));
+    // Update the time string - I cast to an int to keep the time sane looking
+    time_text.setString("Elapsed time: " + std::to_string((int)simulation_time));
 
     // Display the time in the left hand corner of the window
     window.draw(time_text);
 
     // Display the vector of objects
-    std::vector<body>::iterator it;
     for(it = body_vector.begin(); it != body_vector.end(); it++)
     {
       window.draw(*it);

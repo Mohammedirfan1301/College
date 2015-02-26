@@ -45,35 +45,33 @@ void body::set_radius(float radius)
 }
 
 
+// Finds the force between two body objects, adds to force vector
+// (sums all the forces together essentially)
+friend void body::find_force(body &Body1, body &Body2)
+{
+  /*
+   *  Formula is: F = (G * M1 * M2) / R^2
+   *
+   */
+  double force = (gravity * Body1._mass * Body2._mass) / pow(Body1._radius, 2);
+
+  Body1._for_x += force * ( (cBody1._pos_x - cBody2._pos_x) / cBody1._radius );
+  Body1._for_y += force * ( (cBody1._pos_y - cBody2._pos_y) / cBody1._radius );
+}
+
+
 void body::step(double time_t)
 {
   /*
-   * Probably want a step(double t) and a add_to_vel(double vx, vy) methods
-   *
-   * Could have more methods too.
-   *
-   */
-
-  /*
-   * Calculate forces for each body
-   *
-   * This should probably be in main - the bodys need to know the force of the sun on them.
-   * Unless you pass the force of the sun into a method...
-   *
-   * force =
-   *
-   */
-
-  /*
    * Convert forces into acceleration
-   *
-   *
    *
    *  F =  m * a
    * Ax = Fx / m
    * Ay = Fy / m
    *
    */
+  _acc_x = _for_x / _mass;
+  _acc_y = _for_y / _mass;
 
   /*
    * Calculate change in velocity
@@ -81,14 +79,22 @@ void body::step(double time_t)
    * dvelx = (ax * time_step)
    * _velx = = _velx + (ax * time_step)
    *
+   * (vx + Δt ax, vy + Δt ay)
+   *
    */
+  _vel_x = _vel_x + (_acc_x * time_t);
+  _vel_y = _vel_y + (_acc_y * time_t);
 
   /*
    * Body moves based on its velocity
    *
    * _xpos = _xpos + (_xvel * time_step)
    *
+   * (px + Δt vx, py + Δt vy)
+   *
    */
+  _pos_x = _pos_x + (time_t * _vel_x);
+  _pos_y = _pos_y + (time_t * _vel_y);
 
 }
 
@@ -171,6 +177,12 @@ std::istream& operator>> (std::istream &input, body &cBody)
   // Set the initial position
   cBody._sprite.setPosition(sf::Vector2f(cBody._pos_x, cBody._pos_y));
 
+  // Set force / acceleration to 0.
+  cBody._for_x = 0;
+  cBody._for_y = 0;
+  cBody._acc_x = 0;
+  cBody._acc_y = 0;
+
   return input;
 }
 
@@ -181,6 +193,10 @@ std::ostream& operator<< (std::ostream &output, body &cBody)
 {
   // For debugging, output all the data stored in the object.
   output << "Filename: " << cBody._filename << std::endl;
+  output << "Acceleration (x): " << cBody._acc_x << std::endl;
+  output << "Acceleration (y): " << cBody._acc_y << std::endl;
+  output << "Force (x): " << cBody._for_x << std::endl;
+  output << "Force (y): " << cBody._for_y << std::endl;
   output << "Pos (x): " << cBody._pos_x << std::endl;
   output << "Pos (y): " << cBody._pos_y << std::endl;
   output << "Vel (x): " << cBody._vel_x << std::endl;
