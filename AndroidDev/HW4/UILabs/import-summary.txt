@@ -1,0 +1,85 @@
+ECLIPSE ANDROID PROJECT IMPORT SUMMARY
+======================================
+
+Ignored Files:
+--------------
+The following files were *not* copied into the new Gradle project; you
+should evaluate whether these are still needed in your project and if
+so manually move them:
+
+* .idea/
+* .idea/.name
+* .idea/compiler.xml
+* .idea/copyright/
+* .idea/copyright/profiles_settings.xml
+* .idea/encodings.xml
+* .idea/misc.xml
+* .idea/modules.xml
+* .idea/scopes/
+* .idea/scopes/scope_settings.xml
+* .idea/vcs.xml
+* .idea/workspace.xml
+* app/
+* app/build.gradle
+* app/src/
+* app/src/main/
+* app/src/main/AndroidManifest.xml
+* app/src/main/java/
+* app/src/main/java/course/
+* app/src/main/java/course/labs/
+* app/src/main/java/course/labs/todomanager/
+* app/src/main/java/course/labs/todomanager/AddToDoActivity.java
+* app/src/main/java/course/labs/todomanager/ToDoItem.java
+* app/src/main/java/course/labs/todomanager/ToDoListAdapter.java
+* app/src/main/java/course/labs/todomanager/ToDoManagerActivity.java
+* app/src/main/res/
+* app/src/main/res/drawable-hdpi/
+* app/src/main/res/drawable-hdpi/icon.png
+* app/src/main/res/drawable-ldpi/
+* app/src/main/res/drawable-ldpi/icon.png
+* app/src/main/res/drawable-mdpi/
+* app/src/main/res/drawable-mdpi/icon.png
+* app/src/main/res/layout/
+* app/src/main/res/layout/add_todo.xml
+* app/src/main/res/layout/footer_view.xml
+* app/src/main/res/layout/todo_item.xml
+* app/src/main/res/values-sw600dp/
+* app/src/main/res/values-sw600dp/dimens.xml
+* app/src/main/res/values-sw720dp-land/
+* app/src/main/res/values-sw720dp-land/dimens.xml
+* app/src/main/res/values/
+* app/src/main/res/values/dimens.xml
+* app/src/main/res/values/strings.xml
+* build.gradle
+* gradle/
+* gradle/wrapper/
+* gradle/wrapper/gradle-wrapper.jar
+* gradle/wrapper/gradle-wrapper.properties
+* gradlew
+* gradlew.bat
+* proguard.cfg
+* settings.gradle
+
+Moved Files:
+------------
+Android Gradle projects use a different directory structure than ADT
+Eclipse projects. Here's how the projects were restructured:
+
+* AndroidManifest.xml => app/src/main/AndroidManifest.xml
+* res/ => app/src/main/res/
+* src/ => app/src/main/java/
+
+Next Steps:
+-----------
+You can now build the project. The Gradle project needs network
+connectivity to download dependencies.
+
+Bugs:
+-----
+If for some reason your project does not build, and you determine that
+it is due to a bug or limitation of the Eclipse to Gradle importer,
+please file a bug at http://b.android.com with category
+Component-Tools.
+
+(This import summary is for your information only, and can be deleted
+after import once you are satisfied with the results.)
