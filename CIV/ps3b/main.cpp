@@ -114,7 +114,7 @@ int main(int argc, char* argv[])
   std::vector<body>::iterator it;
   for(it = body_vector.begin(); it != body_vector.end(); it++)
   {
-    it->find_force(it, it);
+    it->find_force(*it, *it);
 
   }
 
@@ -151,10 +151,18 @@ int main(int argc, char* argv[])
     // Display the time in the left hand corner of the window
     window.draw(time_text);
 
+      for(it = body_vector.begin(); it != body_vector.end(); it++)
+  {
+    it->find_force(*it, *it);
+
+  }
+
     // Display the vector of objects
     for(it = body_vector.begin(); it != body_vector.end(); it++)
     {
       window.draw(*it);
+      std::cout << *it << std::endl;
+      it->set_position();
     }
 
     window.display();

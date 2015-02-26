@@ -47,7 +47,7 @@ void body::set_radius(float radius)
 
 // Finds the force between two body objects, adds to force vector
 // (sums all the forces together essentially)
-friend void body::find_force(body &Body1, body &Body2)
+void body::find_force(body &Body1, body &Body2)
 {
   /*
    *  Formula is: F = (G * M1 * M2) / R^2
@@ -55,8 +55,8 @@ friend void body::find_force(body &Body1, body &Body2)
    */
   double force = (gravity * Body1._mass * Body2._mass) / pow(Body1._radius, 2);
 
-  Body1._for_x += force * ( (cBody1._pos_x - cBody2._pos_x) / cBody1._radius );
-  Body1._for_y += force * ( (cBody1._pos_y - cBody2._pos_y) / cBody1._radius );
+  Body1._for_x += force * ( (Body1._pos_x - Body2._pos_x) / Body1._radius );
+  Body1._for_y += force * ( (Body1._pos_y - Body2._pos_y) / Body1._radius );
 }
 
 
