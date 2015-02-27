@@ -55,8 +55,8 @@ void body::find_force(body &Body1, body &Body2)
    */
   double force = (gravity * Body1._mass * Body2._mass) / pow(Body1._radius, 2);
 
-  Body1._for_x += force * ( (Body1._pos_x - Body2._pos_x) / Body1._radius );
-  Body1._for_y += force * ( (Body1._pos_y - Body2._pos_y) / Body1._radius );
+  _for_x = force * ( (Body2._pos_x - Body1._pos_x) / Body1._radius );
+  _for_y = force * ( (Body2._pos_y - Body1._pos_y) / Body1._radius );
 }
 
 
@@ -93,8 +93,8 @@ void body::step(double time_t)
    * (px + Δt vx, py + Δt vy)
    *
    */
-  _pos_x = _pos_x + (time_t * _vel_x);
-  _pos_y = _pos_y + (time_t * _vel_y);
+  _pos_x = _pos_x + (_vel_x * time_t);
+  _pos_y = _pos_y + (_vel_y * time_t);
 
 }
 

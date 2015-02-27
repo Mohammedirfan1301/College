@@ -97,7 +97,7 @@ int main(int argc, char* argv[])
   {
     return -1;    // error
   }
-  music.play();
+//   music.play();
 
   // Load the image into a texture
   sf::Texture background_texture;
@@ -112,12 +112,12 @@ int main(int argc, char* argv[])
 
   // Calculate the forces on the objects
   std::vector<body>::iterator it;
-  for(it = body_vector.begin(); it != body_vector.end(); it++)
-  {
-    it->find_force(*it, *it);
-
-  }
-
+  std::vector<body>::iterator x,y;
+//   for(it = body_vector.begin(); it != body_vector.end(); it++)
+//   {
+//     it->find_force(*it, *it);
+//
+//   }
 
   // Window loop
   while (window.isOpen())
@@ -151,11 +151,16 @@ int main(int argc, char* argv[])
     // Display the time in the left hand corner of the window
     window.draw(time_text);
 
-      for(it = body_vector.begin(); it != body_vector.end(); it++)
-  {
-    it->find_force(*it, *it);
-
-  }
+//     for(x = body_vector.begin(); x != body_vector.end(); x++)
+//     {
+//       for(y = body_vector.begin(); y != body_vector.end(); y++)
+//       {
+//         x->find_force(*x, *y);
+//       }
+//     }
+    x = body_vector.begin();
+    y = body_vector.end();
+    x->find_force(*x, *y);
 
     // Display the vector of objects
     for(it = body_vector.begin(); it != body_vector.end(); it++)
@@ -163,6 +168,7 @@ int main(int argc, char* argv[])
       window.draw(*it);
       std::cout << *it << std::endl;
       it->set_position();
+      it->step(time_step);
     }
 
     window.display();
