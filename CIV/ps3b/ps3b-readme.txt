@@ -9,48 +9,11 @@ Text editor:  Kate Text Editor (KDE editor)
 Hours to complete assignment:  ~5 hours or so. Probably more. I lost track at some point.
 
 /**********************************************************************
- *  Briefly explain the workings of the features you implemented.
- *  Include code excerpts.
+ *  If you created your own universe for extra credit, describe it
+ *  here and why it is interesting.
  **********************************************************************/
-1. Displays the planets in an SFML window. I first checked this manually.
-   (I left my manual code in, as comments for future reference)
 
-2. Reads input from a file, by using the < operator on a text file
-   Ex: ./NBody < planets.txt
-   I used cin to do this, so technically someone could just type all these
-   commands out by hand. (that would be lame though!)
-
-3. To do the above, I overloaded the >> operator.
-   I also overloaded the << operator for debug output.
-   (just like we did for the last program - ps2b)
-   Both operators are pretty similar - they just use an ostream or an istream
-   to redirect input. For the operator << it is an ostream that makes it possible
-   to just call cout << obj and have all the values inside of the object be outputted
-   to the screen or a file or w/e. The >> operator works similarly, but uses an istream
-   to take input from stdin (cin in this case) and redirect that input into the member
-   variables of the object. Examples:
-
-   cin >> c_body;
-   // inside the >> operator, I then do:
-   input >> c_body._mass;
-   input >> c_body._pos_x;
-   etc
-
-   For outputting to standard IO I just do:
-   cout << c_body;
-   // which inside of the << operator:
-   output << c_body._mass;
-   output << c_body.pos_x;
-   etc
-
-4. I also created methods for setting the radius and x / y positions.
-   I made sure to convert the huge numbers (something * 10 ^ 11!)
-   to workable numbers by dividing by the universe radius. This got me a
-   ratio and I then multiplied that ratio by half the window height or side
-   to get an SFML coordinate. From here, I adjusted for the SFML coordinate
-   system using 0,0 as the upper left corner. Adding half the height or side
-   of the given window lets me adjust the positions of the planets.
-   (please see the huge comment block in body.cpp for more details)
+  I should probably do this for fun.
 
 /**********************************************************************
  *  List whatever help (if any) you received from the instructor,
@@ -61,7 +24,36 @@ Hours to complete assignment:  ~5 hours or so. Probably more. I lost track at so
 /**********************************************************************
  *  Describe any serious problems you encountered.
  **********************************************************************/
-  No major problems! Yay!
+  This round I had tons of issues with simulating the universe.
+  For some reason I kept getting NaN, -NaN, and my planets would just
+  magically disappear after a few steps (due to the "NaN" numbers).
+  Turns out NaN stands for "Not a Number" and is related to either
+  dividing by 0, pow / squaring 0 or doing anything else that results in
+  a unpredictable number. See this stackoverflow for more info:
+
+  In my case - it turns out I had a very tiny bug in my input operator
+  (<< operator). This piece of code is what was wrong:
+
+  input >> cBody._vel_y >> cBody._vel_y;
+
+  I was actually inputting the y velocity twice and NEVER setting the x velocity!
+  So whenever I used the x velocity in my code, it was completely unpredictable
+  what number would end up there. And since I pow / square / multiply the variables
+  throughout my code, that unknown / not preset variable caused a bunch of problems
+  in the simulation.
+
+  Oh and I was also dumb and initally made my gravity constant this:
+  667000000000
+
+  Instead of the correct constant:
+  6.67e-11;
+
+  The only other issue I had was I tried to calculate the forces inside the
+  body class because I thought it would work - until I realized it didn't
+  since the force were member variables and never reset (although I could have
+  made a reset forces function I guess...). In the end it made more sense to make
+  a friend function which gets passed two body objects and calculates either the
+  x or the y force and returns it.
 
 /**********************************************************************
  *  List any other comments here.
