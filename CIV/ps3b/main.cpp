@@ -112,7 +112,7 @@ int main(int argc, char* argv[])
 
   // Calculate the forces on the objects
   std::vector<body>::iterator it;
-  std::vector<body>::iterator x,y;
+  std::vector<body>::iterator x, y;
 //   for(it = body_vector.begin(); it != body_vector.end(); it++)
 //   {
 //     it->find_force(*it, *it);
@@ -159,8 +159,9 @@ int main(int argc, char* argv[])
 //       }
 //     }
     x = body_vector.begin();
-    y = body_vector.end();
+    y = x++;
     x->find_force(*x, *y);
+    y->find_force(*y, *x);
 
     // Display the vector of objects
     for(it = body_vector.begin(); it != body_vector.end(); it++)

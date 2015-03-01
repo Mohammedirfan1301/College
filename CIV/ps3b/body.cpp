@@ -53,10 +53,28 @@ void body::find_force(body &Body1, body &Body2)
    *  Formula is: F = (G * M1 * M2) / R^2
    *
    */
-  double force = (gravity * Body1._mass * Body2._mass) / pow(Body1._radius, 2);
+  double dx = Body2._pos_x - Body1._pos_x;
+  double dy = Body2._pos_y - Body1._pos_y;
 
-  _for_x = force * ( (Body2._pos_x - Body1._pos_x) / Body1._radius );
-  _for_y = force * ( (Body2._pos_y - Body1._pos_y) / Body1._radius );
+  std::cout << "Body1 Filename: " << Body1._filename << "\n";
+  std::cout << "dx: " << dx << "\n";
+  std::cout << "dy: " << dy << "\n";
+
+  double R2 = pow(dx, 2) + pow(dy, 2);
+  double R = sqrt(R2);
+
+  double force = (gravity * Body1._mass * Body2._mass) / R2;
+
+  std::cout << "Force: " << force << "\n";
+  std::cout << "Gravity: " << gravity << "\n";
+  std::cout << "Body1 Mass: " << Body1._mass << "\n";
+  std::cout << "Body2 Mass: " << Body2._mass << "\n";
+
+  _for_x = (force * dx) / R;
+  _for_y = (force * dy) / R;
+
+  std::cout << "_Force(x) " << _for_x << "\n";
+  std::cout << "_Force(y) " << _for_y << "\n\n";
 }
 
 
@@ -156,7 +174,7 @@ std::istream& operator>> (std::istream &input, body &cBody)
 {
   // Read input into the object
   input >> cBody._pos_x >> cBody._pos_y;
-  input >> cBody._vel_y >> cBody._vel_y;
+  input >> cBody._vel_x >> cBody._vel_y;
   input >> cBody._mass  >> cBody._filename;
 
   // Now set up the images
@@ -201,7 +219,8 @@ std::ostream& operator<< (std::ostream &output, body &cBody)
   output << "Pos (y): " << cBody._pos_y << std::endl;
   output << "Vel (x): " << cBody._vel_x << std::endl;
   output << "Vel (y): " << cBody._vel_y << std::endl;
-  output << "Mass: " << cBody._mass << std::endl << std::endl;
+  output << "Mass: " << cBody._mass << std::endl;
+  output << "Radius: " << cBody._radius << std::endl << std::endl;
 
   return output;
 }
