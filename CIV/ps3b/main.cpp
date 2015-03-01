@@ -19,6 +19,7 @@ int main(int argc, char* argv[])
 
   // Convert these strings to doubles
   double simulation_time = 0;
+  double simu_time = std::stod(sim_time, &sz);
   double time_step = std::stod(step_time, &sz);
 
   // Get the first two numbers in the text file. The first should be an int telling us
@@ -65,7 +66,7 @@ int main(int argc, char* argv[])
   sf::RenderWindow window(sf::VideoMode(window_side, window_height), "The Solar System");
 
   // Change the framerate to make it easier to see the image moving.
-  window.setFramerateLimit(1);
+  window.setFramerateLimit(60);
 
   // Background image
   sf::Image background_image;
@@ -151,17 +152,31 @@ int main(int argc, char* argv[])
     // Display the time in the left hand corner of the window
     window.draw(time_text);
 
-//     for(x = body_vector.begin(); x != body_vector.end(); x++)
-//     {
-//       for(y = body_vector.begin(); y != body_vector.end(); y++)
-//       {
-//         x->find_force(*x, *y);
-//       }
-//     }
     x = body_vector.begin();
-    y = x++;
-    x->find_force(*x, *y);
-    y->find_force(*y, *x);
+    double force_x, force_y;
+
+    for(int a = 0; a < number_planets; a++)
+    {
+      y = body_vector.begin();
+      force_x = 0;
+      force_y = 0;
+
+      for(int b = 0; b < number_planets; b++)
+      {
+        if(a != b)
+        {
+          force_x += find_forcex(*x, *y);
+          force_y += find_forcey(*x, *y);
+        }
+        y++;
+      }
+      x->set_forces(force_x, force_y);
+      x++;
+    }
+//     x = body_vector.begin();
+//     y = x++;
+//     x->find_force(*x, *y);
+//     y->find_force(*y, *x);
 
     // Display the vector of objects
     for(it = body_vector.begin(); it != body_vector.end(); it++)
@@ -176,6 +191,19 @@ int main(int argc, char* argv[])
 
     // Increase simulation time variable by the simulation step
     simulation_time += time_step;
+
+    // Stop when we've reached the simulation time
+    if(simulation_time == simu_time)
+    {
+      break;
+    }
+  }
+
+  // For debugging to compare against princeton's data
+  std::cout << "\n\n\n";
+  for(it = body_vector.begin(); it != body_vector.end(); it++)
+  {
+    std::cout << *it << std::endl;
   }
 
   return 0;

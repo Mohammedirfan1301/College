@@ -13,7 +13,7 @@ const int window_height = 500;
 const int window_side = 500;
 
 // Physics Constants
-const double gravity = 667000000000;
+const double gravity = 6.67e-11;
 
 class body: public sf::Drawable
 {
@@ -28,9 +28,10 @@ public:
   void set_radius(float radius);
   void set_position();              // Sets the planets positions
 
-  // Finds the force between two body objects, adds to force vector
-  // (sums all the forces together essentially)
-  void find_force(body &Body1, body &Body2);
+  // Force related methods
+  friend double find_forcex(body &Body1, body &Body2);
+  friend double find_forcey(body &Body1, body &Body2);
+  void set_forces(double forcex, double forcey);
 
   // Time step
   void step(double time_t);

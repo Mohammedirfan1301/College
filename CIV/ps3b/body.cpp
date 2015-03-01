@@ -45,36 +45,70 @@ void body::set_radius(float radius)
 }
 
 
-// Finds the force between two body objects, adds to force vector
-// (sums all the forces together essentially)
-void body::find_force(body &Body1, body &Body2)
+// Sets the forces for a given object
+void body::set_forces(double forcex, double forcey)
+{
+  _for_x = forcex;
+  _for_y = forcey;
+}
+
+
+// Finds the force (x) between two body objects
+double find_forcex(body &Body1, body &Body2)
 {
   /*
-   *  Formula is: F = (G * M1 * M2) / R^2
-   *
+   * Formulas:
+   * F = (G * M1 * M2) / R^2
+   * R = 
+   * R^2 = R squared
+   * Δx = x2 - x1
+   * Δy = y2 - y1
    */
   double dx = Body2._pos_x - Body1._pos_x;
   double dy = Body2._pos_y - Body1._pos_y;
+  double R2 = pow(dx, 2) + pow(dy, 2);
+  double R = sqrt(R2);
+  double force = (gravity * Body1._mass * Body2._mass) / R2;
+  double for_x = force * (dx / R);
 
   std::cout << "Body1 Filename: " << Body1._filename << "\n";
   std::cout << "dx: " << dx << "\n";
   std::cout << "dy: " << dy << "\n";
+  std::cout << "Force: " << force << "\n";
+  std::cout << "Force(x) " << for_x << "\n";
+  std::cout << "Gravity: " << gravity << "\n";
+  std::cout << "Body1 Mass: " << Body1._mass << "\n";
+  std::cout << "Body2 Mass: " << Body2._mass << "\n\n";
+
+  return for_x;
+}
+
+
+// Finds the force (y) between two body objects
+double find_forcey(body &Body1, body &Body2)
+{
+  /*
+   * Formula is: F = (G * M1 * M2) / R^2
+   */
+  double dx = Body2._pos_x - Body1._pos_x;
+  double dy = Body2._pos_y - Body1._pos_y;
 
   double R2 = pow(dx, 2) + pow(dy, 2);
   double R = sqrt(R2);
 
   double force = (gravity * Body1._mass * Body2._mass) / R2;
+  double for_y = force * (dy / R);
 
+  std::cout << "Body1 Filename: " << Body1._filename << "\n";
+  std::cout << "dx: " << dx << "\n";
+  std::cout << "dy: " << dy << "\n";
   std::cout << "Force: " << force << "\n";
+  std::cout << "Force(y " << for_y << "\n";
   std::cout << "Gravity: " << gravity << "\n";
   std::cout << "Body1 Mass: " << Body1._mass << "\n";
-  std::cout << "Body2 Mass: " << Body2._mass << "\n";
+  std::cout << "Body2 Mass: " << Body2._mass << "\n\n";
 
-  _for_x = (force * dx) / R;
-  _for_y = (force * dy) / R;
-
-  std::cout << "_Force(x) " << _for_x << "\n";
-  std::cout << "_Force(y) " << _for_y << "\n\n";
+  return for_y;
 }
 
 
