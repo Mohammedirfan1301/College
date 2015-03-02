@@ -111,7 +111,7 @@ int main(int argc, char* argv[])
   background_sprite.setTexture(background_texture);
 
   // Set the position to make the background look cool
-  background_sprite.setPosition(sf::Vector2f(-700, -700));
+//   background_sprite.setPosition(sf::Vector2f(-700, -700));
 
   std::vector<body>::iterator it;
   std::vector<body>::iterator x, y;

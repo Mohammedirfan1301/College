@@ -9,8 +9,8 @@
 #include <SFML/Window.hpp>
 
 // Constants for the window size.
-const int window_height = 500;
-const int window_side = 500;
+const int window_height = 1000;
+const int window_side = 1000;
 
 // Physics Constants
 const double gravity = 6.67e-11;
