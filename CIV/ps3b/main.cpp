@@ -134,7 +134,7 @@ int main(int argc, char* argv[])
     window.draw(background_sprite);
 
     // Update the time string - I cast to an int to keep the time sane looking
-    time_text.setString("Elapsed time: " + std::to_string((int)simulation_time));
+    time_text.setString("Elapsed time: " + std::to_string(simulation_time));
 
     // Display the time in the left hand corner of the window
     window.draw(time_text);

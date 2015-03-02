@@ -59,7 +59,7 @@ double find_forcex(body &Body1, body &Body2)
   /*
    * Formulas:
    * F = (G * M1 * M2) / R^2
-   * R = 
+   * R =
    * R^2 = R squared
    * Δx = x2 - x1
    * Δy = y2 - y1
@@ -92,10 +92,8 @@ double find_forcey(body &Body1, body &Body2)
    */
   double dx = Body2._pos_x - Body1._pos_x;
   double dy = Body2._pos_y - Body1._pos_y;
-
   double R2 = pow(dx, 2) + pow(dy, 2);
   double R = sqrt(R2);
-
   double force = (gravity * Body1._mass * Body2._mass) / R2;
   double for_y = force * (dy / R);
 
@@ -191,7 +189,8 @@ void body::set_position()
   double pos_y = ( (_pos_y / _radius) * (window_height / 2) ) + (window_height / 2);
 
   // Set the position from the Vector2f for position
-  _sprite.setPosition(sf::Vector2f(pos_x, pos_y));
+  // Flip the x and y positions for going counter-clockwise
+  _sprite.setPosition(sf::Vector2f(pos_y, pos_x));
 }
 
 

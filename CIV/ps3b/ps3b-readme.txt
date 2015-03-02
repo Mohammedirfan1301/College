@@ -13,7 +13,29 @@ Hours to complete assignment:  ~5 hours or so. Probably more. I lost track at so
  *  here and why it is interesting.
  **********************************************************************/
 
-  I should probably do this for fun.
+  I attempted to create a full simulation of the universe - that is,
+  all the planets rotating around the sun in a somewhat realistic way.
+  I ended up only being able to get Jupiter and Saturn working - if I added
+  Uranus and Neptune, the scale got weird (due to the vast distances between
+  planets) and sometimes Neptune and Uranus would just slingshot out of the
+  solar system.
+
+  I used the following sites to get my data
+
+  Mass of the planets:
+  http://www.smartconversion.com/otherInfo/Mass_of_planets_and_the_Sun.aspx
+
+  Speed of the planets:
+  http://www.sjsu.edu/faculty/watkins/orbital.htm
+
+  Distance from the sun:
+  http://idahoptv.org/ntti/nttilessons/lessons2000/lau1.html
+
+  I used the following command to run my universe file:
+  ./NBody 157788000.0 575000.0 < solarsystem.txt
+
+  This makes the universe go pretty quick for the inside planents, but it
+  shows Jupiter and Saturn remain in their orbits for the most part.
 
 /**********************************************************************
  *  List whatever help (if any) you received from the instructor,
@@ -60,3 +82,9 @@ Hours to complete assignment:  ~5 hours or so. Probably more. I lost track at so
  **********************************************************************/
   My code is really well commented, so it should be easy to see
   how and why I did most things.
+
+  Also I did the following extra credit:
+
+  1. Music plays (2001 Space Odyssey theme)
+  2. Time displays in the top left hand corner
+  3. I created my own universe
