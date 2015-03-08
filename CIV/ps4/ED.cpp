@@ -169,5 +169,47 @@ std::string ED::Alignment()
   // Here we should trace the matrix and find the string that displays
   // the actual alignment.
 
-  return "h - 2\ne - 2\nl - 2\nl - 2\no - 2\nw - 2\no - 2\nr - 2\nl - 2\nd - 2\n";
+  // Let's declare a stringstream object to hold the string we want to return.
+  std::ostringstream return_string;
+
+  // Get N & M for going through the Matrix
+  int N = _string_one.length();
+  int M = _string_two.length();
+
+  int i = 0, j = 0;
+
+  // A while loop will work here since we want to move either diagonally, down or right.
+  while(i <= M && j <= N)
+  {
+    int pen =  penalty(_string_one[j], _string_two[i]);
+    int opt1 = _matrix[i+1][j+1] + pen;
+    int opt2 = _matrix[i+1][j] + 2;
+    int opt3 = _matrix[i][j+1] + 2;
+
+    // Move diagonally
+    if(_matrix[i][j] == opt1)
+    {
+      return_string << _string_one[i] << " " << _string_two[j] << " "  >> pen;
+      i++;
+      j++;
+    }
+
+    // Move down
+    else if(_matrix[i][j] == opt2)
+    {
+      return_string << _string_one[i] << " -" << " 2";
+      i++;
+    }
+
+    // Move right
+    else if(_matrix[i][j] == opt3)
+    {
+      return_string << "- " << _string_two[j] << " 2";
+      j++;
+    }
+  }
+
+
+  return "h - 2\n";
 }
+
