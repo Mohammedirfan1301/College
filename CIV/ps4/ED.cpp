@@ -77,32 +77,43 @@ int ED::OptDistance()
   // the matrix. We should use the penalty and min methods as well.
 
   int i, j;
-  int string1_end = _string_one.length() + 1;
-  int string2_end = _string_two.length() + 1;
-
-  // Reserve space in the matrix
-  
+  int string1_end = _string_one.length();
+  int string2_end = _string_two.length();
 
   // Need to count backwards for the rows
-  j = string2_end;
+  j = 0;
+
+  std::cout << "End of string 1: " << string1_end << "\n";
+  std::cout << "End of string 2: " << string2_end << "\n";
+
+  // Create the Matrix
+  for(i = 0; i < string2_end + 1; i++)
+  {
+    std::vector<int> tmp;
+    _matrix.push_back(tmp);
+
+    // Now push '0's back into the given vector
+    for(j = 0; j < string1_end + 1; j++)
+    {
+      _matrix.at(i).push_back(0);
+    }
+  }
 
   // Start by filling out the bottom row
-  for(i = 0; i < string1_end; i++)
+  for(i = 0; i < string1_end + 1; i++)
   {
     // Very bottom row
-    _matrix[string1_end][i] = j * (string2_end + 1);
-    j--;
+    _matrix[i][string1_end] = 2 * (string2_end - i);
   }
 
   // Samething for the right most column, need to count backwards
-  i = string1_end;
+  i = 0;
 
   // Now fill out the side row.
-  for(j = 0; j < string2_end; j++)
+  for(j = 0; j < string2_end - 1; j++)
   {
     // Very right most column
-    _matrix[j][string2_end] = i * (string1_end + 1);
-    i--;
+    _matrix[string2_end][j] = 2 * (string1_end - j);
   }
 
   return 1;
@@ -113,8 +124,8 @@ int ED::OptDistance()
 // against Princeton's site to see if we're doing it right.
 void ED::PrintMatrix()
 {
-  std::vector< std::vector<std::string> >::iterator a;
-  std::vector<std::string>::iterator b;
+  std::vector< std::vector<int> >::iterator a;
+  std::vector<int>::iterator b;
   for(a = _matrix.begin(); a != _matrix.end(); a++)
   {
     for(b = (*a).begin(); b != (*a).end(); b++)

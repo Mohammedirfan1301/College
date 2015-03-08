@@ -21,7 +21,7 @@ class ED
 
   private:
     std::string _string_one, _string_two;
-    std::vector< std::vector<std::string> > _matrix;
+    std::vector< std::vector<int> > _matrix;
 };
 
 #endif

@@ -9,12 +9,8 @@ int main()
   // Declare a ED object
   ED ed_test(string1, string2);
 
-  std::cout << "Just before OptDistance.\n";
-
   // Find the Edit Distance
   int distance = ed_test.OptDistance();
-
-  std::cout << "Just after OptDistance.\n";
 
   // Get the string alignment
   std::string alignment = ed_test.Alignment();
@@ -39,12 +35,8 @@ int main()
 //   min = ed_test.min(3, 3, 3);
 //   std::cout << "Min should be 3: " << min << "\n";
 
-  std::cout << "Before Print.\n";
-
   // Debug the Matrix
   ed_test.PrintMatrix();
-
-  std::cout << "After Print.\n";
 
   // Print out the edit distance
   std::cout << "Edit Distance = " << distance << "\n";
