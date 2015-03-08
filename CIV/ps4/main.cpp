@@ -23,7 +23,7 @@ int main(int argc, const char* argv[])
   std::string alignment = ed_test.Alignment();
 
   // Debug the Matrix
-  ed_test.PrintMatrix();
+//   ed_test.PrintMatrix();
 
   // Print out the edit distance
   std::cout << "\nEdit Distance = " << distance << "\n";
