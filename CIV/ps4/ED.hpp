@@ -7,6 +7,8 @@
 #include <string>
 #include <vector>
 
+#include <SFML/System.hpp>
+
 class ED
 {
   public:
