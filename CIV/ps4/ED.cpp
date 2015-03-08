@@ -30,14 +30,9 @@ int ED::penalty(char a, char b)
     return 0;
   }
 
-  else if(a != b && b != ' ')
+  else if(a != b)
   { // not equal and no spaces
     return 1;
-  }
-
-  else if(a != b && b == ' ')
-  { // not equal and one is blank
-    return 2;
   }
 
   // If something fails, return a -1.
@@ -77,46 +72,72 @@ int ED::OptDistance()
   // the matrix. We should use the penalty and min methods as well.
 
   int i, j;
-  int string1_end = _string_one.length();
-  int string2_end = _string_two.length();
-
-  // Need to count backwards for the rows
-  j = 0;
-
-  std::cout << "End of string 1: " << string1_end << "\n";
-  std::cout << "End of string 2: " << string2_end << "\n";
+  int N = _string_one.length();
+  int M = _string_two.length();
 
   // Create the Matrix
-  for(i = 0; i < string2_end + 1; i++)
+  /*
+   * Quick note - it seems the vector of a vector of ints actually runs
+   * like this:
+   * ------------------> this is one vector
+   * ------------------> another vector
+   * ------------------> etc
+   *
+   * So each column is a vector of ints.
+   * And the entire vector is a vector of a vector of ints.
+   * With each vector inside the large vector pointing to vectors,
+   * which are technically the columns.
+   *
+   * This is important for some of the math down below, which follows Princeton's
+   * site but can get confusing due to how the vectors seem to be making themselves.
+   *
+   */
+  for(i = 0; i <= M; i++)
   {
     std::vector<int> tmp;
     _matrix.push_back(tmp);
 
     // Now push '0's back into the given vector
-    for(j = 0; j < string1_end + 1; j++)
+    for(j = 0; j <= N; j++)
     {
       _matrix.at(i).push_back(0);
     }
   }
 
   // Start by filling out the bottom row
-  for(i = 0; i < string1_end + 1; i++)
+  for(i = 0; i <= M; i++)
   {
     // Very bottom row
-    _matrix[i][string1_end] = 2 * (string2_end - i);
+    _matrix[i][N] = 2 * (M - i);
   }
-
-  // Samething for the right most column, need to count backwards
-  i = 0;
 
   // Now fill out the side row.
-  for(j = 0; j < string2_end - 1; j++)
+  for(j = 0; j <= N; j++)
   {
     // Very right most column
-    _matrix[string2_end][j] = 2 * (string1_end - j);
+    _matrix[M][j] = 2 * (N - j);
   }
 
-  return 1;
+  // Now that we have the initial sides, we can go ahead and calculate the rest
+  // of the sub problems.
+  for(i = M - 1; i >= 0; i--)
+  {
+    for(j = N - 1; j >= 0; j--)
+    {
+      // Using Princeton's formula, we can just calculate every single row!
+      /*
+       * Note - min of 3 numbers, which we must get from using the penalty method.
+       *
+       */
+      int opt1 = _matrix[i+1][j+1] + penalty(_string_one[j], _string_two[i]);
+      int opt2 = _matrix[i+1][j] + 2;
+      int opt3 = _matrix[i][j+1] + 2;
+
+      _matrix[i][j] = min(opt1, opt2, opt3);
+    }
+  }
+
+  return _matrix[0][0];
 }
 
 
@@ -124,17 +145,21 @@ int ED::OptDistance()
 // against Princeton's site to see if we're doing it right.
 void ED::PrintMatrix()
 {
+  std::cout << "Printing out the Matrix for debug purposes: \n\n";
+
   std::vector< std::vector<int> >::iterator a;
   std::vector<int>::iterator b;
   for(a = _matrix.begin(); a != _matrix.end(); a++)
   {
     for(b = (*a).begin(); b != (*a).end(); b++)
     {
-      std::cout << *b << " ";
+      // Using std::right and setw(3) to align numbers to the right.
+      // See the following stackoverflow post for an example:
+      // https://stackoverflow.com/questions/8750853/how-to-conveniently-align-numbers-centrally-in-c-cout
+      std::cout << std::right << std::setw(3) << *b << " ";
     }
     std::cout << "\n";
   }
-
 }
 
 
