@@ -77,21 +77,32 @@ int ED::OptDistance()
   // the matrix. We should use the penalty and min methods as well.
 
   int i, j;
-  j = _string_two.length() + 1;
-  int end_str1 = _string_one.length() + 1;
+  int string1_end = _string_one.length() + 1;
+  int string2_end = _string_two.length() + 1;
+
+  // Reserve space in the matrix
+  
+
+  // Need to count backwards for the rows
+  j = string2_end;
 
   // Start by filling out the bottom row
-  for(i = 0; i < _string_one.length() + 1; i++)
+  for(i = 0; i < string1_end; i++)
   {
     // Very bottom row
-    _matrix[_string_one.length() + 1][i] = j * (_string_two.length() + 1);
+    _matrix[string1_end][i] = j * (string2_end + 1);
     j--;
   }
 
+  // Samething for the right most column, need to count backwards
+  i = string1_end;
+
   // Now fill out the side row.
-  for(j = 0; j < _string_two.length() + 1; j++)
+  for(j = 0; j < string2_end; j++)
   {
-    //
+    // Very right most column
+    _matrix[j][string2_end] = i * (string1_end + 1);
+    i--;
   }
 
   return 1;
@@ -102,12 +113,13 @@ int ED::OptDistance()
 // against Princeton's site to see if we're doing it right.
 void ED::PrintMatrix()
 {
-  std::vector iterator a, b;
-  for(a = _matrix.begin(); a < _matrix.end(); a++)
+  std::vector< std::vector<std::string> >::iterator a;
+  std::vector<std::string>::iterator b;
+  for(a = _matrix.begin(); a != _matrix.end(); a++)
   {
-    for(b = _matrix[a].begin(); b < _matrix[a].end(); b++)
+    for(b = (*a).begin(); b != (*a).end(); b++)
     {
-      std::cout << _matrix[a][b] << " ";
+      std::cout << *b << " ";
     }
     std::cout << "\n";
   }

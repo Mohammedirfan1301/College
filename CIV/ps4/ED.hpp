@@ -16,6 +16,9 @@ class ED
     int OptDistance();
     std::string Alignment();
 
+    // Debug methods
+    void PrintMatrix();
+
   private:
     std::string _string_one, _string_two;
     std::vector< std::vector<std::string> > _matrix;
