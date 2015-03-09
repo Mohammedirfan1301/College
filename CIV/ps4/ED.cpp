@@ -176,7 +176,7 @@ std::string ED::Alignment()
   int i = 0, j = 0;
 
   // A while loop will work here since we want to move either diagonally, down or right.
-  while(i < M || j < N)
+  while(i < M && j < N)
   {
     int pen =  penalty(_string_one[j], _string_two[i]);
     int opt1 = _matrix[i+1][j+1] + pen;
@@ -186,18 +186,7 @@ std::string ED::Alignment()
     // Move diagonally
     if(_matrix[i][j] == opt1)
     {
-      if((signed)_string_one.length() < j && (signed)_string_two.length() < i)
-      {
         return_string << _string_one[j] << " " <<  _string_two[i] << " "  << pen << "\n";
-      }
-      else if((signed)_string_two.length() > i)
-      {
-        return_string << _string_one[j] << " - " << pen << "\n";
-      }
-      else if((signed)_string_one.length() > j)
-      {
-        return_string << "- " << _string_two[i] << " " <<  pen << "\n";
-      }
       i++;
       j++;
     }
