@@ -1,7 +1,7 @@
 # Makefile for the sierpinski project / original recursive image
 # Flags to save on typing all this out
 CC= g++
-CFLAGS= -Wall -Werror -std=c++0x -pedantic
+CFLAGS= -g -Wall -Werror -std=c++0x -pedantic
 SFLAGS= -lsfml-system
 
 # Make ps4

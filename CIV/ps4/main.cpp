@@ -20,11 +20,11 @@ int main(int argc, const char* argv[])
   // Find the Edit Distance
   int distance = ed_test.OptDistance();
 
-  // Get the string alignment
-  std::string alignment = ed_test.Alignment();
-
   // Debug the Matrix
 //   ed_test.PrintMatrix();
+
+  // Get the string alignment
+  std::string alignment = ed_test.Alignment();
 
   // Print out the edit distance
   std::cout << "Edit distance = " << distance << "\n";
