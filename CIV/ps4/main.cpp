@@ -27,7 +27,7 @@ int main(int argc, const char* argv[])
 //   ed_test.PrintMatrix();
 
   // Print out the edit distance
-  std::cout << "Edit Distance = " << distance << "\n";
+  std::cout << "Edit distance = " << distance << "\n";
   std::cout << alignment; // this should have newlines inside of it!
 
   t = clock.getElapsedTime();
