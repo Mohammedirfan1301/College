@@ -186,7 +186,18 @@ std::string ED::Alignment()
     // Move diagonally
     if(_matrix[i][j] == opt1)
     {
-      return_string << _string_one[j] << " " <<  _string_two[i] << " "  << pen << "\n";
+      if((signed)_string_one.length() < j && (signed)_string_two.length() < i)
+      {
+        return_string << _string_one[j] << " " <<  _string_two[i] << " "  << pen << "\n";
+      }
+      else if((signed)_string_two.length() > i)
+      {
+        return_string << _string_one[j] << " - " << pen << "\n";
+      }
+      else if((signed)_string_one.length() > j)
+      {
+        return_string << "- " << _string_two[i] << " " <<  pen << "\n";
+      }
       i++;
       j++;
     }

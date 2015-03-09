@@ -10,8 +10,8 @@ int main(int argc, const char* argv[])
   std::string string1, string2;
   std::cin >> string1 >> string2;
 
-  std::cout << "String 1: " << string1 << "\n";
-  std::cout << "String 2: " << string2 << "\n";
+//   std::cout << "String 1: " << string1 << "\n";
+//   std::cout << "String 2: " << string2 << "\n";
 
   // Declare a ED object
   ED ed_test(string1, string2);
@@ -26,7 +26,7 @@ int main(int argc, const char* argv[])
 //   ed_test.PrintMatrix();
 
   // Print out the edit distance
-  std::cout << "\nEdit Distance = " << distance << "\n";
+  std::cout << "Edit Distance = " << distance << "\n";
   std::cout << alignment; // this should have newlines inside of it!
 
   t = clock.getElapsedTime();

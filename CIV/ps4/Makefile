@@ -5,11 +5,11 @@ CFLAGS= -Wall -Werror -std=c++0x -pedantic
 SFLAGS= -lsfml-system
 
 # Make ps4
-all:	EditDistance
+all:	ED
 
 # body executable
-EditDistance:	main.o ED.o
-	$(CC) main.o ED.o -o EditDistance $(SFLAGS)
+ED:	main.o ED.o
+	$(CC) main.o ED.o -o ED $(SFLAGS)
 
 # object files
 main.o:	main.cpp ED.hpp
@@ -22,5 +22,5 @@ ED.o:	ED.cpp ED.hpp
 clean:
 	rm *.o
 	rm *.gch
-	rm EditDistance
+	rm ED
 
