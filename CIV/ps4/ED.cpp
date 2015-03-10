@@ -171,31 +171,46 @@ std::string ED::Alignment()
   std::ostringstream return_string;
 
   // Get N & M for going through the Matrix
-  int N = _string_one.length();
-  int M = _string_two.length();
+  int M = _string_one.length();
+  int N = _string_two.length();
+
+  std::cout << "M = " << M << "\n";
+  std::cout << "N = " << N << "\n";
+
+  std::cout << "Row = " << _matrix.at(0).size() << "\n";
+  std::cout << "Col = " << _matrix.size() << "\n";
+
   int i = 0, j = 0;
   int pen, opt1, opt2, opt3;
   std::string ret_str;
 
+  std::cout << "We want: " << _matrix[N-1][M-1] << "\n";
+
   // A while loop will work here since we want to move either diagonally, down or right.
-  while(i < N || j < M) // Need to run until we hit the far bottom right corner!
+  while(_matrix[i][j] != _matrix[N-1][M-1]) // Need to run until we hit the far bottom right corner!
   {
+    std::cout << "i = " << i << "\nj = " << j << "\n";
+    std::cout << "mat is: " << _matrix[i][j] << "\n";
     // Checking vector bounds
-//     if(i < N && j < M)
-//     {
+    if(i < M && j < N)
+    {
       pen =  penalty(_string_one[j], _string_two[i]);
       opt1 = _matrix.at(i+1).at(j+1) + pen;
-//     }
-//     else{   // Fixes issues with output
-//       pen = -1;
-//       opt1 = -1;
-//     }
+    }
+    else{   // Fixes issues with output
+      pen = -1;
+      opt1 = -1;
+    }
 
-    if(j < M) // Check vector bounds!
-      opt3 = _matrix.at(i).at(j+1) + 2;
-
-    if(i < N) // Check vector bounds!
+    if(i < M) // Check vector bounds!
+    {
       opt2 = _matrix.at(i+1).at(j) + 2;
+    }
+
+    if(j < N) // Check vector bounds!
+    {
+      opt3 = _matrix.at(i).at(j+1) + 2;
+    }
 
     // Move diagonally
     if(_matrix[i][j] == opt1)
@@ -209,14 +224,14 @@ std::string ED::Alignment()
     else if(_matrix[i][j] == opt2)
     {
       return_string << "- " << _string_two[i] << " 2\n";
-      i++;
+      j++;
     }
 
     // Move right
     else if(_matrix[i][j] == opt3)
     {
       return_string << _string_one[j] << " -" << " 2\n";
-      j++;
+      i++;
     }
   }
 
