@@ -181,15 +181,15 @@ std::string ED::Alignment()
   while(i < N || j < M) // Need to run until we hit the far bottom right corner!
   {
     // Checking vector bounds
-    if(i < N && j < M)
-    {
+//     if(i < N && j < M)
+//     {
       pen =  penalty(_string_one[j], _string_two[i]);
       opt1 = _matrix.at(i+1).at(j+1) + pen;
-    }
-    else{   // Fixes issues with output
-      pen = -1;
-      opt1 = -1;
-    }
+//     }
+//     else{   // Fixes issues with output
+//       pen = -1;
+//       opt1 = -1;
+//     }
 
     if(j < M) // Check vector bounds!
       opt3 = _matrix.at(i).at(j+1) + 2;
