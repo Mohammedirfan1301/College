@@ -1,0 +1,10 @@
+Edit distance = 4
+C C 0
+A A 0
+G G 0
+C - 2
+T - 2
+A A 0
+C C 0
+A A 0
+A A 0

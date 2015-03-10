@@ -178,21 +178,29 @@ std::string ED::Alignment()
   std::string ret_str;
 
   // A while loop will work here since we want to move either diagonally, down or right.
-  while(i < M && j < N)
+  while(i < N || j < M) // Need to run until we hit the far bottom right corner!
   {
-    pen =  penalty(_string_one[j], _string_two[i]);
-    opt1 = _matrix[i+1][j+1] + pen;
-    opt2 = _matrix.at(i+1).at(j) + 2;
-    opt3 = _matrix.at(i).at(j+1) + 2;
+    // Checking vector bounds
+    if(i < N && j < M)
+    {
+      pen =  penalty(_string_one[j], _string_two[i]);
+      opt1 = _matrix.at(i+1).at(j+1) + pen;
+    }
+    else{   // Fixes issues with output
+      pen = -1;
+      opt1 = -1;
+    }
+
+    if(j < M) // Check vector bounds!
+      opt3 = _matrix.at(i).at(j+1) + 2;
+
+    if(i < N) // Check vector bounds!
+      opt2 = _matrix.at(i+1).at(j) + 2;
 
     // Move diagonally
     if(_matrix[i][j] == opt1)
     {
-      if(N > j && M > i)
-      {
-        return_string << _string_one[j] << " " <<  _string_two[i] << " "  << pen << "\n";
-      }
-
+      return_string << _string_one[j] << " " <<  _string_two[i] << " "  << pen << "\n";
       i++;
       j++;
     }
@@ -200,43 +208,16 @@ std::string ED::Alignment()
     // Move down
     else if(_matrix[i][j] == opt2)
     {
-      if(N > j)
-      {
-        return_string << "- " << _string_two[i] << " 2\n";
-      }
-
+      return_string << "- " << _string_two[i] << " 2\n";
       i++;
     }
 
     // Move right
     else if(_matrix[i][j] == opt3)
     {
-      if(M > i)
-      {
-        return_string << _string_one[j] << " -" << " 2\n";
-      }
-
+      return_string << _string_one[j] << " -" << " 2\n";
       j++;
     }
-  }
-
-  // To fix Bottlenose being mad, I cheated here. :(
-  if(i == j)
-  {
-    // Done - let's return and quit.
-    // Get the string from the ostringstream object
-    ret_str = return_string.str();
-    return ret_str;
-  }
-  else if(i > j)
-  {
-    // Missing output is no longer missing! MUHUHUHUHUH.
-    return_string << _string_one[j] << " -" << " 2\n";
-  }
-  else if(i < j)
-  {
-    // FIXING THE MISSING OUTPUT. >:[
-    return_string << "- " << _string_two[i] << " 2\n";
   }
 
   // Get the string from the ostringstream object
