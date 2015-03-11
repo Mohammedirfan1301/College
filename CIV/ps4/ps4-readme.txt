@@ -195,13 +195,41 @@ ecoli20000.txt         3135            7.730
  *  What is the largest N your program can handle if it is limited to 1
  *  day of computation? Assume you have as much main memory as you need.
  **********************************************************************/
-a = 1
-b = 64
+a = 2
+b = 2
 largest N =
 
-Hmm, well.
-118^4
+Hmm, well I'm not really sure how to do this.
 
+I guess something like:
+
+2 * N^2 = resulting time
+
+So in the case of ecoli5000:
+
+2 * 1^2 = 2
+
+For ecoli10000:
+
+2 * 2^2 = 6
+
+So it sorta works I guess.
+
+Assuming this, one day is 24 (hours in a day) * 60 (minutes in an hour) * 60 (seconds in a minute)
+seconds. Or 86,400 seconds.
+
+So the largest N could be:
+
+86,400 = 2 * N^2
+43,200 = N^2
+N = sqrt(43,200)
+N = 207
+
+207 * 10000 = 2,070,000
+
+So my implementation should be able to find the edit distance of a 2 million long string in a days
+time. This assumes I did my math right and what not - it would probably less, since I'm guessing I
+over estimated. So we can assume somewhere between 1 million and 2 million long strings.
 
 /**********************************************************************
  *  List whatever help (if any) you received from the course TAs,
