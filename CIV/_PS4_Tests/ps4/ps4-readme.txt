@@ -13,7 +13,7 @@ Also maybe another hour to run the tests and upload the results and stuff.
 /**********************************************************************
  *  Explain what you did to find the alignment itself.
  **********************************************************************/
-I followed Princeton's site. I used a Matrix, which is a vector of vector of integers
+Followed Princeton's site - used a Matrix, which was a vector of vector of integers
 to calculate all the possible subproblems like described on Princeton's webpage.
 After I made the matrix, I had a _Matrix variable with _Matrix[0][0] being the
 Edit Distance. I then retraced the Matrix like Princeton decribes, from right
@@ -30,32 +30,18 @@ which is then printed out for people to see.
  **********************************************************************/
 Input:
 
-atattat
-tattata
-
 Expected output:
-
-Edit distance = 4
-a - 2
-t t 0
-a a 0
-t t 0
-t t 0
-a a 0
-t t 0
-- a 2
 
 What happened:
 
-It worked. Took 0.000132 seconds. So it was pretty quick.
+
 
 /**********************************************************************
  *  How much main memory does your computer have? Typical answers
  *  are 2 GB to 16 GB.
  **********************************************************************/
 Laptop - 8GB
-Desktop - 12GB ( I tested mainly on this machine, so assume this for the
-tests and stuff )
+Desktop - 12GB
 
 /**********************************************************************
  *  For this question assume M=N. Look at your code and determine
@@ -145,33 +131,15 @@ largest N =
  *  instructor, classmates, or anyone else.
  **********************************************************************/
 
-I used the following Stackoverflow post for help on doing the PrintMatrix
-method (an extra debug method I made):
-https://stackoverflow.com/questions/8750853/how-to-conveniently-align-numbers-centrally-in-c-cout
 
-I also used the discussion group for misc. help and for getting the
-answer tar to compare my results against.
-
-Also - cplusplus.com was an awesome resource for random STD / STL stuff, like:
-http://www.cplusplus.com/reference/stdexcept/out_of_range/
-http://www.cplusplus.com/reference/vector/vector/begin/
 
 /**********************************************************************
  *  Describe any serious problems you encountered.
  **********************************************************************/
 
-Let's see...
 
-1) Bottlenose didn't like my output
-2) Then I tried fixing it and realized my code was broken anyway...
-3) So I tried fixing it and compared against Bottlenose repeatedly.
-4) FINALLY I figured out how to do try and catch and those pesky "vector
-out of bounds" errors stopped and my code seemed to magically work!
-I also had to add some = -1s to make it work too I think.
 
 /**********************************************************************
  *  List any other comments here.
  **********************************************************************/
 
-IT'S DONE YAY.
-^_________^

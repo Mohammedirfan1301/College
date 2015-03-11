@@ -145,20 +145,17 @@ int ED::OptDistance()
 // against Princeton's site to see if we're doing it right.
 void ED::PrintMatrix()
 {
-  std::cout << "\n\nPrinting out the Matrix for debug purposes: \n\n";
+  std::cout << "Printing out the Matrix for debug purposes: \n\n";
 
-  // Iterator the large vector
   std::vector< std::vector<int> >::iterator a;
-
-  // Iterator to each vector of integers.
   std::vector<int>::iterator b;
-
   for(a = _matrix.begin(); a != _matrix.end(); a++)
   {
     for(b = (*a).begin(); b != (*a).end(); b++)
     {
       // Using std::right and setw(3) to align numbers to the right.
-      // See the stackoverflow post in the README for an example
+      // See the following stackoverflow post for an example:
+      // https://stackoverflow.com/questions/8750853/how-to-conveniently-align-numbers-centrally-in-c-cout
       std::cout << std::right << std::setw(3) << *b << " ";
     }
     std::cout << "\n";
@@ -173,64 +170,23 @@ std::string ED::Alignment()
   // Let's declare a stringstream object to hold the string we want to return.
   std::ostringstream return_string;
 
-  // Get M & N for going through the Matrix
-  // NOTE: I use standard MxN Matrix notation - that is,
-  // M is the number of rows, N is the number of columns.
-  int M = _string_two.length();
+  // Get N & M for going through the Matrix
   int N = _string_one.length();
-
-  // I left in some debugging stuff for future reference.
-  // NOTE: Rows are represented by the first vector "of vectors",
-  // while columns are the vectors of ints inside the main vector.
-//   std::cout << "M = " << M << "\n";
-//   std::cout << "N = " << N << "\n";
-//
-//   std::cout << "Row = " << _matrix.size() << "\n";
-//   std::cout << "Col = " << _matrix.at(0).size() << "\n";
-
+  int M = _string_two.length();
   int i = 0, j = 0;
-  int pen, opt1, opt2, opt3;
-  std::string ret_str;
-
-  // More debug stuff to check where the code is heading.
-//   std::cout << "We want: " << _matrix[M-1][N-1] << "\n";
 
   // A while loop will work here since we want to move either diagonally, down or right.
-  while(i < M || j < N) // Need to run until we hit the far bottom right corner!
+  while(i < M && j < N)
   {
-    // More test stuff.
-//     std::cout << "i = " << i << "\nj = " << j << "\n";
-//     std::cout << "mat is: " << _matrix[i][j] << "\n";
-
-    // Checking vector bounds with try/catch
-    try{
-      pen =  penalty(_string_one[j], _string_two[i]);
-      opt1 = _matrix.at(i+1).at(j+1) + pen;
-    }
-    catch(const std::out_of_range& error)
-    {
-      // out of range
-      opt1 = -1;
-    }
-    try{
-      opt2 = _matrix.at(i+1).at(j) + 2;
-    }catch(const std::out_of_range& error)
-    {
-      // out of range
-      opt2 = -1;
-    }
-    try{
-      opt3 = _matrix.at(i).at(j+1) + 2;
-    }catch(const std::out_of_range& error)
-    {
-      // out of range
-      opt3 = -1;
-    }
+    int pen =  penalty(_string_one[j], _string_two[i]);
+    int opt1 = _matrix[i+1][j+1] + pen;
+    int opt2 = _matrix[i+1][j] + 2;
+    int opt3 = _matrix[i][j+1] + 2;
 
     // Move diagonally
     if(_matrix[i][j] == opt1)
     {
-      return_string << _string_one[j] << " " <<  _string_two[i] << " "  << pen << "\n";
+        return_string << _string_one[j] << " " <<  _string_two[i] << " "  << pen << "\n";
       i++;
       j++;
     }
@@ -250,7 +206,8 @@ std::string ED::Alignment()
     }
   }
 
-  // Get the string from the ostringstream object & return it.
-  ret_str = return_string.str();
+  // Get the string from the ostringstream object
+  std::string ret_str = return_string.str();
   return ret_str;
 }
+

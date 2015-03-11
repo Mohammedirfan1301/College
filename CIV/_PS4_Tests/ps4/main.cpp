@@ -23,15 +23,15 @@ int main(int argc, const char* argv[])
   // Get the string alignment
   std::string alignment = ed_test.Alignment();
 
+  // Debug the Matrix
+//   ed_test.PrintMatrix();
+
   // Print out the edit distance
   std::cout << "Edit distance = " << distance << "\n";
   std::cout << alignment; // this should have newlines inside of it!
 
-  // Debug the Matrix
-//   ed_test.PrintMatrix();
-
   t = clock.getElapsedTime();
-  std::cout << "\n\nExecution time is " << t.asSeconds() << " seconds \n";
+  std::cout << "\nExecution time is " << t.asSeconds() << " seconds \n";
 
   return 0;
 }
