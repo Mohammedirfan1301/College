@@ -69,9 +69,33 @@ tests and stuff )
  *  What is the largest N that your program can handle if it is
  *  limited to 8GB (billion bytes) of memory?
  **********************************************************************/
-a =
-b =
+a = 24
+b = 4
 largest N =
+
+I use vectors of integers, so 4 bytes for every int that needs to be stored.
+However, vectors themselves use up approximately 24 bytes - this is according
+to a quick cout statement on my machine:
+std::cout << "Size of vector: " << sizeof(std::vector<int>);
+
+Assuming 24 bytes per vector and 4 bytes per int that needs to be stored:
+
+24 * N^4
+If N = 5,000:
+24 * 5000^4 = 1.5x10^16
+
+However, this doesn't seem to be the same as what I implemented. I essentially made
+a matrix of ints, so really my program makes a matrix of integers which are
+5000 by 5000, with a vector to hold vectors of ints. So in reality, my program should use
+the following amount of RAM:
+
+24 (master vector) + 24 * 5000 (all the vector rows) + 4 * 5000 * 5000 (all the ints that need
+to be stored)
+
+24 + 24 * 5000 + 4 * 5000 * 5000 = 1x10^8
+
+So this should be something like 100 million bytes, or 100MB of RAM.
+Which is much closer to what my program actually uses.
 
 /**********************************************************************
  *  Were you able to run Valgrind's massif tool to verify that your
@@ -86,7 +110,42 @@ largest N =
  *  Explain if necessary.
 /**********************************************************************
 
+Yes, I ran valgrind.
 
+It seems like it uses 156.5MB of RAM, for ecoli5000.txt.
+
+That seems to be much lower than what I thought it would be, since doing them
+calculations above I figured it would use most of my RAM. However, after I thought
+about how I implemented the program, I realized I used a matrix of integers, which
+really means that since there's 5000 characters in each string for ecoli5000.txt, there
+should be 5000^2 integers saved in my Matrix, which each use 4 bytes of RAM, plus all the
+RAM that the 5000 vectors use, which adds up since vectors have quite a bit of overhead.
+
+MB
+156.5^                                                                       :
+|                               @#######################################:
+|                             @@@#                                      :
+|                           @@@@@#                                      :
+|                          @@@@@@#                                      :
+|                        @@@@@@@@#                                      :
+|                       @@@@@@@@@#                                      :
+|                     @@@@@@@@@@@#                                      :
+|                   @@@@@@@@@@@@@#                                      :
+|                  @@@@@@@@@@@@@@#                                      :
+|                @@@@@@@@@@@@@@@@#                                      :
+|              @@@@@@@@@@@@@@@@@@#                                      :
+|             @@@@@@@@@@@@@@@@@@@#                                      :
+|           @@@@@@@@@@@@@@@@@@@@@#                                      :
+|         @@@@@@@@@@@@@@@@@@@@@@@#                                      :
+|        @@@@@@@@@@@@@@@@@@@@@@@@#                                      :
+|      @@@@@@@@@@@@@@@@@@@@@@@@@@#                                      :
+|     @@@@@@@@@@@@@@@@@@@@@@@@@@@#                                      :
+|   @@@@@@@@@@@@@@@@@@@@@@@@@@@@@#                                      :
+| @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@#                                      :
+0 +-----------------------------------------------------------------------> Gi
+0                                                                   11.16
+
+(I have 12GB of RAM on this machine, but 11.9GB shown as available in Xubuntu 14.04LTS)
 
 /**********************************************************************
  *  For each data file, fill in the edit distance computed by your
@@ -99,12 +158,12 @@ largest N =
 
 data file           distance       time (seconds)     memory (MB)
 ------------------------------------------------------------------
-ecoli2500.txt
-ecoli5000.txt
-ecoli7000.txt
-ecoli10000.txt
-ecoli20000.txt
-ecoli28284.txt
+ecoli2500.txt         118         0.368727 seconds      39MB
+ecoli5000.txt         160         1.724110 seconds     156MB
+ecoli7000.txt         194         2.660010 seconds     217MB
+ecoli10000.txt        223         5.296660 seconds     622MB
+ecoli20000.txt       3135         25.66290 seconds    2440MB
+ecoli28284.txt       8394         48.49050 seconds    3430MB
 
 Fill out the data here first, then go to the assignment web page for
 instructions on sharing your data on iSENSE.
@@ -136,9 +195,13 @@ ecoli20000.txt         3135            7.730
  *  What is the largest N your program can handle if it is limited to 1
  *  day of computation? Assume you have as much main memory as you need.
  **********************************************************************/
-a =
-b =
+a = 1
+b = 64
 largest N =
+
+Hmm, well.
+118^4
+
 
 /**********************************************************************
  *  List whatever help (if any) you received from the course TAs,

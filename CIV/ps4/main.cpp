@@ -30,8 +30,10 @@ int main(int argc, const char* argv[])
   // Debug the Matrix
 //   ed_test.PrintMatrix();
 
+  // I'm printing this out again to make it easier when running tests for the README.
+  std::cout << "\nEdit distance = " << distance;
   t = clock.getElapsedTime();
-  std::cout << "\n\nExecution time is " << t.asSeconds() << " seconds \n";
+  std::cout << "\nExecution time is " << t.asSeconds() << " seconds \n";
 
   return 0;
 }
