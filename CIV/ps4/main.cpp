@@ -28,7 +28,7 @@ int main(int argc, const char* argv[])
   std::cout << alignment; // this should have newlines inside of it!
 
   // Debug the Matrix
-//   ed_test.PrintMatrix();
+  ed_test.PrintMatrix();
 
   // I'm printing this out again to make it easier when running tests for the README.
   std::cout << "\nEdit distance = " << distance;
