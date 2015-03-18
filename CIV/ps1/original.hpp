@@ -1,16 +1,21 @@
+/*
+ * Copyright 2015 Jason Downing
+ *
+*/
 #ifndef ORIGINAL_HPP
 #define ORIGINAL_HPP
 
+#include <stdlib.h>
 #include <SFML/Graphics.hpp>
+#include <time.h>
+#include <cmath>
+#include <iostream>
 #include <vector>
 
-using namespace std;
-
-class Original : public sf::Drawable
-{
-public:
+class Original : public sf::Drawable {
+ public:
   // Constructor that takes just depth and side
-  Original(int depth);
+  explicit Original(int depth);
 
   // Constructor that takes three points and depth
   Original(float radius, int depth);
@@ -18,8 +23,7 @@ public:
   // Destructor
   ~Original();
 
-private:
-
+ private:
   // Draw method
   void virtual draw(sf::RenderTarget& target, sf::RenderStates states) const;
 

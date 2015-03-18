@@ -1,6 +1,8 @@
 #ifndef SIERPINSKI_HPP
 #define SIERPINSKI_HPP
 
+#include <cmath>
+#include <iostream>
 #include <SFML/Graphics.hpp>
 #include <vector>
 

@@ -1,12 +1,8 @@
-#include <cmath>
-#include <iostream>
-#include <SFML/Graphics.hpp>
-#include <stdlib.h>
-#include <time.h>
-#include <vector>
+/*
+ * Copyright 2015 Jason Downing
+ *
+*/
 #include "original.hpp"
-
-using namespace std;
 
 /*
  * Inital coordinates of the circle will be:
@@ -17,10 +13,9 @@ using namespace std;
 
 
 // Constructor with just the depth as a parameter
-Original::Original(int depth)
-{
+Original::Original(int depth) {
   // Seed the rand function for random colors - uses current time to do so
-  srand (time(NULL));
+  srand(time(NULL));
 
   // Set the inital depth
   _depth = depth;
@@ -34,11 +29,9 @@ Original::Original(int depth)
 
 
 // Constructor with coordinates - recusive
-Original::Original(float radius, int depth)
-{
+Original::Original(float radius, int depth) {
   // When depth is less than 0, the recusion is done.
-  if(depth < 0)
-  {
+  if (depth < 0) {
     _circle = NULL;
 
     return;
@@ -55,20 +48,17 @@ Original::Original(float radius, int depth)
 
 
 // Destructor
-Original::~Original()
-{
-  if(_circle != NULL)
-  {
+Original::~Original() {
+  if (_circle != NULL) {
     delete _circle;
   }
 }
 
 
 // Draw method
-void Original::draw(sf::RenderTarget& target, sf::RenderStates states) const
-{
-  cout << "_depth is: " << _depth << endl;
-  cout << "_Radius is: " << _radius << endl;
+void Original::draw(sf::RenderTarget& target, sf::RenderStates states) const {
+  std::cout << "_depth is: " << _depth << std::endl;
+  std::cout << "_Radius is: " << _radius << std::endl;
 
   // First circle
   sf::CircleShape shape(_radius);
@@ -76,17 +66,18 @@ void Original::draw(sf::RenderTarget& target, sf::RenderStates states) const
   shape.setPosition(400, 400);
   shape.setPointCount(10000);
 
+  unsigned int seed = time(NULL);
+
   // Make a random number between 1 and 19
   // That means there will be 19 different colors flashing!
-  int random_number = rand() % 19 + 1;
+  int random_number = rand_r(&seed) % 19 + 1;
 
   // Make three random numbers, trip Udit.
 
   // Color object
   sf::Color color(0, 0, 0, 255);
 
-  switch(random_number)
-  {
+  switch (random_number) {
     case 1:
       // Red Color
       shape.setFillColor(sf::Color::Red);
@@ -269,8 +260,7 @@ void Original::draw(sf::RenderTarget& target, sf::RenderStates states) const
   target.draw(shape);
 
   // Recusive calls
-  if(_circle != NULL)
-  {
+  if (_circle != NULL) {
     _circle->draw(target, states);
   }
 }
