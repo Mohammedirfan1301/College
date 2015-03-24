@@ -1,7 +1,10 @@
-package course.labs.locationlab;
+package course.labs.contentproviderlab;
 
 import android.app.ListActivity;
+import android.app.LoaderManager.LoaderCallbacks;
 import android.content.Context;
+import android.content.Loader;
+import android.database.Cursor;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -11,21 +14,23 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import java.util.ArrayList;
 
-public class PlaceViewActivity extends ListActivity implements LocationListener {
+public class PlaceViewActivity extends ListActivity implements
+		LocationListener, LoaderCallbacks<Cursor> {
 	private static final long FIVE_MINS = 5 * 60 * 1000;
 
-	private static String TAG = "Lab-Location";
+	private static String TAG = "Lab-ContentProvider";
 
 	// The last valid location reading
 	private Location mLastLocationReading;
 
 	// The ListView's adapter
-	private PlaceViewAdapter mAdapter;
+	// private PlaceViewAdapter mAdapter;
+	private PlaceViewAdapter mCursorAdapter;
 
 	// default minimum time between new location readings
 	private long mMinTime = 5000;
@@ -43,18 +48,18 @@ public class PlaceViewActivity extends ListActivity implements LocationListener 
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+		super.onCreate(savedInstanceState);
 
-		// DONE - Set up the app's user interface
-		// This class is a ListActivity, so it has its own ListView
-		// ListView's adapter should be a PlaceViewAdapter
+        // DONE - Set up the app's user interface
+        // This class is a ListActivity, so it has its own ListView
+        // ListView's adapter should be a PlaceViewAdapter
         mAdapter = new PlaceViewAdapter(getApplicationContext());
 
         // Put divider between ToDoItems and FooterView
         getListView().setFooterDividersEnabled(true);
 
         // DONE - add a footerView to the ListView
-		// You can use footer_view.xml to define the footer
+        // You can use footer_view.xml to define the footer
         mFooterView = (TextView) this.getLayoutInflater().inflate(R.layout.footer_view, null);
 
         // add it to the ListView
@@ -63,7 +68,7 @@ public class PlaceViewActivity extends ListActivity implements LocationListener 
         // enable it only if there is a location
         mFooterView.setEnabled(mLastLocationReading != null);
 
-        mFooterView.setOnClickListener(new OnClickListener() {
+        mFooterView.setOnClickListener(new View.OnClickListener() {
             @Override public void onClick(View arg0) {
                 // When the footerView's onClick() method is called, it must issue the follow log call
                 log("Entered footerView.OnClickListener.onClick()");
@@ -95,6 +100,12 @@ public class PlaceViewActivity extends ListActivity implements LocationListener 
                 }
             }
         });
+
+		// TODO - Create and set empty PlaceViewAdapter
+        // ListView's adapter should be a PlaceViewAdapter called mCursorAdapter
+		
+		// TODO - Initialize a CursorLoader
+
 	}
 
 	@Override
@@ -106,7 +117,7 @@ public class PlaceViewActivity extends ListActivity implements LocationListener 
 		mMockLocationProvider = new MockLocationProvider(
 				LocationManager.NETWORK_PROVIDER, this);
 
-		// DONE - Check NETWORK_PROVIDER for an existing location reading.
+        // DONE - Check NETWORK_PROVIDER for an existing location reading.
         if (null == (mLocationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE)))
             finish();
 
@@ -118,9 +129,10 @@ public class PlaceViewActivity extends ListActivity implements LocationListener 
             mLastLocationReading = tempLoc;
         }
 
-		// DONE - register to receive location updates from NETWORK_PROVIDER
+        // DONE - register to receive location updates from NETWORK_PROVIDER
+        // can use "this" since this class implements LocationListener
         mLocationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, mMinTime, mMinDistance, this);
-	}
+    }
 
 	@Override
 	protected void onPause() {
@@ -129,14 +141,15 @@ public class PlaceViewActivity extends ListActivity implements LocationListener 
 
         // DONE - unregister for location updates
         mLocationManager.removeUpdates(this);
-
+		
 		super.onPause();
 	}
 
 	public void addNewPlace(PlaceRecord place) {
 
 		log("Entered addNewPlace()");
-		mAdapter.add(place);
+
+		mCursorAdapter.add(place);
 
 	}
 
@@ -175,6 +188,32 @@ public class PlaceViewActivity extends ListActivity implements LocationListener 
 		// not implemented
 	}
 
+	@Override
+	public Loader<Cursor> onCreateLoader(int arg0, Bundle arg1) {
+		log("Entered onCreateLoader()");
+
+		// TODO - Create a new CursorLoader and return it
+		
+        
+        return null;
+	}
+
+	@Override
+	public void onLoadFinished(Loader<Cursor> newLoader, Cursor newCursor) {
+
+		// TODO - Swap in the newCursor
+
+	
+    }
+
+	@Override
+	public void onLoaderReset(Loader<Cursor> newLoader) {
+
+		// TODO - Swap in a null Cursor
+
+	
+    }
+
 	private long age(Location location) {
 		return System.currentTimeMillis() - location.getTime();
 	}
@@ -190,13 +229,13 @@ public class PlaceViewActivity extends ListActivity implements LocationListener 
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case R.id.print_badges:
-			ArrayList<PlaceRecord> currData = mAdapter.getList();
+			ArrayList<PlaceRecord> currData = mCursorAdapter.getList();
 			for (int i = 0; i < currData.size(); i++) {
 				log(currData.get(i).toString());
 			}
 			return true;
 		case R.id.delete_badges:
-			mAdapter.removeAllViews();
+			mCursorAdapter.removeAllViews();
 			return true;
 		case R.id.place_one:
 			mMockLocationProvider.pushLocation(37.422, -122.084);
@@ -214,11 +253,10 @@ public class PlaceViewActivity extends ListActivity implements LocationListener 
 
 	private static void log(String msg) {
 		try {
-			Thread.sleep(500);
+			Thread.sleep(100);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
 		Log.i(TAG, msg);
 	}
-
 }
