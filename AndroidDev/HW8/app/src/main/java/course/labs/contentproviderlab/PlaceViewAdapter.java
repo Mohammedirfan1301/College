@@ -1,12 +1,5 @@
 package course.labs.contentproviderlab;
 
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.util.ArrayList;
-
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -22,6 +15,14 @@ import android.view.ViewGroup;
 import android.widget.CursorAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.ArrayList;
+
 import course.labs.contentproviderlab.provider.PlaceBadgesContract;
 
 public class PlaceViewAdapter extends CursorAdapter {
@@ -64,25 +65,27 @@ public class PlaceViewAdapter extends CursorAdapter {
 		super.swapCursor(newCursor);
 
 		if (null != newCursor) {
+            // DONE - clear the ArrayList list so it contains
+            // the current set of PlaceRecords. Use the
+            // getPlaceRecordFromCursor() method to add the
+            // current place to the list
 
-        // TODO - clear the ArrayList list so it contains
-		// the current set of PlaceRecords. Use the 
-		// getPlaceRecordFromCursor() method to add the
-		// current place to the list
-		
+            list.clear();
 
-            
-            
-            
-            
-            
+            // Check if the database is empty!
+            if(newCursor.moveToFirst())
+            {
+                // combine the getting of the record with adding it to the list
+                do{
+                    list.add(getPlaceRecordFromCursor(newCursor));
+                }while(newCursor.moveToNext());
+            }
+
             // Set the NotificationURI for the new cursor
 			newCursor.setNotificationUri(mContext.getContentResolver(),
 					PlaceBadgesContract.CONTENT_URI);
-
 		}
 		return newCursor;
-
 	}
 
 	// returns a new PlaceRecord for the data at the cursor's
@@ -145,16 +148,21 @@ public class PlaceViewAdapter extends CursorAdapter {
 			listItem.setFlagBitmapPath(filePath);
 			list.add(listItem);
 
-			// TODO - Insert new record into the ContentProvider
+			// DONE - Insert new record into the ContentProvider
+            ContentValues values = new ContentValues();
 
-			
+            // @see ContentProviderCustomUser example for inserting items with a ContentResolver and ContentValues objects.
+            // Use a contentValues object to set the values we want to put in the Content Resolver
+            // basically, creating one row to put in the SQLite storage
+            values.put(PlaceBadgesContract.FLAG_BITMAP_PATH, listItem.getFlagBitmapPath());
+            values.put(PlaceBadgesContract.COUNTRY_NAME, listItem.getCountryName());
+            values.put(PlaceBadgesContract.PLACE_NAME, listItem.getPlace());
+            values.put(PlaceBadgesContract.LAT, listItem.getLat());
+            values.put(PlaceBadgesContract.LON, listItem.getLon());
 
-		
-        
-        
-        
+            // Use a ContentResolver object to actually insert the values into the content provider
+            mContext.getContentResolver().insert(PlaceBadgesContract.CONTENT_URI, values);
         }
-
 	}
 
 	public ArrayList<PlaceRecord> getList() {
@@ -165,12 +173,8 @@ public class PlaceViewAdapter extends CursorAdapter {
 
 		list.clear();
 
-		// TODO - delete all records in the ContentProvider
-
-
-        
-        
-        
+		// DONE - delete all records in the ContentProvider
+        mContext.getContentResolver().delete(PlaceBadgesContract.CONTENT_URI, null, null);
 	}
 
 	@Override

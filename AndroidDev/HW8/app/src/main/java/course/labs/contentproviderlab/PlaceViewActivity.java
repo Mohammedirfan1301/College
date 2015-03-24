@@ -3,6 +3,7 @@ package course.labs.contentproviderlab;
 import android.app.ListActivity;
 import android.app.LoaderManager.LoaderCallbacks;
 import android.content.Context;
+import android.content.CursorLoader;
 import android.content.Loader;
 import android.database.Cursor;
 import android.location.Location;
@@ -14,10 +15,13 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+
+import course.labs.contentproviderlab.provider.PlaceBadgesContract;
 
 public class PlaceViewActivity extends ListActivity implements
 		LocationListener, LoaderCallbacks<Cursor> {
@@ -27,9 +31,6 @@ public class PlaceViewActivity extends ListActivity implements
 
 	// The last valid location reading
 	private Location mLastLocationReading;
-
-    // The ListView's adapter
-    private PlaceViewAdapter mAdapter;
 
 	// The ListView's adapter
 	// private PlaceViewAdapter mAdapter;
@@ -53,62 +54,75 @@ public class PlaceViewActivity extends ListActivity implements
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-        // DONE - Set up the app's user interface
+        //  - Set up the app's user interface
         // This class is a ListActivity, so it has its own ListView
-        // ListView's adapter should be a PlaceViewAdapter
-        mAdapter = new PlaceViewAdapter(getApplicationContext());
+        mCursorAdapter = new PlaceViewAdapter(this, null, 0);
 
+        // from UI lab...
         // Put divider between ToDoItems and FooterView
         getListView().setFooterDividersEnabled(true);
 
-        // DONE - add a footerView to the ListView
+        //  - add a footerView to the ListView
         // You can use footer_view.xml to define the footer
+
+        // 1. get a layout inflater
+        // 2. call the inflate method, with the id of the footer view resource
+        // 3. cast it as a TextView
         mFooterView = (TextView) this.getLayoutInflater().inflate(R.layout.footer_view, null);
 
-        // add it to the ListView
+        // adds it to the ListView
         getListView().addFooterView(mFooterView);
-
         // enable it only if there is a location
         mFooterView.setEnabled(mLastLocationReading != null);
 
-        mFooterView.setOnClickListener(new View.OnClickListener() {
-            @Override public void onClick(View arg0) {
-                // When the footerView's onClick() method is called, it must issue the follow log call
+        //  - When the footerView's onClick() method is called, it must issue the
+        // following log call
+        // log("Entered footerView.OnClickListener.onClick()");
+
+        mFooterView.setOnClickListener( new OnClickListener() {
+
+            @Override
+            public void onClick(View arg0) {
                 log("Entered footerView.OnClickListener.onClick()");
 
+                // footerView must respond to user clicks.
                 // Must handle 3 cases:
-                // 1) The current location is new - download new Place Badge.
-                // 2) The current location has been seen before - issue Toast message.
-                // 3) There is no current location - response is up to you.
-
-                // Case 1
-                if(! mAdapter.intersects(mLastLocationReading))
-                {
-                    log("Starting Place Download");
-                    PlaceDownloaderTask pdt = new PlaceDownloaderTask(PlaceViewActivity.this);
-                    pdt.execute(mLastLocationReading);
-                }
-
-                // Case 2
-                else {
-                    log("You already have this location badge");
-                    Toast.makeText(getApplicationContext(), "You already have this location badge!", Toast.LENGTH_LONG).show();
-                }
-
-                // Case 3
+                // 3) There is no current location - response is up to you. The best
+                // solution is to disable the footerView until you have a location.
                 if (mLastLocationReading == null)
                 {
                     log("Location data is not available");
                     mFooterView.setEnabled(false);
                 }
+
+                // 1) The current location is new - download new Place Badge. Issue the
+                // following log call:
+                // log("Starting Place Download");
+                if(! mCursorAdapter.intersects(mLastLocationReading))
+                {
+                    log("Starting Place Download");
+                    PlaceDownloaderTask pdt = new PlaceDownloaderTask(PlaceViewActivity.this);
+                    pdt.execute(mLastLocationReading);
+                } else {
+                    // 2) The current location has been seen before - issue Toast message.
+                    // Issue the following log call:
+                    log("You already have this location badge");
+                    Toast.makeText(getApplicationContext(), "You already have this location badge", Toast.LENGTH_LONG).show();
+                }
             }
         });
 
-		// TODO - Create and set empty PlaceViewAdapter
-        // ListView's adapter should be a PlaceViewAdapter called mCursorAdapter
-		
-		// TODO - Initialize a CursorLoader
 
+        //  - Create and set empty PlaceViewAdapter
+        // ListView's adapter should be a PlaceViewAdapter called mCursorAdapter
+
+        // Attach the adapter to this ListActivity's ListView
+        getListView().setAdapter(mCursorAdapter);
+
+
+        //  - Initialize a CursorLoader
+        // See - ContentProviderWithCursorLoader example
+        getLoaderManager().initLoader(0, null, this);
 	}
 
 	@Override
@@ -195,26 +209,23 @@ public class PlaceViewActivity extends ListActivity implements
 	public Loader<Cursor> onCreateLoader(int arg0, Bundle arg1) {
 		log("Entered onCreateLoader()");
 
-		// TODO - Create a new CursorLoader and return it
-		
-        
-        return null;
+		// DONE - Create a new CursorLoader and return it
+        return new CursorLoader(getApplicationContext(),
+                                PlaceBadgesContract.CONTENT_URI, null, null, null, null);
 	}
 
 	@Override
 	public void onLoadFinished(Loader<Cursor> newLoader, Cursor newCursor) {
 
-		// TODO - Swap in the newCursor
-
-	
+		// DONE - Swap in the newCursor
+        mCursorAdapter.swapCursor(newCursor);
     }
 
 	@Override
 	public void onLoaderReset(Loader<Cursor> newLoader) {
 
-		// TODO - Swap in a null Cursor
-
-	
+		// DONE - Swap in a null Cursor
+        mCursorAdapter.swapCursor(null);
     }
 
 	private long age(Location location) {
