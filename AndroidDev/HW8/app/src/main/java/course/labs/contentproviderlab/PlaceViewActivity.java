@@ -28,6 +28,9 @@ public class PlaceViewActivity extends ListActivity implements
 	// The last valid location reading
 	private Location mLastLocationReading;
 
+    // The ListView's adapter
+    private PlaceViewAdapter mAdapter;
+
 	// The ListView's adapter
 	// private PlaceViewAdapter mAdapter;
 	private PlaceViewAdapter mCursorAdapter;
