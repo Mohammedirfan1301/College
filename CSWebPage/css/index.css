@@ -1,0 +1,107 @@
+html {
+    min-height: 100%;
+    position: relative;
+}
+
+body {
+  padding-bottom: 60px;
+  /*background-color: #C8C8C8;*/
+  background-image: url('../img/background_2.jpg');
+  background-size: 100% 30%;
+  background-repeat: no-repeat;
+}
+
+body > .container {
+    padding: 65px 10px 0;
+}
+
+body > .row {
+    margin: 10px;
+}
+
+/* About / Header name */
+.about {
+  color: black;
+  text-align: center;
+  background-color: white;
+}
+
+.name {
+  color: red;
+  text-align: center;
+}
+
+.black {
+  background-color: black;
+}
+
+/* FOR THE CAROUSEL: */
+.carousel {
+    height: 485px;
+    margin-bottom: 0px;
+    top: 0;
+    pause: "true";
+}
+
+.carousel-caption {
+    z-index: 10;
+}
+
+.carousel .item {
+    background-color: #777;
+    height: 485px;
+}
+
+.carousel-inner > .item > img {
+
+}
+
+@media {
+    .carousel-caption p {
+        margin-bottom: 15px;
+        font-size: 16px;
+        line-height: 1.4;
+    }
+}
+
+.footer {
+    position: static;
+    background-color: #FFFFFF;
+    bottom: 0;
+    height: 20px;
+    padding-top: 20px;
+    width: 100%;
+}
+
+/* FOR THE NAVBAR: */
+.navbar-wrapper {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 20;
+}
+
+/* These are for the carousel images */
+#img1{
+    position: fixed;
+    top: 60px;
+    right: 381px;
+}
+
+#img2{
+    top: 60px;
+    right: 1524px;
+}
+
+#image2{
+    position: fixed;
+    top: 160px;
+    right: 1000px;
+    width: 100px;
+    height: auto;
+}
+
+#img3{
+
+}
