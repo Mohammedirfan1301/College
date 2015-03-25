@@ -73,8 +73,15 @@ public class PlaceViewActivity extends ListActivity implements LocationListener 
                 // 2) The current location has been seen before - issue Toast message.
                 // 3) There is no current location - response is up to you.
 
+                // Case 3
+                if (mLastLocationReading == null)
+                {
+                    log("Location data is not available");
+                    mFooterView.setEnabled(false);
+                }
+
                 // Case 1
-                if(! mAdapter.intersects(mLastLocationReading))
+                if(!mAdapter.intersects(mLastLocationReading))
                 {
                     log("Starting Place Download");
                     PlaceDownloaderTask pdt = new PlaceDownloaderTask(PlaceViewActivity.this);
@@ -85,13 +92,6 @@ public class PlaceViewActivity extends ListActivity implements LocationListener 
                 else {
                     log("You already have this location badge");
                     Toast.makeText(getApplicationContext(), "You already have this location badge!", Toast.LENGTH_LONG).show();
-                }
-
-                // Case 3
-                if (mLastLocationReading == null)
-                {
-                    log("Location data is not available");
-                    mFooterView.setEnabled(false);
                 }
             }
         });

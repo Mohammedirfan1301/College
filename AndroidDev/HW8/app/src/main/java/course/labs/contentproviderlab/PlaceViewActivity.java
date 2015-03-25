@@ -119,9 +119,7 @@ public class PlaceViewActivity extends ListActivity implements
         // Attach the adapter to this ListActivity's ListView
         getListView().setAdapter(mCursorAdapter);
 
-
-        //  - Initialize a CursorLoader
-        // See - ContentProviderWithCursorLoader example
+        //  Initialize a CursorLoader
         getLoaderManager().initLoader(0, null, this);
 	}
 
@@ -135,19 +133,19 @@ public class PlaceViewActivity extends ListActivity implements
 				LocationManager.NETWORK_PROVIDER, this);
 
         // DONE - Check NETWORK_PROVIDER for an existing location reading.
-        if (null == (mLocationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE)))
+        if (null == (mLocationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE))) {
             finish();
+        }
 
         tempLoc = mLocationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
 
-        // Only keep this last reading if it is fresh - less than 5 minutes old.
-        if(tempLoc != null && age(tempLoc)<FIVE_MINS)
+        // Only keep this last reading if it is less than 5 minutes old.
+        if(tempLoc != null && age(tempLoc) < FIVE_MINS)
         {
             mLastLocationReading = tempLoc;
         }
 
         // DONE - register to receive location updates from NETWORK_PROVIDER
-        // can use "this" since this class implements LocationListener
         mLocationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, mMinTime, mMinDistance, this);
     }
 
