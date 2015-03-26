@@ -53,6 +53,12 @@ h1.name {
   background-color: black;
 }
 
+/* Center text with no background. */
+.center_text_nohighlight {
+  color: black;
+  text-align: center;
+}
+
 /* Center text */
 .center_text {
   color: white;
