@@ -4,11 +4,16 @@ html {
 }
 
 body {
-  padding-bottom: 60px;
-  /*background-color: #C8C8C8;*/
-  background-image: url('../img/background_2.jpg');
-  background-size: 100% 30%;
+  /*padding-bottom: 60px;*/
+  background-color: #CCCCCC;
+  background-image: url('../img/background4.jpg');
+  background-position: center;
   background-repeat: no-repeat;
+  margin: 0px;
+  padding: 0px;
+  height: 100%;
+  width: 100%;
+  font-family: Times, sans-serif;
 }
 
 body > .container {
@@ -19,15 +24,28 @@ body > .row {
     margin: 10px;
 }
 
-/* About / Header name */
-.about {
-  color: black;
+.easy_text {
+  color: white;
   text-align: center;
-  background-color: white;
+  background-color:black;
+  z-index:0;
+  opacity:0.5;
 }
 
-.name {
+/* About / Header name */
+.about {
+  color: white;
+  text-align: center;
+}
+
+a:link {
   color: red;
+}
+
+
+
+h1.name {
+  color: black;
   text-align: center;
 }
 
@@ -35,73 +53,19 @@ body > .row {
   background-color: black;
 }
 
-/* FOR THE CAROUSEL: */
-.carousel {
-    height: 485px;
-    margin-bottom: 0px;
-    top: 0;
-    pause: "true";
+/* Center text */
+.center_text {
+  color: white;
+  text-align: center;
+  font-family: Raleway;
+  font-weight:900;
+  background-color:black;
+  z-index:0;
 }
 
-.carousel-caption {
-    z-index: 10;
-}
-
-.carousel .item {
-    background-color: #777;
-    height: 485px;
-}
-
-.carousel-inner > .item > img {
-
-}
-
-@media {
-    .carousel-caption p {
-        margin-bottom: 15px;
-        font-size: 16px;
-        line-height: 1.4;
-    }
-}
-
-.footer {
-    position: static;
-    background-color: #FFFFFF;
-    bottom: 0;
-    height: 20px;
-    padding-top: 20px;
-    width: 100%;
-}
-
-/* FOR THE NAVBAR: */
-.navbar-wrapper {
-    position: absolute;
-    top: 0;
-    right: 0;
-    left: 0;
-    z-index: 20;
-}
-
-/* These are for the carousel images */
-#img1{
-    position: fixed;
-    top: 60px;
-    right: 381px;
-}
-
-#img2{
-    top: 60px;
-    right: 1524px;
-}
-
-#image2{
-    position: fixed;
-    top: 160px;
-    right: 1000px;
-    width: 100px;
-    height: auto;
-}
-
-#img3{
-
+/* Left align text */
+.left_align {
+  color: black;
+  text-align: left;
+  font-family: Raleway;
 }
