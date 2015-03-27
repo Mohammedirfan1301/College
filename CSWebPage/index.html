@@ -38,20 +38,21 @@
     <div class = "row">
 
       <!-- Background image is in the body -->
-      <h1 class="name">Jason Downing</h1>
+      <h1 class="name"><span class="highlight">Jason Downing</span></h1>
 
       <div class="col-xs-4 col-md-2">
         <img class="img-square" src="img/jason_contact_photo.png"
              style="height: 200px"/>
       </div>
 
+      <!-- About info -->
       <div class="col-xs-8 col-md-10">
         <div class = "left_align">
         <p>Jason Downing is an undergraduate Computer Science
         student at University of Massachusetts, Lowell.</p>
         <p>Jason's hobbies include mountain biking, skiing, hiking, and coding.</p>
         <p>In the past, Jason has worked at several retail stores, including Sears,
-        Kohl's and Market Basket in various sales floor positions.</p>
+        Kohl's and Market Basket.</p>
         <p>He currently works for the Engaging Computer Group at UMass Lowell,
         and in the future will be working at Fidelity Investments as an intern for Summer 2015.</p>
         <p>Jason is active on Github and has various projects for school,
@@ -66,7 +67,7 @@
 
         <!-- Display Github account -->
         <div class = "center_text_nohighlight">
-        <p>Jason's Github Account: </p>
+        <p style="text-decoration: underline; font-weight: bold;">Jason's Github Account: </p>
         </div>
 
         <center>
@@ -77,23 +78,57 @@
      </div>
 
     <div class = "row">
+
         <!-- Should also display other Github repos such as:
              - HTML WebApps
              - Teaching
              - iSENSE API
+             etc
         -->
         <div class = "center_text_nohighlight">
-        <p>Repositories that Jason has contributed to: </p>
+        <p style="text-decoration: underline; font-weight: bold;">
+        Repositories that Jason has contributed to: </p>
         </div>
 
+        <!-- These are all separate columns and width set to 350px for the best looking arrangement
+        for desktop views. Should check mobile at some point in the future. -->
+        <div class="col-md-4">
         <iframe src="http://lab.lepture.com/github-cards/card.html?user=iSENSEDev&repo=Teaching"
-        frameborder="0" scrolling="0" width="300px" height="200px" allowtransparency></iframe>
+        frameborder="0" scrolling="0" width="350px" height="200px" allowtransparency></iframe>
+        </div>
 
+        <div class="col-md-4">
         <iframe src="http://lab.lepture.com/github-cards/card.html?user=iSENSEDev&repo=iSENSE-API"
-        frameborder="0" scrolling="0" width="300px" height="200px" allowtransparency></iframe>
+        frameborder="0" scrolling="0" width="350px" height="200px" allowtransparency></iframe>
+        </div>
 
+        <div class="col-md-4">
         <iframe src="http://lab.lepture.com/github-cards/card.html?user=iSENSEDev&repo=HTML-Apps"
-        frameborder="0" scrolling="0" width="300px" height="200px" allowtransparency></iframe>
+        frameborder="0" scrolling="0" width="350px" height="200px" allowtransparency></iframe>
+        </div>
+
+        <div class="col-md-4">
+        <iframe src="http://lab.lepture.com/github-cards/card.html?user=JasonD94&repo=HighSchool"
+        frameborder="0" scrolling="0" width="350px" height="200px" allowtransparency></iframe>
+        </div>
+
+        <div class="col-md-4">
+        <iframe src="http://lab.lepture.com/github-cards/card.html?user=JasonD94&repo=College-Public"
+        frameborder="0" scrolling="0" width="350px" height="200px" allowtransparency></iframe>
+        </div>
+
+        <div class="col-md-4">
+        <iframe src="http://lab.lepture.com/github-cards/card.html?user=JohnShep&repo=repair"
+        frameborder="0" scrolling="0" width="350px" height="200px" allowtransparency></iframe>
+        </div>
+
+        <!-- Span is inline and forces just the text to be highlighted!! See:
+        http://stackoverflow.com/questions/14310154/how-do-i-set-background-color-of-text-only-in-css -->
+        <div class="center_text"><span class="highlight">
+        <a href="https://github.com/JasonD94">
+        Other work Jason has done can be found on his Github page here.</a>
+        </span></div>
+
       </div>
     </div>
 
@@ -101,16 +136,16 @@
     <div class = "row">
       <div class="col-md-2"></div>
       <div class="col-md-8">
-        <div class = "center_text">
+        <div class="center_text"><span class="highlight">
 
-          <p>You may contact Jason at either:
+          You may contact Jason at either:
           <a href = "mailto:jdowning@cs.uml.edu">jdowning@cs.uml.edu</a>
-          or <a href = "mailto:jason_downing@student.uml.edu">jason_downing@student.uml.edu</a> </p>
+          or <a href = "mailto:jason_downing@student.uml.edu">jason_downing@student.uml.edu</a> <br/> <br/>
 
-          <p><a href="resume.pdf">You can find an unofficial copy of Jason's resume here.</a></p>
-          <p>Or, simply look below: </p>
+          <a href="resume.pdf">You can find an unofficial copy of Jason's resume here.</a> <br/>
+          Or, simply look below if the PDF loads in your browser.
 
-        </div>
+        </span></div>
       </div>
       <div class="col-md-2"></div>
     </div>
@@ -119,17 +154,25 @@
     <div class = "row">
 
       <!-- PDF doesn't hide text this way! -->
+      <div class = "col-md-3"></div>
+      <div class = "col-md-6">
       <embed src="img/resume.pdf" width="100%" height="1100px">
+        <noembed>Sorry, your browser does not support embedded PDF files.
+        <a href="resume.pdf">You can find an unofficial copy of Jason's resume here instead.</a> <br/></noembed>
+      </embed>
+      </div>
+      <div class = "col-md-3"></div>
     </div>
 
     <!-- Fourth row -->
     <div class = "row">
-      <div class="col-md-2"></div>
+      <div class="col-md-2"></div>  <!-- These extra columns center text quite well. -->
       <div class="col-md-8">
+
         <!-- NOTHING COMES FROM NOTHING - CUZ, LIKE, YOU KNOW, LATIN. -->
         <div class = center_text>
-          <h2>EX NIHILO NIHIL FIT</h2>
-          <p>From nothing, comes nothing.</p>
+          <h2><span class = "highlight">EX NIHILO NIHIL FIT</span></h2>
+          <p><span class = "highlight">From nothing, comes nothing.</span></p>
         </div>
       </div>
       <div class="col-md-2"></div>
@@ -138,10 +181,12 @@
 
   <!-- THIS IS THE FOOTER! -->
   <div class = "container">
-    <div class = "center_text">
-      <p class = "text-muted">Jason Downing &copy; 2015.
+    <div class = "center_text_small">
+      <p class = "text-muted"><span class = "highlight">
+      Jason Downing &copy; 2015.
       All rights reserved.
-      Powered by <a href = "http://www.getbootstrap.com/">Bootstrap</a>. </p>
+      Powered by <a href = "http://www.getbootstrap.com/">Bootstrap</a>.
+      </span></p>
     </div>
   </div>
 </body>
