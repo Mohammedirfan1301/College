@@ -13,7 +13,8 @@ html {
 
 body {
   /*padding-bottom: 60px;*/
-  background-color: #CCCCCC;
+  /* This is the same as the sky in background 4, to make the mobile display look better. */
+  background-color: #376BD0;
   background-image: url('../img/background4.jpg');
   background-position: center;
   background-repeat: no-repeat;
