@@ -43,8 +43,8 @@
       <file leaf-file-name="BubbleActivity.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/course/labs/GraphicsLab/BubbleActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-3.8885016" vertical-offset="2754" max-vertical-offset="8550">
-              <caret line="50" column="26" selection-start-line="50" selection-start-column="26" selection-end-line="50" selection-end-column="26" />
+            <state vertical-scroll-proportion="0.8780488" vertical-offset="6804" max-vertical-offset="8550">
+              <caret line="427" column="1" selection-start-line="427" selection-start-column="1" selection-end-line="427" selection-end-column="1" />
               <folding>
                 <element signature="e#2888#3103#0" expanded="true" />
                 <element signature="e#3092#3093#0" expanded="true" />
@@ -982,7 +982,7 @@
     <property name="options.splitter.main.proportions" value="0.3" />
     <property name="options.splitter.details.proportions" value="0.2" />
     <property name="options.searchVisible" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../HW5/GraphicsLab" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../HW7" />
     <property name="recentsLimit" value="5" />
     <property name="restartRequiresConfirmation" value="true" />
     <property name="FullScreen" value="false" />
@@ -1252,8 +1252,8 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/app/src/main/java/course/labs/GraphicsLab/BubbleActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-3.8885016" vertical-offset="2754" max-vertical-offset="8550">
-          <caret line="50" column="26" selection-start-line="50" selection-start-column="26" selection-end-line="50" selection-end-column="26" />
+        <state vertical-scroll-proportion="0.8780488" vertical-offset="6804" max-vertical-offset="8550">
+          <caret line="427" column="1" selection-start-line="427" selection-start-column="1" selection-end-line="427" selection-end-column="1" />
           <folding>
             <element signature="e#2888#3103#0" expanded="true" />
             <element signature="e#3092#3093#0" expanded="true" />

@@ -10,8 +10,7 @@ public class PlaceRecord {
 	private Bitmap mFlagBitmap;
 	private Location mLocation;
 
-	public PlaceRecord(String flagUrl, String country, String place,
-			String elevation) {
+	public PlaceRecord(String flagUrl, String country, String place, String elevation) {
 		this.mFlagUrl = flagUrl;
 		this.mCountryName = country;
 		this.mPlaceName = place;

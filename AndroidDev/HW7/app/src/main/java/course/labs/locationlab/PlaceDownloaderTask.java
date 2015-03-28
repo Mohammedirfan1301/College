@@ -1,5 +1,19 @@
 package course.labs.locationlab;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.location.Location;
+import android.location.LocationManager;
+import android.os.AsyncTask;
+import android.util.Log;
+
+import org.w3c.dom.DOMException;
+import org.w3c.dom.Document;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -14,47 +28,68 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
-import org.w3c.dom.DOMException;
-import org.w3c.dom.Document;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-import org.xml.sax.InputSource;
-import org.xml.sax.SAXException;
-
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.location.Location;
-import android.os.AsyncTask;
-import android.util.Log;
-
 public class PlaceDownloaderTask extends AsyncTask<Location, Void, PlaceRecord> {
+
+    // Change to false if you don't have network access
+    private static final boolean HAS_NETWORK = true;
 
 	// DONE put your www.geonames.org account name here.
 	private static String USERNAME = "jasond94";
 
 	private HttpURLConnection mHttpUrl;
 	private WeakReference<PlaceViewActivity> mParent;
+    private static Bitmap mStubBitmap;
+    private static Location mockLoc1 = new Location(LocationManager.NETWORK_PROVIDER);
+    private static Location mockLoc2 = new Location(LocationManager.NETWORK_PROVIDER);
 
-	public PlaceDownloaderTask(PlaceViewActivity parent) {
-		super();
-		mParent = new WeakReference<PlaceViewActivity>(parent);
-	}
 
-	@Override
-	protected PlaceRecord doInBackground(Location... location) {
+    public PlaceDownloaderTask(PlaceViewActivity parent) {
+        super();
+        mParent = new WeakReference<PlaceViewActivity>(parent);
 
-		PlaceRecord place = getPlaceFromURL(generateURL(USERNAME, location[0]));
+        if (!HAS_NETWORK) {
+            mStubBitmap = BitmapFactory.decodeResource(parent.getResources(),R.drawable.stub);
 
-		if ("" != place.getCountryName()) {
-			place.setLocation(location[0]);
-			place.setFlagBitmap(getFlagFromURL(place.getFlagUrl()));
-		} else {
-			place = null;
-		}
-		
-		return place;
+            mockLoc1.setLatitude(37.422);
+            mockLoc1.setLongitude(-122.084);
 
-	}
+            mockLoc2.setLatitude(38.996667);
+            mockLoc2.setLongitude(-76.9275);
+        }
+    }
+
+    @Override
+    protected PlaceRecord doInBackground(Location... location) {
+
+        PlaceRecord place = null;
+
+        if (HAS_NETWORK) {
+
+            place = getPlaceFromURL(generateURL(USERNAME, location[0]));
+
+            if ("" != place.getCountryName()) {
+                place.setLocation(location[0]);
+                place.setFlagBitmap(getFlagFromURL(place.getFlagUrl()));
+            } else {
+                place = null;
+            }
+
+        } else {
+            place = new PlaceRecord(location[0]);
+            if (location[0].distanceTo(mockLoc1) < 100) {
+                place.setCountryName("United States");
+                place.setPlace("The Greenhouse");
+                place.setFlagBitmap(mStubBitmap);
+            } else {
+                place.setCountryName("United States");
+                place.setPlace("Berwyn");
+                place.setFlagBitmap(mStubBitmap);
+            }
+        }
+
+        return place;
+
+    }
 
 	@Override
 	protected void onPostExecute(PlaceRecord result) {
