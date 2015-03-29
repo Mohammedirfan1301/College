@@ -102,7 +102,7 @@ public class PlaceViewActivity extends ListActivity implements LocationListener 
             }
         });
 
-        //Attach the adapter to this ListActivity's ListView
+        // Attach the adapter to this ListActivity's ListView
         getListView().setAdapter(mAdapter);
 	}
 

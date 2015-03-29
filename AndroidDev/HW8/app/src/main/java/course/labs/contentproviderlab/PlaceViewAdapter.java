@@ -65,6 +65,7 @@ public class PlaceViewAdapter extends CursorAdapter {
 		super.swapCursor(newCursor);
 
 		if (null != newCursor) {
+
             // DONE - clear the ArrayList list so it contains
             // the current set of PlaceRecords. Use the
             // getPlaceRecordFromCursor() method to add the
@@ -72,16 +73,16 @@ public class PlaceViewAdapter extends CursorAdapter {
 
             list.clear();
 
-            // Check if the database is empty!
+            // Make sure its empty.
             if(newCursor.moveToFirst())
             {
-                // combine the getting of the record with adding it to the list
+                //
                 do{
                     list.add(getPlaceRecordFromCursor(newCursor));
                 }while(newCursor.moveToNext());
             }
 
-            // Set the NotificationURI for the new cursor
+            // Set the NotificationURI
 			newCursor.setNotificationUri(mContext.getContentResolver(),
 					PlaceBadgesContract.CONTENT_URI);
 		}
