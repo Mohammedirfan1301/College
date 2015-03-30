@@ -28,6 +28,6 @@ main.o:	main.cpp RingBuffer.hpp
 # Cleanup object files
 clean:
 	rm *.o
+	rm *.gch
 	rm ps5a
 	rm *.out
-	rm *.gch
