@@ -7,6 +7,7 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -14,6 +15,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import java.util.ArrayList;
 
 public class PlaceViewActivity extends ListActivity implements LocationListener {
@@ -21,11 +23,8 @@ public class PlaceViewActivity extends ListActivity implements LocationListener 
 
 	private static String TAG = "Lab-Location";
 
-	// The last valid location reading
-	private Location mLastLocationReading;
-
-	// The ListView's adapter
-	private PlaceViewAdapter mAdapter;
+	private Location mLastLocationReading;      // The last valid location reading
+	private PlaceViewAdapter mAdapter;          // The ListView's adapter
 
 	// default minimum time between new location readings
 	private long mMinTime = 5000;
@@ -39,32 +38,30 @@ public class PlaceViewActivity extends ListActivity implements LocationListener 
 	// A fake location provider used for testing
 	private MockLocationProvider mMockLocationProvider;
 
-    private TextView mFooterView;
-
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-		// DONE - Set up the app's user interface
-		// This class is a ListActivity, so it has its own ListView
-		// ListView's adapter should be a PlaceViewAdapter
-        mAdapter = new PlaceViewAdapter(getApplicationContext());
+        if (null == (mLocationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE))) {
+            finish();
+        }
 
-        // Put divider between ToDoItems and FooterView
+        // DONE - Set up the app's user interface
+        // This class is a ListActivity, so it has its own ListView
+        // ListView's adapter should be a PlaceViewAdapter
+        mAdapter = new PlaceViewAdapter(getApplicationContext());
         getListView().setFooterDividersEnabled(true);
 
         // DONE - add a footerView to the ListView
-		// You can use footer_view.xml to define the footer
-        mFooterView = (TextView) this.getLayoutInflater().inflate(R.layout.footer_view, null);
+        // You can use footer_view.xml to define the footer
+        LayoutInflater inflater = (LayoutInflater)this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        TextView footerView = (TextView)inflater.inflate(R.layout.footer_view, null);
+        getListView().addFooterView(footerView);
 
-        // add it to the ListView
-        getListView().addFooterView(mFooterView);
+        footerView.setOnClickListener(new OnClickListener() {
 
-        // enable it only if there is a location
-        mFooterView.setEnabled(mLastLocationReading != null);
-
-        mFooterView.setOnClickListener(new OnClickListener() {
             @Override public void onClick(View arg0) {
+
                 // When the footerView's onClick() method is called, it must issue the follow log call
                 log("Entered footerView.OnClickListener.onClick()");
 
@@ -76,49 +73,56 @@ public class PlaceViewActivity extends ListActivity implements LocationListener 
                 // Case 3
                 if (mLastLocationReading == null)
                 {
-                    log("Location data is not available");
-                    mFooterView.setEnabled(false);
+                    log("Location data is unavailable at the moment. Please try again later.");
+                    Toast.makeText(getApplicationContext(),
+                          "Location data is unavailable.",
+                          Toast.LENGTH_SHORT).show();
                 }
 
                 // Case 1
                 if(!mAdapter.intersects(mLastLocationReading))
                 {
                     log("Starting Place Download");
-                    PlaceDownloaderTask pdt = new PlaceDownloaderTask(PlaceViewActivity.this);
-                    pdt.execute(mLastLocationReading);
+
+                    Toast.makeText(getApplicationContext(),
+                          "Starting Place Download",
+                          Toast.LENGTH_SHORT).show();
+
+                    PlaceDownloaderTask PDtask = new PlaceDownloaderTask(PlaceViewActivity.this);
+                    PDtask.execute(mLastLocationReading);
                 }
 
                 // Case 2
                 else {
                     log("You already have this location badge");
-                    Toast.makeText(getApplicationContext(), "You already have this location badge!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(),
+                          "You already have this location badge!",
+                          Toast.LENGTH_SHORT).show();
                 }
             }
         });
+
+        // Attach the adapter to this ListActivity's ListView
+        getListView().setAdapter(mAdapter);
 	}
 
 	@Override
 	protected void onResume() {
 		super.onResume();
 
-        Location tempLoc;
-
-		mMockLocationProvider = new MockLocationProvider(
-				LocationManager.NETWORK_PROVIDER, this);
+		mMockLocationProvider = new MockLocationProvider(LocationManager.NETWORK_PROVIDER, this);
 
 		// DONE - Check NETWORK_PROVIDER for an existing location reading.
-        if (null == (mLocationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE)))
-            finish();
+        mLastLocationReading = mLocationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
 
-        tempLoc = mLocationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-
-        // Only keep this last reading if it is fresh - less than 5 minutes old.
-        if(tempLoc != null && age(tempLoc)<FIVE_MINS)
-        {
-            mLastLocationReading = tempLoc;
+        // Only keep the reading if it is less than 5 minutes old.
+        if (mLastLocationReading != null) {
+            if (age(mLocationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER)) > FIVE_MINS) {
+                mLastLocationReading = null;
+            }
         }
 
-		// DONE - register to receive location updates from NETWORK_PROVIDER
+        // DONE - register to receive location updates from NETWORK_PROVIDER
         mLocationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, mMinTime, mMinDistance, this);
 	}
 
@@ -144,19 +148,25 @@ public class PlaceViewActivity extends ListActivity implements LocationListener 
 	public void onLocationChanged(Location currentLocation) {
 
 		// DONE - Handle location updates
-		// Cases to consider
-		// 1) If there is no last location, keep the current location.
-		// 2) If the current location is older than the last location, ignore
-		// the current location
-		// 3) If the current location is newer than the last locations, keep the
-		// current location.
 
-        if(mLastLocationReading == null || age(currentLocation) < age(mLastLocationReading))
-        {
+        // Case 1 - there's no last location, so set the location to the
+        // current location.
+        if ( mLastLocationReading == null ) {
             mLastLocationReading = currentLocation;
+            return;
+        }
 
-            // enable the footer view again since we have an updated location
-            mFooterView.setEnabled(true);
+        // Case 2 - Current location is older than last location, so
+        // ignore the current location by doing nothing.
+        else if ( age(currentLocation) > age( mLastLocationReading )  ) {
+            // Don't do anything, just ignore the current location by returning.
+            return;
+        }
+        // Case 3 - Current location is newer then last location, so set
+        // the location to the current location.
+        else if ( age(currentLocation) < age( mLastLocationReading ) ) {
+            mLastLocationReading = currentLocation;
+            return;
         }
 	}
 
