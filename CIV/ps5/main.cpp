@@ -7,7 +7,6 @@
 #include "RingBuffer.hpp"
 
 int main() {
-
   std::cout << "Test main.\n";
 
   RingBuffer test(100);

@@ -65,6 +65,7 @@ BOOST_AUTO_TEST_CASE(isFull) {
 
 // Test enqueue
 BOOST_AUTO_TEST_CASE(Enqueue) {
+  // These test basic enqueuing
   RingBuffer test(5);
 
   BOOST_REQUIRE_NO_THROW(test.enqueue(1));
@@ -73,8 +74,6 @@ BOOST_AUTO_TEST_CASE(Enqueue) {
   BOOST_REQUIRE_NO_THROW(test.enqueue(4));
   BOOST_REQUIRE_NO_THROW(test.enqueue(5));
   BOOST_REQUIRE_THROW(test.enqueue(6), std::runtime_error);
-
-  
 }
 
 
@@ -91,20 +90,3 @@ BOOST_AUTO_TEST_CASE(Dequeue) {
   BOOST_REQUIRE(test.dequeue() == 2);
   BOOST_REQUIRE_THROW(test.dequeue(), std::runtime_error);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

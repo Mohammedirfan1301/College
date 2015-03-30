@@ -8,9 +8,9 @@
 
 // Create an empty ring buffer, with given max capacity.
 RingBuffer::RingBuffer(int capacity) {
-  if(capacity < 1) {
+  if (capacity < 1) {
     throw
-      std::invalid_argument("RB constructor: capacity must be greater than zero");
+    std::invalid_argument("RB constructor: capacity must be greater than zero");
   }
 
   _last = 0;
@@ -25,7 +25,6 @@ RingBuffer::RingBuffer(int capacity) {
 
 // Return # of items in the buffer.
 int RingBuffer::size() {
-
   return _size;
 }
 
@@ -33,7 +32,7 @@ int RingBuffer::size() {
 // Is size == 0?
 bool RingBuffer::isEmpty() {
   // Determine if the RingBuffer is empty.
-  if(_size == 0) {
+  if (_size == 0) {
     return true;
   } else {
     return false;
@@ -44,7 +43,7 @@ bool RingBuffer::isEmpty() {
 // Is size == capacity?
 bool RingBuffer::isFull() {
   // Determine if size equals capacity.
-  if(_size == _capacity) {
+  if (_size == _capacity) {
     return true;
   } else {
     return false;
@@ -55,13 +54,13 @@ bool RingBuffer::isFull() {
 // Add item x to the end.
 void RingBuffer::enqueue(int16_t x) {
   // See if the buffer is full
-  if(isFull()) {
+  if (isFull()) {
     throw
       std::runtime_error("enqueue: can't enqueue to a full ring");
   }
 
   // Check to see if we need to loop last back around to 0.
-  if(_last >= _capacity) {
+  if (_last >= _capacity) {
     _last = 0;
   }
 
@@ -76,7 +75,7 @@ void RingBuffer::enqueue(int16_t x) {
 
 // Delete and return item from the front
 int16_t RingBuffer::dequeue() {
-  if(isEmpty()) {
+  if (isEmpty()) {
     throw
       std::runtime_error("dequeue: can't dequeue to an empty ring");
   }
@@ -90,7 +89,7 @@ int16_t RingBuffer::dequeue() {
   _size--;
 
   // Check to see if we need to loop first back around to 0.
-  if(_first >= _capacity) {
+  if (_first >= _capacity) {
     _first = 0;
   }
 
@@ -101,7 +100,7 @@ int16_t RingBuffer::dequeue() {
 // Return (don't delete) item from the front.
 int16_t RingBuffer::peek() {
   // This is an easy function - return the first buffer position.
-  if(isEmpty()) {
+  if (isEmpty()) {
     throw
       std::runtime_error("peek: can't peek an empty ring");
   }
@@ -123,10 +122,9 @@ void RingBuffer::output() {
   int x = 0;
   int y = _first;
 
-  while(x < _size) {
-
+  while (x < _size) {
     // Make the loop go back to 0 to continue printing.
-    if(y >= _capacity) {
+    if (y >= _capacity) {
       y = 0;
     }
 
@@ -137,7 +135,7 @@ void RingBuffer::output() {
 
   std::cout << "\nDump the entire buffer (including blanks): \n";
 
-  for(int x = 0; x < _capacity; x++) {
+  for (int x = 0; x < _capacity; x++) {
     std::cout << _buffer[x] << " ";
   }
 
