@@ -17,7 +17,7 @@ class RingBuffer {
   // API functions
 
   // Empty ring buffer, with given max capacity.
-  (explicit)RingBuffer(int capacity);
+  explicit RingBuffer(int capacity);
   int size();                 // return # of items in the buffer.
   bool isEmpty();             // is size == 0?
   bool isFull();              // is size == capacity?
