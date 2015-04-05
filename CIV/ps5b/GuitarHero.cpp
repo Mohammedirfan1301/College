@@ -4,13 +4,11 @@
  * MIT Licensed - see http://opensource.org/licenses/MIT for details.
  *
  */
-#include <iostream>
-
-
+#include "GuitarString.hpp"
 
 int main()
 {
-  // la la la
+  // Testing the GuitarString
 
   return 0;
 }
