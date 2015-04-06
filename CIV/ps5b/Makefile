@@ -6,11 +6,15 @@ SFLAGS= -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio
 Boost= -lboost_unit_test_framework
 
 # Make ps5a & a dummy tester
-all:	GuitarHero
+all:	GuitarHero GStest
 
-# PS5 executable
+# PS5B executable
 GuitarHero:	GuitarHero.o GuitarString.o RingBuffer.o
 	$(CC) GuitarHero.o GuitarString.o RingBuffer.o -o GuitarHero $(SFLAGS)
+
+# GStest executable
+GStest:	GStest.o GuitarString.o RingBuffer.o
+	$(CC) GStest.o GuitarString.o RingBuffer.o -o GStest $(Boost)
 
 # Object files
 GuitarHero.o: 	GuitarHero.cpp GuitarString.hpp
@@ -22,8 +26,12 @@ GuitarString.o: GuitarString.cpp GuitarString.hpp
 RingBuffer.o: RingBuffer.cpp RingBuffer.hpp
 	$(CC) -c RingBuffer.cpp RingBuffer.hpp $(CFLAGS)
 
+GStest.o:	GStest.cpp
+	$(CC) -c GStest.cpp $(Boost)
+
 # Cleanup object files
 clean:
 	rm *.o
 	rm *.gch
 	rm GuitarHero
+	rm GStest

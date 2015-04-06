@@ -4,7 +4,9 @@
  * MIT Licensed - see http://opensource.org/licenses/MIT for details.
  *
  */
-#include "RingBuffer.hpp"
+#ifndef GUITARSTRING_HPP
+#define GUITARSTRING_HPP
+
 #include <SFML/Audio.hpp>
 #include <SFML/Graphics.hpp>
 #include <SFML/System.hpp>
@@ -13,16 +15,18 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include "RingBuffer.hpp"
 
 const int SAMPLING_RATE = 44100;
+const double ENERGY_DECAY_FACTOR = 0.996;
 
 class GuitarString {
  public:
   // create a guitar string of the given freq using a rate of 44,100
-  GuitarString(double frequency);
+  explicit GuitarString(double frequency);
 
   // create a guitar string with size and initial values of the vector init
-  GuitarString(std::vector<sf::Int16> init);
+  explicit GuitarString(std::vector<sf::Int16> init);
 
   // Guitar string destructor
   ~GuitarString();
@@ -34,4 +38,7 @@ class GuitarString {
   int time();              // return number of times tic was called so far
  private:
   RingBuffer *_buff;
+  int _N;
+  int _tic;
 };
+#endif

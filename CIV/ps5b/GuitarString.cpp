@@ -10,41 +10,40 @@
 
 // Create a guitar string of the given freq using a rate of 44,100
 GuitarString::GuitarString(double frequency) {
-  std::cout << "GuitarString(double)\n";
-
-  // Round up the frequency
-  int freq = ceil(frequency);
-
   // Ringbuffer will be this large.
-  int N = SAMPLING_RATE / freq;
+  _N = ceil(SAMPLING_RATE / frequency);
 
   // Create a new RingBuffer, of size N
-  _buff = new RingBuffer(N);
+  _buff = new RingBuffer(_N);
 
   // Enqueue N (44,100 / freq) 0's.
-  for(int i = 0; i < N; i++) {
+  for (int i = 0; i < _N; i++) {
     _buff->enqueue((int16_t)0);
   }
+
+  // Set _tic to 0 for the tic / time methods.
+  _tic = 0;
 }
 
 
 // Create a guitar string with size and initial values of the vector init
 GuitarString::GuitarString(std::vector<sf::Int16> init) {
-  std::cout << "GuitarString(vector<sf::Int16>()\n";
-
   // RingBuffer will be as large as the array.
-  int N = init.size();
+  _N = init.size();
 
   // Create a new RingBuffer, of size N
-  _buff = new RingBuffer(N);
+  _buff = new RingBuffer(_N);
 
   // Iterator to keep track of the vector.
   std::vector<sf::Int16>::iterator it;
 
   // Enqueue all the items in the vector.
-  for(it = init.begin(); it < init.end(); it++) {
+  for (it = init.begin(); it < init.end(); it++) {
     _buff->enqueue((int16_t)*it);
   }
+
+  // Set _tic to 0 for the tic / time methods.
+  _tic = 0;
 }
 
 
@@ -56,7 +55,15 @@ GuitarString::~GuitarString() {
 
 // pluck the guitar string by replacing the buffer with random valuess
 void GuitarString::pluck() {
-  std::cout << "pluck()\n";
+  // Remove N items
+  for (int i = 0; i < _N; i++) {
+    _buff->dequeue();
+  }
+
+  // Add N random items between -32768 to 32767
+  for (int i = 0; i < _N; i++) {
+    _buff->enqueue((sf::Int16)(rand() & 0xffff)); //NOLINT
+  }
 
   return;
 }
@@ -64,7 +71,25 @@ void GuitarString::pluck() {
 
 // advance the simulation one time step
 void GuitarString::tic() {
-  std::cout << "tic()\n";
+  // First get the first value, and dequeue it at the same time.
+  int16_t first = _buff->dequeue();
+
+  // Get the second value (DON'T dequeue it)
+  int16_t second = _buff->peek();
+
+  // Now we can apply the Karplus-Strong update:
+  // Take the first two values, average them and multiply by the
+  // ENERGY_DECAY_FACTOR
+  int16_t avg = (first + second) / 2;
+  int16_t karplus = avg * ENERGY_DECAY_FACTOR;
+
+  // Debugging code.
+//   std::cout << "Karplus is: " << karplus << "\n";
+
+  // Now enqueue the Karplus-Strong update.
+  _buff->enqueue((sf::Int16)karplus);
+
+  _tic++;
 
   return;
 }
@@ -72,17 +97,14 @@ void GuitarString::tic() {
 
 // return the current sample
 sf::Int16 GuitarString::sample() {
-  sf::Int16 test = 5.0;
+  // Get the value of the item at the front of the RingBuffer
+  sf::Int16 sample = (sf::Int16)_buff->peek();
 
-  std::cout << "sample()\n";
-
-  return test;
+  return sample;
 }
 
 
 // return number of times tic was called so far
 int GuitarString::time() {
-  std::cout << "Time()\n";
-
-  return 1;
+  return _tic;
 }
