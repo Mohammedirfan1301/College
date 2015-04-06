@@ -23,7 +23,7 @@
 
 #define CONCERT_A 440.0
 #define SAMPLES_PER_SEC 44100
-#define KEYS 37
+const int keyboard_size = 37;
 
 std::vector<sf::Int16> makeSamplesFromString(GuitarString gs) {
   std::vector<sf::Int16> samples;
@@ -45,16 +45,12 @@ int main() {
 
   // sample vector / freq - all reused.
   double freq;
+  std::vector<sf::Int16> sample;
 
   // Samples vector of a vector
-  std::vector<sf::Int16> sample;
-  std::vector<std::vector<sf::Int16>> samples;
-
-  // SoundBuffers vector
-  std::vector<sf::SoundBuffer> buffers;
-
-  // Sounds vector
-  std::vector<sf::Sound> sounds;
+  std::vector<std::vector<sf::Int16>> samples(keyboard_size);
+  std::vector<sf::SoundBuffer> buffers(keyboard_size);
+  std::vector<sf::Sound> sounds(keyboard_size);
 
   // From Princeton.
   std::string keyboard = "q2we4r5ty7u8i9op-[=zxdcfvgbnjmk,.;/' ";
@@ -67,23 +63,21 @@ int main() {
 
     // Make a vector of sf::Int16, will act as a sample.
     sample = makeSamplesFromString(tmp);
-    samples.push_back(sample);
+    samples[i] = sample;
 
-    // Make an sf::Buffer, containing the above sample.
-    buffers.push_back(sf::SoundBuffer());
-
-    if (!buffers[i].loadFromSamples(&samples[i][0], samples[i].size(), 2, SAMPLES_PER_SEC)) {
+    // Load the above same into the buffer vector.
+    if (!buffers[i].loadFromSamples(&samples[i][0],
+        samples[i].size(), 2, SAMPLES_PER_SEC)) {
       throw std::runtime_error("sf::SoundBuffer: failed to load from samples.");
     }
 
     // Now load the buffer into a sf::sound.
-    sounds.push_back(sf::Sound(buffers[i]));
+    sounds[i].setBuffer(buffers[i]);
   }
 
   while (window.isOpen()) {
     while (window.pollEvent(event)) {
         if (event.type == sf::Event::TextEntered) {
-
           // This detects unicode characters
           if (event.text.unicode < 128) {
             // Convert the key from unicode to ASCII
@@ -91,13 +85,11 @@ int main() {
 
             // Now go through the keyboard string and if we find a match,
             // then access that sound and play it.
-            for(int i = 0; i < (signed)keyboard.size(); i++) {
-              if(keyboard[i] == key) {
+            for (int i = 0; i < (signed)keyboard.size(); i++) {
+              if (keyboard[i] == key) {
                 std::cout << "Keyboard key is: " << keyboard[i] << "\n";
                 std::cout << "Attempting to play sound...\n";
-
                 sounds[i].play();
-
                 break;
               }
             }
