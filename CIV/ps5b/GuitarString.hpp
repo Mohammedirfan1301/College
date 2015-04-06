@@ -28,16 +28,13 @@ class GuitarString {
   // create a guitar string with size and initial values of the vector init
   explicit GuitarString(std::vector<sf::Int16> init);
 
-  // Guitar string destructor
-  ~GuitarString();
-
   // pluck the guitar string by replacing the buffer with random valuess
   void pluck();
   void tic();              // advance the simulation one time step
   sf::Int16 sample();      // return the current sample
   int time();              // return number of times tic was called so far
  private:
-  RingBuffer *_buff;
+  RingBuffer _buff;
   int _N;
   int _tic;
 };

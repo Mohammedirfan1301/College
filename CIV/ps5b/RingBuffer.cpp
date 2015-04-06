@@ -23,11 +23,6 @@ RingBuffer::RingBuffer(int capacity) {
 }
 
 
-RingBuffer::~RingBuffer() {
-  // Clearing RingBuffer.
-}
-
-
 // Return # of items in the buffer.
 int RingBuffer::size() {
   return _size;

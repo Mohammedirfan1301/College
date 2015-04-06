@@ -47,6 +47,7 @@ int main() {
   double freq;
 
   // Samples vector of a vector
+  std::vector<sf::Int16> sample;
   std::vector<std::vector<sf::Int16>> samples;
 
   // SoundBuffers vector
@@ -59,33 +60,29 @@ int main() {
   std::string keyboard = "q2we4r5ty7u8i9op-[=zxdcfvgbnjmk,.;/' ";
 
   // For loop to go through the entire keyboard.
-  for(int i = 0; i < (signed)keyboard.size(); i++) {
+  for (int i = 0; i < (signed)keyboard.size(); i++) {
     // Set the frequency and make a GuitarString.
     freq = CONCERT_A * pow(2, ( (i - 24)/12.0));
     GuitarString tmp = GuitarString(freq);
 
     // Make a vector of sf::Int16, will act as a sample.
-    samples.push_back(makeSamplesFromString(tmp));
-
-    std::cout << "Hello?\n";
+    sample = makeSamplesFromString(tmp);
+    samples.push_back(sample);
 
     // Make an sf::Buffer, containing the above sample.
     buffers.push_back(sf::SoundBuffer());
 
-    std::cout << "Does this work?\n";
     if (!buffers[i].loadFromSamples(&samples[i][0], samples[i].size(), 2, SAMPLES_PER_SEC)) {
       throw std::runtime_error("sf::SoundBuffer: failed to load from samples.");
     }
 
     // Now load the buffer into a sf::sound.
     sounds.push_back(sf::Sound(buffers[i]));
-
-    std::cout << "whatthefuck\n";
   }
 
   while (window.isOpen()) {
     while (window.pollEvent(event)) {
-        if(event.type == sf::Event::TextEntered) {
+        if (event.type == sf::Event::TextEntered) {
 
           // This detects unicode characters
           if (event.text.unicode < 128) {
@@ -96,8 +93,11 @@ int main() {
             // then access that sound and play it.
             for(int i = 0; i < (signed)keyboard.size(); i++) {
               if(keyboard[i] == key) {
-                std::cout << "Found a match! Key is: " << key << "\n";
                 std::cout << "Keyboard key is: " << keyboard[i] << "\n";
+                std::cout << "Attempting to play sound...\n";
+
+                sounds[i].play();
+
                 break;
               }
             }
