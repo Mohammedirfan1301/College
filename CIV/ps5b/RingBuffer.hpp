@@ -4,6 +4,9 @@
  * MIT Licensed - see http://opensource.org/licenses/MIT for details.
  *
  */
+#ifndef RINGBUFFER_HPP
+#define RINGBUFFER_HPP
+
 #include <stdint.h>
 #include <iostream>
 #include <string>
@@ -35,3 +38,4 @@ class RingBuffer {
   int _capacity;
   int _size;
 };
+#endif
