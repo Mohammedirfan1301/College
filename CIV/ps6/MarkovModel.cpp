@@ -182,17 +182,39 @@ int MarkovModel::freq(std::string kgram, char c) {
  * -> Throw an exception if kgram is not of length k.
  * -> Throw an exception if no such kgram.                        */
 char MarkovModel::randk(std::string kgram) {
-  // Error checking
-
   // Throw an exception if kgram is not of length k.
   if (kgram.length() != (unsigned)_order) {
     throw
     std::runtime_error("Error - kgram not of length k.");
   }
 
-  // Throw an exception if no such kgram.
+  // Need an iterator for going through the kgrams map.
+  std::map<std::string, int>::iterator it;
+  it = _kgrams.find(kgram);
 
-  return 'c';
+  // Throw an exception if no such kgram.
+  // So search through and see if we find the kgram.
+  if (it == _kgrams.end() ) {
+    // We didn't find it. Throw an exception.
+    throw
+      std::runtime_error("Error - Could not find the given kgram!");
+  } else {
+    // Found it, let's return a random character
+    // that follows the original kgram!
+    std::vector<int> probabilities;
+
+    // First find the frequencies of getting a given letter in
+    // the alphabet for this kgram.
+    for (unsigned int x = 0; x < _alphabet.length(); x++) {
+      int prob = freq(kgram, _alphabet[x]);
+      probabilities.push_back(prob);
+
+      std::cout << "Prob for " << _alphabet[x] << " is: " << prob << "\n";
+    }
+  }
+
+
+  return 'a';
 }
 
 

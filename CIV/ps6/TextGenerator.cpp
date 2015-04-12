@@ -32,5 +32,7 @@ int main() {
   MarkovModel test2("gagggagaggcgagaaa", 2);
   std::cout << test2 << "\n";
 
+  test2.randk("aa");
+
   return 0;
 }
