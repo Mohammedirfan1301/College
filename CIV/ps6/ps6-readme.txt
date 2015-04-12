@@ -45,6 +45,18 @@ Other than class stuff:
 For sorting the Alphabet, I used this awesome StackOverFlow code idea:
 http://stackoverflow.com/questions/9107516/sorting-characters-of-a-c-string
 
+Also, cplusplus.com is amazing.
+http://www.cplusplus.com/reference/map/map/insert/
+http://www.cplusplus.com/reference/string/string/clear/
+http://www.cplusplus.com/reference/string/string/substr/
+http://www.cplusplus.com/reference/string/string/compare/
+
+etc
+
+Also these SO posts were useful too:
+http://stackoverflow.com/questions/17201590/c-convert-from-1-char-to-string
+
+
 /**********************************************************************
  *  Describe any serious problems you encountered.
  **********************************************************************/

@@ -8,17 +8,29 @@
 
 
 int main() {
-  std::cout << "Text Generator Program V.1.\n\n";
+  std::cout << "Text Generator Program V1.1.\n\n";
 
-  MarkovModel test("hello", 5);
+  // Testing Order 0.
+  MarkovModel test("gagggagaggcgagaaa", 0);
 
   // Testing methods.
-  test.order();
-  test.freq("hello");
-  test.freq("hello", 'c');
-  test.randk("hello");
-  test.gen("hello", 5);
+  std::cout << "Order is: " << test.order() << "\n";
+  std::cout << "Freq of \"\": " << test.freq("") << "\n";
+  std::cout << "Freq of \"\" followed by 'a': " << test.freq("", 'a') << "\n";
+  std::cout << "Freq of \"\" followed by 'c': " << test.freq("", 'c') << "\n";
+  std::cout << "Freq of \"\" followed by 'g': " << test.freq("", 'g') << "\n";
+  std::cout << "Freq of \"\" followed by 'z': " << test.freq("", 'z') << "\n";
+
+  // Output the object for testing purposes.
   std::cout << test << "\n";
+
+  // Testing Order 1.
+  MarkovModel test1("gagggagaggcgagaaa", 1);
+  std::cout << test1 << "\n";
+
+  // Testing Order 2.
+  MarkovModel test2("gagggagaggcgagaaa", 2);
+  std::cout << test2 << "\n";
 
   return 0;
 }

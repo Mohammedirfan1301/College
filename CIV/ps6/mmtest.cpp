@@ -75,9 +75,9 @@ BOOST_AUTO_TEST_CASE(order2) {
   BOOST_REQUIRE_THROW(mm.freq(""), std::runtime_error);
   BOOST_REQUIRE_THROW(mm.freq("x"), std::runtime_error);
   BOOST_REQUIRE_NO_THROW(mm.freq("xx"));
-  BOOST_REQUIRE_THROW(mm.freq("", 'g'), std::runtime_error); // kgram is wrong length
-  BOOST_REQUIRE_THROW(mm.freq("x", 'g'), std::runtime_error); // kgram is wrong length
-  BOOST_REQUIRE_THROW(mm.freq("xxx", 'g'), std::runtime_error); // kgram is wrong length
+  BOOST_REQUIRE_THROW(mm.freq("", 'g'), std::runtime_error); // wrong length
+  BOOST_REQUIRE_THROW(mm.freq("x", 'g'), std::runtime_error); //wrong length
+  BOOST_REQUIRE_THROW(mm.freq("xxx", 'g'), std::runtime_error); // wrong length
 
 
   BOOST_REQUIRE(mm.freq("aa") == 2);
