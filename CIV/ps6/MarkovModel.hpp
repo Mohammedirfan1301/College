@@ -6,6 +6,7 @@
  */
 #ifndef MARKOVMODEL_HPP
 #define MARKOVMODEL_HPP
+#include <algorithm>
 #include <iostream>
 #include <map>
 #include <string>

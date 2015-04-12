@@ -10,14 +10,14 @@
 int main() {
   std::cout << "Text Generator Program V.1.\n\n";
 
-  MarkovModel test("Hello", 5);
+  MarkovModel test("hello", 5);
 
   // Testing methods.
   test.order();
-  test.freq("Hello");
-  test.freq("Hello", 'c');
-  test.randk("Hello");
-  test.gen("Hello", 5);
+  test.freq("hello");
+  test.freq("hello", 'c');
+  test.randk("hello");
+  test.gen("hello", 5);
   std::cout << test << "\n";
 
   return 0;

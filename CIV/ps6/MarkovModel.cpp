@@ -5,6 +5,7 @@
  *
  */
 #include "MarkovModel.hpp"
+#include <algorithm>
 #include <utility>
 #include <map>
 #include <string>
@@ -12,12 +13,38 @@
 /* Creates a Markov model of order k from the given text.
  * Assume that the text has a length of at least k.               */
 MarkovModel::MarkovModel(std::string text, int k) {
-  // Not really sure how to do this, so let's just set some
-  // default values for testing.
+  _order = k;   // Set the order.
 
-  _order = k;
-  _alphabet = "abcdef";
-  _kgrams.insert(std::pair<std::string, int>("hello", 5));
+  // Now we need to set the alphabet.We should dave it in alphabetical order.
+  char tmp;
+  bool inAlpha = false;
+
+  // Go through the entire text and pick out all the individual letters,
+  for (unsigned int i = 0; i < text.length(); i++) {
+    tmp = text.at(i);
+    inAlpha = false;
+
+    // See if this letter has been added to the alphabet.
+    for (unsigned int y = 0; y < _alphabet.length(); y++) {
+      // tmp is already in the alphabet!
+      if (_alphabet.at(y) == tmp) {
+        inAlpha = true;   // Match it as being in the alphabet.
+      }
+    }
+
+    // If tmp isn't in the alphabet, isAlpha should be FALSE.
+    // So push it back to the alphabet.
+    if (!inAlpha) {
+      _alphabet.push_back(tmp);
+    }
+  }
+
+  // Now that we've got the alphabet, why not sort it alphabetically?
+  std::sort(_alphabet.begin(), _alphabet.end());
+
+  // Okay, so we've got the alphabet.
+  // Now we gotta figure out the kgrams.
+
 }
 
 
@@ -28,9 +55,11 @@ int MarkovModel::order() {
 
 
 /* Number of occurrences of kgram in text.
- * -> throw an exception if kgram is not of length k              */
+ * -> Throw an exception if kgram is not of length k              */
 int MarkovModel::freq(std::string kgram) {
   // Error checking
+
+  // Throw an exception if kgram is not of length k
   if (kgram.length() != (unsigned)_order) {
     throw
       std::runtime_error("Error - kgram not of length k.");
@@ -42,29 +71,42 @@ int MarkovModel::freq(std::string kgram) {
 
 /* Number of times that character c follows kgram
  * If order = 0, return number of times char c appears
- * -> throw an exception if kgram is not of length k              */
+ * -> Throw an exception if kgram is not of length k              */
 int MarkovModel::freq(std::string kgram, char c) {
   // Error checking
+
+  // Throw an exception if kgram is not of length k
   if (kgram.length() != (unsigned)_order) {
     throw
       std::runtime_error("Error - kgram not of length k.");
   }
 
+
+
   return 1;
 }
 
 
-/* Random character following given kgram
+/* Returns a random character following the given kgram
  * -> Throw an exception if kgram is not of length k.
  * -> Throw an exception if no such kgram.                        */
 char MarkovModel::randk(std::string kgram) {
-  std::cout << "randk(string)\n";
+  // Error checking
+
+  // Throw an exception if kgram is not of length k.
+  if (kgram.length() != (unsigned)_order) {
+    throw
+    std::runtime_error("Error - kgram not of length k.");
+  }
+
+  // Throw an exception if no such kgram.
+
   return 'c';
 }
 
 
-/* Generate a string of length T characters by simulating a
- * trajectory through the corresponding Markov chain.
+/* Generate a string of length T characters by simulating a trajectory
+ * through the corresponding Markov chain.
  * The first k characters of the newly generated string should be
  * the argument kgram. ** Assume that T is at least k. **
  * -> Throw an exception if kgram is not of length k.             */
@@ -74,7 +116,7 @@ std::string MarkovModel::gen(std::string kgram, int T) {
 }
 
 
-/* overload the stream insertion operator and display the internal
+/* Overload the stream insertion operator and display the internal
  * state of the Markov Model. Print out the order, the alphabet,
  * and the frequencies of the k-grams and k+1-grams.              */
 std::ostream& operator<< (std::ostream &out, MarkovModel &mm) {

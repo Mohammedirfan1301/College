@@ -37,7 +37,13 @@ Hours to complete assignment (optional):
  *  classmates, or anyone else.
  **********************************************************************/
 
+Princeton site, Course website.
+Discussion board had a few interesting posts.
 
+Other than class stuff:
+
+For sorting the Alphabet, I used this awesome StackOverFlow code idea:
+http://stackoverflow.com/questions/9107516/sorting-characters-of-a-c-string
 
 /**********************************************************************
  *  Describe any serious problems you encountered.
