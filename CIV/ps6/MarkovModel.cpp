@@ -13,14 +13,24 @@
 /* Creates a Markov model of order k from the given text.
  * Assume that the text has a length of at least k.               */
 MarkovModel::MarkovModel(std::string text, int k) {
-  _order = k;   // Set the order.
+  _order = k;                    // Set the order.
 
-  // Now we need to set the alphabet.We should dave it in alphabetical order.
+  // Need to treat the text as circular! So wrap around the first k characters.
+  // Add the wrap around portion.
+  std::string text_circular = text;   // Make a copy.
+
+  for (int a = 0; a < _order; a++) {
+    text_circular.push_back(text[a]);
+  }
+
+  int text_len = text.length();  // Find the text's length, easier later on.
+
+  // Now we need to set the alphabet.
   char tmp;
   bool inAlpha = false;
 
   // Go through the entire text and pick out all the individual letters,
-  for (unsigned int i = 0; i < text.length(); i++) {
+  for (int i = 0; i < text_len; i++) {
     tmp = text.at(i);
     inAlpha = false;
 
@@ -42,63 +52,40 @@ MarkovModel::MarkovModel(std::string text, int k) {
   // Now that we've got the alphabet, why not sort it alphabetically?
   std::sort(_alphabet.begin(), _alphabet.end());
 
-//   // Need to add "", which is just the # of letters in the text string.
-//   _kgrams.insert(std::pair<std::string, int>("", text.length()));
-//
-//   // Okay, so we've got the alphabet.
-//   // Now we gotta figure out the kgrams.
-//   // Let's first just try doing A B C D etc.
-//   // Basically order 1.
-//   int count = 0;
-//   std::string kgram;
-//
-//   // Go through the entire alphabet.
-//   for (unsigned int x = 0; x < _alphabet.length(); x++) {
-//     count = 0;
-//     kgram.clear();
-//     kgram = _alphabet[x];
-//
-//     // Check the given letter in the alphabet.
-//     for (unsigned int y = 0; y < text.length(); y++) {
-//       // Found a match character!
-//       if (_alphabet[x] == text[y]) {
-//         count++;
-//       }
-//     }
-//
-//     // Save the given kgram and count to the map.
-//     _kgrams.insert(std::pair<std::string, int>(kgram, count));
-//   }
-//
-//   // We also need to generate some kgrams.
-//   // Order 1 is covered above, so do order 2 and on now.
-//   // Can use .compare to compare substrings and what not.
-//
-  // Do up to _order substring comparisons.
+  std::string tmp_str;
+  int x, y;
+
+  // Do up to text.length() substring comparisons.
   // This first part just "finds" kgrams and puts a "0" next to them.
-  // We do the same loop again to count the kgrams.
-  for (int x = 0; x <= _order; x++) {
+  for (x = _order; x <= _order + 1; x++) {
     // Go through the entire text.
-    for (unsigned int y = 0; y < text.length(); y++) {
+    for (y = 0; y < text_len; y++) {
       // This collects all given kgrams, and adds a "0" that we can use
       // later on to increment. We basically find ALL the kgrams, then
       // find their occurrences after.
-      _kgrams.insert(std::pair<std::string, int>(text.substr(y,x), 0));
+
+      // current kgram we want.
+      tmp_str.clear();
+      tmp_str = text_circular.substr(y, x);
+
+      // Insert the 0.
+      _kgrams.insert(std::pair<std::string, int>(tmp_str, 0));
     }
   }
 
   // Need an iterator for going through the kgrams map.
   std::map<std::string, int>::iterator it;
   int count_tmp = 0;
-  std::string tmp_str;
 
   // Now let's count the kgrams!
-  for (int x = 0; x <= _order; x++) {
+  // Uses same loop as above.
+  for (x = _order; x <= _order + 1; x++) {
     // Go through the entire text.
-    for (unsigned int y = 0; y < text.length(); y++) {
+    for (y = 0; y < text_len; y++) {
       // Let's get the current kgram we're comparing against.
+
       tmp_str.clear();
-      tmp_str = text.substr(y,x);
+      tmp_str = text_circular.substr(y, x);
 
       // Now let's get the kgram's current count.
       it = _kgrams.find(tmp_str);
