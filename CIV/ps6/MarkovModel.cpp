@@ -13,7 +13,11 @@
 /* Creates a Markov model of order k from the given text.
  * Assume that the text has a length of at least k.               */
 MarkovModel::MarkovModel(std::string text, int k) {
-  _order = k;                    // Set the order.
+  // Set the order.
+  _order = k;
+
+  // Seed the random number generator for later.
+  srand((int)time(NULL));
 
   // Need to treat the text as circular! So wrap around the first k characters.
   // Add the wrap around portion.
@@ -201,20 +205,68 @@ char MarkovModel::randk(std::string kgram) {
   } else {
     // Found it, let's return a random character
     // that follows the original kgram!
-    std::vector<int> probabilities;
+    std::vector<int> occurrences;
+    int count = 0;
 
     // First find the frequencies of getting a given letter in
     // the alphabet for this kgram.
     for (unsigned int x = 0; x < _alphabet.length(); x++) {
-      int prob = freq(kgram, _alphabet[x]);
-      probabilities.push_back(prob);
+      int occur = freq(kgram, _alphabet[x]);
+      occurrences.push_back(occur);
 
-      std::cout << "Prob for " << _alphabet[x] << " is: " << prob << "\n";
+      std::cout << "Occur for " << _alphabet[x] << ": " << occur << "\n";
+
+      // We only care if occur is greater than 0!
+      if (occur > 0) {
+        count++;
+      }
     }
+
+    std::cout << "Total occurrences is: " << count << "\n";
+
+    // Now we have:
+    // * The # of occurrences of each letter.
+    // * The total occurrences of all characters.
+    // We can now calculate the occurrences (doubles)
+    std::vector<int>::iterator x;
+    std::vector<double> probabilities;
+    for ( x = occurrences.begin(); x != occurrences.end(); x++) {
+      double tmp = (double)*x / (double)count;
+      probabilities.push_back(tmp);
+
+      std::cout << "Prob: " << tmp << "\n";
+    }
+
+    // So now we have Occurrences, total count and the probabilities for
+    // each letter. We can now randomly pick a letter, using the given
+    // probabilities as guidance in which letter to pick.
+
+    // First pick a random number, we'll use this to pick a random letter
+    // using our probabilities.
+    // Used this site for guidance:
+    // http://stackoverflow.com/questions/8529665/
+    // changing-probability-of-getting-a-random-number
+    double value = (double)rand() / RAND_MAX;
+
+    std::cout << "Random number value is: " << value << "\n";
+    unsigned int a;
+
+    // Go through all the letters.
+    for (a = 0; a < _alphabet.length(); a++) {
+      // If the random number is less then the probability for this letter,
+      // then we've found a match!
+      if (value < probabilities[a]) {
+        // Return this letter since it matches.
+        return _alphabet[a];
+      }
+    }
+
+    // If we get here, then it's the last letter most likely.
+    return _alphabet[a - 1];
   }
 
-
-  return 'a';
+  // We shouldn't get here, so this is for error checking.
+  return '-';
 }
 
 

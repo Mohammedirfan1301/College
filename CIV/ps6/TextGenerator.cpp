@@ -25,14 +25,20 @@ int main() {
   std::cout << test << "\n";
 
   // Testing Order 1.
-  MarkovModel test1("gagggagaggcgagaaa", 1);
+  MarkovModel test1("Hello World. This is merely a test of stuff.", 1);
   std::cout << test1 << "\n";
 
   // Testing Order 2.
-  MarkovModel test2("gagggagaggcgagaaa", 2);
+  MarkovModel test2("Hello World. This is merely a test of stuff.", 2);
   std::cout << test2 << "\n";
 
-  test2.randk("aa");
+  // Testing the randk function
+  char temp = test2.randk("is");
+
+  std::cout << "Random character is: " << temp << "\n";
+
+  // Testing the generate function
+
 
   return 0;
 }
