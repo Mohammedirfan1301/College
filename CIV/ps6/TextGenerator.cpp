@@ -31,10 +31,11 @@ int main(int argc, const char* argv[]) {
   // Now take input from standard IO.
   std::string input;
 
-  while (std::getline(std::cin, input)) {
-    // This loop is magical and I love stackoverflow for help in cases
-    // like this.
-  }
+  char end = EOF;
+
+  // Read until T?
+  std::getline(std::cin, input, end);
+
   // I figured we should output the user's input for sanity checking.
   std::cout << "ORIGINAL INPUT TEXT BELOW THIS LINE.\n\n";
   std::cout << input;
@@ -59,6 +60,14 @@ int main(int argc, const char* argv[]) {
   std::cout << "\n\nFINAL OUTPUT TEXT BELOW THIS LINE.\n\n";
 
   std::cout << output_string << "\n";
+
+  // Dump the object to test it.
+//   std::cout << "\n\n" << amazing << "\n";
+
+
+
+
+
 
   // Original main below left here for testing purposes in the future.
   /*
