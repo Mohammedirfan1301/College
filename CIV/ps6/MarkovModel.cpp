@@ -18,9 +18,6 @@ MarkovModel::MarkovModel(std::string text, int k) {
   // Set the order.
   _order = k;
 
-  // Convert the text to all lower case letters.
-  std::transform(text.begin(), text.end(), text.begin(), ::tolower);
-
   // Seed the random number generator for later.
   srand((int)time(NULL)); //NOLINT
 
@@ -177,74 +174,72 @@ char MarkovModel::randk(std::string kgram) {
 
   // Need an iterator for going through the kgrams map.
   std::map<std::string, int>::iterator it;
+
+  // Search through and see if we find the given kgram.
   it = _kgrams.find(kgram);
 
-  // Throw an exception if no such kgram.
-  // So search through and see if we find the kgram.
+  // We didn't find it. Throw an exception.
   if (it == _kgrams.end()) {
-    // We didn't find it. Throw an exception.
     throw std::runtime_error("Error - Could not find the given kgram!");
   }
-  // Found it, let's return a random character
-  // that follows the original kgram!
-  std::vector<int> occurrences;
-  int count = 0;
 
-  // First find the frequencies of getting a given letter in
-  // the alphabet for this kgram.
-  for (unsigned int x = 0; x < _alphabet.length(); x++) {
-    int occur = freq(kgram, _alphabet[x]);
-    occurrences.push_back(occur);
+  // DEBUGGING
+  std::cout << "\n\n\n";
 
-    std::cout << "Occur for " << _alphabet[x] << ": " << occur << "\n";
+  // Get the freq of the given kgram. (we will rand by this number!)
+  int kgram_freq = freq(kgram);
 
-    // We only care if occur is greater than 0!
-    if (occur > 0) {
-      count++;
-    }
-  }
+  // MORE DEBUG STATEMENTS.
+  std::cout << "Freq of kgram is: " << kgram_freq << "\n";
 
-  std::cout << "Total occurrences is: " << count << "\n";
+  // Picking a random int from the possible characters.
+  // This should be an int from 1 to the total number of possible letters.
+  int random_value = rand() % kgram_freq; //NOLINT
 
-  // Now we have:
-  // * The # of occurrences of each letter.
-  // * The total occurrences of all characters.
-  // We can now calculate the occurrences (doubles)
-  std::vector<int>::iterator x;
-  std::vector<double> probabilities;
-  for (x = occurrences.begin(); x != occurrences.end(); x++) {
-    double tmp = (double)*x / (double)count;  //NOLINT
-    probabilities.push_back(tmp);
+  // Debugging
+  std::cout << "Random number value is: " << random_value << "\n";
 
-    std::cout << "Prob: " << tmp << "\n";
-  }
+  double test_freq = 0;
+  double random_num = (double)random_value / kgram_freq;
+  double last_values = 0;
 
-  // So now we have Occurrences, total count and the probabilities for
-  // each letter. We can now randomly pick a letter, using the given
-  // probabilities as guidance in which letter to pick.
-
-  // First pick a random number, we'll use this to pick a random letter
-  // using our probabilities.
-  // Used this site for guidance:
-  // http://stackoverflow.com/questions/8529665/
-  // changing-probability-of-getting-a-random-number
-  double value = (double)rand() / RAND_MAX; //NOLINT
-
-  std::cout << "Random number value is: " << value << "\n";
-  unsigned int a;
+  std::cout << "Random num as a double / kgram_freq = " << random_num << "\n";
 
   // Go through all the letters.
-  for (a = 0; a < _alphabet.length(); a++) {
-    // If the random number is less then the probability for this letter,
-    // then we've found a match!
-    if (value < probabilities[a]) {
+  for (unsigned int a = 0; a < _alphabet.length(); a++) {
+
+    // This line basically calculates the probability as a double.
+    test_freq = ( (double)freq(kgram, _alphabet[a]) ) / kgram_freq;
+
+    // Some debug couts
+    std::cout << "Letter: " << _alphabet[a] << " -> Freq for that letter: ";
+    std::cout << test_freq << "\n";
+
+    // NOTE: I'm comparing our random number, which we got from rand()ing
+    // the kgram_freq against the test freq, and making that test_freq is
+    // NOT 0. My logic is if a letter has "0" appearences in the kgram,
+    // then its probability of showing up is exactly 0 / kgram_freq, which
+    // is 0. I add the sum of all the last values as well as that is how
+    // you do this sort of math.
+    // Credit to the amazing stackoverflow post which gave me this idea,
+    // but I actually turned it into a more "dynamic" implemenation by adding
+    // the sum of all the last frequencies.
+    if (random_num < test_freq + last_values && test_freq != 0) {
       // Return this letter since it matches.
       return _alphabet[a];
     }
+
+    // I think the above comment details this nicely. Its basically a sum
+    // counter for all of the last few frequencies. I add them up here to
+    // avoid missing the second frequency by mistake. I think it would also
+    // possibly cause the below "return '-'" statement too, since if you sum
+    // something before you expect to its going to cause an error.
+    last_values += test_freq;
   }
 
-  // If we get here, then it's the last letter most likely.
-  return _alphabet[a - 1];
+  // This is here for error checking. We should never reach this point unless
+  // something in the above code is wrong.
+  return '-';
 }
 
 
@@ -254,8 +249,15 @@ char MarkovModel::randk(std::string kgram) {
  * the argument kgram. ** Assume that T is at least k. **
  * -> Throw an exception if kgram is not of length k.             */
 std::string MarkovModel::gen(std::string kgram, int T) {
-  std::cout << "gen(string, int)\n";
-  return "Hello";
+  // Throw an exception if kgram is not of length k.
+  if (kgram.length() != (unsigned)_order) {
+    throw std::runtime_error("Error - kgram not of length k.");
+  }
+
+  // We need to take the given kgram, and add "T" characters to it, based
+  // on the given kgram's frequencies and whatever we add to its frequencies.
+  // This confused me at first and I think I now understand how to deal with
+  // this function.
 }
 
 

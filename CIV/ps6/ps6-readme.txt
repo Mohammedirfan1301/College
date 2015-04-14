@@ -58,6 +58,9 @@ etc
 Also these SO posts were useful too:
 http://stackoverflow.com/questions/17201590/c-convert-from-1-char-to-string
 
+I believe this one actually saved my life and gave me the missing piece
+I needed for the randk() function:
+http://stackoverflow.com/questions/8529665/changing-probability-of-getting-a-random-number
 
 /**********************************************************************
  *  Describe any serious problems you encountered.

@@ -29,11 +29,11 @@ int main() {
   std::cout << test1 << "\n";
 
   // Testing Order 2.
-  MarkovModel test2("Hello World. This is merely a test of stuff.", 2);
+  MarkovModel test2("Hello World. This is merely a test of stuff.", 1);
   std::cout << test2 << "\n";
 
   // Testing the randk function
-  char temp = test2.randk("is");
+  char temp = test2.randk("t");
 
   std::cout << "Random character is: " << temp << "\n";
 
