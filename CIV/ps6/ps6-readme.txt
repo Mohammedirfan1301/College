@@ -4,7 +4,7 @@
  **********************************************************************/
 
 Name: Jason Downing
-Hours to complete assignment (optional):
+Hours to complete assignment (optional): forever.
 
 
 /**********************************************************************
@@ -14,7 +14,8 @@ Hours to complete assignment (optional):
  *    how you know that they're working.
  **********************************************************************/
 
-
+At the current point in time, everything other than randk and gen works
+perfectly.
 
 
 /**********************************************************************
@@ -22,14 +23,15 @@ Hours to complete assignment (optional):
  *  Successfully or not?
  **********************************************************************/
 
-
+Nope.
 
 /**********************************************************************
  *  Does your implementation pass the unit tests?
  *  Indicate yes or no, and explain how you know that it does or does not.
  **********************************************************************/
 
-
+Yes, it did.
+I know because NO ERRORS DETECTED shows up in the terminal.
 
 
 /**********************************************************************
@@ -61,7 +63,8 @@ http://stackoverflow.com/questions/17201590/c-convert-from-1-char-to-string
  *  Describe any serious problems you encountered.
  **********************************************************************/
 
-
+randk and gen are very annoying and not very well documented on
+the class site and in Princeton's assignment.
 
 /**********************************************************************
  *  List any other comments here.

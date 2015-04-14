@@ -6,9 +6,11 @@
  */
 #include "MarkovModel.hpp"
 #include <algorithm>
-#include <utility>
 #include <map>
 #include <string>
+#include <stdexcept>
+#include <vector>
+#include <utility>
 
 /* Creates a Markov model of order k from the given text.
  * Assume that the text has a length of at least k.               */
@@ -16,8 +18,11 @@ MarkovModel::MarkovModel(std::string text, int k) {
   // Set the order.
   _order = k;
 
+  // Convert the text to all lower case letters.
+  std::transform(text.begin(), text.end(), text.begin(), ::tolower);
+
   // Seed the random number generator for later.
-  srand((int)time(NULL));
+  srand((int)time(NULL)); //NOLINT
 
   // Need to treat the text as circular! So wrap around the first k characters.
   // Add the wrap around portion.
@@ -36,11 +41,13 @@ MarkovModel::MarkovModel(std::string text, int k) {
   // Go through the entire text and pick out all the individual letters,
   for (int i = 0; i < text_len; i++) {
     tmp = text.at(i);
+    tmp = tolower(tmp);
     inAlpha = false;
 
     // See if this letter has been added to the alphabet.
     for (unsigned int y = 0; y < _alphabet.length(); y++) {
       // tmp is already in the alphabet!
+      // Also ignore upper case,
       if (_alphabet.at(y) == tmp) {
         inAlpha = true;   // Match it as being in the alphabet.
       }
@@ -102,7 +109,6 @@ MarkovModel::MarkovModel(std::string text, int k) {
       _kgrams[tmp_str] = count_tmp;
     }
   }
-
 }
 
 
@@ -121,19 +127,17 @@ int MarkovModel::freq(std::string kgram) {
       std::runtime_error("Error - kgram not of length k.");
   }
 
+  // Use std::map::find to see if we can find the kgram.
   std::map<std::string, int>::iterator it;
+  it = _kgrams.find(kgram);
 
-  // Return the number of times that kgram occurs in the text.
-  for (it = _kgrams.begin(); it != _kgrams.end(); it++) {
-    // See if we found a match.
-    if (kgram == it->first) {
-      // Got one! So return it->second, which is the # of occurrences.
-      return it->second;
-    }
+  // If it equals map::end, we didn't find it, so return 0.
+  if (it == _kgrams.end()) {
+    return 0;
   }
 
-  // If we get here, return 0 - we didn't find the given kgram. :'(
-  return 0;
+  // Other wise return the given kgram since we found it.
+  return it->second;
 }
 
 
@@ -147,38 +151,18 @@ int MarkovModel::freq(std::string kgram, char c) {
       std::runtime_error("Error - kgram not of length k.");
   }
 
+  // use std::map::find to see if we can find the kgram + c.
   std::map<std::string, int>::iterator it;
-
-  // If kgram is NULL, return number of occurrences of the given character
-  // in map.
-  std::string tmp(1, c);
-
-  if (kgram.length() == 0) {
-    for (it = _kgrams.begin(); it != _kgrams.end(); it++) {
-      // See if we found a match.
-      if (tmp == it->first) {
-        // Got one! So return it->second, which is the # of occurrences.
-        return it->second;
-      }
-    }
-  }
-
-  // Adding char c to the kgram, since that's basically what this
-  // function is doing - finding the number of times the given kgram
-  // is followed by a char c.
   kgram.push_back(c);
+  it = _kgrams.find(kgram);
 
-  // Otherwise, return the given kgram if we can find it.
-  for (it = _kgrams.begin(); it != _kgrams.end(); it++) {
-    // See if we found a match.
-    if (kgram == it->first) {
-      // Got one! So return it->second, which is the # of occurrences.
-      return it->second;
-    }
+  // If it equals map::end, we didn't find it, so return 0.
+  if (it == _kgrams.end()) {
+    return 0;
   }
 
-  // If we get here, return 0 - we didn't find the given kgram. :'(
-  return 0;
+  // Other wise return the given kgram since we found it.
+  return it->second;
 }
 
 
@@ -188,8 +172,7 @@ int MarkovModel::freq(std::string kgram, char c) {
 char MarkovModel::randk(std::string kgram) {
   // Throw an exception if kgram is not of length k.
   if (kgram.length() != (unsigned)_order) {
-    throw
-    std::runtime_error("Error - kgram not of length k.");
+    throw std::runtime_error("Error - kgram not of length k.");
   }
 
   // Need an iterator for going through the kgrams map.
@@ -198,75 +181,70 @@ char MarkovModel::randk(std::string kgram) {
 
   // Throw an exception if no such kgram.
   // So search through and see if we find the kgram.
-  if (it == _kgrams.end() ) {
+  if (it == _kgrams.end()) {
     // We didn't find it. Throw an exception.
-    throw
-      std::runtime_error("Error - Could not find the given kgram!");
-  } else {
-    // Found it, let's return a random character
-    // that follows the original kgram!
-    std::vector<int> occurrences;
-    int count = 0;
+    throw std::runtime_error("Error - Could not find the given kgram!");
+  }
+  // Found it, let's return a random character
+  // that follows the original kgram!
+  std::vector<int> occurrences;
+  int count = 0;
 
-    // First find the frequencies of getting a given letter in
-    // the alphabet for this kgram.
-    for (unsigned int x = 0; x < _alphabet.length(); x++) {
-      int occur = freq(kgram, _alphabet[x]);
-      occurrences.push_back(occur);
+  // First find the frequencies of getting a given letter in
+  // the alphabet for this kgram.
+  for (unsigned int x = 0; x < _alphabet.length(); x++) {
+    int occur = freq(kgram, _alphabet[x]);
+    occurrences.push_back(occur);
 
-      std::cout << "Occur for " << _alphabet[x] << ": " << occur << "\n";
+    std::cout << "Occur for " << _alphabet[x] << ": " << occur << "\n";
 
-      // We only care if occur is greater than 0!
-      if (occur > 0) {
-        count++;
-      }
+    // We only care if occur is greater than 0!
+    if (occur > 0) {
+      count++;
     }
-
-    std::cout << "Total occurrences is: " << count << "\n";
-
-    // Now we have:
-    // * The # of occurrences of each letter.
-    // * The total occurrences of all characters.
-    // We can now calculate the occurrences (doubles)
-    std::vector<int>::iterator x;
-    std::vector<double> probabilities;
-    for ( x = occurrences.begin(); x != occurrences.end(); x++) {
-      double tmp = (double)*x / (double)count;
-      probabilities.push_back(tmp);
-
-      std::cout << "Prob: " << tmp << "\n";
-    }
-
-    // So now we have Occurrences, total count and the probabilities for
-    // each letter. We can now randomly pick a letter, using the given
-    // probabilities as guidance in which letter to pick.
-
-    // First pick a random number, we'll use this to pick a random letter
-    // using our probabilities.
-    // Used this site for guidance:
-    // http://stackoverflow.com/questions/8529665/
-    // changing-probability-of-getting-a-random-number
-    double value = (double)rand() / RAND_MAX;
-
-    std::cout << "Random number value is: " << value << "\n";
-    unsigned int a;
-
-    // Go through all the letters.
-    for (a = 0; a < _alphabet.length(); a++) {
-      // If the random number is less then the probability for this letter,
-      // then we've found a match!
-      if (value < probabilities[a]) {
-        // Return this letter since it matches.
-        return _alphabet[a];
-      }
-    }
-
-    // If we get here, then it's the last letter most likely.
-    return _alphabet[a - 1];
   }
 
-  // We shouldn't get here, so this is for error checking.
-  return '-';
+  std::cout << "Total occurrences is: " << count << "\n";
+
+  // Now we have:
+  // * The # of occurrences of each letter.
+  // * The total occurrences of all characters.
+  // We can now calculate the occurrences (doubles)
+  std::vector<int>::iterator x;
+  std::vector<double> probabilities;
+  for (x = occurrences.begin(); x != occurrences.end(); x++) {
+    double tmp = (double)*x / (double)count;  //NOLINT
+    probabilities.push_back(tmp);
+
+    std::cout << "Prob: " << tmp << "\n";
+  }
+
+  // So now we have Occurrences, total count and the probabilities for
+  // each letter. We can now randomly pick a letter, using the given
+  // probabilities as guidance in which letter to pick.
+
+  // First pick a random number, we'll use this to pick a random letter
+  // using our probabilities.
+  // Used this site for guidance:
+  // http://stackoverflow.com/questions/8529665/
+  // changing-probability-of-getting-a-random-number
+  double value = (double)rand() / RAND_MAX; //NOLINT
+
+  std::cout << "Random number value is: " << value << "\n";
+  unsigned int a;
+
+  // Go through all the letters.
+  for (a = 0; a < _alphabet.length(); a++) {
+    // If the random number is less then the probability for this letter,
+    // then we've found a match!
+    if (value < probabilities[a]) {
+      // Return this letter since it matches.
+      return _alphabet[a];
+    }
+  }
+
+  // If we get here, then it's the last letter most likely.
+  return _alphabet[a - 1];
 }
 
 
