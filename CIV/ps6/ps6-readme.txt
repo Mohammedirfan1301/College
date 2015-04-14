@@ -4,7 +4,8 @@
  **********************************************************************/
 
 Name: Jason Downing
-Hours to complete assignment (optional): forever.
+Hours to complete assignment (optional): a lot. I'd say well over 6 hours.
+Maybe 10 even.
 
 
 /**********************************************************************
@@ -68,6 +69,11 @@ http://stackoverflow.com/questions/8529665/changing-probability-of-getting-a-ran
 
 randk and gen are very annoying and not very well documented on
 the class site and in Princeton's assignment.
+
+However, Prof. Grinberg wrote an excellent explantation on the class
+discussion board which helped me a lot in understanding what the two
+functions should be doing. And once I figured out what they should be doing,
+it became easier to work on them and tackle then.
 
 /**********************************************************************
  *  List any other comments here.

@@ -184,26 +184,27 @@ char MarkovModel::randk(std::string kgram) {
   }
 
   // DEBUGGING
-  std::cout << "\n\n\n";
+//   std::cout << "\n\n\n";
 
   // Get the freq of the given kgram. (we will rand by this number!)
   int kgram_freq = freq(kgram);
 
   // MORE DEBUG STATEMENTS.
-  std::cout << "Freq of kgram is: " << kgram_freq << "\n";
+//   std::cout << "Freq of kgram is: " << kgram_freq << "\n";
 
   // Picking a random int from the possible characters.
   // This should be an int from 1 to the total number of possible letters.
   int random_value = rand() % kgram_freq; //NOLINT
 
   // Debugging
-  std::cout << "Random number value is: " << random_value << "\n";
+//   std::cout << "Random number value is: " << random_value << "\n";
 
   double test_freq = 0;
   double random_num = (double)random_value / kgram_freq;
   double last_values = 0;
 
-  std::cout << "Random num as a double / kgram_freq = " << random_num << "\n";
+  // Non Bugz
+//   std::cout << "Random num as a double / kgram_freq = " << random_num << "\n";
 
   // Go through all the letters.
   for (unsigned int a = 0; a < _alphabet.length(); a++) {
@@ -212,8 +213,8 @@ char MarkovModel::randk(std::string kgram) {
     test_freq = ( (double)freq(kgram, _alphabet[a]) ) / kgram_freq;
 
     // Some debug couts
-    std::cout << "Letter: " << _alphabet[a] << " -> Freq for that letter: ";
-    std::cout << test_freq << "\n";
+//     std::cout << "Letter: " << _alphabet[a] << " -> Freq for that letter: ";
+//     std::cout << test_freq << "\n";
 
     // NOTE: I'm comparing our random number, which we got from rand()ing
     // the kgram_freq against the test freq, and making that test_freq is
@@ -258,6 +259,37 @@ std::string MarkovModel::gen(std::string kgram, int T) {
   // on the given kgram's frequencies and whatever we add to its frequencies.
   // This confused me at first and I think I now understand how to deal with
   // this function.
+
+  // We first call randk on the original kgram, then we append add it to
+  // a new string with both the original kgram and the new character.
+  // We note that "T" is the final length of the string, so if we have a
+  // order 2 kgram, and T equals 4, we gotta add just two characters.
+  // So we keep running until we've hit string length of T.
+
+  // The final string we will return. We'll build it up over time.
+  std::string final_string;
+
+  // Temp char for using to collect the return value from randk()
+  char return_char;
+
+  // Add the kgram to it.
+  final_string = kgram;
+
+  // Now the magic loop - loop until final_string's length equals T.
+  // Which, T - the length of the kgram can get us there!
+  for (unsigned int a = 0; a < (T - kgram.length()); a++) {
+    // Call randk on the substring we're looking at.
+    // Note we want just _order long kgram to compare against.
+    return_char = randk(final_string.substr(a, _order));
+
+    // Add the return_char to final_string
+    final_string.push_back(return_char);
+
+    // Keep looping til it stops.
+  }
+
+  // When we get here, we're done. YAY.
+  return final_string;
 }
 
 
