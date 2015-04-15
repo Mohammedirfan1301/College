@@ -1,9 +1,9 @@
 # Makefile for the sierpinski project / original recursive image
 # Flags to save on typing all this out
-CC= g++
-CFLAGS= -g -Wall -Werror -std=c++0x -pedantic
-SFLAGS= -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio
-Boost= -lboost_unit_test_framework
+CC = g++
+CFLAGS = -g -Wall -Werror -std=c++0x -pedantic
+SFLAGS = -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio
+Boost = -lboost_unit_test_framework
 
 # Make ps5a & a dummy tester
 all:	TextGenerator mmtest

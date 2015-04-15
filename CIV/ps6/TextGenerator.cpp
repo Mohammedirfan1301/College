@@ -29,16 +29,22 @@ int main(int argc, const char* argv[]) {
 //   std::cout << "t is: " << t << "\n";
 
   // Now take input from standard IO.
-  std::string input;
+  // Note: using Roy's solution from the discussion group.
+  std::string input = "";
+  std::string current_txt = "";   // Set these to NULL just to be sure.
 
-  char end = EOF;
-
-  // Read until T?
-  std::getline(std::cin, input, end);
+  while ((std::cin >> current_txt)) {
+    input += " " + current_txt;
+    current_txt = "";
+  }
 
   // I figured we should output the user's input for sanity checking.
   std::cout << "ORIGINAL INPUT TEXT BELOW THIS LINE.\n\n";
-  std::cout << input;
+
+  // Only show the first T characters that the user cares about though.
+  for (int a = 0; a < t; a++) {
+    std::cout << input[a];
+  }
 
   // Whenever stand IO hits a newline, we've finished taking input and
   // can actually do fun text generating stuff!
@@ -64,50 +70,5 @@ int main(int argc, const char* argv[]) {
   // Dump the object to test it.
 //   std::cout << "\n\n" << amazing << "\n";
 
-
-
-
-
-
-  // Original main below left here for testing purposes in the future.
-  /*
-  std::cout << "Text Generator Program V1.1.\n\n";
-
-  // Testing Order 0.
-  MarkovModel test("gagggagaggcgagaaa", 0);
-
-  // Testing methods.
-  std::cout << "Order is: " << test.order() << "\n";
-  std::cout << "Freq of \"\": " << test.freq("") << "\n";
-  std::cout << "Freq of \"\" followed by 'a': " << test.freq("", 'a') << "\n";
-  std::cout << "Freq of \"\" followed by 'c': " << test.freq("", 'c') << "\n";
-  std::cout << "Freq of \"\" followed by 'g': " << test.freq("", 'g') << "\n";
-  std::cout << "Freq of \"\" followed by 'z': " << test.freq("", 'z') << "\n";
-
-  // Output the object for testing purposes.
-  std::cout << test << "\n";
-
-  // Testing Order 1.
-  MarkovModel test1("Hello World. This is merely a test of stuff.", 1);
-  std::cout << test1 << "\n";
-
-  // Testing Order 2.
-  MarkovModel test2("Hello World. This is merely a test of stuff.", 1);
-  std::cout << test2 << "\n";
-
-  // Testing the randk function
-  char temp = test2.randk("t");
-
-  std::cout << "Random character is: " << temp << "\n";
-
-  // Testing the generate function
-  std::cout << "\n\n\n";
-
-  MarkovModel test3("Hello World. This is merely a test of stuff.", 2);
-  std::string final_str = test3.gen("Th", 4);
-
-  std::cout << "My logic says this should be, well, \"This\": " << final_str;
-  std::cout << "\nAm I right?\n";
-*/
   return 0;
 }

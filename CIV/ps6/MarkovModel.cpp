@@ -267,17 +267,17 @@ std::string MarkovModel::gen(std::string kgram, int T) {
   // So we keep running until we've hit string length of T.
 
   // The final string we will return. We'll build it up over time.
-  std::string final_string;
+  std::string final_string = "";
 
   // Temp char for using to collect the return value from randk()
   char return_char;
 
   // Add the kgram to it.
-  final_string = kgram;
+  final_string += "" + kgram;
 
   // Now the magic loop - loop until final_string's length equals T.
   // Which, T - the length of the kgram can get us there!
-  for (unsigned int a = 0; a < (T - kgram.length()); a++) {
+  for (unsigned int a = 0; a < (T - (unsigned)_order); a++) {
     // Call randk on the substring we're looking at.
     // Note we want just _order long kgram to compare against.
     return_char = randk(final_string.substr(a, _order));
