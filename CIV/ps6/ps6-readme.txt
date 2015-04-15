@@ -5,7 +5,7 @@
 
 Name: Jason Downing
 Hours to complete assignment (optional): a lot. I'd say well over 6 hours.
-Maybe 10 even.
+Maybe 10 even. Probably a good 10 hours.
 
 
 /**********************************************************************
@@ -15,9 +15,47 @@ Maybe 10 even.
  *    how you know that they're working.
  **********************************************************************/
 
-At the current point in time, everything other than randk and gen works
-perfectly.
+I feel that everything works correctly.
+I pass all the unit tests, so clearly most of my code should work.
+Further, I asked a question on the discussion group to clearify two
+of the functions so I probably did those mostly right.
+And I get pseudo random text when I run my main, which follows what
+Princeton wants as far as I know.
 
+A few examples of what I ran:
+
+./TextGenerator 6 500 < OpeningExercises2014.txt
+
+ORIGINAL INPUT TEXT BELOW THIS LINE.
+
+Good afternoon and welcome to Opening Exercises.
+What a special pleasure it is to greet Princetons Great Class of 2018!
+I also offer a warm welcome to our new graduate students, faculty and staff
+members, and all of you who are returning to campus after the summer.
+Today we carry on a tradition that dates back at least to 1802, when
+Nassau Hall was the site of an opening exercise for Princeton students.
+The event switched to other sites before moving in 1929 to the
+University Chapel, where we g
+
+FINAL OUTPUT TEXT BELOW THIS LINE.
+
+Good after all, why I asked at all.
+Though you make your life is magic, though you and you has something to you.
+Right around you this: Everyone around you have seen this kind, for presides
+not in sorting hats or flying brooms, but of a new chapter, or even if most of
+an environment with, and made the graduate students.
+They have to know the effort to get to know what you will help to create new
+knowledge, enhance the best friends whom they took the teaching is a personae,
+of the Christian serv
+
+
+Note: I added some formatting to the above text but otherwise its straight
+from my terminal.
+
+Also note that I cut the text after t because I felt dumping an entire
+text file to the console was a dumb thing to do. The entire text file is
+however stored in a std::string and I confirmed that before just ouputting only
+t characters to the screen.
 
 /**********************************************************************
  *  Did you attempt the extra credit parts? Which one(s)?
@@ -42,6 +80,10 @@ I know because NO ERRORS DETECTED shows up in the terminal.
 
 Princeton site, Course website.
 Discussion board had a few interesting posts.
+I also posted a question there and got a response from Prof. Grinberg.
+
+Oh and Roy had an awesome way of doing whole file input that I used since
+it works really well.
 
 Other than class stuff:
 
@@ -75,8 +117,11 @@ discussion board which helped me a lot in understanding what the two
 functions should be doing. And once I figured out what they should be doing,
 it became easier to work on them and tackle then.
 
+In the end I'm pretty sure randk() and gen() both work decently enough to
+generate pseudo text.
+
 /**********************************************************************
  *  List any other comments here.
  **********************************************************************/
 
-
+Nothing much else to put here.

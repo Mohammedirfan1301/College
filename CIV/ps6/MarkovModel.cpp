@@ -38,7 +38,6 @@ MarkovModel::MarkovModel(std::string text, int k) {
   // Go through the entire text and pick out all the individual letters,
   for (int i = 0; i < text_len; i++) {
     tmp = text.at(i);
-    tmp = tolower(tmp);
     inAlpha = false;
 
     // See if this letter has been added to the alphabet.
@@ -169,7 +168,7 @@ int MarkovModel::freq(std::string kgram, char c) {
 char MarkovModel::randk(std::string kgram) {
   // Throw an exception if kgram is not of length k.
   if (kgram.length() != (unsigned)_order) {
-    throw std::runtime_error("Error - kgram not of length k.");
+    throw std::runtime_error("Error - kgram not of length k (randk)");
   }
 
   // Need an iterator for going through the kgrams map.
@@ -180,7 +179,7 @@ char MarkovModel::randk(std::string kgram) {
 
   // We didn't find it. Throw an exception.
   if (it == _kgrams.end()) {
-    throw std::runtime_error("Error - Could not find the given kgram!");
+    throw std::runtime_error("Error - Could not find the given kgram! (randk)");
   }
 
   // DEBUGGING
@@ -200,17 +199,16 @@ char MarkovModel::randk(std::string kgram) {
 //   std::cout << "Random number value is: " << random_value << "\n";
 
   double test_freq = 0;
-  double random_num = (double)random_value / kgram_freq;
+  double random_num = static_cast<double>(random_value) / kgram_freq;
   double last_values = 0;
 
   // Non Bugz
-//   std::cout << "Random num as a double / kgram_freq = " << random_num << "\n";
+//  std::cout << "Random num as a double / kgram_freq = " << random_num << "\n";
 
   // Go through all the letters.
   for (unsigned int a = 0; a < _alphabet.length(); a++) {
-
     // This line basically calculates the probability as a double.
-    test_freq = ( (double)freq(kgram, _alphabet[a]) ) / kgram_freq;
+    test_freq =  static_cast<double>(freq(kgram, _alphabet[a])) / kgram_freq;
 
     // Some debug couts
 //     std::cout << "Letter: " << _alphabet[a] << " -> Freq for that letter: ";
@@ -252,7 +250,7 @@ char MarkovModel::randk(std::string kgram) {
 std::string MarkovModel::gen(std::string kgram, int T) {
   // Throw an exception if kgram is not of length k.
   if (kgram.length() != (unsigned)_order) {
-    throw std::runtime_error("Error - kgram not of length k.");
+    throw std::runtime_error("Error - kgram not of length k. (gen)");
   }
 
   // We need to take the given kgram, and add "T" characters to it, based
