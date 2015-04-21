@@ -1,0 +1,2597 @@
+Device Boot Report
+
+InTouch log file: device5_intouch.log
+Lines Scanned: 41855
+
+Device boot count: initiated = 25, completed: 10
+
+
+=== Device boot ===
+31063(device5_intouch.log): 2014-01-26 09:55:07 Boot Start
+31176(device5_intouch.log): 2014-01-26 09:58:04 Boot Completed
+	Boot Time: 177000ms 
+
+Services
+	Logging
+		 Start: 31079(device5_intouch.log)
+		 Completed: 31080(device5_intouch.log)
+		 Elapsed Time: 268 ms
+	DatabaseInitialize
+		 Start: 31081(device5_intouch.log)
+		 Completed: 31109(device5_intouch.log)
+		 Elapsed Time: 44465 ms
+	MessagingService
+		 Start: 31110(device5_intouch.log)
+		 Completed: 31112(device5_intouch.log)
+		 Elapsed Time: 5647 ms
+	HealthMonitorService
+		 Start: 31126(device5_intouch.log)
+		 Completed: 31127(device5_intouch.log)
+		 Elapsed Time: 234 ms
+	Persistence
+		 Start: 31128(device5_intouch.log)
+		 Completed: 31129(device5_intouch.log)
+		 Elapsed Time: 21260 ms
+	ConfigurationService
+		 Start: 31136(device5_intouch.log)
+		 Completed: 31137(device5_intouch.log)
+		 Elapsed Time: 81 ms
+	LandingPadService
+		 Start: 31138(device5_intouch.log)
+		 Completed: 31139(device5_intouch.log)
+		 Elapsed Time: 1 ms
+	PortConfigurationService
+		 Start: 31136(device5_intouch.log)
+		 Completed: 31137(device5_intouch.log)
+		 Elapsed Time: 81 ms
+	CacheService
+		 Start: 31132(device5_intouch.log)
+		 Completed: 31133(device5_intouch.log)
+		 Elapsed Time: 828 ms
+	ThemingService
+		 Start: 31134(device5_intouch.log)
+		 Completed: 31135(device5_intouch.log)
+		 Elapsed Time: 0 ms
+	StagingService
+		 Start: 31142(device5_intouch.log)
+		 Completed: 31143(device5_intouch.log)
+		 Elapsed Time: 6734 ms
+	DeviceIOService
+		 Start: 31140(device5_intouch.log)
+		 Completed: 31141(device5_intouch.log)
+		 Elapsed Time: 43 ms
+	BellService
+		 Start: 31150(device5_intouch.log)
+		 Completed: 31151(device5_intouch.log)
+		 Elapsed Time: 1 ms
+	GateService
+		 Start: 31144(device5_intouch.log)
+		 Completed: 31145(device5_intouch.log)
+		 Elapsed Time: 2 ms
+	ReaderDataService
+		 Start: 31148(device5_intouch.log)
+		 Completed: 31149(device5_intouch.log)
+		 Elapsed Time: 2 ms
+	BiometricService
+		 Start: 31189(device5_intouch.log)
+		 Completed: 31191(device5_intouch.log)
+		 Elapsed Time: 2371 ms
+	StateManager
+		 Start: 31152(device5_intouch.log)
+		 Completed: 31153(device5_intouch.log)
+		 Elapsed Time: 1584 ms
+	OfflineSmartviewService
+		 Start: 31154(device5_intouch.log)
+		 Completed: 31155(device5_intouch.log)
+		 Elapsed Time: 14 ms
+	AVFeedbackService
+		 Start: 31146(device5_intouch.log)
+		 Completed: 31147(device5_intouch.log)
+		 Elapsed Time: 161 ms
+	DatabaseThreads
+		 Start: 31156(device5_intouch.log)
+		 Completed: 31166(device5_intouch.log)
+		 Elapsed Time: 4548 ms
+	SoftLoadService
+		 Start: 31159(device5_intouch.log)
+		 Completed: 31164(device5_intouch.log)
+		 Elapsed Time: 2617 ms
+	WATCHDOG
+		 Start: 31160(device5_intouch.log)
+		 Completed: 31163(device5_intouch.log)
+		 Elapsed Time: 358 ms
+	ProtocolService
+		 Start: 31157(device5_intouch.log)
+		 Completed: 31171(device5_intouch.log)
+		 Elapsed Time: 12305 ms
+	DiagnosticsService
+		 Start: 31161(device5_intouch.log)
+		 Completed: 31162(device5_intouch.log)
+		 Elapsed Time: 179 ms
+
+=== Device boot ===
+31274(device5_intouch.log): 2014-01-26 12:15:18 Boot Start
+**** Incomplete boot **** 
+
+Services
+	Logging
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	DatabaseInitialize
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	MessagingService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	HealthMonitorService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	Persistence
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	ConfigurationService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	LandingPadService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	PortConfigurationService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	CacheService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	ThemingService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	StagingService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	DeviceIOService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	BellService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	GateService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	ReaderDataService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	BiometricService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	StateManager
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	OfflineSmartviewService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	AVFeedbackService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	DatabaseThreads
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	SoftLoadService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	WATCHDOG
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	ProtocolService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	DiagnosticsService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+
+	*** Services not successfully started: Logging, DatabaseInitialize, MessagingService, HealthMonitorService, Persistence, ConfigurationService, LandingPadService, PortConfigurationService, CacheService, ThemingService, StagingService, DeviceIOService, BellService, GateService, ReaderDataService, BiometricService, StateManager, OfflineSmartviewService, AVFeedbackService, DatabaseThreads, SoftLoadService, WATCHDOG, ProtocolService, DiagnosticsService
+
+=== Device boot ===
+31293(device5_intouch.log): 2014-01-26 14:02:39 Boot Start
+31401(device5_intouch.log): 2014-01-26 14:05:24 Boot Completed
+	Boot Time: 165000ms 
+
+Services
+	Logging
+		 Start: 31309(device5_intouch.log)
+		 Completed: 31310(device5_intouch.log)
+		 Elapsed Time: 267 ms
+	DatabaseInitialize
+		 Start: 31311(device5_intouch.log)
+		 Completed: 31335(device5_intouch.log)
+		 Elapsed Time: 32010 ms
+	MessagingService
+		 Start: 31336(device5_intouch.log)
+		 Completed: 31338(device5_intouch.log)
+		 Elapsed Time: 6167 ms
+	HealthMonitorService
+		 Start: 31351(device5_intouch.log)
+		 Completed: 31352(device5_intouch.log)
+		 Elapsed Time: 204 ms
+	Persistence
+		 Start: 31353(device5_intouch.log)
+		 Completed: 31354(device5_intouch.log)
+		 Elapsed Time: 17595 ms
+	ConfigurationService
+		 Start: 31379(device5_intouch.log)
+		 Completed: 31380(device5_intouch.log)
+		 Elapsed Time: 62 ms
+	LandingPadService
+		 Start: 31361(device5_intouch.log)
+		 Completed: 31362(device5_intouch.log)
+		 Elapsed Time: 1 ms
+	PortConfigurationService
+		 Start: 31379(device5_intouch.log)
+		 Completed: 31380(device5_intouch.log)
+		 Elapsed Time: 62 ms
+	CacheService
+		 Start: 31357(device5_intouch.log)
+		 Completed: 31358(device5_intouch.log)
+		 Elapsed Time: 878 ms
+	ThemingService
+		 Start: 31359(device5_intouch.log)
+		 Completed: 31360(device5_intouch.log)
+		 Elapsed Time: 1 ms
+	StagingService
+		 Start: 31363(device5_intouch.log)
+		 Completed: 31364(device5_intouch.log)
+		 Elapsed Time: 7875 ms
+	DeviceIOService
+		 Start: 31365(device5_intouch.log)
+		 Completed: 31366(device5_intouch.log)
+		 Elapsed Time: 22 ms
+	BellService
+		 Start: 31373(device5_intouch.log)
+		 Completed: 31374(device5_intouch.log)
+		 Elapsed Time: 3 ms
+	GateService
+		 Start: 31375(device5_intouch.log)
+		 Completed: 31376(device5_intouch.log)
+		 Elapsed Time: 1 ms
+	ReaderDataService
+		 Start: 31369(device5_intouch.log)
+		 Completed: 31370(device5_intouch.log)
+		 Elapsed Time: 2 ms
+	BiometricService
+		 Start: 31367(device5_intouch.log)
+		 Completed: 31368(device5_intouch.log)
+		 Elapsed Time: 1334 ms
+	StateManager
+		 Start: 31371(device5_intouch.log)
+		 Completed: 31372(device5_intouch.log)
+		 Elapsed Time: 2324 ms
+	OfflineSmartviewService
+		 Start: 31377(device5_intouch.log)
+		 Completed: 31378(device5_intouch.log)
+		 Elapsed Time: 14 ms
+	AVFeedbackService
+		 Start: 31381(device5_intouch.log)
+		 Completed: 31382(device5_intouch.log)
+		 Elapsed Time: 192 ms
+	DatabaseThreads
+		 Start: 31384(device5_intouch.log)
+		 Completed: 31396(device5_intouch.log)
+		 Elapsed Time: 2986 ms
+	SoftLoadService
+		 Start: 31388(device5_intouch.log)
+		 Completed: 31397(device5_intouch.log)
+		 Elapsed Time: 2992 ms
+	WATCHDOG
+		 Start: 31389(device5_intouch.log)
+		 Completed: 31390(device5_intouch.log)
+		 Elapsed Time: 241 ms
+	ProtocolService
+		 Start: 31385(device5_intouch.log)
+		 Completed: 31403(device5_intouch.log)
+		 Elapsed Time: 9189 ms
+	DiagnosticsService
+		 Start: 31387(device5_intouch.log)
+		 Completed: 31391(device5_intouch.log)
+		 Elapsed Time: 294 ms
+
+=== Device boot ===
+32623(device5_intouch.log): 2014-01-27 12:27:55 Boot Start
+**** Incomplete boot **** 
+
+Services
+	Logging
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	DatabaseInitialize
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	MessagingService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	HealthMonitorService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	Persistence
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	ConfigurationService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	LandingPadService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	PortConfigurationService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	CacheService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	ThemingService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	StagingService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	DeviceIOService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	BellService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	GateService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	ReaderDataService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	BiometricService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	StateManager
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	OfflineSmartviewService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	AVFeedbackService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	DatabaseThreads
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	SoftLoadService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	WATCHDOG
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	ProtocolService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	DiagnosticsService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+
+	*** Services not successfully started: Logging, DatabaseInitialize, MessagingService, HealthMonitorService, Persistence, ConfigurationService, LandingPadService, PortConfigurationService, CacheService, ThemingService, StagingService, DeviceIOService, BellService, GateService, ReaderDataService, BiometricService, StateManager, OfflineSmartviewService, AVFeedbackService, DatabaseThreads, SoftLoadService, WATCHDOG, ProtocolService, DiagnosticsService
+
+=== Device boot ===
+32641(device5_intouch.log): 2014-01-27 12:30:23 Boot Start
+**** Incomplete boot **** 
+
+Services
+	Logging
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	DatabaseInitialize
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	MessagingService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	HealthMonitorService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	Persistence
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	ConfigurationService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	LandingPadService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	PortConfigurationService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	CacheService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	ThemingService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	StagingService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	DeviceIOService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	BellService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	GateService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	ReaderDataService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	BiometricService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	StateManager
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	OfflineSmartviewService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	AVFeedbackService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	DatabaseThreads
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	SoftLoadService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	WATCHDOG
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	ProtocolService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	DiagnosticsService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+
+	*** Services not successfully started: Logging, DatabaseInitialize, MessagingService, HealthMonitorService, Persistence, ConfigurationService, LandingPadService, PortConfigurationService, CacheService, ThemingService, StagingService, DeviceIOService, BellService, GateService, ReaderDataService, BiometricService, StateManager, OfflineSmartviewService, AVFeedbackService, DatabaseThreads, SoftLoadService, WATCHDOG, ProtocolService, DiagnosticsService
+
+=== Device boot ===
+32656(device5_intouch.log): 2014-01-27 12:32:51 Boot Start
+**** Incomplete boot **** 
+
+Services
+	Logging
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	DatabaseInitialize
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	MessagingService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	HealthMonitorService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	Persistence
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	ConfigurationService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	LandingPadService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	PortConfigurationService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	CacheService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	ThemingService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	StagingService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	DeviceIOService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	BellService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	GateService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	ReaderDataService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	BiometricService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	StateManager
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	OfflineSmartviewService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	AVFeedbackService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	DatabaseThreads
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	SoftLoadService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	WATCHDOG
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	ProtocolService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	DiagnosticsService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+
+	*** Services not successfully started: Logging, DatabaseInitialize, MessagingService, HealthMonitorService, Persistence, ConfigurationService, LandingPadService, PortConfigurationService, CacheService, ThemingService, StagingService, DeviceIOService, BellService, GateService, ReaderDataService, BiometricService, StateManager, OfflineSmartviewService, AVFeedbackService, DatabaseThreads, SoftLoadService, WATCHDOG, ProtocolService, DiagnosticsService
+
+=== Device boot ===
+32674(device5_intouch.log): 2014-01-27 12:35:19 Boot Start
+**** Incomplete boot **** 
+
+Services
+	Logging
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	DatabaseInitialize
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	MessagingService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	HealthMonitorService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	Persistence
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	ConfigurationService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	LandingPadService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	PortConfigurationService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	CacheService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	ThemingService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	StagingService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	DeviceIOService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	BellService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	GateService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	ReaderDataService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	BiometricService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	StateManager
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	OfflineSmartviewService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	AVFeedbackService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	DatabaseThreads
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	SoftLoadService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	WATCHDOG
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	ProtocolService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	DiagnosticsService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+
+	*** Services not successfully started: Logging, DatabaseInitialize, MessagingService, HealthMonitorService, Persistence, ConfigurationService, LandingPadService, PortConfigurationService, CacheService, ThemingService, StagingService, DeviceIOService, BellService, GateService, ReaderDataService, BiometricService, StateManager, OfflineSmartviewService, AVFeedbackService, DatabaseThreads, SoftLoadService, WATCHDOG, ProtocolService, DiagnosticsService
+
+=== Device boot ===
+32693(device5_intouch.log): 2014-01-27 14:02:38 Boot Start
+32801(device5_intouch.log): 2014-01-27 14:05:21 Boot Completed
+	Boot Time: 163000ms 
+
+Services
+	Logging
+		 Start: 32709(device5_intouch.log)
+		 Completed: 32710(device5_intouch.log)
+		 Elapsed Time: 269 ms
+	DatabaseInitialize
+		 Start: 32711(device5_intouch.log)
+		 Completed: 32735(device5_intouch.log)
+		 Elapsed Time: 31621 ms
+	MessagingService
+		 Start: 32736(device5_intouch.log)
+		 Completed: 32738(device5_intouch.log)
+		 Elapsed Time: 5923 ms
+	HealthMonitorService
+		 Start: 32751(device5_intouch.log)
+		 Completed: 32752(device5_intouch.log)
+		 Elapsed Time: 230 ms
+	Persistence
+		 Start: 32753(device5_intouch.log)
+		 Completed: 32754(device5_intouch.log)
+		 Elapsed Time: 17202 ms
+	ConfigurationService
+		 Start: 32757(device5_intouch.log)
+		 Completed: 32758(device5_intouch.log)
+		 Elapsed Time: 63 ms
+	LandingPadService
+		 Start: 32759(device5_intouch.log)
+		 Completed: 32760(device5_intouch.log)
+		 Elapsed Time: 1 ms
+	PortConfigurationService
+		 Start: 32757(device5_intouch.log)
+		 Completed: 32758(device5_intouch.log)
+		 Elapsed Time: 63 ms
+	CacheService
+		 Start: 32765(device5_intouch.log)
+		 Completed: 32766(device5_intouch.log)
+		 Elapsed Time: 905 ms
+	ThemingService
+		 Start: 32781(device5_intouch.log)
+		 Completed: 32782(device5_intouch.log)
+		 Elapsed Time: 0 ms
+	StagingService
+		 Start: 32769(device5_intouch.log)
+		 Completed: 32770(device5_intouch.log)
+		 Elapsed Time: 7601 ms
+	DeviceIOService
+		 Start: 32761(device5_intouch.log)
+		 Completed: 32762(device5_intouch.log)
+		 Elapsed Time: 22 ms
+	BellService
+		 Start: 32775(device5_intouch.log)
+		 Completed: 32776(device5_intouch.log)
+		 Elapsed Time: 2 ms
+	GateService
+		 Start: 32763(device5_intouch.log)
+		 Completed: 32764(device5_intouch.log)
+		 Elapsed Time: 2 ms
+	ReaderDataService
+		 Start: 32777(device5_intouch.log)
+		 Completed: 32778(device5_intouch.log)
+		 Elapsed Time: 2 ms
+	BiometricService
+		 Start: 32771(device5_intouch.log)
+		 Completed: 32772(device5_intouch.log)
+		 Elapsed Time: 1420 ms
+	StateManager
+		 Start: 32773(device5_intouch.log)
+		 Completed: 32774(device5_intouch.log)
+		 Elapsed Time: 2299 ms
+	OfflineSmartviewService
+		 Start: 32779(device5_intouch.log)
+		 Completed: 32780(device5_intouch.log)
+		 Elapsed Time: 15 ms
+	AVFeedbackService
+		 Start: 32767(device5_intouch.log)
+		 Completed: 32768(device5_intouch.log)
+		 Elapsed Time: 156 ms
+	DatabaseThreads
+		 Start: 32784(device5_intouch.log)
+		 Completed: 32796(device5_intouch.log)
+		 Elapsed Time: 3074 ms
+	SoftLoadService
+		 Start: 32786(device5_intouch.log)
+		 Completed: 32794(device5_intouch.log)
+		 Elapsed Time: 2507 ms
+	WATCHDOG
+		 Start: 32787(device5_intouch.log)
+		 Completed: 32790(device5_intouch.log)
+		 Elapsed Time: 22 ms
+	ProtocolService
+		 Start: 32785(device5_intouch.log)
+		 Completed: 32803(device5_intouch.log)
+		 Elapsed Time: 8419 ms
+	DiagnosticsService
+		 Start: 32789(device5_intouch.log)
+		 Completed: 32791(device5_intouch.log)
+		 Elapsed Time: 236 ms
+
+=== Device boot ===
+33709(device5_intouch.log): 2014-01-28 12:44:17 Boot Start
+**** Incomplete boot **** 
+
+Services
+	Logging
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	DatabaseInitialize
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	MessagingService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	HealthMonitorService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	Persistence
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	ConfigurationService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	LandingPadService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	PortConfigurationService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	CacheService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	ThemingService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	StagingService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	DeviceIOService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	BellService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	GateService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	ReaderDataService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	BiometricService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	StateManager
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	OfflineSmartviewService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	AVFeedbackService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	DatabaseThreads
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	SoftLoadService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	WATCHDOG
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	ProtocolService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	DiagnosticsService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+
+	*** Services not successfully started: Logging, DatabaseInitialize, MessagingService, HealthMonitorService, Persistence, ConfigurationService, LandingPadService, PortConfigurationService, CacheService, ThemingService, StagingService, DeviceIOService, BellService, GateService, ReaderDataService, BiometricService, StateManager, OfflineSmartviewService, AVFeedbackService, DatabaseThreads, SoftLoadService, WATCHDOG, ProtocolService, DiagnosticsService
+
+=== Device boot ===
+33725(device5_intouch.log): 2014-01-28 14:02:33 Boot Start
+33833(device5_intouch.log): 2014-01-28 14:05:15 Boot Completed
+	Boot Time: 162000ms 
+
+Services
+	Logging
+		 Start: 33741(device5_intouch.log)
+		 Completed: 33742(device5_intouch.log)
+		 Elapsed Time: 273 ms
+	DatabaseInitialize
+		 Start: 33743(device5_intouch.log)
+		 Completed: 33767(device5_intouch.log)
+		 Elapsed Time: 31220 ms
+	MessagingService
+		 Start: 33768(device5_intouch.log)
+		 Completed: 33770(device5_intouch.log)
+		 Elapsed Time: 5918 ms
+	HealthMonitorService
+		 Start: 33783(device5_intouch.log)
+		 Completed: 33784(device5_intouch.log)
+		 Elapsed Time: 182 ms
+	Persistence
+		 Start: 33785(device5_intouch.log)
+		 Completed: 33786(device5_intouch.log)
+		 Elapsed Time: 17472 ms
+	ConfigurationService
+		 Start: 33789(device5_intouch.log)
+		 Completed: 33790(device5_intouch.log)
+		 Elapsed Time: 53 ms
+	LandingPadService
+		 Start: 33791(device5_intouch.log)
+		 Completed: 33792(device5_intouch.log)
+		 Elapsed Time: 1 ms
+	PortConfigurationService
+		 Start: 33789(device5_intouch.log)
+		 Completed: 33790(device5_intouch.log)
+		 Elapsed Time: 53 ms
+	CacheService
+		 Start: 33797(device5_intouch.log)
+		 Completed: 33798(device5_intouch.log)
+		 Elapsed Time: 918 ms
+	ThemingService
+		 Start: 33813(device5_intouch.log)
+		 Completed: 33814(device5_intouch.log)
+		 Elapsed Time: 0 ms
+	StagingService
+		 Start: 33801(device5_intouch.log)
+		 Completed: 33802(device5_intouch.log)
+		 Elapsed Time: 7757 ms
+	DeviceIOService
+		 Start: 33793(device5_intouch.log)
+		 Completed: 33794(device5_intouch.log)
+		 Elapsed Time: 20 ms
+	BellService
+		 Start: 33807(device5_intouch.log)
+		 Completed: 33808(device5_intouch.log)
+		 Elapsed Time: 2 ms
+	GateService
+		 Start: 33795(device5_intouch.log)
+		 Completed: 33796(device5_intouch.log)
+		 Elapsed Time: 2 ms
+	ReaderDataService
+		 Start: 33809(device5_intouch.log)
+		 Completed: 33810(device5_intouch.log)
+		 Elapsed Time: 2 ms
+	BiometricService
+		 Start: 33803(device5_intouch.log)
+		 Completed: 33804(device5_intouch.log)
+		 Elapsed Time: 1181 ms
+	StateManager
+		 Start: 33805(device5_intouch.log)
+		 Completed: 33806(device5_intouch.log)
+		 Elapsed Time: 2215 ms
+	OfflineSmartviewService
+		 Start: 33811(device5_intouch.log)
+		 Completed: 33812(device5_intouch.log)
+		 Elapsed Time: 22 ms
+	AVFeedbackService
+		 Start: 33799(device5_intouch.log)
+		 Completed: 33800(device5_intouch.log)
+		 Elapsed Time: 184 ms
+	DatabaseThreads
+		 Start: 33816(device5_intouch.log)
+		 Completed: 33829(device5_intouch.log)
+		 Elapsed Time: 2732 ms
+	SoftLoadService
+		 Start: 33817(device5_intouch.log)
+		 Completed: 33828(device5_intouch.log)
+		 Elapsed Time: 2655 ms
+	WATCHDOG
+		 Start: 33819(device5_intouch.log)
+		 Completed: 33823(device5_intouch.log)
+		 Elapsed Time: 279 ms
+	ProtocolService
+		 Start: 33818(device5_intouch.log)
+		 Completed: 33835(device5_intouch.log)
+		 Elapsed Time: 8400 ms
+	DiagnosticsService
+		 Start: 33821(device5_intouch.log)
+		 Completed: 33822(device5_intouch.log)
+		 Elapsed Time: 153 ms
+
+=== Device boot ===
+34594(device5_intouch.log): 2014-01-29 12:43:07 Boot Start
+**** Incomplete boot **** 
+
+Services
+	Logging
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	DatabaseInitialize
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	MessagingService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	HealthMonitorService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	Persistence
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	ConfigurationService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	LandingPadService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	PortConfigurationService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	CacheService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	ThemingService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	StagingService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	DeviceIOService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	BellService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	GateService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	ReaderDataService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	BiometricService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	StateManager
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	OfflineSmartviewService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	AVFeedbackService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	DatabaseThreads
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	SoftLoadService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	WATCHDOG
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	ProtocolService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	DiagnosticsService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+
+	*** Services not successfully started: Logging, DatabaseInitialize, MessagingService, HealthMonitorService, Persistence, ConfigurationService, LandingPadService, PortConfigurationService, CacheService, ThemingService, StagingService, DeviceIOService, BellService, GateService, ReaderDataService, BiometricService, StateManager, OfflineSmartviewService, AVFeedbackService, DatabaseThreads, SoftLoadService, WATCHDOG, ProtocolService, DiagnosticsService
+
+=== Device boot ===
+34613(device5_intouch.log): 2014-01-29 14:02:35 Boot Start
+34721(device5_intouch.log): 2014-01-29 14:05:19 Boot Completed
+	Boot Time: 164000ms 
+
+Services
+	Logging
+		 Start: 34629(device5_intouch.log)
+		 Completed: 34630(device5_intouch.log)
+		 Elapsed Time: 313 ms
+	DatabaseInitialize
+		 Start: 34631(device5_intouch.log)
+		 Completed: 34655(device5_intouch.log)
+		 Elapsed Time: 32029 ms
+	MessagingService
+		 Start: 34656(device5_intouch.log)
+		 Completed: 34658(device5_intouch.log)
+		 Elapsed Time: 7815 ms
+	HealthMonitorService
+		 Start: 34671(device5_intouch.log)
+		 Completed: 34672(device5_intouch.log)
+		 Elapsed Time: 178 ms
+	Persistence
+		 Start: 34673(device5_intouch.log)
+		 Completed: 34674(device5_intouch.log)
+		 Elapsed Time: 17133 ms
+	ConfigurationService
+		 Start: 34677(device5_intouch.log)
+		 Completed: 34678(device5_intouch.log)
+		 Elapsed Time: 58 ms
+	LandingPadService
+		 Start: 34679(device5_intouch.log)
+		 Completed: 34680(device5_intouch.log)
+		 Elapsed Time: 2 ms
+	PortConfigurationService
+		 Start: 34677(device5_intouch.log)
+		 Completed: 34678(device5_intouch.log)
+		 Elapsed Time: 58 ms
+	CacheService
+		 Start: 34685(device5_intouch.log)
+		 Completed: 34686(device5_intouch.log)
+		 Elapsed Time: 1108 ms
+	ThemingService
+		 Start: 34701(device5_intouch.log)
+		 Completed: 34702(device5_intouch.log)
+		 Elapsed Time: 1 ms
+	StagingService
+		 Start: 34689(device5_intouch.log)
+		 Completed: 34690(device5_intouch.log)
+		 Elapsed Time: 7704 ms
+	DeviceIOService
+		 Start: 34681(device5_intouch.log)
+		 Completed: 34682(device5_intouch.log)
+		 Elapsed Time: 34 ms
+	BellService
+		 Start: 34695(device5_intouch.log)
+		 Completed: 34696(device5_intouch.log)
+		 Elapsed Time: 2 ms
+	GateService
+		 Start: 34683(device5_intouch.log)
+		 Completed: 34684(device5_intouch.log)
+		 Elapsed Time: 3 ms
+	ReaderDataService
+		 Start: 34697(device5_intouch.log)
+		 Completed: 34698(device5_intouch.log)
+		 Elapsed Time: 2 ms
+	BiometricService
+		 Start: 34691(device5_intouch.log)
+		 Completed: 34692(device5_intouch.log)
+		 Elapsed Time: 1154 ms
+	StateManager
+		 Start: 34693(device5_intouch.log)
+		 Completed: 34694(device5_intouch.log)
+		 Elapsed Time: 2112 ms
+	OfflineSmartviewService
+		 Start: 34699(device5_intouch.log)
+		 Completed: 34700(device5_intouch.log)
+		 Elapsed Time: 51 ms
+	AVFeedbackService
+		 Start: 34687(device5_intouch.log)
+		 Completed: 34688(device5_intouch.log)
+		 Elapsed Time: 179 ms
+	DatabaseThreads
+		 Start: 34705(device5_intouch.log)
+		 Completed: 34715(device5_intouch.log)
+		 Elapsed Time: 2587 ms
+	SoftLoadService
+		 Start: 34707(device5_intouch.log)
+		 Completed: 34718(device5_intouch.log)
+		 Elapsed Time: 2854 ms
+	WATCHDOG
+		 Start: 34708(device5_intouch.log)
+		 Completed: 34712(device5_intouch.log)
+		 Elapsed Time: 278 ms
+	ProtocolService
+		 Start: 34706(device5_intouch.log)
+		 Completed: 34723(device5_intouch.log)
+		 Elapsed Time: 8305 ms
+	DiagnosticsService
+		 Start: 34710(device5_intouch.log)
+		 Completed: 34711(device5_intouch.log)
+		 Elapsed Time: 177 ms
+
+=== Device boot ===
+37428(device5_intouch.log): 2014-01-30 12:43:05 Boot Start
+**** Incomplete boot **** 
+
+Services
+	Logging
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	DatabaseInitialize
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	MessagingService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	HealthMonitorService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	Persistence
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	ConfigurationService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	LandingPadService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	PortConfigurationService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	CacheService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	ThemingService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	StagingService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	DeviceIOService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	BellService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	GateService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	ReaderDataService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	BiometricService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	StateManager
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	OfflineSmartviewService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	AVFeedbackService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	DatabaseThreads
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	SoftLoadService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	WATCHDOG
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	ProtocolService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	DiagnosticsService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+
+	*** Services not successfully started: Logging, DatabaseInitialize, MessagingService, HealthMonitorService, Persistence, ConfigurationService, LandingPadService, PortConfigurationService, CacheService, ThemingService, StagingService, DeviceIOService, BellService, GateService, ReaderDataService, BiometricService, StateManager, OfflineSmartviewService, AVFeedbackService, DatabaseThreads, SoftLoadService, WATCHDOG, ProtocolService, DiagnosticsService
+
+=== Device boot ===
+37447(device5_intouch.log): 2014-01-30 14:02:40 Boot Start
+37555(device5_intouch.log): 2014-01-30 14:05:22 Boot Completed
+	Boot Time: 162000ms 
+
+Services
+	Logging
+		 Start: 37463(device5_intouch.log)
+		 Completed: 37464(device5_intouch.log)
+		 Elapsed Time: 271 ms
+	DatabaseInitialize
+		 Start: 37465(device5_intouch.log)
+		 Completed: 37489(device5_intouch.log)
+		 Elapsed Time: 31643 ms
+	MessagingService
+		 Start: 37490(device5_intouch.log)
+		 Completed: 37492(device5_intouch.log)
+		 Elapsed Time: 5902 ms
+	HealthMonitorService
+		 Start: 37505(device5_intouch.log)
+		 Completed: 37506(device5_intouch.log)
+		 Elapsed Time: 198 ms
+	Persistence
+		 Start: 37507(device5_intouch.log)
+		 Completed: 37508(device5_intouch.log)
+		 Elapsed Time: 17076 ms
+	ConfigurationService
+		 Start: 37511(device5_intouch.log)
+		 Completed: 37512(device5_intouch.log)
+		 Elapsed Time: 66 ms
+	LandingPadService
+		 Start: 37513(device5_intouch.log)
+		 Completed: 37514(device5_intouch.log)
+		 Elapsed Time: 2 ms
+	PortConfigurationService
+		 Start: 37511(device5_intouch.log)
+		 Completed: 37512(device5_intouch.log)
+		 Elapsed Time: 66 ms
+	CacheService
+		 Start: 37519(device5_intouch.log)
+		 Completed: 37520(device5_intouch.log)
+		 Elapsed Time: 1081 ms
+	ThemingService
+		 Start: 37535(device5_intouch.log)
+		 Completed: 37536(device5_intouch.log)
+		 Elapsed Time: 0 ms
+	StagingService
+		 Start: 37523(device5_intouch.log)
+		 Completed: 37524(device5_intouch.log)
+		 Elapsed Time: 7814 ms
+	DeviceIOService
+		 Start: 37515(device5_intouch.log)
+		 Completed: 37516(device5_intouch.log)
+		 Elapsed Time: 23 ms
+	BellService
+		 Start: 37529(device5_intouch.log)
+		 Completed: 37530(device5_intouch.log)
+		 Elapsed Time: 2 ms
+	GateService
+		 Start: 37517(device5_intouch.log)
+		 Completed: 37518(device5_intouch.log)
+		 Elapsed Time: 3 ms
+	ReaderDataService
+		 Start: 37531(device5_intouch.log)
+		 Completed: 37532(device5_intouch.log)
+		 Elapsed Time: 2 ms
+	BiometricService
+		 Start: 37525(device5_intouch.log)
+		 Completed: 37526(device5_intouch.log)
+		 Elapsed Time: 1257 ms
+	StateManager
+		 Start: 37527(device5_intouch.log)
+		 Completed: 37528(device5_intouch.log)
+		 Elapsed Time: 2073 ms
+	OfflineSmartviewService
+		 Start: 37533(device5_intouch.log)
+		 Completed: 37534(device5_intouch.log)
+		 Elapsed Time: 27 ms
+	AVFeedbackService
+		 Start: 37521(device5_intouch.log)
+		 Completed: 37522(device5_intouch.log)
+		 Elapsed Time: 169 ms
+	DatabaseThreads
+		 Start: 37538(device5_intouch.log)
+		 Completed: 37550(device5_intouch.log)
+		 Elapsed Time: 3273 ms
+	SoftLoadService
+		 Start: 37540(device5_intouch.log)
+		 Completed: 37548(device5_intouch.log)
+		 Elapsed Time: 2877 ms
+	WATCHDOG
+		 Start: 37541(device5_intouch.log)
+		 Completed: 37545(device5_intouch.log)
+		 Elapsed Time: 313 ms
+	ProtocolService
+		 Start: 37539(device5_intouch.log)
+		 Completed: 37557(device5_intouch.log)
+		 Elapsed Time: 9505 ms
+	DiagnosticsService
+		 Start: 37543(device5_intouch.log)
+		 Completed: 37544(device5_intouch.log)
+		 Elapsed Time: 147 ms
+
+=== Device boot ===
+38258(device5_intouch.log): 2014-01-31 14:02:33 Boot Start
+38366(device5_intouch.log): 2014-01-31 14:05:16 Boot Completed
+	Boot Time: 163000ms 
+
+Services
+	Logging
+		 Start: 38274(device5_intouch.log)
+		 Completed: 38275(device5_intouch.log)
+		 Elapsed Time: 265 ms
+	DatabaseInitialize
+		 Start: 38276(device5_intouch.log)
+		 Completed: 38300(device5_intouch.log)
+		 Elapsed Time: 31531 ms
+	MessagingService
+		 Start: 38301(device5_intouch.log)
+		 Completed: 38303(device5_intouch.log)
+		 Elapsed Time: 6494 ms
+	HealthMonitorService
+		 Start: 38316(device5_intouch.log)
+		 Completed: 38317(device5_intouch.log)
+		 Elapsed Time: 146 ms
+	Persistence
+		 Start: 38318(device5_intouch.log)
+		 Completed: 38319(device5_intouch.log)
+		 Elapsed Time: 17412 ms
+	ConfigurationService
+		 Start: 38322(device5_intouch.log)
+		 Completed: 38323(device5_intouch.log)
+		 Elapsed Time: 59 ms
+	LandingPadService
+		 Start: 38324(device5_intouch.log)
+		 Completed: 38325(device5_intouch.log)
+		 Elapsed Time: 2 ms
+	PortConfigurationService
+		 Start: 38322(device5_intouch.log)
+		 Completed: 38323(device5_intouch.log)
+		 Elapsed Time: 59 ms
+	CacheService
+		 Start: 38330(device5_intouch.log)
+		 Completed: 38331(device5_intouch.log)
+		 Elapsed Time: 1204 ms
+	ThemingService
+		 Start: 38346(device5_intouch.log)
+		 Completed: 38347(device5_intouch.log)
+		 Elapsed Time: 0 ms
+	StagingService
+		 Start: 38334(device5_intouch.log)
+		 Completed: 38335(device5_intouch.log)
+		 Elapsed Time: 7714 ms
+	DeviceIOService
+		 Start: 38326(device5_intouch.log)
+		 Completed: 38327(device5_intouch.log)
+		 Elapsed Time: 27 ms
+	BellService
+		 Start: 38340(device5_intouch.log)
+		 Completed: 38341(device5_intouch.log)
+		 Elapsed Time: 2 ms
+	GateService
+		 Start: 38328(device5_intouch.log)
+		 Completed: 38329(device5_intouch.log)
+		 Elapsed Time: 3 ms
+	ReaderDataService
+		 Start: 38342(device5_intouch.log)
+		 Completed: 38343(device5_intouch.log)
+		 Elapsed Time: 2 ms
+	BiometricService
+		 Start: 38336(device5_intouch.log)
+		 Completed: 38337(device5_intouch.log)
+		 Elapsed Time: 1176 ms
+	StateManager
+		 Start: 38338(device5_intouch.log)
+		 Completed: 38339(device5_intouch.log)
+		 Elapsed Time: 2151 ms
+	OfflineSmartviewService
+		 Start: 38344(device5_intouch.log)
+		 Completed: 38345(device5_intouch.log)
+		 Elapsed Time: 35 ms
+	AVFeedbackService
+		 Start: 38332(device5_intouch.log)
+		 Completed: 38333(device5_intouch.log)
+		 Elapsed Time: 156 ms
+	DatabaseThreads
+		 Start: 38349(device5_intouch.log)
+		 Completed: 38362(device5_intouch.log)
+		 Elapsed Time: 3257 ms
+	SoftLoadService
+		 Start: 38353(device5_intouch.log)
+		 Completed: 38358(device5_intouch.log)
+		 Elapsed Time: 3031 ms
+	WATCHDOG
+		 Start: 38354(device5_intouch.log)
+		 Completed: 38356(device5_intouch.log)
+		 Elapsed Time: 359 ms
+	ProtocolService
+		 Start: 38350(device5_intouch.log)
+		 Completed: 38368(device5_intouch.log)
+		 Elapsed Time: 9223 ms
+	DiagnosticsService
+		 Start: 38352(device5_intouch.log)
+		 Completed: 38355(device5_intouch.log)
+		 Elapsed Time: 314 ms
+
+=== Device boot ===
+39150(device5_intouch.log): 2014-02-01 12:39:38 Boot Start
+**** Incomplete boot **** 
+
+Services
+	Logging
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	DatabaseInitialize
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	MessagingService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	HealthMonitorService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	Persistence
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	ConfigurationService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	LandingPadService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	PortConfigurationService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	CacheService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	ThemingService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	StagingService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	DeviceIOService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	BellService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	GateService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	ReaderDataService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	BiometricService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	StateManager
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	OfflineSmartviewService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	AVFeedbackService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	DatabaseThreads
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	SoftLoadService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	WATCHDOG
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	ProtocolService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	DiagnosticsService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+
+	*** Services not successfully started: Logging, DatabaseInitialize, MessagingService, HealthMonitorService, Persistence, ConfigurationService, LandingPadService, PortConfigurationService, CacheService, ThemingService, StagingService, DeviceIOService, BellService, GateService, ReaderDataService, BiometricService, StateManager, OfflineSmartviewService, AVFeedbackService, DatabaseThreads, SoftLoadService, WATCHDOG, ProtocolService, DiagnosticsService
+
+=== Device boot ===
+39166(device5_intouch.log): 2014-02-01 12:42:07 Boot Start
+**** Incomplete boot **** 
+
+Services
+	Logging
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	DatabaseInitialize
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	MessagingService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	HealthMonitorService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	Persistence
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	ConfigurationService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	LandingPadService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	PortConfigurationService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	CacheService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	ThemingService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	StagingService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	DeviceIOService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	BellService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	GateService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	ReaderDataService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	BiometricService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	StateManager
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	OfflineSmartviewService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	AVFeedbackService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	DatabaseThreads
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	SoftLoadService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	WATCHDOG
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	ProtocolService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	DiagnosticsService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+
+	*** Services not successfully started: Logging, DatabaseInitialize, MessagingService, HealthMonitorService, Persistence, ConfigurationService, LandingPadService, PortConfigurationService, CacheService, ThemingService, StagingService, DeviceIOService, BellService, GateService, ReaderDataService, BiometricService, StateManager, OfflineSmartviewService, AVFeedbackService, DatabaseThreads, SoftLoadService, WATCHDOG, ProtocolService, DiagnosticsService
+
+=== Device boot ===
+39182(device5_intouch.log): 2014-02-01 14:02:32 Boot Start
+39290(device5_intouch.log): 2014-02-01 14:05:16 Boot Completed
+	Boot Time: 164000ms 
+
+Services
+	Logging
+		 Start: 39198(device5_intouch.log)
+		 Completed: 39199(device5_intouch.log)
+		 Elapsed Time: 273 ms
+	DatabaseInitialize
+		 Start: 39200(device5_intouch.log)
+		 Completed: 39224(device5_intouch.log)
+		 Elapsed Time: 31393 ms
+	MessagingService
+		 Start: 39225(device5_intouch.log)
+		 Completed: 39227(device5_intouch.log)
+		 Elapsed Time: 6275 ms
+	HealthMonitorService
+		 Start: 39240(device5_intouch.log)
+		 Completed: 39241(device5_intouch.log)
+		 Elapsed Time: 188 ms
+	Persistence
+		 Start: 39242(device5_intouch.log)
+		 Completed: 39243(device5_intouch.log)
+		 Elapsed Time: 17916 ms
+	ConfigurationService
+		 Start: 39246(device5_intouch.log)
+		 Completed: 39247(device5_intouch.log)
+		 Elapsed Time: 59 ms
+	LandingPadService
+		 Start: 39248(device5_intouch.log)
+		 Completed: 39249(device5_intouch.log)
+		 Elapsed Time: 2 ms
+	PortConfigurationService
+		 Start: 39246(device5_intouch.log)
+		 Completed: 39247(device5_intouch.log)
+		 Elapsed Time: 59 ms
+	CacheService
+		 Start: 39254(device5_intouch.log)
+		 Completed: 39255(device5_intouch.log)
+		 Elapsed Time: 852 ms
+	ThemingService
+		 Start: 39270(device5_intouch.log)
+		 Completed: 39271(device5_intouch.log)
+		 Elapsed Time: 0 ms
+	StagingService
+		 Start: 39258(device5_intouch.log)
+		 Completed: 39259(device5_intouch.log)
+		 Elapsed Time: 8049 ms
+	DeviceIOService
+		 Start: 39250(device5_intouch.log)
+		 Completed: 39251(device5_intouch.log)
+		 Elapsed Time: 25 ms
+	BellService
+		 Start: 39264(device5_intouch.log)
+		 Completed: 39265(device5_intouch.log)
+		 Elapsed Time: 1 ms
+	GateService
+		 Start: 39252(device5_intouch.log)
+		 Completed: 39253(device5_intouch.log)
+		 Elapsed Time: 3 ms
+	ReaderDataService
+		 Start: 39266(device5_intouch.log)
+		 Completed: 39267(device5_intouch.log)
+		 Elapsed Time: 2 ms
+	BiometricService
+		 Start: 39260(device5_intouch.log)
+		 Completed: 39261(device5_intouch.log)
+		 Elapsed Time: 1160 ms
+	StateManager
+		 Start: 39262(device5_intouch.log)
+		 Completed: 39263(device5_intouch.log)
+		 Elapsed Time: 2140 ms
+	OfflineSmartviewService
+		 Start: 39268(device5_intouch.log)
+		 Completed: 39269(device5_intouch.log)
+		 Elapsed Time: 21 ms
+	AVFeedbackService
+		 Start: 39256(device5_intouch.log)
+		 Completed: 39257(device5_intouch.log)
+		 Elapsed Time: 153 ms
+	DatabaseThreads
+		 Start: 39273(device5_intouch.log)
+		 Completed: 39286(device5_intouch.log)
+		 Elapsed Time: 3318 ms
+	SoftLoadService
+		 Start: 39275(device5_intouch.log)
+		 Completed: 39285(device5_intouch.log)
+		 Elapsed Time: 3279 ms
+	WATCHDOG
+		 Start: 39276(device5_intouch.log)
+		 Completed: 39280(device5_intouch.log)
+		 Elapsed Time: 392 ms
+	ProtocolService
+		 Start: 39274(device5_intouch.log)
+		 Completed: 39292(device5_intouch.log)
+		 Elapsed Time: 8724 ms
+	DiagnosticsService
+		 Start: 39278(device5_intouch.log)
+		 Completed: 39279(device5_intouch.log)
+		 Elapsed Time: 357 ms
+
+=== Device boot ===
+40288(device5_intouch.log): 2014-02-02 14:02:39 Boot Start
+40397(device5_intouch.log): 2014-02-02 14:05:31 Boot Completed
+	Boot Time: 172000ms 
+
+Services
+	Logging
+		 Start: 40304(device5_intouch.log)
+		 Completed: 40305(device5_intouch.log)
+		 Elapsed Time: 301 ms
+	DatabaseInitialize
+		 Start: 40306(device5_intouch.log)
+		 Completed: 40330(device5_intouch.log)
+		 Elapsed Time: 31693 ms
+	MessagingService
+		 Start: 40331(device5_intouch.log)
+		 Completed: 40333(device5_intouch.log)
+		 Elapsed Time: 5915 ms
+	HealthMonitorService
+		 Start: 40347(device5_intouch.log)
+		 Completed: 40348(device5_intouch.log)
+		 Elapsed Time: 205 ms
+	Persistence
+		 Start: 40349(device5_intouch.log)
+		 Completed: 40350(device5_intouch.log)
+		 Elapsed Time: 19870 ms
+	ConfigurationService
+		 Start: 40359(device5_intouch.log)
+		 Completed: 40360(device5_intouch.log)
+		 Elapsed Time: 82 ms
+	LandingPadService
+		 Start: 40357(device5_intouch.log)
+		 Completed: 40358(device5_intouch.log)
+		 Elapsed Time: 2 ms
+	PortConfigurationService
+		 Start: 40359(device5_intouch.log)
+		 Completed: 40360(device5_intouch.log)
+		 Elapsed Time: 82 ms
+	CacheService
+		 Start: 40355(device5_intouch.log)
+		 Completed: 40356(device5_intouch.log)
+		 Elapsed Time: 986 ms
+	ThemingService
+		 Start: 40353(device5_intouch.log)
+		 Completed: 40354(device5_intouch.log)
+		 Elapsed Time: 1 ms
+	StagingService
+		 Start: 40363(device5_intouch.log)
+		 Completed: 40364(device5_intouch.log)
+		 Elapsed Time: 9763 ms
+	DeviceIOService
+		 Start: 40361(device5_intouch.log)
+		 Completed: 40362(device5_intouch.log)
+		 Elapsed Time: 29 ms
+	BellService
+		 Start: 40377(device5_intouch.log)
+		 Completed: 40378(device5_intouch.log)
+		 Elapsed Time: 2 ms
+	GateService
+		 Start: 40375(device5_intouch.log)
+		 Completed: 40376(device5_intouch.log)
+		 Elapsed Time: 3 ms
+	ReaderDataService
+		 Start: 40369(device5_intouch.log)
+		 Completed: 40370(device5_intouch.log)
+		 Elapsed Time: 2 ms
+	BiometricService
+		 Start: 40365(device5_intouch.log)
+		 Completed: 40366(device5_intouch.log)
+		 Elapsed Time: 1163 ms
+	StateManager
+		 Start: 40367(device5_intouch.log)
+		 Completed: 40368(device5_intouch.log)
+		 Elapsed Time: 2550 ms
+	OfflineSmartviewService
+		 Start: 40373(device5_intouch.log)
+		 Completed: 40374(device5_intouch.log)
+		 Elapsed Time: 23 ms
+	AVFeedbackService
+		 Start: 40371(device5_intouch.log)
+		 Completed: 40372(device5_intouch.log)
+		 Elapsed Time: 154 ms
+	DatabaseThreads
+		 Start: 40380(device5_intouch.log)
+		 Completed: 40393(device5_intouch.log)
+		 Elapsed Time: 3367 ms
+	SoftLoadService
+		 Start: 40384(device5_intouch.log)
+		 Completed: 40392(device5_intouch.log)
+		 Elapsed Time: 3053 ms
+	WATCHDOG
+		 Start: 40382(device5_intouch.log)
+		 Completed: 40387(device5_intouch.log)
+		 Elapsed Time: 246 ms
+	ProtocolService
+		 Start: 40385(device5_intouch.log)
+		 Completed: 40399(device5_intouch.log)
+		 Elapsed Time: 9996 ms
+	DiagnosticsService
+		 Start: 40383(device5_intouch.log)
+		 Completed: 40386(device5_intouch.log)
+		 Elapsed Time: 243 ms
+
+=== Device boot ===
+41615(device5_intouch.log): 2014-02-03 12:35:55 Boot Start
+**** Incomplete boot **** 
+
+Services
+	Logging
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	DatabaseInitialize
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	MessagingService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	HealthMonitorService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	Persistence
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	ConfigurationService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	LandingPadService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	PortConfigurationService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	CacheService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	ThemingService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	StagingService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	DeviceIOService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	BellService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	GateService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	ReaderDataService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	BiometricService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	StateManager
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	OfflineSmartviewService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	AVFeedbackService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	DatabaseThreads
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	SoftLoadService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	WATCHDOG
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	ProtocolService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	DiagnosticsService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+
+	*** Services not successfully started: Logging, DatabaseInitialize, MessagingService, HealthMonitorService, Persistence, ConfigurationService, LandingPadService, PortConfigurationService, CacheService, ThemingService, StagingService, DeviceIOService, BellService, GateService, ReaderDataService, BiometricService, StateManager, OfflineSmartviewService, AVFeedbackService, DatabaseThreads, SoftLoadService, WATCHDOG, ProtocolService, DiagnosticsService
+
+=== Device boot ===
+41633(device5_intouch.log): 2014-02-03 12:38:22 Boot Start
+**** Incomplete boot **** 
+
+Services
+	Logging
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	DatabaseInitialize
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	MessagingService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	HealthMonitorService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	Persistence
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	ConfigurationService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	LandingPadService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	PortConfigurationService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	CacheService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	ThemingService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	StagingService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	DeviceIOService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	BellService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	GateService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	ReaderDataService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	BiometricService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	StateManager
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	OfflineSmartviewService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	AVFeedbackService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	DatabaseThreads
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	SoftLoadService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	WATCHDOG
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	ProtocolService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	DiagnosticsService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+
+	*** Services not successfully started: Logging, DatabaseInitialize, MessagingService, HealthMonitorService, Persistence, ConfigurationService, LandingPadService, PortConfigurationService, CacheService, ThemingService, StagingService, DeviceIOService, BellService, GateService, ReaderDataService, BiometricService, StateManager, OfflineSmartviewService, AVFeedbackService, DatabaseThreads, SoftLoadService, WATCHDOG, ProtocolService, DiagnosticsService
+
+=== Device boot ===
+41648(device5_intouch.log): 2014-02-03 12:40:48 Boot Start
+**** Incomplete boot **** 
+
+Services
+	Logging
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	DatabaseInitialize
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	MessagingService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	HealthMonitorService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	Persistence
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	ConfigurationService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	LandingPadService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	PortConfigurationService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	CacheService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	ThemingService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	StagingService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	DeviceIOService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	BellService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	GateService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	ReaderDataService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	BiometricService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	StateManager
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	OfflineSmartviewService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	AVFeedbackService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	DatabaseThreads
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	SoftLoadService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	WATCHDOG
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	ProtocolService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	DiagnosticsService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+
+	*** Services not successfully started: Logging, DatabaseInitialize, MessagingService, HealthMonitorService, Persistence, ConfigurationService, LandingPadService, PortConfigurationService, CacheService, ThemingService, StagingService, DeviceIOService, BellService, GateService, ReaderDataService, BiometricService, StateManager, OfflineSmartviewService, AVFeedbackService, DatabaseThreads, SoftLoadService, WATCHDOG, ProtocolService, DiagnosticsService
+
+=== Device boot ===
+41666(device5_intouch.log): 2014-02-03 12:43:17 Boot Start
+**** Incomplete boot **** 
+
+Services
+	Logging
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	DatabaseInitialize
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	MessagingService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	HealthMonitorService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	Persistence
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	ConfigurationService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	LandingPadService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	PortConfigurationService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	CacheService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	ThemingService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	StagingService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	DeviceIOService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	BellService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	GateService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	ReaderDataService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	BiometricService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	StateManager
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	OfflineSmartviewService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	AVFeedbackService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	DatabaseThreads
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	SoftLoadService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	WATCHDOG
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	ProtocolService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	DiagnosticsService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+
+	*** Services not successfully started: Logging, DatabaseInitialize, MessagingService, HealthMonitorService, Persistence, ConfigurationService, LandingPadService, PortConfigurationService, CacheService, ThemingService, StagingService, DeviceIOService, BellService, GateService, ReaderDataService, BiometricService, StateManager, OfflineSmartviewService, AVFeedbackService, DatabaseThreads, SoftLoadService, WATCHDOG, ProtocolService, DiagnosticsService
+
+=== Device boot ===
+41684(device5_intouch.log): 2014-02-03 12:45:46 Boot Start
+**** Incomplete boot **** 
+
+Services
+	Logging
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	DatabaseInitialize
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	MessagingService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	HealthMonitorService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	Persistence
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	ConfigurationService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	LandingPadService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	PortConfigurationService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	CacheService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	ThemingService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	StagingService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	DeviceIOService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	BellService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	GateService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	ReaderDataService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	BiometricService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	StateManager
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	OfflineSmartviewService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	AVFeedbackService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	DatabaseThreads
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	SoftLoadService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	WATCHDOG
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	ProtocolService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+	DiagnosticsService
+		 Start: Not started(device5_intouch.log)
+		 Completed: Not completed(device5_intouch.log)
+		 Elapsed Time: 
+
+	*** Services not successfully started: Logging, DatabaseInitialize, MessagingService, HealthMonitorService, Persistence, ConfigurationService, LandingPadService, PortConfigurationService, CacheService, ThemingService, StagingService, DeviceIOService, BellService, GateService, ReaderDataService, BiometricService, StateManager, OfflineSmartviewService, AVFeedbackService, DatabaseThreads, SoftLoadService, WATCHDOG, ProtocolService, DiagnosticsService
+
+=== Device boot ===
+41694(device5_intouch.log): 2014-02-03 14:02:34 Boot Start
+41802(device5_intouch.log): 2014-02-03 14:05:18 Boot Completed
+	Boot Time: 164000ms 
+
+Services
+	Logging
+		 Start: 41710(device5_intouch.log)
+		 Completed: 41711(device5_intouch.log)
+		 Elapsed Time: 282 ms
+	DatabaseInitialize
+		 Start: 41712(device5_intouch.log)
+		 Completed: 41736(device5_intouch.log)
+		 Elapsed Time: 31486 ms
+	MessagingService
+		 Start: 41737(device5_intouch.log)
+		 Completed: 41739(device5_intouch.log)
+		 Elapsed Time: 5674 ms
+	HealthMonitorService
+		 Start: 41752(device5_intouch.log)
+		 Completed: 41753(device5_intouch.log)
+		 Elapsed Time: 196 ms
+	Persistence
+		 Start: 41754(device5_intouch.log)
+		 Completed: 41755(device5_intouch.log)
+		 Elapsed Time: 16924 ms
+	ConfigurationService
+		 Start: 41758(device5_intouch.log)
+		 Completed: 41759(device5_intouch.log)
+		 Elapsed Time: 63 ms
+	LandingPadService
+		 Start: 41760(device5_intouch.log)
+		 Completed: 41761(device5_intouch.log)
+		 Elapsed Time: 2 ms
+	PortConfigurationService
+		 Start: 41758(device5_intouch.log)
+		 Completed: 41759(device5_intouch.log)
+		 Elapsed Time: 63 ms
+	CacheService
+		 Start: 41766(device5_intouch.log)
+		 Completed: 41767(device5_intouch.log)
+		 Elapsed Time: 805 ms
+	ThemingService
+		 Start: 41782(device5_intouch.log)
+		 Completed: 41783(device5_intouch.log)
+		 Elapsed Time: 1 ms
+	StagingService
+		 Start: 41770(device5_intouch.log)
+		 Completed: 41771(device5_intouch.log)
+		 Elapsed Time: 7859 ms
+	DeviceIOService
+		 Start: 41762(device5_intouch.log)
+		 Completed: 41763(device5_intouch.log)
+		 Elapsed Time: 19 ms
+	BellService
+		 Start: 41776(device5_intouch.log)
+		 Completed: 41777(device5_intouch.log)
+		 Elapsed Time: 1 ms
+	GateService
+		 Start: 41764(device5_intouch.log)
+		 Completed: 41765(device5_intouch.log)
+		 Elapsed Time: 3 ms
+	ReaderDataService
+		 Start: 41778(device5_intouch.log)
+		 Completed: 41779(device5_intouch.log)
+		 Elapsed Time: 2 ms
+	BiometricService
+		 Start: 41772(device5_intouch.log)
+		 Completed: 41773(device5_intouch.log)
+		 Elapsed Time: 1158 ms
+	StateManager
+		 Start: 41774(device5_intouch.log)
+		 Completed: 41775(device5_intouch.log)
+		 Elapsed Time: 2138 ms
+	OfflineSmartviewService
+		 Start: 41780(device5_intouch.log)
+		 Completed: 41781(device5_intouch.log)
+		 Elapsed Time: 50 ms
+	AVFeedbackService
+		 Start: 41768(device5_intouch.log)
+		 Completed: 41769(device5_intouch.log)
+		 Elapsed Time: 156 ms
+	DatabaseThreads
+		 Start: 41785(device5_intouch.log)
+		 Completed: 41798(device5_intouch.log)
+		 Elapsed Time: 3342 ms
+	SoftLoadService
+		 Start: 41787(device5_intouch.log)
+		 Completed: 41795(device5_intouch.log)
+		 Elapsed Time: 2690 ms
+	WATCHDOG
+		 Start: 41788(device5_intouch.log)
+		 Completed: 41793(device5_intouch.log)
+		 Elapsed Time: 346 ms
+	ProtocolService
+		 Start: 41786(device5_intouch.log)
+		 Completed: 41804(device5_intouch.log)
+		 Elapsed Time: 8584 ms
+	DiagnosticsService
+		 Start: 41790(device5_intouch.log)
+		 Completed: 41792(device5_intouch.log)
+		 Elapsed Time: 336 ms

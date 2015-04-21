@@ -1,0 +1,567 @@
+Exception Tracking Report
+
+InTouch log file: device5_intouch.log
+Lines Scanned: 41855
+
+141(device5_intouch.log)
+	Oct 23 23:00:02 127.0.0.1 java.io.IOException: Stream closed
+	Oct 23 23:00:02 127.0.0.1 at java.io.BufferedInputStream.getBufIfOpen(BufferedInputStream.java:145)
+	Oct 23 23:00:02 127.0.0.1 at java.io.BufferedInputStream.read1(BufferedInputStream.java:255)
+	Oct 23 23:00:02 127.0.0.1 at java.io.BufferedInputStream.read(BufferedInputStream.java:317)
+	Oct 23 23:00:02 127.0.0.1 at sun.nio.cs.StreamDecoder.readBytes(StreamDecoder.java:264)
+	Oct 23 23:00:02 127.0.0.1 at sun.nio.cs.StreamDecoder.implRead(StreamDecoder.java:306)
+
+2691(device5_intouch.log)
+	[ERROR] TransportConnector - Could not accept connection : org.apache.activemq.transport.InactivityIOException: Channel was inactive for too long: /127.0.0.1:52900
+	2013-11-09 13:18:57.878:INFO::Graceful shutdown SelectChannelConnector@0.0.0.0:9080
+	2013-11-09 13:18:57.938:INFO::Graceful shutdown o.e.j.w.WebAppContext{/NGD,file:/usr/local/jetty/webapps/NGD/},/usr/local/jetty/webapps/NGD
+	Nov  9 14:01:52 (none) kernel: nstruction cache
+	Nov  9 14:01:52 (none) RPMDB: RPM database cleanup check started.
+	Nov  9 14:01:55 (none) RPMDB: RPM database cleanup check successful.
+
+30963(device5_intouch.log)
+	Jan 26 09:32:59 127.0.0.1 user:[qtp26752749-129] INTOUCH;1089;ERROR;PROTOCOLSERVICE;com.kronos.ngd.platform.base.protocol.api.NGDProtocolException: Device is busy and unable to process the request at this time 
+	Jan 26 09:40:41 (none) /stagingarea/scripts/install-rollback.sh: RPM installation complete
+	Jan 26 09:40:41 (none) /stagingarea/scripts/install-rollback.sh: Installation is success, rollback not required
+	Jan 26 09:40:41 (none) /stagingarea/scripts/install-rollback.sh: kernel-uboot-xloader update started
+	Jan 26 09:40:45 (none) /stagingarea/scripts/install-rollback.sh: The kernel-uboot-xloader update was successful
+	Jan 26 09:40:45 (none) /stagingarea/scripts/install-rollback.sh: <<<pre-update FAT md5sums>>> 8d8739bfeddaff83e7d0d21ebb5f5b6c /tmp/FAT/mlo d6fd0ce5808371f3c8657ca1c7adcce4 /tmp/FAT/u-boot.bin ee1edd52104af4ba6ba9904596f32936 /tmp/FAT/u-boot.min 2effa6bdd8ff935371825815d9c6eb8a /tmp/FAT/uImage <<<post-update FAT md5sums>>> 2a66d927159f4dc2807e0ebff84cb244 /tmp/FAT/mlo abc57b969efc11c35a344a67588715f3 /tmp/FAT/u-boot.bin ee1edd52104af4ba6ba9904596f32936 /tmp/FAT/u-boot.min fdeb2f4abe84100d0f84d1917bfbba95 /tmp/FAT/uImage
+
+31024(device5_intouch.log)
+	Jan 26 09:53:11 127.0.0.1 user:[qtp26752749-127] INTOUCH;60016;ERROR;PROTOCOLSERVICE;com.kronos.ngd.platform.base.softload.api.NGDSoftLoadException: The softload installation was successful. 
+
+31025(device5_intouch.log)
+	Jan 26 09:53:11 127.0.0.1 user:[qtp26752749-133] INTOUCH;60016;ERROR;PROTOCOLSERVICE;com.kronos.ngd.platform.base.softload.api.NGDSoftLoadException: The softload installation was successful. 
+	Jan 26 09:53:12 127.0.0.1 user:[Thread-225] INTOUCH;0;INFO;PROTOCOLSERVICE;gracefulReboot(): reboot device command received 
+	Jan 26 09:53:13 (none) /usr/local/jetty/bin/jetty.sh: shutting down Jetty and rebooting...
+	2014-01-26 09:53:15.505:INFO::Graceful shutdown SelectChannelConnector@0.0.0.0:9080
+	2014-01-26 09:53:15.592:INFO::Graceful shutdown o.e.j.w.WebAppContext{/NGD,file:/usr/local/jetty/webapps/NGD/},/usr/local/jetty/webapps/NGD
+
+31032(device5_intouch.log)
+	Jan 26 09:53:15 127.0.0.1 com.kronos.ngd.platform.base.messaging.api.NGDMessagingException: NGDMessagingException.56003
+	Jan 26 09:53:15 127.0.0.1 at com.kronos.ngd.platform.base.messaging.api.MessagingServiceImpl.receiveSynchronousMessage(MessagingServiceImpl.java:448)
+	Jan 26 09:53:15 127.0.0.1 at com.kronos.ngd.platform.base.messaging.api.MessagingServiceImpl.processSyncConsumer(MessagingServiceImpl.java:375)
+	Jan 26 09:53:15 127.0.0.1 at com.kronos.ngd.platform.base.messaging.api.MessagingServiceImpl.receive(MessagingServiceImpl.java:202)
+	Jan 26 09:53:15 127.0.0.1 at com.kronos.ngd.platform.base.healthmonitor.api.HealthMonitorService$WiFiStatusChecker.run(HealthMonitorService.java:660)
+	Jan 26 09:53:16 127.0.0.1 at java.lang.Thread.run(Thread.java:619)
+
+31038(device5_intouch.log)
+	Jan 26 09:53:16 127.0.0.1 aused by: javax.jms.JMSException: java.lang.InterruptedException
+
+31903(device5_intouch.log)
+	Jan 26 20:02:49 127.0.0.1 com.kronos.ngd.platform.base.deviceio.api.NGDDeviceIOException: 105
+	Jan 26 20:02:49 127.0.0.1 at com.kronos.ngd.platform.base.framework.service.deviceio.Biometric.executeAction(Biometric.java:2233)
+	Jan 26 20:02:49 127.0.0.1 at com.kronos.ngd.platform.base.framework.service.deviceio.Biometric.setGrabTimeout(Biometric.java:590)
+	Jan 26 20:02:49 127.0.0.1 at com.kronos.ngd.application.base.biometrics.api.BiometricAppServiceImpl.setGrabTimeout(BiometricAppServiceImpl.java:2469)
+	Jan 26 20:02:49 127.0.0.1 at com.kronos.ngd.application.base.biometrics.api.BiometricsImpl.setGrabTimeout(BiometricsImpl.java:1965)
+	Jan 26 20:02:49 127.0.0.1 at com.kronos.ngd.application.base.uiframework.guicontroller.page.HomePage.callBioverifyAPI(HomePage.java:948)
+
+31948(device5_intouch.log)
+	Jan 26 20:02:49 127.0.0.1 Caused by: jpos.JposException: 105
+	Jan 26 20:02:49 127.0.0.1 at com.kronos.ngd.platform.base.framework.service.deviceio.jpos.service.NGDBaseService.verifyState(NGDBaseService.java:339)
+	Jan 26 20:02:49 127.0.0.1 at com.kronos.ngd.platform.base.framework.service.deviceio.jpos.service.BiometricService.directIO(BiometricService.java:493)
+	Jan 26 20:02:49 127.0.0.1 at jpos.BaseJposControl.directIO(Unknown Source)
+	Jan 26 20:02:49 127.0.0.1 at com.kronos.ngd.platform.base.framework.service.deviceio.Biometric.executeWithRetry(Biometric.java:2252)
+	Jan 26 20:02:49 127.0.0.1 at com.kronos.ngd.platform.base.framework.service.deviceio.Biometric.executeAction(Biometric.java:2207)
+
+31958(device5_intouch.log)
+	Jan 26 20:03:04 127.0.0.1 com.kronos.ngd.application.base.biometrics.api.NGDBiometricAppException: Error verifying biometric template.
+	Jan 26 20:03:04 127.0.0.1 at com.kronos.ngd.application.base.biometrics.api.BiometricAppServiceImpl.verifyHomeEmployee(BiometricAppServiceImpl.java:3039)
+	Jan 26 20:03:04 127.0.0.1 at com.kronos.ngd.application.base.biometrics.api.BiometricAppServiceImpl.verifyEmployee(BiometricAppServiceImpl.java:2883)
+	Jan 26 20:03:04 127.0.0.1 at com.kronos.ngd.application.base.biometrics.api.BiometricsImpl.doVerify(BiometricsImpl.java:194)
+	Jan 26 20:03:04 127.0.0.1 at com.kronos.ngd.application.base.uiframework.guicontroller.page.HomePage.callBioverifyAPI(HomePage.java:949)
+	Jan 26 20:03:04 127.0.0.1 at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+
+32002(device5_intouch.log)
+	Jan 26 20:03:04 127.0.0.1 Caused by: com.kronos.ngd.platform.base.deviceio.api.NGDDeviceIOException: 70033, 70083
+	Jan 26 20:03:04 127.0.0.1 at com.kronos.ngd.platform.base.framework.service.deviceio.Biometric.executeAction(Biometric.java:2233)
+	Jan 26 20:03:04 127.0.0.1 at com.kronos.ngd.platform.base.framework.service.deviceio.Biometric.biometricVerifyID(Biometric.java:1422)
+	Jan 26 20:03:04 127.0.0.1 at com.kronos.ngd.application.base.biometrics.api.BiometricAppServiceImpl.verifyHomeEmployee(BiometricAppServiceImpl.java:3018)
+	Jan 26 20:03:04 127.0.0.1 ... 42 more
+
+32007(device5_intouch.log)
+	Jan 26 20:03:04 127.0.0.1 Caused by: jpos.JposException: 70033, 70083
+
+32337(device5_intouch.log)
+	Jan 27 03:07:42 127.0.0.1 com.kronos.ngd.platform.base.deviceio.api.NGDDeviceIOException: 105
+	Jan 27 03:07:42 127.0.0.1 at com.kronos.ngd.platform.base.framework.service.deviceio.Biometric.executeAction(Biometric.java:2233)
+	Jan 27 03:07:42 127.0.0.1 at com.kronos.ngd.platform.base.framework.service.deviceio.Biometric.setGrabTimeout(Biometric.java:590)
+	Jan 27 03:07:42 127.0.0.1 at com.kronos.ngd.application.base.biometrics.api.BiometricAppServiceImpl.setGrabTimeout(BiometricAppServiceImpl.java:2469)
+	Jan 27 03:07:42 127.0.0.1 at com.kronos.ngd.application.base.biometrics.api.BiometricsImpl.setGrabTimeout(BiometricsImpl.java:1965)
+	Jan 27 03:07:42 127.0.0.1 at com.kronos.ngd.application.base.uiframework.guicontroller.page.HomePage.callBioverifyAPI(HomePage.java:948)
+
+32382(device5_intouch.log)
+	Jan 27 03:07:43 127.0.0.1 Caused by: jpos.JposException: 105
+	Jan 27 03:07:43 127.0.0.1 at com.kronos.ngd.platform.base.framework.service.deviceio.jpos.service.NGDBaseService.verifyState(NGDBaseService.java:339)
+	Jan 27 03:07:43 127.0.0.1 at com.kronos.ngd.platform.base.framework.service.deviceio.jpos.service.BiometricService.directIO(BiometricService.java:493)
+	Jan 27 03:07:43 127.0.0.1 at jpos.BaseJposControl.directIO(Unknown Source)
+	Jan 27 03:07:43 127.0.0.1 at com.kronos.ngd.platform.base.framework.service.deviceio.Biometric.executeWithRetry(Biometric.java:2252)
+	Jan 27 03:07:43 127.0.0.1 at com.kronos.ngd.platform.base.framework.service.deviceio.Biometric.executeAction(Biometric.java:2207)
+
+32548(device5_intouch.log)
+	Jan 27 12:04:30 127.0.0.1 com.kronos.ngd.platform.base.deviceio.api.NGDDeviceIOException: 105
+	Jan 27 12:04:30 127.0.0.1 at com.kronos.ngd.platform.base.framework.service.deviceio.Biometric.executeAction(Biometric.java:2233)
+	Jan 27 12:04:30 127.0.0.1 at com.kronos.ngd.platform.base.framework.service.deviceio.Biometric.setGrabTimeout(Biometric.java:590)
+	Jan 27 12:04:30 127.0.0.1 at com.kronos.ngd.application.base.biometrics.api.BiometricAppServiceImpl.setGrabTimeout(BiometricAppServiceImpl.java:2469)
+	Jan 27 12:04:30 127.0.0.1 at com.kronos.ngd.application.base.biometrics.api.BiometricsImpl.setGrabTimeout(BiometricsImpl.java:1965)
+	Jan 27 12:04:30 127.0.0.1 at com.kronos.ngd.application.base.uiframework.guicontroller.page.HomePage.callBioverifyAPI(HomePage.java:948)
+
+32593(device5_intouch.log)
+	Jan 27 12:04:30 127.0.0.1 Caused by: jpos.JposException: 105
+	Jan 27 12:04:30 127.0.0.1 at com.kronos.ngd.platform.base.framework.service.deviceio.jpos.service.NGDBaseService.verifyState(NGDBaseService.java:339)
+	Jan 27 12:04:30 127.0.0.1 at com.kronos.ngd.platform.base.framework.service.deviceio.jpos.service.BiometricService.directIO(BiometricService.java:493)
+	Jan 27 12:04:30 127.0.0.1 at jpos.BaseJposControl.directIO(Unknown Source)
+	Jan 27 12:04:30 127.0.0.1 at com.kronos.ngd.platform.base.framework.service.deviceio.Biometric.executeWithRetry(Biometric.java:2252)
+	Jan 27 12:04:30 127.0.0.1 at com.kronos.ngd.platform.base.framework.service.deviceio.Biometric.executeAction(Biometric.java:2207)
+
+33013(device5_intouch.log)
+	Jan 27 17:27:52 127.0.0.1 com.kronos.ngd.platform.base.deviceio.api.NGDDeviceIOException: 105
+	Jan 27 17:27:52 127.0.0.1 at com.kronos.ngd.platform.base.framework.service.deviceio.Biometric.executeAction(Biometric.java:2233)
+	Jan 27 17:27:52 127.0.0.1 at com.kronos.ngd.platform.base.framework.service.deviceio.Biometric.setGrabTimeout(Biometric.java:590)
+	Jan 27 17:27:52 127.0.0.1 at com.kronos.ngd.application.base.biometrics.api.BiometricAppServiceImpl.setGrabTimeout(BiometricAppServiceImpl.java:2469)
+	Jan 27 17:27:52 127.0.0.1 at com.kronos.ngd.application.base.biometrics.api.BiometricsImpl.setGrabTimeout(BiometricsImpl.java:1965)
+	Jan 27 17:27:52 127.0.0.1 at com.kronos.ngd.application.base.uiframework.guicontroller.page.HomePage.callBioverifyAPI(HomePage.java:948)
+
+33058(device5_intouch.log)
+	Jan 27 17:27:52 127.0.0.1 Caused by: jpos.JposException: 105
+	Jan 27 17:27:52 127.0.0.1 at com.kronos.ngd.platform.base.framework.service.deviceio.jpos.service.NGDBaseService.verifyState(NGDBaseService.java:339)
+	Jan 27 17:27:52 127.0.0.1 at com.kronos.ngd.platform.base.framework.service.deviceio.jpos.service.BiometricService.directIO(BiometricService.java:493)
+	Jan 27 17:27:52 127.0.0.1 at jpos.BaseJposControl.directIO(Unknown Source)
+	Jan 27 17:27:52 127.0.0.1 at com.kronos.ngd.platform.base.framework.service.deviceio.Biometric.executeWithRetry(Biometric.java:2252)
+	Jan 27 17:27:52 127.0.0.1 at com.kronos.ngd.platform.base.framework.service.deviceio.Biometric.executeAction(Biometric.java:2207)
+
+33288(device5_intouch.log)
+	Jan 27 23:36:33 127.0.0.1 com.kronos.ngd.platform.base.deviceio.api.NGDDeviceIOException: 105
+	Jan 27 23:36:33 127.0.0.1 at com.kronos.ngd.platform.base.framework.service.deviceio.Biometric.executeAction(Biometric.java:2233)
+	Jan 27 23:36:33 127.0.0.1 at com.kronos.ngd.platform.base.framework.service.deviceio.Biometric.setGrabTimeout(Biometric.java:590)
+	Jan 27 23:36:33 127.0.0.1 at com.kronos.ngd.application.base.biometrics.api.BiometricAppServiceImpl.setGrabTimeout(BiometricAppServiceImpl.java:2469)
+	Jan 27 23:36:33 127.0.0.1 at com.kronos.ngd.application.base.biometrics.api.BiometricsImpl.setGrabTimeout(BiometricsImpl.java:1965)
+	Jan 27 23:36:33 127.0.0.1 at com.kronos.ngd.application.base.uiframework.guicontroller.page.HomePage.callBioverifyAPI(HomePage.java:948)
+
+33333(device5_intouch.log)
+	Jan 27 23:36:33 127.0.0.1 Caused by: jpos.JposException: 105
+	Jan 27 23:36:33 127.0.0.1 at com.kronos.ngd.platform.base.framework.service.deviceio.jpos.service.NGDBaseService.verifyState(NGDBaseService.java:339)
+	Jan 27 23:36:33 127.0.0.1 at com.kronos.ngd.platform.base.framework.service.deviceio.jpos.service.BiometricService.directIO(BiometricService.java:493)
+	Jan 27 23:36:33 127.0.0.1 at jpos.BaseJposControl.directIO(Unknown Source)
+	Jan 27 23:36:33 127.0.0.1 at com.kronos.ngd.platform.base.framework.service.deviceio.Biometric.executeWithRetry(Biometric.java:2252)
+	Jan 27 23:36:33 127.0.0.1 at com.kronos.ngd.platform.base.framework.service.deviceio.Biometric.executeAction(Biometric.java:2207)
+
+33343(device5_intouch.log)
+	Jan 27 23:36:47 127.0.0.1 com.kronos.ngd.application.base.biometrics.api.NGDBiometricAppException: Error verifying biometric template.
+	Jan 27 23:36:47 127.0.0.1 at com.kronos.ngd.application.base.biometrics.api.BiometricAppServiceImpl.verifyHomeEmployee(BiometricAppServiceImpl.java:3039)
+	Jan 27 23:36:47 127.0.0.1 at com.kronos.ngd.application.base.biometrics.api.BiometricAppServiceImpl.verifyEmployee(BiometricAppServiceImpl.java:2883)
+	Jan 27 23:36:47 127.0.0.1 at com.kronos.ngd.application.base.biometrics.api.BiometricsImpl.doVerify(BiometricsImpl.java:194)
+	Jan 27 23:36:47 127.0.0.1 at com.kronos.ngd.application.base.uiframework.guicontroller.page.HomePage.callBioverifyAPI(HomePage.java:949)
+	Jan 27 23:36:47 127.0.0.1 at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+
+33387(device5_intouch.log)
+	Jan 27 23:36:47 127.0.0.1 Caused by: com.kronos.ngd.platform.base.deviceio.api.NGDDeviceIOException: 70033, 70083
+	Jan 27 23:36:47 127.0.0.1 at com.kronos.ngd.platform.base.framework.service.deviceio.Biometric.executeAction(Biometric.java:2233)
+	Jan 27 23:36:47 127.0.0.1 at com.kronos.ngd.platform.base.framework.service.deviceio.Biometric.biometricVerifyID(Biometric.java:1422)
+	Jan 27 23:36:47 127.0.0.1 at com.kronos.ngd.application.base.biometrics.api.BiometricAppServiceImpl.verifyHomeEmployee(BiometricAppServiceImpl.java:3018)
+	Jan 27 23:36:47 127.0.0.1 ... 42 more
+
+33392(device5_intouch.log)
+	Jan 27 23:36:47 127.0.0.1 Caused by: jpos.JposException: 70033, 70083
+
+34832(device5_intouch.log)
+	Jan 29 16:00:58 127.0.0.1 com.kronos.ngd.platform.base.deviceio.api.NGDDeviceIOException: 105
+	Jan 29 16:00:58 127.0.0.1 at com.kronos.ngd.platform.base.framework.service.deviceio.Biometric.executeAction(Biometric.java:2233)
+	Jan 29 16:00:58 127.0.0.1 at com.kronos.ngd.platform.base.framework.service.deviceio.Biometric.setGrabTimeout(Biometric.java:590)
+	Jan 29 16:00:58 127.0.0.1 at com.kronos.ngd.application.base.biometrics.api.BiometricAppServiceImpl.setGrabTimeout(BiometricAppServiceImpl.java:2469)
+	Jan 29 16:00:58 127.0.0.1 at com.kronos.ngd.application.base.biometrics.api.BiometricsImpl.setGrabTimeout(BiometricsImpl.java:1965)
+	Jan 29 16:00:58 127.0.0.1 at com.kronos.ngd.application.base.uiframework.guicontroller.page.HomePage.callBioverifyAPI(HomePage.java:948)
+
+34877(device5_intouch.log)
+	Jan 29 16:00:58 127.0.0.1 Caused by: jpos.JposException: 105
+	Jan 29 16:00:58 127.0.0.1 at com.kronos.ngd.platform.base.framework.service.deviceio.jpos.service.NGDBaseService.verifyState(NGDBaseService.java:339)
+	Jan 29 16:00:58 127.0.0.1 at com.kronos.ngd.platform.base.framework.service.deviceio.jpos.service.BiometricService.directIO(BiometricService.java:493)
+	Jan 29 16:00:58 127.0.0.1 at jpos.BaseJposControl.directIO(Unknown Source)
+	Jan 29 16:00:58 127.0.0.1 at com.kronos.ngd.platform.base.framework.service.deviceio.Biometric.executeWithRetry(Biometric.java:2252)
+	Jan 29 16:00:58 127.0.0.1 at com.kronos.ngd.platform.base.framework.service.deviceio.Biometric.executeAction(Biometric.java:2207)
+
+34919(device5_intouch.log)
+	Jan 29 16:21:33 127.0.0.1 com.kronos.ngd.platform.base.deviceio.api.NGDDeviceIOException: 105
+	Jan 29 16:21:33 127.0.0.1 at com.kronos.ngd.platform.base.framework.service.deviceio.Biometric.executeAction(Biometric.java:2233)
+	Jan 29 16:21:33 127.0.0.1 at com.kronos.ngd.platform.base.framework.service.deviceio.Biometric.setGrabTimeout(Biometric.java:590)
+	Jan 29 16:21:33 127.0.0.1 at com.kronos.ngd.application.base.biometrics.api.BiometricAppServiceImpl.setGrabTimeout(BiometricAppServiceImpl.java:2469)
+	Jan 29 16:21:33 127.0.0.1 at com.kronos.ngd.application.base.biometrics.api.BiometricsImpl.setGrabTimeout(BiometricsImpl.java:1965)
+	Jan 29 16:21:33 127.0.0.1 at com.kronos.ngd.application.base.uiframework.guicontroller.page.HomePage.callBioverifyAPI(HomePage.java:948)
+
+34964(device5_intouch.log)
+	Jan 29 16:21:33 127.0.0.1 Caused by: jpos.JposException: 105
+	Jan 29 16:21:33 127.0.0.1 at com.kronos.ngd.platform.base.framework.service.deviceio.jpos.service.NGDBaseService.verifyState(NGDBaseService.java:339)
+	Jan 29 16:21:33 127.0.0.1 at com.kronos.ngd.platform.base.framework.service.deviceio.jpos.service.BiometricService.directIO(BiometricService.java:493)
+	Jan 29 16:21:33 127.0.0.1 at jpos.BaseJposControl.directIO(Unknown Source)
+	Jan 29 16:21:33 127.0.0.1 at com.kronos.ngd.platform.base.framework.service.deviceio.Biometric.executeWithRetry(Biometric.java:2252)
+	Jan 29 16:21:33 127.0.0.1 at com.kronos.ngd.platform.base.framework.service.deviceio.Biometric.executeAction(Biometric.java:2207)
+
+35113(device5_intouch.log)
+	Jan 29 17:00:55 127.0.0.1 com.kronos.ngd.platform.base.deviceio.api.NGDDeviceIOException: 105
+	Jan 29 17:00:55 127.0.0.1 at com.kronos.ngd.platform.base.framework.service.deviceio.Biometric.executeAction(Biometric.java:2233)
+	Jan 29 17:00:55 127.0.0.1 at com.kronos.ngd.platform.base.framework.service.deviceio.Biometric.setGrabTimeout(Biometric.java:590)
+	Jan 29 17:00:55 127.0.0.1 at com.kronos.ngd.application.base.biometrics.api.BiometricAppServiceImpl.setGrabTimeout(BiometricAppServiceImpl.java:2469)
+	Jan 29 17:00:55 127.0.0.1 at com.kronos.ngd.application.base.biometrics.api.BiometricsImpl.setGrabTimeout(BiometricsImpl.java:1965)
+	Jan 29 17:00:55 127.0.0.1 at com.kronos.ngd.application.base.uiframework.guicontroller.page.HomePage.callBioverifyAPI(HomePage.java:948)
+
+35158(device5_intouch.log)
+	Jan 29 17:00:55 127.0.0.1 Caused by: jpos.JposException: 105
+	Jan 29 17:00:55 127.0.0.1 at com.kronos.ngd.platform.base.framework.service.deviceio.jpos.service.NGDBaseService.verifyState(NGDBaseService.java:339)
+	Jan 29 17:00:55 127.0.0.1 at com.kronos.ngd.platform.base.framework.service.deviceio.jpos.service.BiometricService.directIO(BiometricService.java:493)
+	Jan 29 17:00:55 127.0.0.1 at jpos.BaseJposControl.directIO(Unknown Source)
+	Jan 29 17:00:55 127.0.0.1 at com.kronos.ngd.platform.base.framework.service.deviceio.Biometric.executeWithRetry(Biometric.java:2252)
+	Jan 29 17:00:55 127.0.0.1 at com.kronos.ngd.platform.base.framework.service.deviceio.Biometric.executeAction(Biometric.java:2207)
+
+35227(device5_intouch.log)
+	Jan 29 17:24:06 127.0.0.1 com.kronos.ngd.platform.base.deviceio.api.NGDDeviceIOException: 105
+	Jan 29 17:24:06 127.0.0.1 at com.kronos.ngd.platform.base.framework.service.deviceio.Biometric.executeAction(Biometric.java:2233)
+	Jan 29 17:24:06 127.0.0.1 at com.kronos.ngd.platform.base.framework.service.deviceio.Biometric.setGrabTimeout(Biometric.java:590)
+	Jan 29 17:24:06 127.0.0.1 at com.kronos.ngd.application.base.biometrics.api.BiometricAppServiceImpl.setGrabTimeout(BiometricAppServiceImpl.java:2469)
+	Jan 29 17:24:06 127.0.0.1 at com.kronos.ngd.application.base.biometrics.api.BiometricsImpl.setGrabTimeout(BiometricsImpl.java:1965)
+	Jan 29 17:24:06 127.0.0.1 at com.kronos.ngd.application.base.uiframework.guicontroller.page.HomePage.callBioverifyAPI(HomePage.java:948)
+
+35272(device5_intouch.log)
+	Jan 29 17:24:06 127.0.0.1 Caused by: jpos.JposException: 105
+	Jan 29 17:24:06 127.0.0.1 at com.kronos.ngd.platform.base.framework.service.deviceio.jpos.service.NGDBaseService.verifyState(NGDBaseService.java:339)
+	Jan 29 17:24:06 127.0.0.1 at com.kronos.ngd.platform.base.framework.service.deviceio.jpos.service.BiometricService.directIO(BiometricService.java:493)
+	Jan 29 17:24:06 127.0.0.1 at jpos.BaseJposControl.directIO(Unknown Source)
+	Jan 29 17:24:06 127.0.0.1 at com.kronos.ngd.platform.base.framework.service.deviceio.Biometric.executeWithRetry(Biometric.java:2252)
+	Jan 29 17:24:06 127.0.0.1 at com.kronos.ngd.platform.base.framework.service.deviceio.Biometric.executeAction(Biometric.java:2207)
+
+35313(device5_intouch.log)
+	Jan 29 17:28:03 127.0.0.1 com.kronos.ngd.platform.base.deviceio.api.NGDDeviceIOException: 105
+	Jan 29 17:28:03 127.0.0.1 at com.kronos.ngd.platform.base.framework.service.deviceio.Biometric.executeAction(Biometric.java:2233)
+	Jan 29 17:28:03 127.0.0.1 at com.kronos.ngd.platform.base.framework.service.deviceio.Biometric.setGrabTimeout(Biometric.java:590)
+	Jan 29 17:28:03 127.0.0.1 at com.kronos.ngd.application.base.biometrics.api.BiometricAppServiceImpl.setGrabTimeout(BiometricAppServiceImpl.java:2469)
+	Jan 29 17:28:03 127.0.0.1 at com.kronos.ngd.application.base.biometrics.api.BiometricsImpl.setGrabTimeout(BiometricsImpl.java:1965)
+	Jan 29 17:28:03 127.0.0.1 at com.kronos.ngd.application.base.uiframework.guicontroller.page.HomePage.callBioverifyAPI(HomePage.java:948)
+
+35358(device5_intouch.log)
+	Jan 29 17:28:03 127.0.0.1 Caused by: jpos.JposException: 105
+	Jan 29 17:28:03 127.0.0.1 at com.kronos.ngd.platform.base.framework.service.deviceio.jpos.service.NGDBaseService.verifyState(NGDBaseService.java:339)
+	Jan 29 17:28:03 127.0.0.1 at com.kronos.ngd.platform.base.framework.service.deviceio.jpos.service.BiometricService.directIO(BiometricService.java:493)
+	Jan 29 17:28:03 127.0.0.1 at jpos.BaseJposControl.directIO(Unknown Source)
+	Jan 29 17:28:03 127.0.0.1 at com.kronos.ngd.platform.base.framework.service.deviceio.Biometric.executeWithRetry(Biometric.java:2252)
+	Jan 29 17:28:03 127.0.0.1 at com.kronos.ngd.platform.base.framework.service.deviceio.Biometric.executeAction(Biometric.java:2207)
+
+35461(device5_intouch.log)
+	Jan 29 18:02:15 127.0.0.1 com.kronos.ngd.platform.base.deviceio.api.NGDDeviceIOException: 105
+	Jan 29 18:02:15 127.0.0.1 at com.kronos.ngd.platform.base.framework.service.deviceio.Biometric.executeAction(Biometric.java:2233)
+	Jan 29 18:02:15 127.0.0.1 at com.kronos.ngd.platform.base.framework.service.deviceio.Biometric.setGrabTimeout(Biometric.java:590)
+	Jan 29 18:02:15 127.0.0.1 at com.kronos.ngd.application.base.biometrics.api.BiometricAppServiceImpl.setGrabTimeout(BiometricAppServiceImpl.java:2469)
+	Jan 29 18:02:15 127.0.0.1 at com.kronos.ngd.application.base.biometrics.api.BiometricsImpl.setGrabTimeout(BiometricsImpl.java:1965)
+	Jan 29 18:02:15 127.0.0.1 at com.kronos.ngd.application.base.uiframework.guicontroller.page.HomePage.callBioverifyAPI(HomePage.java:948)
+
+35506(device5_intouch.log)
+	Jan 29 18:02:15 127.0.0.1 Caused by: jpos.JposException: 105
+	Jan 29 18:02:15 127.0.0.1 at com.kronos.ngd.platform.base.framework.service.deviceio.jpos.service.NGDBaseService.verifyState(NGDBaseService.java:339)
+	Jan 29 18:02:15 127.0.0.1 at com.kronos.ngd.platform.base.framework.service.deviceio.jpos.service.BiometricService.directIO(BiometricService.java:493)
+	Jan 29 18:02:15 127.0.0.1 at jpos.BaseJposControl.directIO(Unknown Source)
+	Jan 29 18:02:15 127.0.0.1 at com.kronos.ngd.platform.base.framework.service.deviceio.Biometric.executeWithRetry(Biometric.java:2252)
+	Jan 29 18:02:15 127.0.0.1 at com.kronos.ngd.platform.base.framework.service.deviceio.Biometric.executeAction(Biometric.java:2207)
+
+35517(device5_intouch.log)
+	Jan 29 18:02:27 127.0.0.1 com.kronos.ngd.platform.base.deviceio.api.NGDDeviceIOException: 105
+	Jan 29 18:02:27 127.0.0.1 at com.kronos.ngd.platform.base.framework.service.deviceio.Biometric.executeAction(Biometric.java:2233)
+	Jan 29 18:02:27 127.0.0.1 at com.kronos.ngd.platform.base.framework.service.deviceio.Biometric.setGrabTimeout(Biometric.java:590)
+	Jan 29 18:02:27 127.0.0.1 at com.kronos.ngd.application.base.biometrics.api.BiometricAppServiceImpl.setGrabTimeout(BiometricAppServiceImpl.java:2469)
+	Jan 29 18:02:27 127.0.0.1 at com.kronos.ngd.application.base.biometrics.api.BiometricsImpl.setGrabTimeout(BiometricsImpl.java:1965)
+	Jan 29 18:02:27 127.0.0.1 at com.kronos.ngd.application.base.uiframework.guicontroller.page.HomePage.callBioverifyAPI(HomePage.java:948)
+
+35562(device5_intouch.log)
+	Jan 29 18:02:27 127.0.0.1 Caused by: jpos.JposException: 105
+	Jan 29 18:02:27 127.0.0.1 at com.kronos.ngd.platform.base.framework.service.deviceio.jpos.service.NGDBaseService.verifyState(NGDBaseService.java:339)
+	Jan 29 18:02:27 127.0.0.1 at com.kronos.ngd.platform.base.framework.service.deviceio.jpos.service.BiometricService.directIO(BiometricService.java:493)
+	Jan 29 18:02:27 127.0.0.1 at jpos.BaseJposControl.directIO(Unknown Source)
+	Jan 29 18:02:27 127.0.0.1 at com.kronos.ngd.platform.base.framework.service.deviceio.Biometric.executeWithRetry(Biometric.java:2252)
+	Jan 29 18:02:27 127.0.0.1 at com.kronos.ngd.platform.base.framework.service.deviceio.Biometric.executeAction(Biometric.java:2207)
+
+35576(device5_intouch.log)
+	Jan 29 18:02:46 127.0.0.1 com.kronos.ngd.platform.base.deviceio.api.NGDDeviceIOException: 105
+	Jan 29 18:02:46 127.0.0.1 at com.kronos.ngd.platform.base.framework.service.deviceio.Biometric.executeAction(Biometric.java:2233)
+	Jan 29 18:02:46 127.0.0.1 at com.kronos.ngd.platform.base.framework.service.deviceio.Biometric.setGrabTimeout(Biometric.java:590)
+	Jan 29 18:02:46 127.0.0.1 at com.kronos.ngd.application.base.biometrics.api.BiometricAppServiceImpl.setGrabTimeout(BiometricAppServiceImpl.java:2469)
+	Jan 29 18:02:46 127.0.0.1 at com.kronos.ngd.application.base.biometrics.api.BiometricsImpl.setGrabTimeout(BiometricsImpl.java:1965)
+	Jan 29 18:02:46 127.0.0.1 at com.kronos.ngd.application.base.uiframework.guicontroller.page.HomePage.callBioverifyAPI(HomePage.java:948)
+
+35621(device5_intouch.log)
+	Jan 29 18:02:46 127.0.0.1 Caused by: jpos.JposException: 105
+	Jan 29 18:02:46 127.0.0.1 at com.kronos.ngd.platform.base.framework.service.deviceio.jpos.service.NGDBaseService.verifyState(NGDBaseService.java:339)
+	Jan 29 18:02:46 127.0.0.1 at com.kronos.ngd.platform.base.framework.service.deviceio.jpos.service.BiometricService.directIO(BiometricService.java:493)
+	Jan 29 18:02:46 127.0.0.1 at jpos.BaseJposControl.directIO(Unknown Source)
+	Jan 29 18:02:46 127.0.0.1 at com.kronos.ngd.platform.base.framework.service.deviceio.Biometric.executeWithRetry(Biometric.java:2252)
+	Jan 29 18:02:46 127.0.0.1 at com.kronos.ngd.platform.base.framework.service.deviceio.Biometric.executeAction(Biometric.java:2207)
+
+35701(device5_intouch.log)
+	Jan 29 18:06:39 127.0.0.1 com.kronos.ngd.platform.base.deviceio.api.NGDDeviceIOException: 105
+	Jan 29 18:06:39 127.0.0.1 at com.kronos.ngd.platform.base.framework.service.deviceio.Biometric.executeAction(Biometric.java:2233)
+	Jan 29 18:06:39 127.0.0.1 at com.kronos.ngd.platform.base.framework.service.deviceio.Biometric.setGrabTimeout(Biometric.java:590)
+	Jan 29 18:06:39 127.0.0.1 at com.kronos.ngd.application.base.biometrics.api.BiometricAppServiceImpl.setGrabTimeout(BiometricAppServiceImpl.java:2469)
+	Jan 29 18:06:39 127.0.0.1 at com.kronos.ngd.application.base.biometrics.api.BiometricsImpl.setGrabTimeout(BiometricsImpl.java:1965)
+	Jan 29 18:06:39 127.0.0.1 at com.kronos.ngd.application.base.uiframework.guicontroller.page.HomePage.callBioverifyAPI(HomePage.java:948)
+
+35746(device5_intouch.log)
+	Jan 29 18:06:39 127.0.0.1 Caused by: jpos.JposException: 105
+	Jan 29 18:06:39 127.0.0.1 at com.kronos.ngd.platform.base.framework.service.deviceio.jpos.service.NGDBaseService.verifyState(NGDBaseService.java:339)
+	Jan 29 18:06:39 127.0.0.1 at com.kronos.ngd.platform.base.framework.service.deviceio.jpos.service.BiometricService.directIO(BiometricService.java:493)
+	Jan 29 18:06:39 127.0.0.1 at jpos.BaseJposControl.directIO(Unknown Source)
+	Jan 29 18:06:39 127.0.0.1 at com.kronos.ngd.platform.base.framework.service.deviceio.Biometric.executeWithRetry(Biometric.java:2252)
+	Jan 29 18:06:39 127.0.0.1 at com.kronos.ngd.platform.base.framework.service.deviceio.Biometric.executeAction(Biometric.java:2207)
+
+36362(device5_intouch.log)
+	Jan 29 21:35:08 127.0.0.1 com.kronos.ngd.application.base.biometrics.api.NGDBiometricAppException: Error verifying biometric template.
+	Jan 29 21:35:08 127.0.0.1 at com.kronos.ngd.application.base.biometrics.api.BiometricAppServiceImpl.verifyHomeEmployee(BiometricAppServiceImpl.java:3039)
+	Jan 29 21:35:08 127.0.0.1 at com.kronos.ngd.application.base.biometrics.api.BiometricAppServiceImpl.verifyEmployee(BiometricAppServiceImpl.java:2883)
+	Jan 29 21:35:08 127.0.0.1 at com.kronos.ngd.application.base.biometrics.api.BiometricsImpl.doVerify(BiometricsImpl.java:194)
+	Jan 29 21:35:08 127.0.0.1 at com.kronos.ngd.application.base.uiframework.guicontroller.page.HomePage.callBioverifyAPI(HomePage.java:949)
+	Jan 29 21:35:08 127.0.0.1 at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+
+36406(device5_intouch.log)
+	Jan 29 21:35:08 127.0.0.1 Caused by: com.kronos.ngd.platform.base.deviceio.api.NGDDeviceIOException: 70033, 70083
+	Jan 29 21:35:08 127.0.0.1 at com.kronos.ngd.platform.base.framework.service.deviceio.Biometric.executeAction(Biometric.java:2233)
+	Jan 29 21:35:08 127.0.0.1 at com.kronos.ngd.platform.base.framework.service.deviceio.Biometric.biometricVerifyID(Biometric.java:1422)
+	Jan 29 21:35:08 127.0.0.1 at com.kronos.ngd.application.base.biometrics.api.BiometricAppServiceImpl.verifyHomeEmployee(BiometricAppServiceImpl.java:3018)
+	Jan 29 21:35:08 127.0.0.1 ... 42 more
+
+36411(device5_intouch.log)
+	Jan 29 21:35:08 127.0.0.1 Caused by: jpos.JposException: 70033, 70083
+
+36480(device5_intouch.log)
+	Jan 29 22:04:15 127.0.0.1 com.kronos.ngd.application.base.biometrics.api.NGDBiometricAppException: Error verifying biometric template.
+	Jan 29 22:04:15 127.0.0.1 at com.kronos.ngd.application.base.biometrics.api.BiometricAppServiceImpl.verifyHomeEmployee(BiometricAppServiceImpl.java:3039)
+	Jan 29 22:04:15 127.0.0.1 at com.kronos.ngd.application.base.biometrics.api.BiometricAppServiceImpl.verifyEmployee(BiometricAppServiceImpl.java:2883)
+	Jan 29 22:04:15 127.0.0.1 at com.kronos.ngd.application.base.biometrics.api.BiometricsImpl.doVerify(BiometricsImpl.java:194)
+	Jan 29 22:04:15 127.0.0.1 at com.kronos.ngd.application.base.uiframework.guicontroller.page.HomePage.callBioverifyAPI(HomePage.java:949)
+	Jan 29 22:04:15 127.0.0.1 at sun.reflect.GeneratedMethodAccessor72.invoke(Unknown Source)
+
+36523(device5_intouch.log)
+	Jan 29 22:04:15 127.0.0.1 Caused by: com.kronos.ngd.platform.base.deviceio.api.NGDDeviceIOException: 70033, 70083
+	Jan 29 22:04:15 127.0.0.1 at com.kronos.ngd.platform.base.framework.service.deviceio.Biometric.executeAction(Biometric.java:2233)
+	Jan 29 22:04:15 127.0.0.1 at com.kronos.ngd.platform.base.framework.service.deviceio.Biometric.biometricVerifyID(Biometric.java:1422)
+	Jan 29 22:04:15 127.0.0.1 at com.kronos.ngd.application.base.biometrics.api.BiometricAppServiceImpl.verifyHomeEmployee(BiometricAppServiceImpl.java:3018)
+	Jan 29 22:04:15 127.0.0.1 ... 41 more
+
+36528(device5_intouch.log)
+	Jan 29 22:04:15 127.0.0.1 Caused by: jpos.JposException: 70033, 70083
+
+38483(device5_intouch.log)
+	Jan 31 17:04:17 127.0.0.1 com.kronos.ngd.platform.base.deviceio.api.NGDDeviceIOException: 105
+	Jan 31 17:04:17 127.0.0.1 at com.kronos.ngd.platform.base.framework.service.deviceio.Biometric.executeAction(Biometric.java:2233)
+	Jan 31 17:04:17 127.0.0.1 at com.kronos.ngd.platform.base.framework.service.deviceio.Biometric.setGrabTimeout(Biometric.java:590)
+	Jan 31 17:04:17 127.0.0.1 at com.kronos.ngd.application.base.biometrics.api.BiometricAppServiceImpl.setGrabTimeout(BiometricAppServiceImpl.java:2469)
+	Jan 31 17:04:17 127.0.0.1 at com.kronos.ngd.application.base.biometrics.api.BiometricsImpl.setGrabTimeout(BiometricsImpl.java:1965)
+	Jan 31 17:04:17 127.0.0.1 at com.kronos.ngd.application.base.uiframework.guicontroller.page.HomePage.callBioverifyAPI(HomePage.java:948)
+
+38528(device5_intouch.log)
+	Jan 31 17:04:17 127.0.0.1 Caused by: jpos.JposException: 105
+	Jan 31 17:04:17 127.0.0.1 at com.kronos.ngd.platform.base.framework.service.deviceio.jpos.service.NGDBaseService.verifyState(NGDBaseService.java:339)
+	Jan 31 17:04:17 127.0.0.1 at com.kronos.ngd.platform.base.framework.service.deviceio.jpos.service.BiometricService.directIO(BiometricService.java:493)
+	Jan 31 17:04:17 127.0.0.1 at jpos.BaseJposControl.directIO(Unknown Source)
+	Jan 31 17:04:17 127.0.0.1 at com.kronos.ngd.platform.base.framework.service.deviceio.Biometric.executeWithRetry(Biometric.java:2252)
+	Jan 31 17:04:17 127.0.0.1 at com.kronos.ngd.platform.base.framework.service.deviceio.Biometric.executeAction(Biometric.java:2207)
+
+38538(device5_intouch.log)
+	Jan 31 17:04:32 127.0.0.1 com.kronos.ngd.application.base.biometrics.api.NGDBiometricAppException: Error verifying biometric template.
+	Jan 31 17:04:32 127.0.0.1 at com.kronos.ngd.application.base.biometrics.api.BiometricAppServiceImpl.verifyHomeEmployee(BiometricAppServiceImpl.java:3039)
+	Jan 31 17:04:32 127.0.0.1 at com.kronos.ngd.application.base.biometrics.api.BiometricAppServiceImpl.verifyEmployee(BiometricAppServiceImpl.java:2883)
+	Jan 31 17:04:32 127.0.0.1 at com.kronos.ngd.application.base.biometrics.api.BiometricsImpl.doVerify(BiometricsImpl.java:194)
+	Jan 31 17:04:32 127.0.0.1 at com.kronos.ngd.application.base.uiframework.guicontroller.page.HomePage.callBioverifyAPI(HomePage.java:949)
+	Jan 31 17:04:32 127.0.0.1 at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+
+38582(device5_intouch.log)
+	Jan 31 17:04:32 127.0.0.1 Caused by: com.kronos.ngd.platform.base.deviceio.api.NGDDeviceIOException: 70033, 70083
+	Jan 31 17:04:32 127.0.0.1 at com.kronos.ngd.platform.base.framework.service.deviceio.Biometric.executeAction(Biometric.java:2233)
+	Jan 31 17:04:32 127.0.0.1 at com.kronos.ngd.platform.base.framework.service.deviceio.Biometric.biometricVerifyID(Biometric.java:1422)
+	Jan 31 17:04:32 127.0.0.1 at com.kronos.ngd.application.base.biometrics.api.BiometricAppServiceImpl.verifyHomeEmployee(BiometricAppServiceImpl.java:3018)
+	Jan 31 17:04:32 127.0.0.1 ... 42 more
+
+38587(device5_intouch.log)
+	Jan 31 17:04:32 127.0.0.1 Caused by: jpos.JposException: 70033, 70083
+
+39314(device5_intouch.log)
+	Feb  1 15:03:05 127.0.0.1 com.kronos.ngd.platform.base.deviceio.api.NGDDeviceIOException: 105
+	Feb  1 15:03:05 127.0.0.1 at com.kronos.ngd.platform.base.framework.service.deviceio.Biometric.executeAction(Biometric.java:2233)
+	Feb  1 15:03:05 127.0.0.1 at com.kronos.ngd.platform.base.framework.service.deviceio.Biometric.setGrabTimeout(Biometric.java:590)
+	Feb  1 15:03:05 127.0.0.1 at com.kronos.ngd.application.base.biometrics.api.BiometricAppServiceImpl.setGrabTimeout(BiometricAppServiceImpl.java:2469)
+	Feb  1 15:03:05 127.0.0.1 at com.kronos.ngd.application.base.biometrics.api.BiometricsImpl.setGrabTimeout(BiometricsImpl.java:1965)
+	Feb  1 15:03:05 127.0.0.1 at com.kronos.ngd.application.base.uiframework.guicontroller.page.HomePage.callBioverifyAPI(HomePage.java:948)
+
+39359(device5_intouch.log)
+	Feb  1 15:03:05 127.0.0.1 Caused by: jpos.JposException: 105
+	Feb  1 15:03:05 127.0.0.1 at com.kronos.ngd.platform.base.framework.service.deviceio.jpos.service.NGDBaseService.verifyState(NGDBaseService.java:339)
+	Feb  1 15:03:05 127.0.0.1 at com.kronos.ngd.platform.base.framework.service.deviceio.jpos.service.BiometricService.directIO(BiometricService.java:493)
+	Feb  1 15:03:05 127.0.0.1 at jpos.BaseJposControl.directIO(Unknown Source)
+	Feb  1 15:03:05 127.0.0.1 at com.kronos.ngd.platform.base.framework.service.deviceio.Biometric.executeWithRetry(Biometric.java:2252)
+	Feb  1 15:03:05 127.0.0.1 at com.kronos.ngd.platform.base.framework.service.deviceio.Biometric.executeAction(Biometric.java:2207)
+
+39623(device5_intouch.log)
+	Feb  1 19:49:25 127.0.0.1 com.kronos.ngd.platform.base.deviceio.api.NGDDeviceIOException: 105
+	Feb  1 19:49:25 127.0.0.1 at com.kronos.ngd.platform.base.framework.service.deviceio.Biometric.executeAction(Biometric.java:2233)
+	Feb  1 19:49:25 127.0.0.1 at com.kronos.ngd.platform.base.framework.service.deviceio.Biometric.setGrabTimeout(Biometric.java:590)
+	Feb  1 19:49:25 127.0.0.1 at com.kronos.ngd.application.base.biometrics.api.BiometricAppServiceImpl.setGrabTimeout(BiometricAppServiceImpl.java:2469)
+	Feb  1 19:49:25 127.0.0.1 at com.kronos.ngd.application.base.biometrics.api.BiometricsImpl.setGrabTimeout(BiometricsImpl.java:1965)
+	Feb  1 19:49:25 127.0.0.1 at com.kronos.ngd.application.base.uiframework.guicontroller.page.HomePage.callBioverifyAPI(HomePage.java:948)
+
+39668(device5_intouch.log)
+	Feb  1 19:49:25 127.0.0.1 Caused by: jpos.JposException: 105
+	Feb  1 19:49:25 127.0.0.1 at com.kronos.ngd.platform.base.framework.service.deviceio.jpos.service.NGDBaseService.verifyState(NGDBaseService.java:339)
+	Feb  1 19:49:25 127.0.0.1 at com.kronos.ngd.platform.base.framework.service.deviceio.jpos.service.BiometricService.directIO(BiometricService.java:493)
+	Feb  1 19:49:25 127.0.0.1 at jpos.BaseJposControl.directIO(Unknown Source)
+	Feb  1 19:49:25 127.0.0.1 at com.kronos.ngd.platform.base.framework.service.deviceio.Biometric.executeWithRetry(Biometric.java:2252)
+	Feb  1 19:49:25 127.0.0.1 at com.kronos.ngd.platform.base.framework.service.deviceio.Biometric.executeAction(Biometric.java:2207)
+
+39692(device5_intouch.log)
+	Feb  1 20:00:26 127.0.0.1 com.kronos.ngd.platform.base.deviceio.api.NGDDeviceIOException: 105
+	Feb  1 20:00:26 127.0.0.1 at com.kronos.ngd.platform.base.framework.service.deviceio.Biometric.executeAction(Biometric.java:2233)
+	Feb  1 20:00:26 127.0.0.1 at com.kronos.ngd.platform.base.framework.service.deviceio.Biometric.setGrabTimeout(Biometric.java:590)
+	Feb  1 20:00:26 127.0.0.1 at com.kronos.ngd.application.base.biometrics.api.BiometricAppServiceImpl.setGrabTimeout(BiometricAppServiceImpl.java:2469)
+	Feb  1 20:00:26 127.0.0.1 at com.kronos.ngd.application.base.biometrics.api.BiometricsImpl.setGrabTimeout(BiometricsImpl.java:1965)
+	Feb  1 20:00:26 127.0.0.1 at com.kronos.ngd.application.base.uiframework.guicontroller.page.HomePage.callBioverifyAPI(HomePage.java:948)
+
+39737(device5_intouch.log)
+	Feb  1 20:00:26 127.0.0.1 Caused by: jpos.JposException: 105
+	Feb  1 20:00:26 127.0.0.1 at com.kronos.ngd.platform.base.framework.service.deviceio.jpos.service.NGDBaseService.verifyState(NGDBaseService.java:339)
+	Feb  1 20:00:26 127.0.0.1 at com.kronos.ngd.platform.base.framework.service.deviceio.jpos.service.BiometricService.directIO(BiometricService.java:493)
+	Feb  1 20:00:26 127.0.0.1 at jpos.BaseJposControl.directIO(Unknown Source)
+	Feb  1 20:00:26 127.0.0.1 at com.kronos.ngd.platform.base.framework.service.deviceio.Biometric.executeWithRetry(Biometric.java:2252)
+	Feb  1 20:00:26 127.0.0.1 at com.kronos.ngd.platform.base.framework.service.deviceio.Biometric.executeAction(Biometric.java:2207)
+
+39828(device5_intouch.log)
+	Feb  1 21:04:10 127.0.0.1 com.kronos.ngd.platform.base.deviceio.api.NGDDeviceIOException: 105
+	Feb  1 21:04:10 127.0.0.1 at com.kronos.ngd.platform.base.framework.service.deviceio.Biometric.executeAction(Biometric.java:2233)
+	Feb  1 21:04:10 127.0.0.1 at com.kronos.ngd.platform.base.framework.service.deviceio.Biometric.setGrabTimeout(Biometric.java:590)
+	Feb  1 21:04:10 127.0.0.1 at com.kronos.ngd.application.base.biometrics.api.BiometricAppServiceImpl.setGrabTimeout(BiometricAppServiceImpl.java:2469)
+	Feb  1 21:04:10 127.0.0.1 at com.kronos.ngd.application.base.biometrics.api.BiometricsImpl.setGrabTimeout(BiometricsImpl.java:1965)
+	Feb  1 21:04:10 127.0.0.1 at com.kronos.ngd.application.base.uiframework.guicontroller.page.HomePage.callBioverifyAPI(HomePage.java:948)
+
+39873(device5_intouch.log)
+	Feb  1 21:04:10 127.0.0.1 Caused by: jpos.JposException: 105
+	Feb  1 21:04:10 127.0.0.1 at com.kronos.ngd.platform.base.framework.service.deviceio.jpos.service.NGDBaseService.verifyState(NGDBaseService.java:339)
+	Feb  1 21:04:10 127.0.0.1 at com.kronos.ngd.platform.base.framework.service.deviceio.jpos.service.BiometricService.directIO(BiometricService.java:493)
+	Feb  1 21:04:10 127.0.0.1 at jpos.BaseJposControl.directIO(Unknown Source)
+	Feb  1 21:04:10 127.0.0.1 at com.kronos.ngd.platform.base.framework.service.deviceio.Biometric.executeWithRetry(Biometric.java:2252)
+	Feb  1 21:04:10 127.0.0.1 at com.kronos.ngd.platform.base.framework.service.deviceio.Biometric.executeAction(Biometric.java:2207)
+
+40014(device5_intouch.log)
+	Feb  1 23:36:55 127.0.0.1 com.kronos.ngd.platform.base.deviceio.api.NGDDeviceIOException: 105
+	Feb  1 23:36:55 127.0.0.1 at com.kronos.ngd.platform.base.framework.service.deviceio.Biometric.executeAction(Biometric.java:2233)
+	Feb  1 23:36:55 127.0.0.1 at com.kronos.ngd.platform.base.framework.service.deviceio.Biometric.setGrabTimeout(Biometric.java:590)
+	Feb  1 23:36:55 127.0.0.1 at com.kronos.ngd.application.base.biometrics.api.BiometricAppServiceImpl.setGrabTimeout(BiometricAppServiceImpl.java:2469)
+	Feb  1 23:36:55 127.0.0.1 at com.kronos.ngd.application.base.biometrics.api.BiometricsImpl.setGrabTimeout(BiometricsImpl.java:1965)
+	Feb  1 23:36:55 127.0.0.1 at com.kronos.ngd.application.base.uiframework.guicontroller.page.HomePage.callBioverifyAPI(HomePage.java:948)
+
+40059(device5_intouch.log)
+	Feb  1 23:36:55 127.0.0.1 Caused by: jpos.JposException: 105
+	Feb  1 23:36:55 127.0.0.1 at com.kronos.ngd.platform.base.framework.service.deviceio.jpos.service.NGDBaseService.verifyState(NGDBaseService.java:339)
+	Feb  1 23:36:55 127.0.0.1 at com.kronos.ngd.platform.base.framework.service.deviceio.jpos.service.BiometricService.directIO(BiometricService.java:493)
+	Feb  1 23:36:55 127.0.0.1 at jpos.BaseJposControl.directIO(Unknown Source)
+	Feb  1 23:36:55 127.0.0.1 at com.kronos.ngd.platform.base.framework.service.deviceio.Biometric.executeWithRetry(Biometric.java:2252)
+	Feb  1 23:36:55 127.0.0.1 at com.kronos.ngd.platform.base.framework.service.deviceio.Biometric.executeAction(Biometric.java:2207)
+
+40073(device5_intouch.log)
+	Feb  1 23:37:16 127.0.0.1 com.kronos.ngd.platform.base.deviceio.api.NGDDeviceIOException: 105
+	Feb  1 23:37:16 127.0.0.1 at com.kronos.ngd.platform.base.framework.service.deviceio.Biometric.executeAction(Biometric.java:2233)
+	Feb  1 23:37:16 127.0.0.1 at com.kronos.ngd.platform.base.framework.service.deviceio.Biometric.setGrabTimeout(Biometric.java:590)
+	Feb  1 23:37:16 127.0.0.1 at com.kronos.ngd.application.base.biometrics.api.BiometricAppServiceImpl.setGrabTimeout(BiometricAppServiceImpl.java:2469)
+	Feb  1 23:37:16 127.0.0.1 at com.kronos.ngd.application.base.biometrics.api.BiometricsImpl.setGrabTimeout(BiometricsImpl.java:1965)
+	Feb  1 23:37:16 127.0.0.1 at com.kronos.ngd.application.base.uiframework.guicontroller.page.HomePage.callBioverifyAPI(HomePage.java:948)
+
+40118(device5_intouch.log)
+	Feb  1 23:37:16 127.0.0.1 Caused by: jpos.JposException: 105
+	Feb  1 23:37:16 127.0.0.1 at com.kronos.ngd.platform.base.framework.service.deviceio.jpos.service.NGDBaseService.verifyState(NGDBaseService.java:339)
+	Feb  1 23:37:16 127.0.0.1 at com.kronos.ngd.platform.base.framework.service.deviceio.jpos.service.BiometricService.directIO(BiometricService.java:493)
+	Feb  1 23:37:16 127.0.0.1 at jpos.BaseJposControl.directIO(Unknown Source)
+	Feb  1 23:37:16 127.0.0.1 at com.kronos.ngd.platform.base.framework.service.deviceio.Biometric.executeWithRetry(Biometric.java:2252)
+	Feb  1 23:37:16 127.0.0.1 at com.kronos.ngd.platform.base.framework.service.deviceio.Biometric.executeAction(Biometric.java:2207)
+
+40141(device5_intouch.log)
+	Feb  1 23:37:50 127.0.0.1 com.kronos.ngd.platform.base.messaging.api.NGDMessagingException: An error has occurred in the internal processing of Messaging service.
+	Feb  1 23:37:50 127.0.0.1 at com.kronos.ngd.platform.base.messaging.api.MessagingServiceImpl.receiveSynchronousMessage(MessagingServiceImpl.java:447)
+	Feb  1 23:37:50 127.0.0.1 at com.kronos.ngd.platform.base.messaging.api.MessagingServiceImpl.processSyncConsumer(MessagingServiceImpl.java:374)
+	Feb  1 23:37:50 127.0.0.1 at com.kronos.ngd.platform.base.messaging.api.MessagingServiceImpl.receive(MessagingServiceImpl.java:201)
+	Feb  1 23:37:50 127.0.0.1 at com.kronos.ngd.platform.base.healthmonitor.api.HealthMonitorService$WiFiStatusChecker.run(HealthMonitorService.java:852)
+	Feb  1 23:37:50 127.0.0.1 at java.lang.Thread.run(Thread.java:722)
+
+40147(device5_intouch.log)
+	Feb  1 23:37:50 127.0.0.1 Caused by: javax.jms.JMSException: java.lang.InterruptedException
+
+40628(device5_intouch.log)
+	Feb  2 19:00:37 127.0.0.1 com.kronos.ngd.platform.base.deviceio.api.NGDDeviceIOException: 105
+	Feb  2 19:00:37 127.0.0.1 at com.kronos.ngd.platform.base.framework.service.deviceio.Biometric.executeAction(Biometric.java:2233)
+	Feb  2 19:00:37 127.0.0.1 at com.kronos.ngd.platform.base.framework.service.deviceio.Biometric.setGrabTimeout(Biometric.java:590)
+	Feb  2 19:00:37 127.0.0.1 at com.kronos.ngd.application.base.biometrics.api.BiometricAppServiceImpl.setGrabTimeout(BiometricAppServiceImpl.java:2469)
+	Feb  2 19:00:37 127.0.0.1 at com.kronos.ngd.application.base.biometrics.api.BiometricsImpl.setGrabTimeout(BiometricsImpl.java:1965)
+	Feb  2 19:00:37 127.0.0.1 at com.kronos.ngd.application.base.uiframework.guicontroller.page.HomePage.callBioverifyAPI(HomePage.java:948)
+
+40673(device5_intouch.log)
+	Feb  2 19:00:37 127.0.0.1 Caused by: jpos.JposException: 105
+	Feb  2 19:00:37 127.0.0.1 at com.kronos.ngd.platform.base.framework.service.deviceio.jpos.service.NGDBaseService.verifyState(NGDBaseService.java:339)
+	Feb  2 19:00:37 127.0.0.1 at com.kronos.ngd.platform.base.framework.service.deviceio.jpos.service.BiometricService.directIO(BiometricService.java:493)
+	Feb  2 19:00:37 127.0.0.1 at jpos.BaseJposControl.directIO(Unknown Source)
+	Feb  2 19:00:37 127.0.0.1 at com.kronos.ngd.platform.base.framework.service.deviceio.Biometric.executeWithRetry(Biometric.java:2252)
+	Feb  2 19:00:37 127.0.0.1 at com.kronos.ngd.platform.base.framework.service.deviceio.Biometric.executeAction(Biometric.java:2207)
+
+40805(device5_intouch.log)
+	Feb  2 20:31:27 127.0.0.1 com.kronos.ngd.platform.base.deviceio.api.NGDDeviceIOException: 105
+	Feb  2 20:31:27 127.0.0.1 at com.kronos.ngd.platform.base.framework.service.deviceio.Biometric.executeAction(Biometric.java:2233)
+	Feb  2 20:31:27 127.0.0.1 at com.kronos.ngd.platform.base.framework.service.deviceio.Biometric.setGrabTimeout(Biometric.java:590)
+	Feb  2 20:31:27 127.0.0.1 at com.kronos.ngd.application.base.biometrics.api.BiometricAppServiceImpl.setGrabTimeout(BiometricAppServiceImpl.java:2469)
+	Feb  2 20:31:27 127.0.0.1 at com.kronos.ngd.application.base.biometrics.api.BiometricsImpl.setGrabTimeout(BiometricsImpl.java:1965)
+	Feb  2 20:31:27 127.0.0.1 at com.kronos.ngd.application.base.uiframework.guicontroller.page.HomePage.callBioverifyAPI(HomePage.java:948)
+
+40850(device5_intouch.log)
+	Feb  2 20:31:27 127.0.0.1 Caused by: jpos.JposException: 105
+	Feb  2 20:31:27 127.0.0.1 at com.kronos.ngd.platform.base.framework.service.deviceio.jpos.service.NGDBaseService.verifyState(NGDBaseService.java:339)
+	Feb  2 20:31:27 127.0.0.1 at com.kronos.ngd.platform.base.framework.service.deviceio.jpos.service.BiometricService.directIO(BiometricService.java:493)
+	Feb  2 20:31:27 127.0.0.1 at jpos.BaseJposControl.directIO(Unknown Source)
+	Feb  2 20:31:27 127.0.0.1 at com.kronos.ngd.platform.base.framework.service.deviceio.Biometric.executeWithRetry(Biometric.java:2252)
+	Feb  2 20:31:27 127.0.0.1 at com.kronos.ngd.platform.base.framework.service.deviceio.Biometric.executeAction(Biometric.java:2207)
+
+40919(device5_intouch.log)
+	Feb  2 23:18:40 127.0.0.1 com.kronos.ngd.platform.base.deviceio.api.NGDDeviceIOException: 105
+	Feb  2 23:18:40 127.0.0.1 at com.kronos.ngd.platform.base.framework.service.deviceio.Biometric.executeAction(Biometric.java:2233)
+	Feb  2 23:18:40 127.0.0.1 at com.kronos.ngd.platform.base.framework.service.deviceio.Biometric.setGrabTimeout(Biometric.java:590)
+	Feb  2 23:18:40 127.0.0.1 at com.kronos.ngd.application.base.biometrics.api.BiometricAppServiceImpl.setGrabTimeout(BiometricAppServiceImpl.java:2469)
+	Feb  2 23:18:40 127.0.0.1 at com.kronos.ngd.application.base.biometrics.api.BiometricsImpl.setGrabTimeout(BiometricsImpl.java:1965)
+	Feb  2 23:18:40 127.0.0.1 at com.kronos.ngd.application.base.uiframework.guicontroller.page.HomePage.callBioverifyAPI(HomePage.java:948)
+
+40964(device5_intouch.log)
+	Feb  2 23:18:40 127.0.0.1 Caused by: jpos.JposException: 105
+	Feb  2 23:18:40 127.0.0.1 at com.kronos.ngd.platform.base.framework.service.deviceio.jpos.service.NGDBaseService.verifyState(NGDBaseService.java:339)
+	Feb  2 23:18:40 127.0.0.1 at com.kronos.ngd.platform.base.framework.service.deviceio.jpos.service.BiometricService.directIO(BiometricService.java:493)
+	Feb  2 23:18:40 127.0.0.1 at jpos.BaseJposControl.directIO(Unknown Source)
+	Feb  2 23:18:40 127.0.0.1 at com.kronos.ngd.platform.base.framework.service.deviceio.Biometric.executeWithRetry(Biometric.java:2252)
+	Feb  2 23:18:40 127.0.0.1 at com.kronos.ngd.platform.base.framework.service.deviceio.Biometric.executeAction(Biometric.java:2207)
+
+40984(device5_intouch.log)
+	Feb  2 23:54:49 127.0.0.1 com.kronos.ngd.platform.base.deviceio.api.NGDDeviceIOException: 105
+	Feb  2 23:54:49 127.0.0.1 at com.kronos.ngd.platform.base.framework.service.deviceio.Biometric.executeAction(Biometric.java:2233)
+	Feb  2 23:54:49 127.0.0.1 at com.kronos.ngd.platform.base.framework.service.deviceio.Biometric.setGrabTimeout(Biometric.java:590)
+	Feb  2 23:54:49 127.0.0.1 at com.kronos.ngd.application.base.biometrics.api.BiometricAppServiceImpl.setGrabTimeout(BiometricAppServiceImpl.java:2469)
+	Feb  2 23:54:49 127.0.0.1 at com.kronos.ngd.application.base.biometrics.api.BiometricsImpl.setGrabTimeout(BiometricsImpl.java:1965)
+	Feb  2 23:54:49 127.0.0.1 at com.kronos.ngd.application.base.uiframework.guicontroller.page.HomePage.callBioverifyAPI(HomePage.java:948)
+
+41029(device5_intouch.log)
+	Feb  2 23:54:49 127.0.0.1 Caused by: jpos.JposException: 105
+	Feb  2 23:54:49 127.0.0.1 at com.kronos.ngd.platform.base.framework.service.deviceio.jpos.service.NGDBaseService.verifyState(NGDBaseService.java:339)
+	Feb  2 23:54:49 127.0.0.1 at com.kronos.ngd.platform.base.framework.service.deviceio.jpos.service.BiometricService.directIO(BiometricService.java:493)
+	Feb  2 23:54:49 127.0.0.1 at jpos.BaseJposControl.directIO(Unknown Source)
+	Feb  2 23:54:49 127.0.0.1 at com.kronos.ngd.platform.base.framework.service.deviceio.Biometric.executeWithRetry(Biometric.java:2252)
+	Feb  2 23:54:49 127.0.0.1 at com.kronos.ngd.platform.base.framework.service.deviceio.Biometric.executeAction(Biometric.java:2207)
+
+41043(device5_intouch.log)
+	Feb  2 23:55:08 127.0.0.1 com.kronos.ngd.platform.base.deviceio.api.NGDDeviceIOException: 105
+	Feb  2 23:55:08 127.0.0.1 at com.kronos.ngd.platform.base.framework.service.deviceio.Biometric.executeAction(Biometric.java:2233)
+	Feb  2 23:55:08 127.0.0.1 at com.kronos.ngd.platform.base.framework.service.deviceio.Biometric.setGrabTimeout(Biometric.java:590)
+	Feb  2 23:55:08 127.0.0.1 at com.kronos.ngd.application.base.biometrics.api.BiometricAppServiceImpl.setGrabTimeout(BiometricAppServiceImpl.java:2469)
+	Feb  2 23:55:08 127.0.0.1 at com.kronos.ngd.application.base.biometrics.api.BiometricsImpl.setGrabTimeout(BiometricsImpl.java:1965)
+	Feb  2 23:55:08 127.0.0.1 at com.kronos.ngd.application.base.uiframework.guicontroller.page.HomePage.callBioverifyAPI(HomePage.java:948)
+
+41088(device5_intouch.log)
+	Feb  2 23:55:08 127.0.0.1 Caused by: jpos.JposException: 105
+	Feb  2 23:55:08 127.0.0.1 at com.kronos.ngd.platform.base.framework.service.deviceio.jpos.service.NGDBaseService.verifyState(NGDBaseService.java:339)
+	Feb  2 23:55:08 127.0.0.1 at com.kronos.ngd.platform.base.framework.service.deviceio.jpos.service.BiometricService.directIO(BiometricService.java:493)
+	Feb  2 23:55:08 127.0.0.1 at jpos.BaseJposControl.directIO(Unknown Source)
+	Feb  2 23:55:08 127.0.0.1 at com.kronos.ngd.platform.base.framework.service.deviceio.Biometric.executeWithRetry(Biometric.java:2252)
+	Feb  2 23:55:08 127.0.0.1 at com.kronos.ngd.platform.base.framework.service.deviceio.Biometric.executeAction(Biometric.java:2207)
+

@@ -1,0 +1,13 @@
+Device Softload Report
+
+InTouch log file: device6_intouch.log
+Lines Scanned: 90671
+
+Softload count: initiated = 1, completed: 1
+
+=== Softload ===
+86299(device6_intouch.log) : Apr 10 19:26:39 Softload Start 
+		Original version ==> 2.1.0-defects.14
+		New version ==> 2.0.0-3
+		Elapsed Time (sec) ==> 160
+86344(device6_intouch.log) : Apr 10 19:29:19 Softload Completed 
