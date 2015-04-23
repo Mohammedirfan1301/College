@@ -26,6 +26,6 @@ ps7a.o: ps7a.cpp
 
 # Cleanup object files
 clean:
-	#rm *.o
+	rm *.o
 	#rm *.gch
 	rm ps7a

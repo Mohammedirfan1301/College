@@ -4,10 +4,10 @@
  * MIT Licensed - see http://opensource.org/licenses/MIT for details.
  *
  */
+#include <boost/regex.hpp>
 #include <iostream>
 #include <fstream>
 #include <string>
-#include <boost/regex.hpp>
 
 
 int main(int argc, const char* argv[]) {
@@ -19,16 +19,20 @@ int main(int argc, const char* argv[]) {
 
   int lines_scan = 0;
   std::string file_name(argv[1]);
+  std::string output_name = file_name + ".rpt";
   std::string report = "";
   std::string success = "oejs.AbstractConnector:Started SelectChannelConnector";
 
-  std::cout << "Device boot report.\n";
+  std::cout << "Device boot report.\n\n";
   std::cout << "InTouch log file: " << file_name << "\n";
 
   // Read the file here and do stuff.
   // Save stuff to a string with formatting to output later on.
   std::string line;
-  std::ifstream file (file_name);
+  std::ifstream file (file_name.c_str());
+
+  bool found_start = false;
+  bool found_end = false;
 
   if (file.is_open()) {
     while (getline(file, line)) {
