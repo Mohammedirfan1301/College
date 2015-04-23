@@ -3,18 +3,18 @@
 CC = g++
 CFLAGS = -g -Wall -Werror -std=c++0x -pedantic
 SFLAGS = -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio
-Boost = -lboost_unit_test_framework
+Boost = -lboost_regex
 
 # Make ps5a & a dummy tester
 all:	ps7a
 
 # PS6 executable
 ps7a:	ps7a.o
-	$(CC) ps7a.o -o ps7a
+	$(CC) ps7a.o -o ps7a $(Boost)
 
 # Object files
 ps7a.o: ps7a.cpp
-	$(CC) -c ps7a.cpp $(CLFAGS)
+	$(CC) -c ps7a.cpp $(CFLAGS)
 # TextGenerator.o:TextGenerator.cpp MarkovModel.hpp
 # 	$(CC) -c TextGenerator.cpp MarkovModel.hpp $(CFLAGS)
 #
