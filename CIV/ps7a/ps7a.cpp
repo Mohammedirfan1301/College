@@ -75,8 +75,8 @@ int main(int argc, const char* argv[]) {
   // Use this for getting parts of the matched string.
   boost::smatch sm;
 
-  //report += "Device boot report.\n\n";
-  //report += "InTouch log file: " + file_name + "\n";
+  // report += "Device boot report.\n\n";
+  // report += "InTouch log file: " + file_name + "\n";
 
   // Read the file here and do stuff.
   // Save stuff to a string with formatting to output later on.
@@ -169,18 +169,18 @@ int main(int argc, const char* argv[]) {
   }
 
   // Add lines scanned to the report.
-  //report += "Lines scanned: " + std::to_string(lines_scan) + "\n\n";
+  // report += "Lines scanned: " + std::to_string(lines_scan) + "\n\n";
 
   // We can figure out success boots and fail boots now.
-  //report += "Device boot count: initiated = " + std::to_string(boot_total);
-  //report += ", completed: " + std::to_string(boot_success) + "\n\n\n";
+  // report += "Device boot count: initiated = " + std::to_string(boot_total);
+  // report += ", completed: " + std::to_string(boot_success) + "\n\n\n";
 
   // We should now add the boot reports to the end of this report.
   report += boots;
 
   // Now let's print out our report string. It has already been formatted
   // correctly so it should be fairly simple to just dump it to stdio.
-  //std::cout << report;
+  // std::cout << report;
 
   // And we can even save this to a file with the extension ".rpt"
   // which would be something like "device5_intouch.log.rpt"
