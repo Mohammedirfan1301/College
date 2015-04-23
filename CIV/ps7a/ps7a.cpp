@@ -27,7 +27,7 @@ int main(int argc, const char* argv[]) {
   // Save stuff to a string with formatting to output later on.
 
   // ...
-  report += "Device boot count: initiated = 25, completed: 10\n";
+  report += "\nDevice boot count: initiated = xx, completed: xx\n";
 
   // This would be the first thing we print out - the total lines we scanned.
   std::cout << "Lines scanned: " << lines_scan << "\n";
