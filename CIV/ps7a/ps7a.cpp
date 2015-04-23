@@ -5,6 +5,7 @@
  *
  */
 #include <iostream>
+#include <fstream>
 #include <string>
 #include <boost/regex.hpp>
 
@@ -18,13 +19,25 @@ int main(int argc, const char* argv[]) {
 
   int lines_scan = 0;
   std::string file_name(argv[1]);
-  std::string report = "Report...\n...\n...\nStuff...";
+  std::string report = "";
+  std::string success = "oejs.AbstractConnector:Started SelectChannelConnector";
 
   std::cout << "Device boot report.\n";
   std::cout << "InTouch log file: " << file_name << "\n";
 
   // Read the file here and do stuff.
   // Save stuff to a string with formatting to output later on.
+  std::string line;
+  std::ifstream file (file_name);
+
+  if (file.is_open()) {
+    while (getline(file, line)) {
+      // We've got the current string here and can do stuff with it.
+
+      lines_scan++;
+    }
+    file.close();
+  }
 
   // ...
   report += "\nDevice boot count: initiated = xx, completed: xx\n";
