@@ -23,6 +23,11 @@ int main(int argc, const char* argv[]) {
   std::string report = "";
   std::string success = "oejs.AbstractConnector:Started SelectChannelConnector";
 
+  // Need to match against something like this:
+  std::string test = "2014-01-26 09:58:04.362:INFO:oejs.AbstractConnector:Started SelectChannelConnector@0.0.0.0:9080"
+  std::string start_regex = "";
+  std::string end_regex = "([0-9]{4})-([0-9]{2})-([0-9]{2}) ([0-9]{2}):([0-9]{2}):([0-9]{2}).([0-9]{3}):INFO:oejs.AbstractConnector:Started SelectChannelConnector@0.0.0.0:9080";
+
   std::cout << "Device boot report.\n\n";
   std::cout << "InTouch log file: " << file_name << "\n";
 
