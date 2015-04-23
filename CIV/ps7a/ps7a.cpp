@@ -5,11 +5,11 @@
  *
  */
 #include <boost/regex.hpp>
-#include "boost/date_time/gregorian/gregorian.hpp"
-#include "boost/date_time/posix_time/posix_time.hpp"
 #include <iostream>
 #include <fstream>
 #include <string>
+#include "boost/date_time/gregorian/gregorian.hpp"
+#include "boost/date_time/posix_time/posix_time.hpp"
 
 // Annoying to type these out.
 using boost::gregorian::date;
@@ -75,13 +75,13 @@ int main(int argc, const char* argv[]) {
   // Use this for getting parts of the matched string.
   boost::smatch sm;
 
-  report += "Device boot report.\n\n";
-  report += "InTouch log file: " + file_name + "\n";
+  //report += "Device boot report.\n\n";
+  //report += "InTouch log file: " + file_name + "\n";
 
   // Read the file here and do stuff.
   // Save stuff to a string with formatting to output later on.
   std::string line;
-  std::ifstream file (file_name.c_str());
+  std::ifstream file(file_name.c_str());
 
   // Need to keep track of when we've found a start.
   bool found_start = false;
@@ -95,7 +95,7 @@ int main(int argc, const char* argv[]) {
       end_date.clear();
 
       // Let's try and see if we found a start boot.
-      if (boost::regex_search (line, sm, start_regex)) {
+      if (boost::regex_search(line, sm, start_regex)) {
         // Get the start time, save it for later.
         // Note: sm[0] is the ENTIRE match. We just want the date.
         begin_date = sm[1] + "-" + sm[2] + "-" + sm[3];
@@ -129,7 +129,7 @@ int main(int argc, const char* argv[]) {
       }
 
       // Or did we find a successful boot?
-       if (boost::regex_match (line, sm, end_regex)) {
+       if (boost::regex_match(line, sm, end_regex)) {
         // Get the end time, save it for later.
         end_date = sm[1] + "-" + sm[2] + "-" + sm[3];
         end_date += " " + sm[4] + ":" + sm[5] + ":" + sm[6];
@@ -169,18 +169,18 @@ int main(int argc, const char* argv[]) {
   }
 
   // Add lines scanned to the report.
-  report += "Lines scanned: " + std::to_string(lines_scan) + "\n\n";
+  //report += "Lines scanned: " + std::to_string(lines_scan) + "\n\n";
 
   // We can figure out success boots and fail boots now.
-  report += "Device boot count: initiated = " + std::to_string(boot_total);
-  report += ", completed: " + std::to_string(boot_success) + "\n\n\n";
+  //report += "Device boot count: initiated = " + std::to_string(boot_total);
+  //report += ", completed: " + std::to_string(boot_success) + "\n\n\n";
 
   // We should now add the boot reports to the end of this report.
   report += boots;
 
   // Now let's print out our report string. It has already been formatted
   // correctly so it should be fairly simple to just dump it to stdio.
-  std::cout << report;
+  //std::cout << report;
 
   // And we can even save this to a file with the extension ".rpt"
   // which would be something like "device5_intouch.log.rpt"
