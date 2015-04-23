@@ -11,7 +11,14 @@
 #include <fstream>
 #include <string>
 
-using namespace boost::posix_time;
+// Annoying to type these out.
+using boost::gregorian::date;
+using boost::gregorian::from_simple_string;
+using boost::gregorian::date_period;
+using boost::gregorian::date_duration;
+
+using boost::posix_time::ptime;
+using boost::posix_time::time_duration;
 
 int main(int argc, const char* argv[]) {
   // Make sure the user knows how to use our amazing log parser.
@@ -33,10 +40,21 @@ int main(int argc, const char* argv[]) {
 
   // Begin time / End time strings.
   std::string begin_date = "";
-  //std::string begin_time = "";
   std::string end_date = "";
-  //std::string end_time = "";
-  std::string time_difference = "1234";
+
+  // A BUNCH OF STUFF I DON'T CARE.
+  std::string full_date;
+  int hours = 0;
+  int minutes = 0;
+  int seconds = 0;
+
+  ptime begin;
+  ptime end;
+
+  date date1;
+  date date2;
+
+  time_duration time_diff;
 
   // Need to match against something like this:
   // Start of boot: 2014-02-01 14:02:32: (log.c.166) server started
@@ -49,12 +67,6 @@ int main(int argc, const char* argv[]) {
   std::string end_string = "([0-9]{4})-([0-9]{2})-([0-9]{2}) ";
   end_string += "([0-9]{2}):([0-9]{2}):([0-9]{2}).([0-9]{3}):INFO:oejs.";
   end_string += "AbstractConnector:Started SelectChannelConnector@0.0.0.0:9080";
-
-  // Testing.
-  //std::cout << "Start string is: \n" << start_string << "\n";
-  //std::cout << "2014-02-01 14:02:32: (log.c.166) server started\n";
-
-  // ("\\(([^)]+)\\)\"$", boost::regex::perl)
 
   // Make two regexes
   boost::regex start_regex(start_string, boost::regex::perl);
@@ -79,19 +91,24 @@ int main(int argc, const char* argv[]) {
       // We've got the current string here and can do stuff with it.
 
       // Wipe the begin_time / end_time strings
-      begin_date = "";
-      end_date = "";
+      begin_date.clear();
+      end_date.clear();
 
       // Let's try and see if we found a start boot.
       if (boost::regex_search (line, sm, start_regex)) {
         // Get the start time, save it for later.
         // Note: sm[0] is the ENTIRE match. We just want the date.
-        begin_date += sm[1] + "-" + sm[2] + "-" + sm[3];
+        begin_date = sm[1] + "-" + sm[2] + "-" + sm[3];
         begin_date += " " + sm[4] + ":" + sm[5] + ":" + sm[6];
 
-        std::cout << "\n\n" << begin_date << "\n\n";
+        full_date = sm[1] + "-" + sm[2] + "-" + sm[3];
+        date1 = date(from_simple_string(full_date));
 
-        std::cout << "\n\n" << sm[DATE_TIME] << "\n\n";
+        hours = std::stoi(sm[4]);
+        minutes = std::stoi(sm[5]);
+        seconds = std::stoi(sm[6]);
+
+        begin = ptime(date1, time_duration(hours, minutes, seconds));
 
         // We can use this begin_time for calculations later on.
 
@@ -114,10 +131,17 @@ int main(int argc, const char* argv[]) {
       // Or did we find a successful boot?
        if (boost::regex_match (line, sm, end_regex)) {
         // Get the end time, save it for later.
-        end_date += sm[1] + "-" + sm[2] + "-" + sm[3];
+        end_date = sm[1] + "-" + sm[2] + "-" + sm[3];
         end_date += " " + sm[4] + ":" + sm[5] + ":" + sm[6];
 
-        std::cout << "\n\n" << end_date << "\n\n";
+        full_date = sm[1] + "-" + sm[2] + "-" + sm[3];
+        date2 = date(from_simple_string(full_date));
+
+        hours = std::stoi(sm[4]);
+        minutes = std::stoi(sm[5]);
+        seconds = std::stoi(sm[6]);
+
+        end = ptime(date2, time_duration(hours, minutes, seconds));
 
         // Add the end boot line and total time it took to get here.
         boots += std::to_string(lines_scan) + "(" + file_name + ") ";
@@ -127,23 +151,11 @@ int main(int argc, const char* argv[]) {
         // Use the begin_time and the end_time variables.
 
         // Time calculation stuff.
-        std::cout << "Did I fail here?";
-        ptime begin = time_from_string(begin_date);
-        ptime end = time_from_string(end_date);
-
-        std::cout << "or here?";
-
-        time_duration difference = end - begin;
-
-        std::cout << "or here?";
-
-        std::cout << "Difference between dates: " << to_simple_string(difference) << "\n";
-
-        //begin = boost::gregorian::date(boost::gregorian::from_string(begin_date));
-        //end = boost::gregorian::date(boost::gregorian::from_string(end_date));
+        time_diff = end - begin;
 
         // Now add the time difference.
-        boots += "\tBoot Time: " + time_difference + "ms\n\n";
+        boots += "\tBoot Time: ";
+        boots += std::to_string(time_diff.total_milliseconds()) + "ms\n\n";
 
         boot_success++;
 
@@ -173,6 +185,9 @@ int main(int argc, const char* argv[]) {
   // And we can even save this to a file with the extension ".rpt"
   // which would be something like "device5_intouch.log.rpt"
   // or filename + ".rpt"
+  std::ofstream out(output_name.c_str());
+  out << report;
+  out.close();
 
   return 0;
 }
