@@ -5,10 +5,13 @@
  *
  */
 #include <boost/regex.hpp>
+#include "boost/date_time/gregorian/gregorian.hpp"
+#include "boost/date_time/posix_time/posix_time.hpp"
 #include <iostream>
 #include <fstream>
 #include <string>
 
+using namespace boost::posix_time;
 
 int main(int argc, const char* argv[]) {
   // Make sure the user knows how to use our amazing log parser.
@@ -29,8 +32,10 @@ int main(int argc, const char* argv[]) {
   std::string boots = "";
 
   // Begin time / End time strings.
-  std::string begin_time = "";
-  std::string end_time = "";
+  std::string begin_date = "";
+  //std::string begin_time = "";
+  std::string end_date = "";
+  //std::string end_time = "";
   std::string time_difference = "1234";
 
   // Need to match against something like this:
@@ -74,15 +79,19 @@ int main(int argc, const char* argv[]) {
       // We've got the current string here and can do stuff with it.
 
       // Wipe the begin_time / end_time strings
-      begin_time = "";
-      end_time = "";
+      begin_date = "";
+      end_date = "";
 
       // Let's try and see if we found a start boot.
       if (boost::regex_search (line, sm, start_regex)) {
         // Get the start time, save it for later.
         // Note: sm[0] is the ENTIRE match. We just want the date.
-        begin_time += sm[1] + "-" + sm[2] + "-" + sm[3];
-        begin_time += " " + sm[4] + ":" + sm[5] + ":" + sm[6];
+        begin_date += sm[1] + "-" + sm[2] + "-" + sm[3];
+        begin_date += " " + sm[4] + ":" + sm[5] + ":" + sm[6];
+
+        std::cout << "\n\n" << begin_date << "\n\n";
+
+        std::cout << "\n\n" << sm[DATE_TIME] << "\n\n";
 
         // We can use this begin_time for calculations later on.
 
@@ -94,7 +103,7 @@ int main(int argc, const char* argv[]) {
         // Now we want to add this to the output string as boot start.
         boots += "=== Device boot ===\n";
         boots += std::to_string(lines_scan) + "(" + file_name + ") ";
-        boots += begin_time + " Boot Start\n";
+        boots += begin_date + " Boot Start\n";
 
         boot_total++;
 
@@ -105,17 +114,33 @@ int main(int argc, const char* argv[]) {
       // Or did we find a successful boot?
        if (boost::regex_match (line, sm, end_regex)) {
         // Get the end time, save it for later.
-        end_time += sm[1] + "-" + sm[2] + "-" + sm[3];
-        end_time += " " + sm[4] + ":" + sm[5] + ":" + sm[6];
+        end_date += sm[1] + "-" + sm[2] + "-" + sm[3];
+        end_date += " " + sm[4] + ":" + sm[5] + ":" + sm[6];
+
+        std::cout << "\n\n" << end_date << "\n\n";
 
         // Add the end boot line and total time it took to get here.
         boots += std::to_string(lines_scan) + "(" + file_name + ") ";
-        boots += end_time + " Boot Completed\n";
+        boots += end_date + " Boot Completed\n";
 
         // Do some magic here and calculate the time it took to boot in ms
         // Use the begin_time and the end_time variables.
 
-        
+        // Time calculation stuff.
+        std::cout << "Did I fail here?";
+        ptime begin = time_from_string(begin_date);
+        ptime end = time_from_string(end_date);
+
+        std::cout << "or here?";
+
+        time_duration difference = end - begin;
+
+        std::cout << "or here?";
+
+        std::cout << "Difference between dates: " << to_simple_string(difference) << "\n";
+
+        //begin = boost::gregorian::date(boost::gregorian::from_string(begin_date));
+        //end = boost::gregorian::date(boost::gregorian::from_string(end_date));
 
         // Now add the time difference.
         boots += "\tBoot Time: " + time_difference + "ms\n\n";

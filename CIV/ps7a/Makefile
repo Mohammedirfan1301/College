@@ -3,7 +3,7 @@
 CC = g++
 CFLAGS = -g -Wall -Werror -std=c++0x -pedantic
 SFLAGS = -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio
-Boost = -lboost_regex
+Boost = -lboost_regex -lboost_date_time
 
 # Make ps5a & a dummy tester
 all:	ps7a
