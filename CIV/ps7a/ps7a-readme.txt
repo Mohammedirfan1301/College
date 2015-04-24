@@ -4,8 +4,7 @@
  **********************************************************************/
 
 Name: Jason Downing
-Hours to complete assignment (optional): Eh this one was like 5 hours I think.
-
+Hours to complete assignment (optional): 5 - 6 hours, plus fighting with Bottlenose.
 
 /**********************************************************************
  *  Did you complete the whole assignment?
@@ -22,24 +21,24 @@ and output all this to a file with the right extension.
  *  and explain individually what each ones does.
  **********************************************************************/
 
-  std::string start_string = "([0-9]{4})-([0-9]{2})-([0-9]{2}) ";
-  start_string += "([0-9]{2}):([0-9]{2}):([0-9]{2}): \\(log.c.166\\) ";
-  start_string += "server started";
+std::string start_string = "([0-9]{4})-([0-9]{2})-([0-9]{2}) ";
+start_string += "([0-9]{2}):([0-9]{2}):([0-9]{2}): \\(log.c.166\\) ";
+start_string += "server started";
 
-  This my regex to detect the boot statement. It finds a matching line with
-  a time stamp, following by the words "(log.c.166) server started". Matching
-  the regex against this whole statement made it easy to pull the date and
-  time from the current line.
+This my regex to detect the boot statement. It finds a matching line with
+a time stamp, following by the words "(log.c.166) server started". Matching
+the regex against this whole statement made it easy to pull the date and
+time from the current line.
 
-  std::string end_string = "([0-9]{4})-([0-9]{2})-([0-9]{2}) ";
-  end_string += "([0-9]{2}):([0-9]{2}):([0-9]{2}).([0-9]{3}):INFO:oejs.";
-  end_string += "AbstractConnector:Started SelectChannelConnector@0.0.0.0:9080";
+std::string end_string = "([0-9]{4})-([0-9]{2})-([0-9]{2}) ";
+end_string += "([0-9]{2}):([0-9]{2}):([0-9]{2}).([0-9]{3}):INFO:oejs.";
+end_string += "AbstractConnector:Started SelectChannelConnector@0.0.0.0:9080";
 
-  I used this regex to find a succesful boot. A successful boot is marked by
-  a time stamp, followed by the string:
-  "INFO:oejs.AbstractConnector:Started SelectChannelConnector@0.0.0.0:9080".
-  As with the boot statement, I pulled the date / time from the smatch variable
-  that I passed to the regex search / match methods.
+I used this regex to find a succesful boot. A successful boot is marked by
+a time stamp, followed by the string:
+"INFO:oejs.AbstractConnector:Started SelectChannelConnector@0.0.0.0:9080".
+As with the boot statement, I pulled the date / time from the smatch variable
+that I passed to the regex search / match methods.
 
 /**********************************************************************
  *  Describe your overall approach for solving the problem.
@@ -70,6 +69,8 @@ object seemed to work.
 Mostly stuff from the boost docs helped, as well as from the lecture
 capture.
 
+This saved the day:
+http://www.cplusplus.com/reference/string/string/pop_back/
 
 /**********************************************************************
  *  Describe any serious problems you encountered.

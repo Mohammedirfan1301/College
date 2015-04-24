@@ -175,6 +175,10 @@ int main(int argc, const char* argv[]) {
   // report += "Device boot count: initiated = " + std::to_string(boot_total);
   // report += ", completed: " + std::to_string(boot_success) + "\n\n\n";
 
+  // Need to remove an extra newline from the end of the boot report.
+  // This way the file will completely match the test cases on Bottlenose.
+  boots.pop_back();
+
   // We should now add the boot reports to the end of this report.
   report += boots;
 
