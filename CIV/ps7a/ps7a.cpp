@@ -114,12 +114,12 @@ int main(int argc, const char* argv[]) {
 
         // If we already found a start, then this is an incomplete boot.
         if (found_start == true) {
-          boots += "**** Incomplete boot ****\n\n";
+          boots += "**** Incomplete boot **** \n\n";
         }
 
         // Now we want to add this to the output string as boot start.
         boots += "=== Device boot ===\n";
-        boots += std::to_string(lines_scan) + "(" + file_name + ") ";
+        boots += std::to_string(lines_scan) + "(" + file_name + "): ";
         boots += begin_date + " Boot Start\n";
 
         boot_total++;
@@ -144,7 +144,7 @@ int main(int argc, const char* argv[]) {
         end = ptime(date2, time_duration(hours, minutes, seconds));
 
         // Add the end boot line and total time it took to get here.
-        boots += std::to_string(lines_scan) + "(" + file_name + ") ";
+        boots += std::to_string(lines_scan) + "(" + file_name + "): ";
         boots += end_date + " Boot Completed\n";
 
         // Do some magic here and calculate the time it took to boot in ms
@@ -155,7 +155,7 @@ int main(int argc, const char* argv[]) {
 
         // Now add the time difference.
         boots += "\tBoot Time: ";
-        boots += std::to_string(time_diff.total_milliseconds()) + "ms\n\n";
+        boots += std::to_string(time_diff.total_milliseconds()) + "ms \n\n";
 
         boot_success++;
 
@@ -177,7 +177,7 @@ int main(int argc, const char* argv[]) {
 
   // Need to remove an extra newline from the end of the boot report.
   // This way the file will completely match the test cases on Bottlenose.
-  boots.pop_back();
+  boots.erase(boots.end()-1);
 
   // We should now add the boot reports to the end of this report.
   report += boots;
