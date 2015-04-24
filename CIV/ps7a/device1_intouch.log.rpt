@@ -1,0 +1,29 @@
+=== Device boot ===
+435369(device1_intouch.log): 2014-03-25 19:11:59 Boot Start
+435759(device1_intouch.log): 2014-03-25 19:15:02 Boot Completed
+	Boot Time: 183000ms 
+
+=== Device boot ===
+436500(device1_intouch.log): 2014-03-25 19:29:59 Boot Start
+436859(device1_intouch.log): 2014-03-25 19:32:44 Boot Completed
+	Boot Time: 165000ms 
+
+=== Device boot ===
+440719(device1_intouch.log): 2014-03-25 22:01:46 Boot Start
+440791(device1_intouch.log): 2014-03-25 22:04:27 Boot Completed
+	Boot Time: 161000ms 
+
+=== Device boot ===
+440866(device1_intouch.log): 2014-03-26 12:47:42 Boot Start
+441216(device1_intouch.log): 2014-03-26 12:50:29 Boot Completed
+	Boot Time: 167000ms 
+
+=== Device boot ===
+442094(device1_intouch.log): 2014-03-26 20:41:34 Boot Start
+442432(device1_intouch.log): 2014-03-26 20:44:13 Boot Completed
+	Boot Time: 159000ms 
+
+=== Device boot ===
+443073(device1_intouch.log): 2014-03-27 14:09:01 Boot Start
+443411(device1_intouch.log): 2014-03-27 14:11:42 Boot Completed
+	Boot Time: 161000ms 

@@ -34,3 +34,6 @@
 *.docx#
 *#
 *.swp
+
+# Ignore the giant logfiles, only keep the zip file!
+kronos2015/
