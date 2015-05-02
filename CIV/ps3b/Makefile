@@ -1,4 +1,4 @@
-# Makefile for the sierpinski project / original recursive image
+# Makefile for ps3b
 # Flags to save on typing all this out
 CC= g++
 CFLAGS= -Wall -Werror -std=c++0x -pedantic
