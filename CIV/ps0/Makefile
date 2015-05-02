@@ -1,4 +1,5 @@
-CC		= g++
+# Makefile for PS0 - Hello World
+CC = g++
 
 all:
 	$(CC) -c main.cpp -Wall -Werror -ansi -pedantic

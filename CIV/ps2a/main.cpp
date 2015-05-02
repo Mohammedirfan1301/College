@@ -38,7 +38,7 @@ int main()
 
   int num2 = test4.generate(4);
 
-  std::cout << num2;
+  std::cout << num2 << "\n";
 
   return 0;
 }
