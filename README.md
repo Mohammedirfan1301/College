@@ -3,10 +3,14 @@ UML Programs
 
 Includes:
 
-Computing I & II using the language C, as well as lab work.
+Computing I & II using C, as well as related lab work.
 
-Computing III using C++.
+Computing III & Computing IV using C++, with OOP principals throughout.
 
 Computer Organization and Assembly Language Programming using MIPS and some IA32.
 
-Future: more C++ and possibly Java and/or other languages.
+Android Development using Java and with examples of various Android Apps I created.
+
+Logic Design labs.
+
+Future: GUI Programming and Computer Architecture work.
