@@ -36,4 +36,4 @@ use Test::Simple tests => 4;
 ok(scm_equal(scm_eval("(square 1)"), 1), "(square 1)");
 ok(scm_equal(scm_eval("(square 3)"), 9), "(square 3)");
 ok(scm_equal(scm_eval("(square -3)"), 9), "(square -3)");
-ok(scm_equal(scm_eval("piazza?"), '#t'), "piazza?");
+ok(scm_equal(scm_eval("ggroup?"), '#t'), "ggroup?");
