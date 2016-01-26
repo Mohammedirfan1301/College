@@ -1,5 +1,5 @@
 CC = gcc
-CFLAGS	= -o -Werror -Wextra -Wall
+CFLAGS	= -std=c99 -o -Werror -Wextra -Wall
 
 all:
 	# Compile the program.

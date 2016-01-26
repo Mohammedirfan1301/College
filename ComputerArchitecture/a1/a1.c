@@ -1,17 +1,18 @@
 /*
- * Copyright 2015 Jason Downing
- * All rights reserved.
- * MIT Licensed - see http://opensource.org/licenses/MIT for details.
+ *  Copyright 2016 Jason Downing
+ *  All rights reserved.
+ *  MIT Licensed - see http://opensource.org/licenses/MIT for details.
  *
  */
 #include <stdio.h>
 #include <stdlib.h>
 
-/*  Union to use for the conversion.
-
-    Used Prof. Moloney's code from this file:
-    http://www.cs.uml.edu/~bill/cs305/convert_float_to_bits_c.txt
-*/
+/*
+ *  Union to use for the conversion.
+ *
+ *  I used Prof. Moloney's code from this file:
+ *  http://www.cs.uml.edu/~bill/cs305/convert_float_to_bits_c.txt
+ */
 union float_32 {
   float   floating_value_in_32_bits;
   int     floating_value_as_int;
@@ -56,15 +57,17 @@ union float_32 {
   } bit;
 } float_32;
 
-char bit_string[43];
+char bit_string[43];  // Will contain the binary "bit string"
 
 // Function to convert the input into readable output.
 void print_output();
 
-int main() {
-  int i;
+// Functions which output the mantissa / exponent in binary.
+void print_mantissa();
+void print_exponent();
 
-  for(i = 0; i < 42; i++) {
+int main() {
+  for(int i = 0; i < 42; i++) {
       bit_string[i] = ' ';      // Set bit string to empty.
   }
 
@@ -73,7 +76,9 @@ int main() {
   int valid = 1;
 
   // Get input until input stops.
-  do {
+  // scanf will return 1 if it gets a valid input, 0 if it gets invalid input and -1 on EOF.
+  while (valid == 1) {
+      printf("Please enter a floating point number and new-line: ");
       valid = scanf("%g", &float_32.floating_value_in_32_bits);
 
       // Make sure the user didn't enter invalid input.
@@ -82,18 +87,22 @@ int main() {
           break;
       }
 
-      // Output stuff to screen.
+      // Output values to the screen.
       print_output();
-
-  // scanf will return 1 if it gets a valid input, 0 if it gets invalid input and -1 on EOF.
-  } while (valid == 1);
+  }
 
   return 0;
 }
 
+// Main output function
 void print_output() {
+
+  // This should be the "sign"
   bit_string[0] = float_32.bit.b31?'1':'0';
 
+  // The gaps here will be "spaces", that is #1, #6, #11, #15, #20, #25, #30, #35.
+
+  // The Mantissa should start here.
   bit_string[2] = float_32.bit.b30?'1':'0';
   bit_string[3] = float_32.bit.b29?'1':'0';
   bit_string[4] = float_32.bit.b28?'1':'0';
@@ -121,8 +130,9 @@ void print_output() {
   bit_string[26] = float_32.bit.b11?'1':'0';
   bit_string[27] = float_32.bit.b10?'1':'0';
   bit_string[28] = float_32.bit.b9?'1':'0';
-  bit_string[29] = float_32.bit.b8?'1':'0';
+  bit_string[29] = float_32.bit.b8?'1':'0';   // This is the last bit of the Mantissa.
 
+  // The Exponent should start here
   bit_string[31] = float_32.bit.b7?'1':'0';
   bit_string[32] = float_32.bit.b6?'1':'0';
   bit_string[33] = float_32.bit.b5?'1':'0';
@@ -133,11 +143,46 @@ void print_output() {
   bit_string[38] = float_32.bit.b1?'1':'0';
   bit_string[39] = float_32.bit.b0?'1':'0';
 
-  printf("%12s 0x%-8x %20s %11s", "mantissa:", float_32.sign_exp_mantissa.mantissa, "or: ", " ");
+  printf("\nthe floating value for %.1f is broken out as: \n", float_32.floating_value_in_32_bits);
+
+  // Mantissa
+  printf("   mantissa: 0x%-8x or: ", float_32.f_bits.mantissa);
+  print_mantissa();
+
+  // Exponent
+  printf("   exponent: 0x%-8x or: ", float_32.f_bits.exponent);
+  print_exponent();
+
+  // Sign / Base 10
+  // Note: the blank "" between the sign value is for moving the "or" over without typing
+  // out 8 spaces manually.
+  printf("       sign: %x %8s or: %x\n", float_32.f_bits.sign, "", float_32.f_bits.sign);
+  printf(" in base 10: %1.6f or: %s\n\n", float_32.floating_value_in_32_bits, bit_string);
+}
 
 
-  // printf("\n\nthe base 10 float result is:  %15g", float_32.floating_value_in_32_bits);
-  // printf("\n\nthe base 10 int   result is:  %15d\n\n", float_32.floating_value_as_int);
-  // printf("          components in hex are:   %08x\n\n", float_32.floating_value_as_int);
-  // printf("       components in binary are:   %s\n", bit_string);
+// Print out the Mantissa (23 bits)
+void print_mantissa() {
+  int a;
+
+  // While it is "23 bits" the bit_string variable includes spaces by default!
+  // Makes it trivial to output the Mantissa.
+  for(a = 2; a < 30; a++) {
+    printf("%c", bit_string[a]);
+  }
+
+  printf("\n"); // New line, easier to put it here.
+}
+
+
+// Print out the exponent (8 bits)
+void print_exponent() {
+  int a;
+
+  // While it is "8 bits" the bit_string variable includes spaces.
+  for(a = 31; a < 40; a++) {
+    printf("%c", bit_string[a]);
+  }
+
+  printf("\n"); // New line, easier to put it here.
 }
