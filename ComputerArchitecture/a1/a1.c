@@ -57,23 +57,22 @@ union float_32 {
   } bit;
 } float_32;
 
-char bit_string[43];  // Will contain the binary "bit string"
-
 // Function to convert the input into readable output.
-void print_output();
+void print_output(char bit_string[]);
 
 // Functions which output the mantissa / exponent in binary.
-void print_mantissa();
-void print_exponent();
+void print_mantissa(char bit_string[]);
+void print_exponent(char bit_string[]);
 
 int main() {
+  int valid = 1;
+  char bit_string[43];  // Will contain the binary "bit string"
+
   for(int i = 0; i < 42; i++) {
       bit_string[i] = ' ';      // Set bit string to empty.
   }
 
   bit_string[42] = '\0';
-
-  int valid = 1;
 
   // Get input until input stops.
   // scanf will return 1 if it gets a valid input, 0 if it gets invalid input and -1 on EOF.
@@ -88,14 +87,14 @@ int main() {
       }
 
       // Output values to the screen.
-      print_output();
+      print_output(bit_string);
   }
 
   return 0;
 }
 
 // Main output function
-void print_output() {
+void print_output(char bit_string[]) {
 
   // This should be the "sign"
   bit_string[0] = float_32.bit.b31?'1':'0';
@@ -143,31 +142,38 @@ void print_output() {
   bit_string[38] = float_32.bit.b1?'1':'0';
   bit_string[39] = float_32.bit.b0?'1':'0';
 
-  printf("\nthe floating value for %.1f is broken out as: \n", float_32.floating_value_in_32_bits);
+  /*
+    Output gets printed here.
+    I use "print_mantissa" and "print_exponent" to separate things out.
+    They use the "bit_string" variable to make things easy.
+
+    NOTES:
+    "%10s" adds 10 spaces. Also "-12" left justifys for 12 spaces.
+    See this page for info: https://www.le.ac.uk/users/rjm1/cotter/page_31.htm
+    The %12s with a blank string ("") is for printing out 12 spaces easily,
+    as shown here: https://stackoverflow.com/questions/293438/left-pad-printf-with-spaces
+  */
+  printf("\nthe floating value for %E is broken out as: \n", float_32.floating_value_in_32_bits);
 
   // Mantissa
-  printf("   mantissa: 0x%-8x or: ", float_32.f_bits.mantissa);
-  print_mantissa();
+  printf("   mantissa: 0x%-11x or: %12s", float_32.f_bits.mantissa, "");
+  print_mantissa(bit_string);
 
   // Exponent
-  printf("   exponent: 0x%-8x or: ", float_32.f_bits.exponent);
-  print_exponent();
+  printf("   exponent: 0x%-11x or: %2s", float_32.f_bits.exponent, "");
+  print_exponent(bit_string);
 
   // Sign / Base 10
-  // Note: the blank "" between the sign value is for moving the "or" over without typing
-  // out 8 spaces manually.
-  printf("       sign: %x %8s or: %x\n", float_32.f_bits.sign, "", float_32.f_bits.sign);
-  printf(" in base 10: %1.6f or: %s\n\n", float_32.floating_value_in_32_bits, bit_string);
+  printf("       sign: %-13x or: %x\n", float_32.f_bits.sign, float_32.f_bits.sign);
+  printf(" in base 10: %-13.6E or: %s\n\n", float_32.floating_value_in_32_bits, bit_string);
 }
 
 
 // Print out the Mantissa (23 bits)
-void print_mantissa() {
-  int a;
-
+void print_mantissa(char bit_string[]) {
   // While it is "23 bits" the bit_string variable includes spaces by default!
   // Makes it trivial to output the Mantissa.
-  for(a = 2; a < 30; a++) {
+  for(int a = 12; a < 40; a++) {
     printf("%c", bit_string[a]);
   }
 
@@ -176,11 +182,9 @@ void print_mantissa() {
 
 
 // Print out the exponent (8 bits)
-void print_exponent() {
-  int a;
-
+void print_exponent(char bit_string[]) {
   // While it is "8 bits" the bit_string variable includes spaces.
-  for(a = 31; a < 40; a++) {
+  for(int a = 2; a < 11; a++) {
     printf("%c", bit_string[a]);
   }
 
