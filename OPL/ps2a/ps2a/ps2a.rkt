@@ -12,28 +12,60 @@
       (+ n (sum-recursive (- n 1) ))))
 
 ;; iterative procedure for the same
+;; Based off the code given on Friday 1/29
+;; URL: http://www.cs.uml.edu/ecg/pub/uploads/OPLspr16/jan29.rkt
 (define (sum-iterative n)
-  0)
+  (define (count-helper x total)
+  (if (= x 0)  ;; if we hit zero
+      total    ;; return the total
+      (count-helper (- x 1)         ;; subtract 1 from x
+                    (+ total x))))  ;; add x to total
+  (count-helper n 0))
 
 ;; recursive procedure for sum of squares of first n natural numbers
 ;; e.g., (sum-squares-recursive 0) is 0
 ;; 	 (sum-squares-recursive 1) is 1
-;; 	 (sum-squares-recursive 2) is 5 (2^2 + 1^2)
+;; 	     (sum-squares-recursive 2) is 5 (2^2 + 1^2)
+
+;; Simple square function for sum-squares-recursive
+(define (square x)
+  (* x x))
+
+;; Recursive function.
 (define (sum-squares-recursive n)
-  0)
+  ;; Base case of 0.
+  (if (= n 0)
+      0  ;; Same as sum-recursive but using the square function above.
+      (+ (square n) (sum-squares-recursive (- n 1) ))))
 
 ;; iterative procedure for the same
 (define (sum-squares-iterative n)
-  0)
+  (define (count-helper x total)
+  (if (= x 0)  ;; if we hit zero
+      total    ;; return the total
+      (count-helper (- x 1)         ;; subtract 1 from x
+                    (+ total (square x)))))  ;; add x to total
+  (count-helper n 0))
 
 ;; recursive procedure for sum of squares of first n odd numbers
 ;; (starting with 1)
 ;; e.g., (sum-alt-squares-recursive 0) is 0
 ;; 	 (sum-alt-squares-recursive 1) is 1 (1^2)
 ;; 	 (sum-alt-squares-recursive 2) is 10 (3^2 + 1^2)
-;; 	 (sum-alt-squares-recursive 3) is 35 (5^2 + 3^2 + 1^2)
+;;       (sum-alt-squares-recursive 3) is 35 (5^2 + 3^2 + 1^2)
+(define min 1)   ;; Base case of 1 to count up from.
+(define max 0)   ;; Max number to count
+(define count 0) ;; Counter variable
+
 (define (sum-alt-squares-recursive n)
-  0)
+  (set! max n)          ;; Set count var to 0 on first recursion.
+  (if (= n 0)           ;; Base case of 0.
+      0
+      (if (> n min)     ;; Otherwise count up as far as we need to go.
+          0
+          (+ (square min) (sum-alt-squares-recursive (+ min 2)))))))
+               
+      ;; (+ (square n) (sum-alt-squares-recursive (- n 2)))))
 
 ;; iterative procedure for the same
 (define (sum-alt-squares-iterative n)
