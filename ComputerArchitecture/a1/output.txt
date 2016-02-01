@@ -1,0 +1,95 @@
+********************************************************************************
+The first five outputs are the results of running my Makefile with an
+input file that contains the five required inputs, from this list of numbers:
+         237.75
+           -.0000005126
+ -92,457,321.670245
+           6.023E+23
+           1.67339E-40
+********************************************************************************
+
+I ran these numbers through an online IEEE 754 calculator to verify
+that the results make sense.
+URL: http://www.h-schmidt.net/FloatConverter/IEEE754.html
+
+Please enter a floating point number and new-line:
+the floating value for 237.75 is broken out as:
+   mantissa: 0x6dc000      or:             110 1101 1100 0000 0000 0000
+   exponent: 0x86          or:   1000 0110
+       sign: 0             or: 0
+ in base 10: 237.75        or: 0 1000 0110 110 1101 1100 0000 0000 0000
+
+Please enter a floating point number and new-line:
+the floating value for -5.126e-07 is broken out as:
+   mantissa: 0x9999b       or:             000 1001 1001 1001 1001 1011
+   exponent: 0x6a          or:   0110 1010
+       sign: 1             or: 1
+ in base 10: -5.126e-07    or: 1 0110 1010 000 1001 1001 1001 1001 1011
+
+Please enter a floating point number and new-line:
+the floating value for -9.24573e+07 is broken out as:
+   mantissa: 0x30592d      or:             011 0000 0101 1001 0010 1101
+   exponent: 0x99          or:   1001 1001
+       sign: 1             or: 1
+ in base 10: -9.24573e+07  or: 1 1001 1001 011 0000 0101 1001 0010 1101
+
+Please enter a floating point number and new-line:
+the floating value for 6.023e+23 is broken out as:
+   mantissa: 0x7f157f      or:             111 1111 0001 0101 0111 1111
+   exponent: 0xcd          or:   1100 1101
+       sign: 0             or: 0
+ in base 10: 6.023e+23     or: 0 1100 1101 111 1111 0001 0101 0111 1111
+
+Please enter a floating point number and new-line:
+the floating value for 1.67339e-40 is broken out as:
+   mantissa: 0x1d279       or:             000 0001 1101 0010 0111 1001
+   exponent: 0x0           or:   0000 0000
+       sign: 0             or: 0
+ in base 10: 1.67339e-40   or: 0 0000 0000 000 0001 1101 0010 0111 1001
+
+
+********************************************************************************
+These five outputs are the results of running my own five inputs against the
+program. These five numbers are the ones I ran against:
+    234765.579335
+    234765.579
+    234765.571
+    234765.57
+         6.0
+********************************************************************************
+
+Please enter a floating point number and new-line:
+the floating value for 234766 is broken out as:
+   mantissa: 0x654365      or:             110 0101 0100 0011 0110 0101
+   exponent: 0x90          or:   1001 0000
+       sign: 0             or: 0
+ in base 10: 234766        or: 0 1001 0000 110 0101 0100 0011 0110 0101
+
+Please enter a floating point number and new-line:
+the floating value for 234766 is broken out as:
+   mantissa: 0x654365      or:             110 0101 0100 0011 0110 0101
+   exponent: 0x90          or:   1001 0000
+       sign: 0             or: 0
+ in base 10: 234766        or: 0 1001 0000 110 0101 0100 0011 0110 0101
+
+Please enter a floating point number and new-line:
+the floating value for 234766 is broken out as:
+   mantissa: 0x654365      or:             110 0101 0100 0011 0110 0101
+   exponent: 0x90          or:   1001 0000
+       sign: 0             or: 0
+ in base 10: 234766        or: 0 1001 0000 110 0101 0100 0011 0110 0101
+
+Please enter a floating point number and new-line:
+the floating value for 234766 is broken out as:
+   mantissa: 0x654364      or:             110 0101 0100 0011 0110 0100
+   exponent: 0x90          or:   1001 0000
+       sign: 0             or: 0
+ in base 10: 234766        or: 0 1001 0000 110 0101 0100 0011 0110 0100
+
+Please enter a floating point number and new-line:
+the floating value for 6 is broken out as:
+   mantissa: 0x400000      or:             100 0000 0000 0000 0000 0000
+   exponent: 0x81          or:   1000 0001
+       sign: 0             or: 0
+ in base 10: 6             or: 0 1000 0001 100 0000 0000 0000 0000 0000
+
