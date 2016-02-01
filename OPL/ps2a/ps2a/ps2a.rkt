@@ -6,7 +6,10 @@
 ;;	(sum-recursive 2) is 3 [it's 2 + 1]
 ;;      (sum-recursive 3) is 6 [it's 3 + 2 + 1]
 (define (sum-recursive n)
-  0)
+  ;; Base case of 0.
+  (if (= n 0)
+      0
+      (+ n (sum-recursive (- n 1) ))))
 
 ;; iterative procedure for the same
 (define (sum-iterative n)
