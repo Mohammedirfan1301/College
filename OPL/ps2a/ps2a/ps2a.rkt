@@ -158,7 +158,7 @@
           )
        )
   )
-  (iter-expt b n 1)    ;; seed a with a value of 1, as the prompt says.
+  (iter-expt b n 1)    ;; seed a with a value of 1, as the prompt says to do so.
 )
 
 ;; When implementing an iterative process in Scheme, the Scheme
