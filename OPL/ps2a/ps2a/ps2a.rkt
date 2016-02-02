@@ -6,21 +6,21 @@
 ;;	(sum-recursive 2) is 3 [it's 2 + 1]
 ;;      (sum-recursive 3) is 6 [it's 3 + 2 + 1]
 (define (sum-recursive n)
-  ;; Base case of 0.
-  (if (= n 0)
+  (if (= n 0)  ;; Base case of 0.
       0
+      ;; recursively add numbers together.
       (+ n (sum-recursive (- n 1) ))))
 
 ;; iterative procedure for the same
 ;; Based off the code given on Friday 1/29
 ;; URL: http://www.cs.uml.edu/ecg/pub/uploads/OPLspr16/jan29.rkt
 (define (sum-iterative n)
-  (define (count-helper x total)
-  (if (= x 0)  ;; if we hit zero
-      total    ;; return the total
-      (count-helper (- x 1)         ;; subtract 1 from x
-                    (+ total x))))  ;; add x to total
-  (count-helper n 0))
+  (define (count-helper count total)
+  (if (= count 0)  ;; when we hit zero,
+      total        ;; return the total
+      (count-helper (- count 1)         ;; subtract 1 from count
+                    (+ total count))))  ;; add count to total
+  (count-helper n 0)) ;; count = n, total = 0
 
 ;; recursive procedure for sum of squares of first n natural numbers
 ;; e.g., (sum-squares-recursive 0) is 0
@@ -40,12 +40,12 @@
 
 ;; iterative procedure for the same
 (define (sum-squares-iterative n)
-  (define (count-helper x total)
-  (if (= x 0)  ;; if we hit zero
-      total    ;; return the total
-      (count-helper (- x 1)         ;; subtract 1 from x
-                    (+ total (square x)))))  ;; add x to total
-  (count-helper n 0))
+  (define (count-helper count total)
+  (if (= count 0)  ;; when we hit zero,
+      total        ;; return the total
+      (count-helper (- count 1)              ;; subtract 1 from count
+                    (+ total (square x)))))  ;; add (count^2) to total
+  (count-helper n 0))  ;; count = n, total = 0
 
 ;; recursive procedure for sum of squares of first n odd numbers
 ;; (starting with 1)
@@ -53,23 +53,25 @@
 ;; 	 (sum-alt-squares-recursive 1) is 1 (1^2)
 ;; 	 (sum-alt-squares-recursive 2) is 10 (3^2 + 1^2)
 ;;       (sum-alt-squares-recursive 3) is 35 (5^2 + 3^2 + 1^2)
-(define min 1)   ;; Base case of 1 to count up from.
-(define max 0)   ;; Max number to count
-(define count 0) ;; Counter variable
-
 (define (sum-alt-squares-recursive n)
-  (set! max n)          ;; Set count var to 0 on first recursion.
-  (if (= n 0)           ;; Base case of 0.
+  (if ( = n 0)
       0
-      (if (> n min)     ;; Otherwise count up as far as we need to go.
-          0
-          (+ (square min) (sum-alt-squares-recursive (+ min 2)))))))
-               
-      ;; (+ (square n) (sum-alt-squares-recursive (- n 2)))))
+      (if ( = n 1)
+          1
+          ;; this part translates into "(1 + 2(n-1))^2", 
+          ;; it's done recursively as required.
+          (+ (square (+ 1 (* 2 (- n 1)))) (sum-alt-squares-recursive (- n 1))))))
 
 ;; iterative procedure for the same
 (define (sum-alt-squares-iterative n)
-  0)
+  (define (count-helper count total)
+  (if (= count 0)  ;; when count == 0,
+      total        ;; return total sum of what we're doing.
+      (count-helper (- count 1)  ;; decrement count each time.
+                    ;; this is basically (1 + (2*(n-1)))^2,
+                    ;; and we keep doing this until count becomes 0.
+                    (+ total (square (+ 1 (* 2 (- count 1))))))))
+  (count-helper n 0))   ;; count = n, total = 0
 
 ;; following series converges to 2/3
 ;; (notice alternating addition and subtraction of the terms):
