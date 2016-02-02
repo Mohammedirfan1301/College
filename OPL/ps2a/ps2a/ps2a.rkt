@@ -139,9 +139,8 @@
       ;; straight from exercise 1.11, which defines this as:
       ;; f(n) = f(n - 1) + (2 * f(n - 2)) + (3 * f(n - 3))
       (+ (f-recursive(- n 1))           ;; f(n - 1)
-         (+ (* 2 (f-recursive(- n 2)))  ;; (2 * f(n - 2))
-            (* 3 (f-recursive(- n 3)))  ;; (3 * f(n - 3))
-         )
+         (* 2 (f-recursive(- n 2)))  ;; (2 * f(n - 2))
+         (* 3 (f-recursive(- n 3)))  ;; (3 * f(n - 3))
       )
   )
 )
