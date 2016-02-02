@@ -8,21 +8,22 @@
 #include <stdlib.h>
 
 /*
-    Union to use for the conversion.
-    This post pointed me in the right direction:
-    https://stackoverflow.com/questions/
-    15685181/how-to-get-the-sign-mantissa-and-exponent-of-a-floating-point-number
-
-    Also, the "convert_float_to_bits.c" file gave me some ideas as well:
-    https://jeapostrophe.github.io/courses/2015/fall/305/notes/dist/convert_float_to_bits.c
-*/
+ *  Union to use for the conversion.
+ *
+ *  This post pointed me in the right direction:
+ *  https://stackoverflow.com/questions/
+ *  15685181/how-to-get-the-sign-mantissa-and-exponent-of-a-floating-point-number
+ *
+ *  I used Prof. Moloney's code from this file:
+ *  http://www.cs.uml.edu/~bill/cs305/convert_float_to_bits_c.txt
+ */
 typedef union float_32 {
     float float_value;
     struct {
         unsigned int mantissa: 23;
         unsigned int exponent:  8;
         unsigned int     sign:  1;
-    } part;
+    } f_bits;
     struct single_bits {
       unsigned  b0 :1;             // Mantissa
       unsigned  b1 :1;
@@ -59,8 +60,11 @@ typedef union float_32 {
     } bit;
 } float_32;
 
+// Print functions
 void print_output(float output, int num);
-void output_binary(int integer_input, int bits);
+void print_binary(int integer_input, int bits);
+
+// Add two floating point numbers.
 float add_floating_point(float_32 first_int, float_32 second_int);
 
 int main() {
@@ -69,7 +73,15 @@ int main() {
     int valid = 1;
 
     do {
+        printf("Please enter two positive floating point values each with:\n");
+        printf("\t- no more than 6 significant digits\n");
+        printf("\t- a value between + 10**37 and 10**-37\n");
+
+        printf("Enter Float 1: ");
         valid = scanf("%f", &float1);
+
+        printf("Enter Float 2: ");
+        valid = scanf("%f", &float2);
 
         // scanf will return 0 if it gets invalid input and -1 on EOF.
         if (valid == 0 || valid == -1) {
@@ -77,13 +89,6 @@ int main() {
         }
 
         print_output(float1, 1);
-
-        valid = scanf("%f", &float2);
-
-        if (valid == 0 || valid == -1) {
-            break;
-        }
-
         print_output(float2, 2);
 
         hardware = float1 + float2;
@@ -108,38 +113,36 @@ void print_output(float output, int num) {
 
     // Float 1 / Float 2 output
     if(num == 1 || num == 2) {
-        printf(" Float %d: %.6f\n", num, output);
+        printf("\n Float %d: %.6f\n", num, output);
         printf("          bits: ");
 
-        printf("%x ", output_float.part.sign);
-        output_binary(output_float.part.exponent, 8);
-        output_binary(output_float.part.mantissa, 23);
-        printf("\n");
+        printf("%x ", output_float.f_bits.sign);
+        print_binary(output_float.f_bits.exponent, 8);
+        print_binary(output_float.f_bits.mantissa, 23);
     }
     // Hardware output section
     else if(num == 3) {
-        printf("Hardware: %.6f\n", output);
+        printf("\nHardware: %.6f\n", output);
         printf("          bits: ");
 
-        printf("%x ", output_float.part.sign);
-        output_binary(output_float.part.exponent, 8);
-        output_binary(output_float.part.mantissa, 23);
-        printf("\n");
+        printf("%x ", output_float.f_bits.sign);
+        print_binary(output_float.f_bits.exponent, 8);
+        print_binary(output_float.f_bits.mantissa, 23);
     }
     // Emulated output section
     else if(num == 4) {
-        printf("Emulated: %.6f\n", output);
+        printf("\nEmulated: %.6f\n", output);
         printf("          bits: ");
 
-        printf("%x ", output_float.part.sign);
-        output_binary(output_float.part.exponent, 8);
-        output_binary(output_float.part.mantissa, 23);
+        printf("%x ", output_float.f_bits.sign);
+        print_binary(output_float.f_bits.exponent, 8);
+        print_binary(output_float.f_bits.mantissa, 23);
         printf("\n\n");
     }
 }
 
 // This function prints out a binary number given an integer.
-void output_binary(int integer_input, int bits) {
+void print_binary(int integer_input, int bits) {
     int bit_array[32];
     int x, y, count = 1;
 
@@ -179,7 +182,7 @@ void output_binary(int integer_input, int bits) {
             else if (y == 19) {         // Separate the group of 3 by a space.
                 printf(" %d", bit_array[y]);
             }
-            else {              // This part is either the rest of the mantissa.
+            else {              // This is the rest of the mantissa.
                 printf("%d", bit_array[y]);
 
                 // Prevent trailing whitespace by catching when y == 0
@@ -202,28 +205,28 @@ float add_floating_point(float_32 first_int, float_32 second_int) {
 
     // The exponents are the same, so increment them,
     // and then add the mantissa's together.
-    if (first_int.part.exponent == second_int.part.exponent) {
+    if (first_int.f_bits.exponent == second_int.f_bits.exponent) {
 
         // Increment the exponents to fix exponent
-        first_int.part.exponent++;
-        second_int.part.exponent++;
+        first_int.f_bits.exponent++;
+        second_int.f_bits.exponent++;
 
         // Just use the first exponent.
-        float_sum.part.exponent = first_int.part.exponent;
+        float_sum.f_bits.exponent = first_int.f_bits.exponent;
 
         // Add the two mantissas together.
-        float_sum.part.mantissa = first_int.part.mantissa + second_int.part.mantissa;
-        float_sum.part.mantissa >>= 1;    // Right shift once to fix 1.0 + 1.2
+        float_sum.f_bits.mantissa = first_int.f_bits.mantissa + second_int.f_bits.mantissa;
+        float_sum.f_bits.mantissa >>= 1;    // Right shift once to fix 1.0 + 1.2
     }
 
     // Adjust the 1st mantissa since it is smaller. The 2nd exponent will be used.
-    else if (first_int.part.exponent < second_int.part.exponent) {
+    else if (first_int.f_bits.exponent < second_int.f_bits.exponent) {
 
         // Get the amount to shift by. Only shift to the right.
-        counter = second_int.part.exponent - first_int.part.exponent;
+        counter = second_int.f_bits.exponent - first_int.f_bits.exponent;
 
         // Right shift once, then put the hidden bit in that spot.
-        first_int.part.mantissa  >>= 1;       // Short hand for val = val >> 1
+        first_int.f_bits.mantissa  >>= 1;       // Short hand for val = val >> 1
 
         // Put the hidden bit in place of the zero we just shifted in.
         first_int.bit.b22 = 1;
@@ -242,33 +245,33 @@ float add_floating_point(float_32 first_int, float_32 second_int) {
         if (counter > 0) {
 
             // Shift one less then necessary so we can catch rounding errors.
-            first_int.part.mantissa  >>= counter - 1;
+            first_int.f_bits.mantissa  >>= counter - 1;
 
             // Catch rounding errors - don't drop the last 1. Add it back in.
             if (first_int.bit.b0 == 1) {
-                first_int.part.mantissa >>= 1;
-                first_int.part.mantissa += 1;     // Add the dropped 1 back in.
+                first_int.f_bits.mantissa >>= 1;
+                first_int.f_bits.mantissa += 1;     // Add the dropped 1 back in.
             }
             // If the last bit is a 0 though who cares, just shift it once.
             else {
-                first_int.part.mantissa  >>= 1;
+                first_int.f_bits.mantissa  >>= 1;
             }
         }
 
         // Second exponent was larger so use this one.
-        float_sum.part.exponent = second_int.part.exponent;
+        float_sum.f_bits.exponent = second_int.f_bits.exponent;
 
-        float_sum.part.mantissa = first_int.part.mantissa + second_int.part.mantissa;
+        float_sum.f_bits.mantissa = first_int.f_bits.mantissa + second_int.f_bits.mantissa;
     }
 
     // Adjust the 2nd mantissa since it is smaller. The 1st exponent will be used.
-    else if (first_int.part.exponent > second_int.part.exponent) {
+    else if (first_int.f_bits.exponent > second_int.f_bits.exponent) {
 
         // Get the amount to shift by. Only shift to the right.
-        counter = first_int.part.exponent - second_int.part.exponent;
+        counter = first_int.f_bits.exponent - second_int.f_bits.exponent;
 
         // Right shift once, then put the hidden bit in that spot.
-        second_int.part.mantissa  >>= 1;       // Short hand for val = val >> 1
+        second_int.f_bits.mantissa  >>= 1;       // Short hand for val = val >> 1
 
         // Put the hidden bit in place of the zero we just shifted in.
         second_int.bit.b22 = 1;
@@ -287,29 +290,29 @@ float add_floating_point(float_32 first_int, float_32 second_int) {
         if (counter > 0) {
 
             // Shift one less than necessary so we can catch rounding errors.
-            second_int.part.mantissa  >>= counter - 1;
+            second_int.f_bits.mantissa  >>= counter - 1;
 
             // Catch rounding errors - don't drop the last bit if it equals 1.
             if (second_int.bit.b0 == 1) {
-                second_int.part.mantissa >>= 1;
-                second_int.part.mantissa += 1;     // Add the dropped 1 back in.
+                second_int.f_bits.mantissa >>= 1;
+                second_int.f_bits.mantissa += 1;     // Add the dropped 1 back in.
             }
             // If the last bit is a 0 though who cares, just shift it once.
             else {
-                second_int.part.mantissa >>= 1;
+                second_int.f_bits.mantissa >>= 1;
             }
         }
 
         // first exponent was larger so use this one.
-        float_sum.part.exponent = first_int.part.exponent;
+        float_sum.f_bits.exponent = first_int.f_bits.exponent;
 
-        float_sum.part.mantissa = first_int.part.mantissa + second_int.part.mantissa;
+        float_sum.f_bits.mantissa = first_int.f_bits.mantissa + second_int.f_bits.mantissa;
     }
 
     // Detect infinity
-    if (first_int.part.exponent == 254 || second_int.part.exponent == 254) {
-        float_sum.part.exponent = 255;
-        float_sum.part.mantissa = 0;
+    if (first_int.f_bits.exponent == 254 || second_int.f_bits.exponent == 254) {
+        float_sum.f_bits.exponent = 255;
+        float_sum.f_bits.mantissa = 0;
     }
 
     return float_sum.float_value;
