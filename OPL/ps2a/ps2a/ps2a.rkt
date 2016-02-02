@@ -43,8 +43,8 @@
   (define (count-helper count total)
   (if (= count 0)  ;; when we hit zero,
       total        ;; return the total
-      (count-helper (- count 1)              ;; subtract 1 from count
-                    (+ total (square x)))))  ;; add (count^2) to total
+      (count-helper (- count 1)                  ;; subtract 1 from count
+                    (+ total (square count)))))  ;; add (count^2) to total
   (count-helper n 0))  ;; count = n, total = 0
 
 ;; recursive procedure for sum of squares of first n odd numbers
@@ -87,11 +87,46 @@
 ;; (two-thirds-series 2) is 3/4
 ;; HINTS: even? and odd? are predicates; (expt 2 3) is 2^3.
 (define (two-thirds-series-r n)
-  1)
+  (if (= n 0) 
+      1
+      ;; Add positive and negative fractions recursively 
+      ( + (if (even? n) ;; detect if the number is even or odd.
+             ;; this confusing thing either adds or subtracts,
+             ;; by making numbers either negative or positive.
+             ;; the inner () basically do:
+             ;; "1 / (2^n)", alternate between pos / neg.
+             ( + (/ 1 (expt 2 n) ))  ;; even case
+             ( - (/ 1 (expt 2 n) ))  ;; odd case
+         ) 
+         ( two-thirds-series-r(- n 1) )    ;; recursive call
+      )
+  )  
+)
 
 ;; iterative procedure for the same
 (define (two-thirds-series-i n)
-  1)
+  (define (count-helper count total)
+  (if (= count 0)  ;; when count == 0,
+      total        ;; return total sum of what we're doing.
+      (count-helper (- count 1)  ;; decrement count each time.
+                    
+         ;; this is similar to the recursive formula
+         ;; I just copy / pasted the main logic into the iterative version,
+         ;; and changed the "n" variable to count.
+         (if (even? count) ;; detect if the number is even or odd.
+             
+             ;; this confusing thing either adds or subtracts,
+             ;; by making numbers either negative or positive.
+             ;; the inner () basically do:
+             ;; "1 / (2^count)", alternate between pos / neg.
+             ;; count in this case is basically "n" in the recursive case.
+             ( + total (/ 1 (expt 2 count) ))  ;; even case
+             ( - total (/ 1 (expt 2 count) ))  ;; odd case
+         )
+       )
+  ))
+  (count-helper n 1)  ;; count = n, total = 1 (for the base case of 1)
+)   
 
 ;; SICP exercise 1.11 (pp. 42). In this problem, you implement a
 ;; recursive mathematical function. Only do the recursive implementation. 
