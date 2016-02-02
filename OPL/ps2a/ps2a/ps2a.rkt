@@ -131,15 +131,49 @@
 ;; SICP exercise 1.11 (pp. 42). In this problem, you implement a
 ;; recursive mathematical function. Only do the recursive implementation. 
 (define (f-recursive n)
-  1)
+  (if (< n 3)
+      ;; n < 3 case
+      n
+      
+      ;; n >= 3 case
+      ;; straight from exercise 1.11, which defines this as:
+      ;; f(n) = f(n - 1) + (2 * f(n - 2)) + (3 * f(n - 3))
+      (+ (f-recursive(- n 1))           ;; f(n - 1)
+         (+ (* 2 (f-recursive(- n 2)))  ;; (2 * f(n - 2))
+            (* 3 (f-recursive(- n 3)))  ;; (3 * f(n - 3))
+         )
+      )
+  )
+)
 
 ;; SICP exercise 1.16 (pp. 46).
 ;; complete the fast-expt implementation using an iterative process
 (define (fast-expt b n)
-  1)
+  (define (iter-expt b n a)
+      (if (= n 0)
+          a               ;; base case, when n == 0, return a.
+          (if (even? n)   ;; detect if the number is even or odd.
+             
+             (iter-expt (square b) (/ n 2) a)  ;; even case
+             (iter-expt b (- n 1) (* a b))     ;; odd case
+          )
+       )
+  )
+  (iter-expt b n 1)    ;; seed a with a value of 1, as the prompt says.
+)
 
 ;; When implementing an iterative process in Scheme, the Scheme
 ;; interpreter uses tail-recursion.  Explain what this means.  Answer
 ;; this question in a comment block, and change #f to #t.
-(define tail-recursion #f)
+#|
+   Tail recursion is where recursive procedures call themselves
+   in order to solve a problem. This creates a nest of calls, which
+   looks something like this:
+   (+ 1 (+ 2 (+ 3 4))))  ;; assume this is a recursive addition, similar to sum-recursive
+   (+ 1 (+ 2 7)))        ;; 3 + 4 = 7
+   (+ 1 9)               ;; 2 + 7 = 9
+   10                    ;; 1 + 9 = 10
+   This would then return "10" as the final answer.
+|#
+(define tail-recursion #t)
 
