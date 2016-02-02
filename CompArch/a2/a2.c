@@ -25,51 +25,41 @@ typedef union float_32 {
         unsigned int     sign:  1;
     } f_bits;
     struct single_bits {
-      unsigned  b0 :1;             // Mantissa
-      unsigned  b1 :1;
-      unsigned  b2 :1;
-      unsigned  b3 :1;
-      unsigned  b4 :1;
-      unsigned  b5 :1;
-      unsigned  b6 :1;
-      unsigned  b7 :1;
-      unsigned  b8 :1;
-      unsigned  b9 :1;
-      unsigned  b10:1;
-      unsigned  b11:1;
-      unsigned  b12:1;
-      unsigned  b13:1;
-      unsigned  b14:1;
-      unsigned  b15:1;
-      unsigned  b16:1;
-      unsigned  b17:1;
-      unsigned  b18:1;
-      unsigned  b19:1;
-      unsigned  b20:1;
-      unsigned  b21:1;
+      // Mantissa, b0 to b22.
+      unsigned  b0 :1;      unsigned  b1 :1;
+      unsigned  b2 :1;      unsigned  b3 :1;
+      unsigned  b4 :1;      unsigned  b5 :1;
+      unsigned  b6 :1;      unsigned  b7 :1;
+      unsigned  b8 :1;      unsigned  b9 :1;
+      unsigned  b10:1;      unsigned  b11:1;
+      unsigned  b12:1;      unsigned  b13:1;
+      unsigned  b14:1;      unsigned  b15:1;
+      unsigned  b16:1;      unsigned  b17:1;
+      unsigned  b18:1;      unsigned  b19:1;
+      unsigned  b20:1;      unsigned  b21:1;
       unsigned  b22:1;
-      unsigned  b23:1;              // Exponent
-      unsigned  b24:1;
-      unsigned  b25:1;
-      unsigned  b26:1;
-      unsigned  b27:1;
-      unsigned  b28:1;
-      unsigned  b29:1;
-      unsigned  b30:1;
-      unsigned  b31:1;              // Sign
+
+      // Exponent, b23 to b30.
+      unsigned  b23:1;      unsigned  b24:1;
+      unsigned  b25:1;      unsigned  b26:1;
+      unsigned  b27:1;      unsigned  b28:1;
+      unsigned  b29:1;      unsigned  b30:1;
+
+      // Sign, b31.
+      unsigned  b31:1;
     } bit;
 } float_32;
 
 // Print functions
-void print_output(float output, int num);
-void print_binary(int integer_input, int bits);
+void print_output(float_32 output, int num);
+void print_binary(float_32 output);
 
 // Add two floating point numbers.
 float add_floating_point(float_32 first_int, float_32 second_int);
 
 int main() {
     float float1, float2, hardware, emulated;
-    float_32 float_1, float_2;
+    float_32 float_1, float_2, hardware_32, emulated_32;
     int valid = 1;
 
     do {
@@ -83,22 +73,30 @@ int main() {
         printf("Enter Float 2: ");
         valid = scanf("%f", &float2);
 
+        printf("\n");          // pretty output.
+
+        // Get float values into the unions.
+        float_1.float_value = float1;
+        float_2.float_value = float2;
+
         // scanf will return 0 if it gets invalid input and -1 on EOF.
         if (valid == 0 || valid == -1) {
             break;
         }
 
-        print_output(float1, 1);
-        print_output(float2, 2);
+        // Print output calls
+        print_output(float_1, 1);      // Float 1 & 2
+        print_output(float_2, 2);
 
-        hardware = float1 + float2;
-        print_output(hardware, 3);
+        hardware = float1 + float2;            // Hardware output
+        hardware_32.float_value = hardware;    // Add to float_32 container.
+        print_output(hardware_32, 3);
 
-        float_1.float_value = float1;
-        float_2.float_value = float2;
+        emulated = add_floating_point(float_1, float_2);    // Emulated calculation
+        emulated_32.float_value = emulated;     // Add to float_32 container.
+        print_output(emulated_32, 4);           // Emulated output
 
-        emulated = add_floating_point(float_1, float_2);
-        print_output(emulated, 4);
+        printf("\n");         // pretty output.
 
     } while (valid == 1);     // scanf will return 1 if it gets a valid input
 
@@ -106,96 +104,69 @@ int main() {
 }
 
 // Function to output floating point values as binary output
-void print_output(float output, int num) {
-    // Use the union to print out the mantissa / exponent / sign.
-    float_32 output_float;
-    output_float.float_value = output;
-
-    // Float 1 / Float 2 output
-    if(num == 1 || num == 2) {
-        printf("\n Float %d: %.6f\n", num, output);
-        printf("          bits: ");
-
-        printf("%x ", output_float.f_bits.sign);
-        print_binary(output_float.f_bits.exponent, 8);
-        print_binary(output_float.f_bits.mantissa, 23);
+void print_output(float_32 output, int num) {
+    if(num == 1 || num == 2) {      // Float 1 / Float 2 output
+        printf("Float %d: %.6f\n", num, output.float_value);
     }
-    // Hardware output section
-    else if(num == 3) {
-        printf("\nHardware: %.6f\n", output);
-        printf("          bits: ");
-
-        printf("%x ", output_float.f_bits.sign);
-        print_binary(output_float.f_bits.exponent, 8);
-        print_binary(output_float.f_bits.mantissa, 23);
+    else if(num == 3) {       // Hardware output section
+        printf("Hardware: %.6f\n", output.float_value);
     }
-    // Emulated output section
-    else if(num == 4) {
-        printf("\nEmulated: %.6f\n", output);
-        printf("          bits: ");
-
-        printf("%x ", output_float.f_bits.sign);
-        print_binary(output_float.f_bits.exponent, 8);
-        print_binary(output_float.f_bits.mantissa, 23);
-        printf("\n\n");
+    else if(num == 4) {       // Emulated output section
+        printf("Emulated: %.6f\n", output.float_value);
     }
+
+    printf("          bits: ");     // Print out the bits.
+    print_binary(output);
 }
 
-// This function prints out a binary number given an integer.
-void print_binary(int integer_input, int bits) {
-    int bit_array[32];
-    int x, y, count = 1;
+/*
+ *  This function prints out a binary number given an integer.
+ *  This is basically straight from a1.c, modified to work with a float_32
+ *  variable called "output"
+ */
+void print_binary(float_32 output) {
+  char bit_string[43];  // Will contain the binary "bit string"
 
-    // Initalize everything to zero.
-    for (x = 0; x < 32; x++) {
-        bit_array[x] = 0;
-    }
+  for(int i = 0; i < 42; i++) {
+      bit_string[i] = ' ';      // Set bit string to empty.
+  }
 
-    // Convert to binary
-    for (x = 0; integer_input > 0; x++) {
-        bit_array[x] = integer_input % 2;      // Get the reminder into bit_array
-        integer_input = integer_input / 2;     // Divide by 2 until divide equals zero.
-    }
+  bit_string[42] = '\0';        // Null terminated C style string.
 
-    // Exponent stuff
-    if (bits == 8) {
-        for (y = 7; y >= 0; y--) {
-            printf("%d", bit_array[y]);
+  // This should be the "sign"
+  bit_string[0] = output.bit.b31?'1':'0';
 
-            if(count == 4) {             // Catch groups of 4 by counting to 4.
-                printf(" ");
-                count = 0;              // Equal to 0 since count
-            }                           // will be incremented right after.
+  // The gaps here will be "spaces", that is #1, #6, #11, #15, #20, #25, #30, #35.
 
-            count++;
-        }
-    }
+  // The Exponent should start here
+  bit_string[2] = output.bit.b30?'1':'0';  bit_string[3] = output.bit.b29?'1':'0';
+  bit_string[4] = output.bit.b28?'1':'0';  bit_string[5] = output.bit.b27?'1':'0';
 
-    // Mantissa stuff
-    if (bits == 23) {
-        count = 2;                      // fix the first group of 4 being wrong.
+  bit_string[7] = output.bit.b26?'1':'0';  bit_string[8] = output.bit.b25?'1':'0';
+  bit_string[9] = output.bit.b24?'1':'0';  bit_string[10] = output.bit.b23?'1':'0';
+  // Last bit of the exponent. (10)
 
-        for (y = 22; y >= 0; y--) {
-            if(y > 19) {                // Output the group of 3
-                printf("%d", bit_array[y]);
-            }
-            else if (y == 19) {         // Separate the group of 3 by a space.
-                printf(" %d", bit_array[y]);
-            }
-            else {              // This is the rest of the mantissa.
-                printf("%d", bit_array[y]);
+  // The Mantissa should start here.
+  bit_string[12] = output.bit.b22?'1':'0';
+  bit_string[13] = output.bit.b21?'1':'0';  bit_string[14] = output.bit.b20?'1':'0';
 
-                // Prevent trailing whitespace by catching when y == 0
-                // This messed up my diff command.
-                if( (count == 4) &&  (y != 0) ) {
-                    printf(" ");        // Catch groups of 4 by counting to 4.
-                    count = 0;
-                }
+  bit_string[16] = output.bit.b19?'1':'0';  bit_string[17] = output.bit.b18?'1':'0';
+  bit_string[18] = output.bit.b17?'1':'0';  bit_string[19] = output.bit.b16?'1':'0';
 
-                count++;
-            }
-        }
-    }
+  bit_string[21] = output.bit.b15?'1':'0';  bit_string[22] = output.bit.b14?'1':'0';
+  bit_string[23] = output.bit.b13?'1':'0';  bit_string[24] = output.bit.b12?'1':'0';
+
+  bit_string[26] = output.bit.b11?'1':'0';  bit_string[27] = output.bit.b10?'1':'0';
+  bit_string[28] = output.bit.b9?'1':'0';   bit_string[29] = output.bit.b8?'1':'0';
+
+  bit_string[31] = output.bit.b7?'1':'0';   bit_string[32] = output.bit.b6?'1':'0';
+  bit_string[33] = output.bit.b5?'1':'0';   bit_string[34] = output.bit.b4?'1':'0';
+
+  bit_string[36] = output.bit.b3?'1':'0';   bit_string[37] = output.bit.b2?'1':'0';
+  bit_string[38] = output.bit.b1?'1':'0';   bit_string[39] = output.bit.b0?'1':'0';
+  // This is the last bit of the Mantissa. (39)
+
+  printf("%s\n", bit_string);     // Print out the bit string.
 }
 
 // Function to add two floating point numbers using integer addition.
