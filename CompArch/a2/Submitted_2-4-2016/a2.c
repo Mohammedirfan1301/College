@@ -1,7 +1,7 @@
 /*
- * Copyright 2015 Jason Downing
- * All rights reserved.
- * MIT Licensed - see http://opensource.org/licenses/MIT for details.
+ *    Copyright 2015 Jason Downing
+ *    All rights reserved.
+ *    MIT Licensed - see http://opensource.org/licenses/MIT for details.
  *
  */
 #include <stdio.h>
@@ -55,14 +55,14 @@ int main() {
   int valid = 1;
 
   do {
-    //printf("Please enter two positive floating point values each with:\n");
-    //printf("\t- no more than 6 significant digits\n");
-    //printf("\t- a value between + 10**37 and 10**-37\n");
+    printf("Please enter two positive floating point values each with:\n");
+    printf("\t- no more than 6 significant digits\n");
+    printf("\t- a value between + 10**37 and 10**-37\n");
 
-    //printf("Enter Float 1: ");
+    printf("Enter Float 1: ");
     valid = scanf("%f", &float1);
 
-    //printf("Enter Float 2: ");
+    printf("Enter Float 2: ");
     valid = scanf("%f", &float2);
 
     printf("\n");          // pretty output.
@@ -96,7 +96,7 @@ int main() {
     emulated_32.float_value = emulated;
 
     print_output(emulated_32, 4);   // Emulated output
-    printf("\n");                   // pretty output.
+    printf("\n");
 
   } while (valid == 1);     // scanf will return 1 if it gets a valid input
 
@@ -192,39 +192,31 @@ float add_floating_point(float_32 first_int, float_32 second_int) {
     // Add the two mantissas together.
     float_sum.f_bits.mantissa = first_int.f_bits.mantissa + second_int.f_bits.mantissa;
     float_sum.f_bits.mantissa >>= 1;    // Right shift once to fix 1.0 + 1.2
+    float_sum.bit.b22 = 1;              // Put the hidden bit back in.
   }
-
-  // The exponents aren't the same, and it is assumed that I have passed in
-  // the larger of the two exponents into first_int.
-  else {
-
-    // Get the amount to shift by, and then right shift once.
-    counter = first_int.f_bits.exponent - second_int.f_bits.exponent;
+  else{
+    // Slam the hidden bit into the mantissa.
     second_int.f_bits.mantissa  >>= 1;    // Short hand for val = val >> 1
     second_int.bit.b22 = 1;               // Put the hidden bit back in.
 
-    // Need to decrement the shift counter now if it isn't equal to zero.
-    if (counter > 0) {
-      counter--;
+    // Get the amount to shift by.
+    // Decrement it by one since we will check for dropped bits at the end.
+    counter = first_int.f_bits.exponent - second_int.f_bits.exponent;
+    counter--;
+
+    if (counter > 24) {     // Don't overshift - max should be 24.
+      counter = 24;         // Max amount to shift by.
     }
 
-    // Don't overshift - max should be 24.
-    if (counter > 24) {
-      counter = 24;       // Max amount to shift by.
+    // Shift one less than necessary so we can catch bits being dropped.
+    second_int.f_bits.mantissa  >>= counter - 1;
+
+    if (second_int.bit.b0 == 1) {           // Don't drop that bit.
+      second_int.f_bits.mantissa >>= 1;
+      second_int.f_bits.mantissa += 1;      // Add the dropped 1 back in.
     }
-
-    if (counter > 0) {
-
-      // Shift one less than necessary so we can catch rounding errors.
-      second_int.f_bits.mantissa  >>= counter - 1;
-
-      if (second_int.bit.b0 == 1) {
-        second_int.f_bits.mantissa >>= 1;
-        second_int.f_bits.mantissa += 1;      // Add the dropped 1 back in.
-      }
-      else {     // If the last bit is a 0 though who cares, just shift it once.
-        second_int.f_bits.mantissa >>= 1;
-      }
+    else {     // If the last bit is a 0 though who cares, just shift it once.
+      second_int.f_bits.mantissa >>= 1;
     }
 
     // Save the calculated exponent / mantissa.

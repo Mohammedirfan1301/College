@@ -178,33 +178,51 @@ float add_floating_point(float_32 first_int, float_32 second_int) {
   int counter = 0;          // Shift counter
   float_32 float_sum;
 
-  // Slam the hidden bit into the mantissa.
-  second_int.f_bits.mantissa  >>= 1;    // Short hand for val = val >> 1
-  second_int.bit.b22 = 1;               // Put the hidden bit back in.
+  // The exponents are the same, so increment them,
+  // and then add the mantissa's together.
+  if (first_int.f_bits.exponent == second_int.f_bits.exponent) {
 
-  // Get the amount to shift by.
-  // Decrement it by one since we will check for dropped bits at the end.
-  counter = first_int.f_bits.exponent - second_int.f_bits.exponent;
-  counter--;
+    // Increment the exponents to fix exponent
+    first_int.f_bits.exponent++;
+    second_int.f_bits.exponent++;
 
-  if (counter > 24) {     // Don't overshift - max should be 24.
-    counter = 24;         // Max amount to shift by.
+    // Just use the first exponent.
+    float_sum.f_bits.exponent = first_int.f_bits.exponent;
+
+    // Add the two mantissas together.
+    float_sum.f_bits.mantissa = first_int.f_bits.mantissa + second_int.f_bits.mantissa;
+    float_sum.f_bits.mantissa >>= 1;    // Right shift once to fix 1.0 + 1.2
+    float_sum.bit.b22 = 1;              // Put the hidden bit back in.
   }
+  else{
+    // Slam the hidden bit into the mantissa.
+    second_int.f_bits.mantissa  >>= 1;    // Short hand for val = val >> 1
+    second_int.bit.b22 = 1;               // Put the hidden bit back in.
 
-  // Shift one less than necessary so we can catch bits being dropped.
-  second_int.f_bits.mantissa  >>= counter - 1;
+    // Get the amount to shift by.
+    // Decrement it by one since we will check for dropped bits at the end.
+    counter = first_int.f_bits.exponent - second_int.f_bits.exponent;
+    counter--;
 
-  if (second_int.bit.b0 == 1) {           // Don't drop that bit.
-    second_int.f_bits.mantissa >>= 1;
-    second_int.f_bits.mantissa += 1;      // Add the dropped 1 back in.
+    if (counter > 24) {     // Don't overshift - max should be 24.
+      counter = 24;         // Max amount to shift by.
+    }
+
+    // Shift one less than necessary so we can catch bits being dropped.
+    second_int.f_bits.mantissa  >>= counter - 1;
+
+    if (second_int.bit.b0 == 1) {           // Don't drop that bit.
+      second_int.f_bits.mantissa >>= 1;
+      second_int.f_bits.mantissa += 1;      // Add the dropped 1 back in.
+    }
+    else {     // If the last bit is a 0 though who cares, just shift it once.
+      second_int.f_bits.mantissa >>= 1;
+    }
+
+    // Save the calculated exponent / mantissa.
+    float_sum.f_bits.exponent = first_int.f_bits.exponent;
+    float_sum.f_bits.mantissa = first_int.f_bits.mantissa + second_int.f_bits.mantissa;
   }
-  else {     // If the last bit is a 0 though who cares, just shift it once.
-    second_int.f_bits.mantissa >>= 1;
-  }
-
-  // Save the calculated exponent / mantissa.
-  float_sum.f_bits.exponent = first_int.f_bits.exponent;
-  float_sum.f_bits.mantissa = first_int.f_bits.mantissa + second_int.f_bits.mantissa;
 
   // Detect infinity and set it if we overflowed.
   if (first_int.f_bits.exponent == 254 || second_int.f_bits.exponent == 254) {
