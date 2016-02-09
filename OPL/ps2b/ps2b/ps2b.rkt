@@ -44,7 +44,8 @@
 
 ;; Approximations to pi using john wallis' formula
 (define (pi-term n)
-  
+  ;; Need to detect if the number is odd or even for using
+  ;; the John Wallis formula
   (if (even? n)
        (/ (+ n 2) (+ n 1))
        (/ (+ n 1) (+ n 2))
@@ -120,9 +121,19 @@
           (lambda (x) x)
           (lambda (x) (* x ((expnt (- n 1)) x))))))
 
-;Iterative process
+;; Iterative process
+;; I based this off the recursive implementation, I just modified it so
+;; that it ends up being iterative.
 (define (expnt-iter n)
-  (lambda (n) n))
+  (define (iter a result)        ;; Helper function takes A and result
+    (if (= a 0) (lambda (a) 1)   
+        (if (= a 1)
+            result               ;; Base case
+            ;; From the iterative part, uses the helper procedure.
+            (lambda (result) (* result ((expnt (- a 1)) result))))))
+  (iter n 1))     ;; Seed the iter function with a / 0 for result.
+  
+  
 
 ;; in the following procedures, rewrite to be equivalent
 ;; by transforming the let expressions into lambda's
@@ -161,17 +172,4 @@
    (+ b c)))
 
 
-
-;; Honors, Graduate Students, and Undergrads Looking for More
-;; 11. SICP exercise 1.43 (pp. 77): Repeated application of procedures.
-;; fill in the below procedure
-
-;; e.g., ((repeat square 2) 5) is 625
-
-;;(define (repeat f n)
-;;  1)
-
-
 ;;****************************** END OF FILE ******************************
-
-
