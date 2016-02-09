@@ -34,7 +34,7 @@
 ;; (a) Recursive product procedure
 (define (product1 term a next b)
   (if (> a b)
-     0
+     1
      (* (term a)
         (product1 term (next a) next b))))
 
@@ -44,7 +44,11 @@
 
 ;; Approximations to pi using john wallis' formula
 (define (pi-term n)
-  1)
+  
+  (if (even? n)
+       (/ (+ n 2) (+ n 1))
+       (/ (+ n 1) (+ n 2))
+  ))
 
 ;; e.g.,
 ;; (* (product1 pi-term 1 next 6) 4)
@@ -53,7 +57,12 @@
 
 ;; (b) Iterative product procedure
 (define (product2 term a next b)
-  1)
+(define (iter a result)      ;; Helper function takes A and result
+    (if (> a b)   ;; Base case, done when this is true.
+        result    ;; Iterative version needs to return result.
+        ;; Increment A, and multiply A with the result.
+        (iter (next a) (* (term a) result))))
+  (iter a 1))     ;; Seed the iter function with a / 1 for result.
 
 ;; SICP exercise 1.32 (a only): Implement accumulate and show how sum
 ;; and product can be defined with calls to accumulate. Specify
