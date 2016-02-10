@@ -169,10 +169,21 @@
 
 ;; in the following procedures, rewrite to be equivalent
 ;; by transforming the let expressions into lambda's
+(define (proc_1 x y)
+  (let 
+    (
+       (a (+ x y))
+	    (b (- x y))
+    )
+    (+ (square a) (square b))
+  )
+)
+
 (define (proc1 x y)
-  (let ((a (+ x y))
-	(b (- x y)))
-    (+ (square a) (square b))))
+  (lambda (a b c)
+    
+  )
+)
 
 (define (proc2 n)
   (let ((a (+ n 1))
