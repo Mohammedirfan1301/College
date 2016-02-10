@@ -225,21 +225,51 @@
 ;; in the following procedures, rewrite to be equivalent
 ;; by transforming the lambda expressions into let's
 
-;; 
+#|;; Original Lambda version
 (define (proc4 x y)
   ((lambda (a b) (* a b))
    (* 3 x) (/ y 4)))
+|#
 
+;; Let version
+(define (proc4 x y)
+  (let 
+    ((a (* 3 x))
+     (b (/ y 4)))
+    
+    (* a b)
+))
+
+#|;; Lambda version
 (define (proc5 n)
   ((lambda (y z) (* (- y 1) (- z 1)))
    (* n 2) (- n 3)))
+|#
 
+;; Let version
+(define (proc5 n)
+  (let
+    ((y (* n 2))
+     (z (- n 3)))
+    (* (- y 1) (- z 1))
+))
+
+#|;; Lambda version
 (define (proc6 a b c)
   ((lambda (n)
      ((lambda (m)
         (* n m))
       (+ a b)))
    (+ b c)))
+|#
 
+;; Let version
+(define (proc6 a b c)
+ (let
+     ((n (+ b c)))
+     (let
+         ((m (+ a b)))
+         (* n m)))
+)
 
 ;;****************************** END OF FILE ******************************
