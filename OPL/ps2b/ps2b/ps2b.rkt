@@ -201,7 +201,7 @@
   ((lambda (a b c) (* a b c))  
    (+ n 1)    ;; a
    (+ n 2)    ;; b
-   (+ n 3)   ;; c
+   (+ n 3)    ;; c
 ))
 
 #|;; Original Let
@@ -214,11 +214,13 @@
 )|#
 
 ;; Lambda version
+;; This one is confusing because it is a lambda inside a lambda.
+;; and the lambda within a lambda makes it kind of backwards to me.
 (define (proc3 n)
-  ((lambda (a)
-      ((lambda (b) (+ a b)) 
-          (* a 2)))
-   (+ n 1))
+  ((lambda (a)                ;;             a   +   b
+      ((lambda (b) (+ a b))   ;; formula = (n+1) + (a*2) 
+          (* a 2)))   ;; b
+   (+ n 1))           ;; a
 )
   
 
@@ -234,10 +236,10 @@
 ;; Let version
 (define (proc4 x y)
   (let 
-    ((a (* 3 x))
-     (b (/ y 4)))
+    ((a (* 3 x))   ;; a
+     (b (/ y 4)))  ;; b
     
-    (* a b)
+    (* a b)        ;; formula = (3 * x) * (y / 4)
 ))
 
 #|;; Lambda version
@@ -249,9 +251,9 @@
 ;; Let version
 (define (proc5 n)
   (let
-    ((y (* n 2))
-     (z (- n 3)))
-    (* (- y 1) (- z 1))
+    ((y (* n 2))          ;; y
+     (z (- n 3)))         ;; z
+    (* (- y 1) (- z 1))   ;; formula = ((n * 2) - 1) * ((n - 3) - 1)
 ))
 
 #|;; Lambda version
@@ -266,10 +268,10 @@
 ;; Let version
 (define (proc6 a b c)
  (let
-     ((n (+ b c)))
+     ((n (+ b c)))         ;; n
      (let
-         ((m (+ a b)))
-         (* n m)))
-)
+         ((m (+ a b)))     ;; m
+         (* n m)))         ;; formula =    n    *     m
+)                          ;;           (b + c) * ( a + b)
 
 ;;****************************** END OF FILE ******************************
