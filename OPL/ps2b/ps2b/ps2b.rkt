@@ -25,8 +25,11 @@
     (if (> a b)   ;; Base case, done when this is true.
         result    ;; Iterative version needs to return result.
         ;; Increment A, and add a to the result variable.
-        (iter (next a) (+ (term a) result))))
-  (iter a 0))     ;; Seed the iter function with a / 0 for result.
+        (iter (next a) (+ (term a) result))
+     )
+  )
+  (iter a 0)       ;; Seed the iter function with a / 0 for result.
+)    
 
 ;; Working towards higher-order procedures: Do SICP exercise 1.31 (a)
 ;; and (b) (pp. 60–61).  fill in the below procedures
@@ -36,11 +39,14 @@
   (if (> a b)
      1
      (* (term a)
-        (product1 term (next a) next b))))
+        (product1 term (next a) next b))
+  )
+)
 
 ;; factorial procedure in terms of product
 (define (factorial n)
-  1)
+  (product identity 1 next n)
+)
 
 ;; Approximations to pi using john wallis' formula
 (define (pi-term n)
@@ -49,7 +55,8 @@
   (if (even? n)
        (/ (+ n 2) (+ n 1))
        (/ (+ n 1) (+ n 2))
-  ))
+  )
+)
 
 ;; e.g.,
 ;; (* (product1 pi-term 1 next 6) 4)
@@ -58,12 +65,15 @@
 
 ;; (b) Iterative product procedure
 (define (product2 term a next b)
-(define (iter a result)      ;; Helper function takes A and result
-    (if (> a b)   ;; Base case, done when this is true.
-        result    ;; Iterative version needs to return result.
+  (define (iter a result)      ;; Helper function takes A and result
+    (if (> a b)                ;; Base case, done when this is true.
+        result                 ;; Iterative version needs to return result.
         ;; Increment A, and multiply A with the result.
-        (iter (next a) (* (term a) result))))
-  (iter a 1))     ;; Seed the iter function with a / 1 for result.
+        (iter (next a) (* (term a) result))
+    )
+  )
+  (iter a 1)   ;; Seed the iter function with a / 1 for result.
+)     
 
 ;; SICP exercise 1.32 (a only): Implement accumulate and show how sum
 ;; and product can be defined with calls to accumulate. Specify
@@ -72,17 +82,32 @@
 
 ;; (a) Recursive process
 (define (accumulate combiner null-value term a next b)
-  1)
+  (if (> a b)
+      null-value
+      (combiner (term a) 
+                (accumulate combiner null-value term (next a) next b)
+      )
+  )
+)
 
 (define (sum1 term a next b)
-  1)
+  (accumulate + 0 term a next b)
+)
 
 (define (product term a next b)
-  1)
+  (accumulate * 1 term a next b)
+)
 
 ;; (b) Iterative process
 (define (accumulate1 combiner null-value term a next b)
-  1)
+  (define (iter a result)      ;; Helper function takes A and result
+    (if (> a b)   ;; Base case, done when this is true.
+        result    ;; Iterative version needs to return result.
+        (iter (next a) (combiner result (term a)))
+    )
+  )
+  (iter a null-value)
+)
 
 ;; SICP exercise 1.41 (pp. 77): Procedures that return procedures.
 ;; e.g.
@@ -90,7 +115,8 @@
 ;;  (((double double) inc) 3) is 7
 ;;  (((double (double double)) inc) 5) is 21
 (define (double f)
-  (lambda (z) z))
+  (lambda (a) (f (f a)))
+)
 
 ;; SICP exercise 1.42 (pp. 77): More procedures that return procedures.
 ;; e.g.,
@@ -99,7 +125,8 @@
 ;;  ((compose (compose square square) square) 2) is 256
 ;;  ((compose square (compose square square)) 2) is also 256
 (define (compose f g)
-  (lambda (z) z))
+  (lambda (a) (f (g a)))
+)
 
 ;; Here is an implementation of expnt, a procedure that generates
 ;; a procedure for raising its input to its argument.
@@ -119,21 +146,26 @@
   (if (= n 0) (lambda (x) 1)
       (if (= n 1)
           (lambda (x) x)
-          (lambda (x) (* x ((expnt (- n 1)) x))))))
+          (lambda (x) (* x ((expnt (- n 1)) x)))
+       )
+   )
+)
 
 ;; Iterative process
 ;; I based this off the recursive implementation, I just modified it so
 ;; that it ends up being iterative.
 (define (expnt-iter n)
-  (define (iter a result)        ;; Helper function takes A and result
-    (if (= a 0) (lambda (a) 1)   
-        (if (= a 1)
-            result               ;; Base case
-            ;; From the iterative part, uses the helper procedure.
-            (lambda (result) (* result ((expnt (- a 1)) result))))))
-  (iter n 1))     ;; Seed the iter function with a / 0 for result.
-  
-  
+  (lambda (x)
+    (iter-helper n 1 x)   ;; Seed the iter function with n, 1 and x from lambda
+  )
+)
+
+(define (iter-helper num result x)   ;; Helper function takes n, result and x.
+  (if (= num 0)
+     result       ;; Base case
+     (iter-helper (- num 1) (* result x) x)  ;; Use the helper function.
+  )
+)
 
 ;; in the following procedures, rewrite to be equivalent
 ;; by transforming the let expressions into lambda's
