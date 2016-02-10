@@ -169,27 +169,39 @@
 
 ;; in the following procedures, rewrite to be equivalent
 ;; by transforming the let expressions into lambda's
-(define (proc_1 x y)
+;; Original Let
+(define (proc1_original x y)
   (let 
-    (
-       (a (+ x y))
-	    (b (- x y))
-    )
-    (+ (square a) (square b))
-  )
+    ((a (+ x y))    ;; a
+	  (b (- x y)))   ;; b
+    (+ (square a) (square b)))  ;; formula = a^2 + b^2
 )
 
+;; The lambda version
 (define (proc1 x y)
-  (lambda (a b c)
-    
-  )
+   ;; a & b defined here. formula = a^2 + b^2
+  ((lambda (a b) (+ (square a) (square b)))
+   (+ x y)   ;; a
+   (- x y)   ;; b
+))
+
+;; Original Let
+(define (proc2_original n)
+  (let 
+   ((a (+ n 1))    ;; a
+	 (b (+ n 2))    ;; b
+	 (c (+ n 3)))   ;; c
+   (* a b c))      ;; formula = a * b * c
 )
 
+;; The lambda version
 (define (proc2 n)
-  (let ((a (+ n 1))
-	(b (+ n 2))
-	(c (+ n 3)))
-    (* a b c)))
+   ;; a, b & c defined here. formula = a * b * c
+  ((lambda (a b c) (* a b c))  
+   (+ n 1)    ;; a
+   (+ n 2)    ;; b
+   (+ n 3))   ;; c
+)
 
 (define (proc3 n)
   (let ((a (+ n 1)))
