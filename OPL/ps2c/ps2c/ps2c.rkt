@@ -47,10 +47,10 @@
   (make-point start-point end-point))   ;; Make a pair of points
 
 (define (start-seg segment) 
-  (x-point segment))                    ;; Start is the x-point
+  (x-point segment))        ;; Start is the x-point
 
 (define (end-seg segment)             
-  (y-point segment))                    ;; End is the y-point
+  (y-point segment))        ;; End is the y-point
    
 ;; should return a point (e.g. use make-point, duh)
 ;; This function will use the mid-pt formula as following:
@@ -71,6 +71,7 @@
 ;; you may use your point objects if you desire 
 
 (define (make-rect x1 y1 x2 y2)
+  ;; Make a pair of segments representing the rectangle.
   (make-point (make-point x1 y1) (make-point x2 y2)))
 
 (define (corner1 rect)
@@ -125,6 +126,9 @@
 ;; 1.1.5.)  Fix the code below to work.
 
 (define (my-cdr z)
+  ;; I return q as cdr basically returns the second item
+  ;; in a cons pair. Since my-car returns p, which is the first item
+  ;; in the pair "p q", my-cdr should return q.
   (z (lambda (p q) q))
 )
 
