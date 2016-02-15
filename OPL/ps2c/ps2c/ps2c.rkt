@@ -9,7 +9,7 @@
 (define (print-point p) 
    (newline) 
    (display "'(")   ;;don't remove the single quote. It is needed for
-		    ;;auto grader
+		         ;;auto grader
    (display (x-point p)) 
    (display ", ") 
    (display (y-point p)) 
@@ -28,13 +28,13 @@
 ;; representation. 
 ;; Point 
 (define (make-point x y) 
-  1)
+  (cons x y))   ;; Make pair of two points
 
 (define (x-point p) 
-  1)
+  (car p))      ;; Get first point of the pair (x)
 
 (define (y-point p) 
-  1)
+  (cdr p))      ;; Get the second point of the pair (y)
  
 ;; Segment 
 ;; similarly, make-seg is the constructor;
@@ -44,17 +44,25 @@
 ;; make sure to use your point object inside your line segment!
 ;; (two of them)
 (define (make-seg start-point end-point) 
-  1)
+  (make-point start-point end-point))   ;; Make a pair of points
 
 (define (start-seg segment) 
-  1)   
+  (x-point segment))                    ;; Start is the x-point
 
-(define (end-seg segment)
-  1)
-  
- ; should return a point
-(define (midpoint-seg segment)
-  1)
+(define (end-seg segment)             
+  (y-point segment))                    ;; End is the y-point
+   
+;; should return a point (e.g. use make-point, duh)
+;; This function will use the mid-pt formula as following:
+;; mid-pt formula is: (x1+x2) / 2 or (y1+y2) / 2
+;; It will return the mid-pt of the x-points and the y-points.
+(define (midpoint-seg segment)          
+  ;; Returns the mid-pts
+  (make-point 
+   (/ (+ (x-point(start-seg segment)) (x-point(end-seg segment))) 2) ;; x-point
+   (/ (+ (y-point(start-seg segment)) (y-point(end-seg segment))) 2) ;; y-point
+  )
+)
   
 ;; SICP exercise 2.3 (pp. 90). Here you represent rectangles and
 ;; construct procedures to compute perimeter and area.  Fill in the
