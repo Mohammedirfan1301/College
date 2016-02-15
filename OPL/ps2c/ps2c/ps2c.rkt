@@ -71,31 +71,39 @@
 ;; you may use your point objects if you desire 
 
 (define (make-rect x1 y1 x2 y2)
-  1)
+  (make-point (make-point x1 y1) (make-point x2 y2)))
 
 (define (corner1 rect)
   ; should return some kind of object representing a corner
-  1)
+  (car rect))
 
 (define (corner2 rect)
   ; should return the diagonally opposite corner
-  1)
+  (cdr rect))
 
 (define (width rect)
   ; must use corner1 and corner2 selectors
-  1)
+  ;; Add the two x-points of the rectangle together.
+  (+ (x-point (corner1 rect)) (x-point (corner2 rect)))
+)
 
 (define (height rect) 
   ; must use corner1 and corner2 selectors
-  1)
+  ;; Add the two y-points together
+  (+ (y-point (corner1 rect)) (y-point (corner2 rect)))
+)
   
 ;; area and perimeter 
 ;; must use your width and height abstractions!
 (define (area rect) 
-  1)
+  ;; Area formula is just A = width * height
+  (* (width rect) (height rect))
+)
 
 (define (perimeter rect) 
-  1)
+  ;; Perimeter formula is just P = 2*Width + 2*Height
+  (+ (* (width rect) 2) (* (height rect) 2))
+)
 
 ;; SICP exercise 2.4 -- using procedure closures to implement cons.
 ;;
@@ -105,15 +113,18 @@
 ;; Based on these definitions for my-cons and my-cdr:
 
 (define (my-cons x y)
-  (lambda (m) (m x y)))
+  (lambda (m) (m x y))
+)
 
 (define (my-car z)
-  (z (lambda (p q) p)))
+  (z (lambda (p q) p))
+)
 
 ;; what is the corresponding definition of my-cdr? (Hint: To verify
 ;; that this works, make use of the substitution model of Section
 ;; 1.1.5.)  Fix the code below to work.
 
 (define (my-cdr z)
-  1)
+  (z (lambda (p q) q))
+)
 
