@@ -48,15 +48,15 @@
 
 ;; Should look like this in Racket: (1 (2 3) 4)
 (define listq2
-  '(1 '(2 3) 4))
+  '(1 (2 3) 4))
 
 ;; Should look like this in Racket: ((1 2) (3 4))
 (define listq3
-  '('(1 2) '(3 4)))
+  '((1 2) (3 4)))
 
 ;; Should look like this in Racket: ((1 2))
 (define listq4
-  '('(1 2)))
+  '((1 2)))
 
 ;; create box-and-pointer diagrams for the following list5 through list8.
 ;; you may create ASCII art and submit as comments,
@@ -81,7 +81,7 @@
 
 ;  ASCII Art below. → / ↓ are pointers to lists / cons.
 ;
-;  [3][→] [4][→] [5][/]
+;  [3][→] [4][5]
 ;
 
 (define list6flag #t)
@@ -91,8 +91,8 @@
 
 ;  ASCII Art below. → / ↓ are pointers to lists / cons.
 ;
-;  [3][→]  [↓][/]
-;          [4][→]  [↓][/]
+;  [↓][/]
+;  [3][→]  [4][→]  [↓][/]
 ;                  [5][→]  [6][/]
 ;
 
@@ -150,7 +150,15 @@
 
 ;; c) Write an iterative version of the procedure list-prod.
 (define (list-prod-iter lst)
-  1)
+  (define (iter-helper prod lst) ;; Iterative helper function
+    (if (eq? lst '())  ;; '() is basically nil / null
+        prod    ;; Base case
+        (iter-helper (* (car lst) prod)  ;; Feed in the sum
+                     (cdr lst))         ;; Keep moving down the list.
+    )
+  ) ;; Seed iter-helper with 0 for sum and the top of the list.
+  (iter-helper 1 lst)
+)
 
 ;; d) What is the order of growth in space and time for your iterative
 ;; list-prod procedure from part c?
