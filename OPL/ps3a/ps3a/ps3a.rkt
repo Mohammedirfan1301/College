@@ -135,14 +135,25 @@
   (if (null? lst) 
       1 
       (* (car lst) 
-         (list-prod (cdr lst))))) 
+         (list-prod (cdr lst))
+      )
+  )
+) 
 
 ;; Answer (a) (b) and (d) using comment lines and change #f to #t 
 ;; For (c), fill in the procedure
 
 ;; a) How many times is list-prod called when evaluating the
 ;; expression (list-prod '(1 2 3 4)) ?
-(define lpa #f)
+;
+;  The stack would look like this:  
+;  (* 1 (* 2 (* 3 (* 4 (* 1)))))
+;  
+;  This would mean list-prod would be called 5 times, 
+;  since it would be called for 1, 2, 3, 4 and then finally
+;  1 for null. It looks like this: (1 * 2 * 3 * 4 * 1)
+;
+(define lpa #t)
 
 ;; b) What is the order of growth in space and time for the list-prod
 ;; procedure above?
@@ -176,11 +187,33 @@
 ;; however, make sure the base case input of empty list
 ;;   produces a return value of 0.
 (define (sum-of-prods lst)
-  0)
+  (if (null? lst) 
+      0 
+      (+ 
+         (* (car lst) (cdr lst))
+         (list-prod  (cddr lst))
+      )
+  )
+)
 
 
 ;; SICP exercise 2.20 (pp. 104), on the dotted-tail notation.
 ;; While answering this question you may write helper procedures
-(define (same-parity first . lst)
-  1)
 
+
+
+(define (same-parity first . lst)
+  (define (iter-helper return lst) ;; Iterative helper function
+    (if (null? lst)
+        ;; return the list now.
+        return
+        
+        ;; Otherwise keep adding just odd or even numbers.
+        ;;(if (equal? first (car
+        return
+        
+        ;;(iter-helper (cons (car lst) return) (cdr lst))
+    )
+  )
+  (iter-helper nil lst)
+)
