@@ -65,6 +65,12 @@
 ;; change each flag from #f to #t for each image you upload.
 ;; note: some of these may not be clean lists.
 
+; ***** GRADER NOTE *****
+; I did both ASCII art below and I wrote them out on paper
+; and added a photo of what I drew out. It is named:
+; "list5+6+7+8.jpg" and can be found in the assignment tar
+; that I submitted.
+
 (define list5
   (cons 1 (list 2 3)))
 
@@ -157,7 +163,12 @@
 
 ;; b) What is the order of growth in space and time for the list-prod
 ;; procedure above?
-(define lpb #f)
+
+;
+;   Fill this in at some point.
+;
+;
+(define lpb #t)
 
 ;; c) Write an iterative version of the procedure list-prod.
 (define (list-prod-iter lst)
@@ -173,12 +184,17 @@
 
 ;; d) What is the order of growth in space and time for your iterative
 ;; list-prod procedure from part c?
-(define lpd #f)
+
+;
+;   Fill this in at some point.
+;
+;
+(define lpd #t)
 
 ;; write a recursive definition / recursive process procedure
 ;; to compute sum of products of pairs of numbers in a list
 ;; e.g. 
-;;   (sum-of-prods '(1 2 3 4 5 6)
+;;   (sum-of-prods '(1 2 3 4 5 6))
 ;; should compute
 ;;   (+ (* 1 2) (+ (* 3 4) (+ (* 5 6) 0)))
 ;; which is 44.
@@ -188,10 +204,11 @@
 ;;   produces a return value of 0.
 (define (sum-of-prods lst)
   (if (null? lst) 
-      0 
-      (+ 
-         (* (car lst) (cdr lst))
-         (list-prod  (cddr lst))
+      0  ;; Base case of zero since its required, and it
+         ;; adds 0 so can stop the recursive calls.
+      (+ ;; Add all the products together
+         (* (car lst) (cadr lst))      ;; This gets pairs, such as "1, 2" or "3, 4", or "5, 6".
+         (sum-of-prods  (cddr lst))    ;; Recursive call to continue adding products.
       )
   )
 )
@@ -199,9 +216,6 @@
 
 ;; SICP exercise 2.20 (pp. 104), on the dotted-tail notation.
 ;; While answering this question you may write helper procedures
-
-
-
 (define (same-parity first . lst)
   (define (iter-helper return lst) ;; Iterative helper function
     (if (null? lst)
