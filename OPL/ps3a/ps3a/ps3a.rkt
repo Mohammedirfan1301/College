@@ -21,19 +21,23 @@
 ;; note: test cases for these are only provided on the
 ;; server. providing them in the downloaded test file would
 ;; give away the answers.
-(define list1
+(define list1                        ;; (1 2 3)
   (cons 1 
         (cons 2
               (cons 3 nil))))
 
-(define list2 
-  1)
+(define list2                        ;; (1 (2 3) 4)
+  (cons 1                            ;; (1
+        (cons (cons 2 (cons 3 nil))  ;; '(2 3)
+              (cons 4 nil))))        ;;  4)
+                    
 
-(define list3
-  1)
+(define list3                        ;; ((1 2) (3 4))
+  (cons (cons 1 (cons 2 nil)) ;; '(1 2)
+              (cons (cons 3 (cons 4 nil)) nil)))  ;; '(3 4)
 
-(define list4
-  1)
+(define list4                        ;; ((1 2))
+  (cons (cons 1 (cons 2 nil)) nil))
 
 ;; now, define statements to produce these lists using
 ;; the quoting function (equivalent to their printed form).
