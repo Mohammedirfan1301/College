@@ -205,15 +205,28 @@
 (define (same-parity first . lst)
   (define (iter-helper return lst) ;; Iterative helper function
     (if (null? lst)
-        ;; return the list now.
-        return
+        ;; return the list now, but in reverse order since it was found
+        ;; in reverse and must be adjusted.
+        (reverse return)
         
-        ;; Otherwise keep adding just odd or even numbers.
-        ;;(if (equal? first (car
-        return
-        
-        ;;(iter-helper (cons (car lst) return) (cdr lst))
+        ;; Otherwise keep adding just odd or even numbers, depending on which
+        ;; one we started with.
+        (iter-helper (if (even? first)                ;; Determine if the first number is odd or even.
+                         
+                         ;; even case
+                         (if (even? (car lst))
+                             (cons (car lst) return)  ;; Only add even numbers in this case!
+                             return                   ;; Just pass the list.
+                         )
+                         
+                         ;; odd case
+                         (if (odd? (car lst))
+                             (cons (car lst) return)  ;; Add only ODD numbers in this case.
+                             return                   ;; Keep passing the list.
+                         )
+                     ) ;; This whole thing is the return list.
+                     (cdr lst))                       ;; Keep moving along the chain in the list.
     )
   )
-  (iter-helper nil lst)
+  (iter-helper (list first) lst)   ;; The seed is the first item, along with the lst we are checking.
 )
