@@ -155,9 +155,9 @@
 ;  The stack would look like this:  
 ;  (* 1 (* 2 (* 3 (* 4 (* 1)))))
 ;  
-;  This would mean list-prod would be called 5 times, 
-;  since it would be called for 1, 2, 3, 4 and then finally
-;  1 for null. It looks like this: (1 * 2 * 3 * 4 * 1)
+;  This would mean list-prod would be called 4 times recursively, 
+;  since it would be called for 2, 3, 4 and then finally
+;  1 for the base case. The It looks like this: (1 * 2 * 3 * 4 * 1)
 ;
 (define lpa #t)
 
@@ -165,8 +165,12 @@
 ;; procedure above?
 
 ;
-;   Fill this in at some point.
-;
+;   This function is O(n), as it is called N times, which is O(n).
+;   The stack output looks like what I wrote above, which also proves
+;   that the procedure is O(n). You can clearly see that there are 5
+;   multiply times, which means the function got recursively called 4 times
+;   as the first multiply sign is from the inital call, and the 4 following
+;   signs are from recursive calls until the procedure hits the base case of 0.
 ;
 (define lpb #t)
 
@@ -176,18 +180,25 @@
     (if (eq? lst '())  ;; '() is basically nil / null
         prod    ;; Base case
         (iter-helper (* (car lst) prod)  ;; Feed in the sum
-                     (cdr lst))         ;; Keep moving down the list.
+                     (cdr lst))          ;; Keep moving down the list.
     )
   ) ;; Seed iter-helper with 0 for sum and the top of the list.
   (iter-helper 1 lst)
 )
 
+(require racket/trace)
+
 ;; d) What is the order of growth in space and time for your iterative
 ;; list-prod procedure from part c?
 
 ;
-;   Fill this in at some point.
-;
+;   I tested this function with some debugging statements. It printed out
+;   the same number of "hi"s as the recursive function, so I would also
+;   call this one O(n) since it is also constant time. However, I feel like
+;   the stack calls in the recursive version might effect the space growth
+;   and could lead to more storage requirements from stack calls adding up.
+;   So I would think the iterative version would be more efficient with
+;   regards to storage but similar in time growth.
 ;
 (define lpd #t)
 
