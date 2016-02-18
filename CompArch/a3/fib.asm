@@ -6,39 +6,38 @@ main:   lodd count:     ; Get count.
         lodd test:      ; Get the first fib number to test.
         pshi            ; push it onto the stack.
         addd one:       ; add 1 to the addr.
-        stod test:      ; this will push us to the next spot in the array.
+        stod test:      ; this will push us into the next spot in the array.
         lodd zero:      ; Load 0 into AC
         stod fn:        ; Make fn (current fib number)  start at 0.
         stod fn1:       ; Make fn-1 start at 0. (seed value 0)
         lodd one:       ; Load one into AC
         stod fn2:       ; Make fn-2 start at 1. (seed value 1)
-        call fibn:      ; go to Fibn.
+        call fibn:      ; Calculate fib number.
 
         ;Function to calculate the fibonacci number for N, where N is fibnum.
 fibn:   lodl 1          ; Load Fibonacci number to calculate.
-        jzer nextn:    ; When fibnum equals 0 we can load up the next number.
-        lodd fn1:      ; Add fn1 to AC
-        addd fn2:      ; Add fn2 to AC
-        stod fn:       ; Store fibonacci number   (fn = fn-1 + fn-2)
-        lodd fn1:      ; Load fn-1
-        stod fn2:      ; Store fn-1 at fn-2 (fn-2 = fn-1)
-        lodd fn:       ; Load fib number
-        stod fn1:      ; Store Fib number at fn-1 (fn-1 = fn)
-        lodl 1         ; Load the fibnum counter
-        subd one:      ; Subtract 1 from AC (which is fibnum)
-        push           ; update stack.
-        call fibn:     ; CALL don't jump so we don't mess up the stack.
+        jzer nextn:     ; When fibnum equals 0 we can load up the next number.
+        lodd fn1:       ; Add fn1 to AC
+        addd fn2:       ; Add fn2 to AC
+        stod fn:        ; Store fibonacci number (fn = fn-1 + fn-2)
+        lodd fn1:       ; Load fn-1
+        stod fn2:       ; Store fn-1 at fn-2 (fn-2 = fn-1)
+        lodd fn:        ; Load fib number
+        stod fn1:       ; Store Fib number at fn-1 (fn-1 = fn)
+        lodl 1          ; Load the fibnum counter
+        subd one:       ; Subtract 1 from AC (which is fibnum)
+        push            ; update stack.
+        call fibn:      ; CALL don't jump so we don't mess up the stack.
 
         ;This function decrements the count and pushes the fibonacci number onto the stack.
 nextn:  lodd fn:       ; Load the Fibonacci number into AC
-        push           ; Push onto stack.
+        push           ; Push fib # onto stack.
         lodd store:    ; Get store addr
-        popi           ; Store Fib #
-        addd one:      ; incr store addr
+        popi           ; Store Fib # in fibnums, starting at location 105.
+        addd one:      ; increment store addr
         stod store:    ; update store addr
         jump main:     ; Return to main to keep looping.
 
-        ;We are done at this point.
 done:   halt           ; We are done, so halt and don't catch fire.
 
         ;Variables start here
@@ -54,7 +53,7 @@ one:      1            ; Constant 1 - never changed, used for init. fn2 and decr
 
 .LOC 200
 testnums:  3           ; These are the test inputs to the Fibonacci function.
-           9           ; Should appear at location 200.
+           9           ; Should appear at location 100 in memory.
           18
           23
           25

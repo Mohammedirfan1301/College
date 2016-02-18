@@ -1,4 +1,4 @@
-/* Copyright 2015 Jason Downing
+/* Copyright 2016 Jason Downing
  * All rights reserved.
  * MIT Licensed - see http://opensource.org/licenses/MIT for details.    */
 #include <stdio.h>
@@ -17,7 +17,7 @@ int find_fibonacci(int n) {
 }
 
 int main() {
-    int count = 24;         // We count down from 25 to 0, MIC1 supports this.
+    int count = 25;         // We count down from 25 to 0, MIC1 supports this.
     int N = 0;              // N is the given Fibonacci number.
 
     printf("First 25 Fibonacci numbers: \n\n");
