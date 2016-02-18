@@ -1,4 +1,3 @@
-        ;Main function to calculate fibonacci numbers 3, 9, 18, 23 & 25.
 main:   lodd count:     ; Get count.
         jneg done:      ; See if we are done yet.
         subd one:       ; remove 1 to keep counting to -1.
@@ -14,7 +13,6 @@ main:   lodd count:     ; Get count.
         stod fn2:       ; Make fn-2 start at 1. (seed value 1)
         call fibn:      ; Calculate fib number.
 
-        ;Function to calculate the fibonacci number for N, where N is fibnum.
 fibn:   lodl 1          ; Load Fibonacci number to calculate.
         jzer nextn:     ; When fibnum equals 0 we can load up the next number.
         lodd fn1:       ; Add fn1 to AC
@@ -29,7 +27,6 @@ fibn:   lodl 1          ; Load Fibonacci number to calculate.
         push            ; update stack.
         call fibn:      ; CALL don't jump so we don't mess up the stack.
 
-        ;This function decrements the count and pushes the fibonacci number onto the stack.
 nextn:  lodd fn:       ; Load the Fibonacci number into AC
         push           ; Push fib # onto stack.
         lodd store:    ; Get store addr
@@ -38,9 +35,8 @@ nextn:  lodd fn:       ; Load the Fibonacci number into AC
         stod store:    ; update store addr
         jump main:     ; Return to main to keep looping.
 
-done:   halt           ; We are done, so halt and don't catch fire.
+done:   halt           ; HALT AND DON'T CATCH FIRE.
 
-        ;Variables start here
 count:    5            ; Location for running count, counts down to 0.
 fibnum:   0            ; Fib # to calculate.
 test: testnums:        ; ptr to the input array
@@ -50,7 +46,6 @@ fn1:      0            ; This is basically Fn-1 in the fibonacci formula
 fn2:      1            ; This is basically Fn-2 in the fibonacci formula
 zero:     0            ; Constant 0 - never changed, used for init. fn/fn1 vars.
 one:      1            ; Constant 1 - never changed, used for init. fn2 and decr/incr
-
 .LOC 200
 testnums:  3           ; These are the test inputs to the Fibonacci function.
            9           ; Should appear at location 100 in memory.
