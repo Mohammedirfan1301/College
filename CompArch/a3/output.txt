@@ -1,0 +1,31 @@
+
+ProgramCounter : 0000000000100011  base 10:      35
+Accumulator    : 1111111111111111  base 10:   65535
+InstructionReg : 1111111111000000  base 10:   65472
+TempInstr      : 1110000000000000  base 10:   57344
+StackPointer   : 0000001101010100  base 10:     852
+ARegister      : 1000001101010101  base 10:   33621
+BRegister      : 0000000000000000  base 10:       0
+CRegister      : 0000000000000000  base 10:       0
+DRegister      : 0000000000000000  base 10:       0
+ERegister      : 0000000000000000  base 10:       0
+FRegister      : 0000000000000000  base 10:       0
+
+Total cycles   : 10808
+
+Type decimal address to view memory,  q  to quit or  c  to continue:      the location  198 has value 1111111111111111 , or 65535  or signed     -1
+Type  <Enter>  to continue debugging
+Type        q  to quit
+Type        f for forward range
+Type        b for backward range: Type the number of forward locations to dump:      the location  199 has value 1111111111111111 , or 65535  or signed     -1
+     the location  200 has value 0000000000000011 , or     3  or signed      3
+     the location  201 has value 0000000000001001 , or     9  or signed      9
+     the location  202 has value 0000000000010010 , or    18  or signed     18
+     the location  203 has value 0000000000010111 , or    23  or signed     23
+     the location  204 has value 0000000000011001 , or    25  or signed     25
+     the location  205 has value 0000000000000010 , or     2  or signed      2
+     the location  206 has value 0000000000100010 , or    34  or signed     34
+     the location  207 has value 0000101000011000 , or  2584  or signed   2584
+     the location  208 has value 0110111111110001 , or 28657  or signed  28657
+Type decimal address to view memory,  q  to quit or  c  to continue: MIC-1 emulator finishing, goodbye
+
