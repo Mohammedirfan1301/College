@@ -1,3 +1,4 @@
+** This is the final output of the ProgramCounter / AC / IR / etc. **
 
 ProgramCounter : 0000000000100011  base 10:      35
 Accumulator    : 1111111111111111  base 10:   65535
@@ -11,22 +12,35 @@ DRegister      : 0000000000000000  base 10:       0
 ERegister      : 0000000000000000  base 10:       0
 FRegister      : 0000000000000000  base 10:       0
 
+** I used only 10k cycles. ✔️ **
 Total cycles   : 10808
 
-Type decimal address to view memory,  q  to quit or  c  to continue:      the location  198 has value 1111111111111111 , or 65535  or signed     -1
+** My .LOC for the input values starts at LOC 200. I enter 198 so the output.txt
+file I generate will make the inputs and fibonacci numbers line up.
+
+Type decimal address to view memory,  q  to quit or  c  to continue:
+     the location  198 has value 1111111111111111 , or 65535  or signed     -1
 Type  <Enter>  to continue debugging
 Type        q  to quit
 Type        f for forward range
-Type        b for backward range: Type the number of forward locations to dump:      the location  199 has value 1111111111111111 , or 65535  or signed     -1
+Type        b for backward range: Type the number of forward locations to dump:
+
+**  The five input numbers start at LOC 200 and end at LOC 204. **
      the location  200 has value 0000000000000011 , or     3  or signed      3
      the location  201 has value 0000000000001001 , or     9  or signed      9
      the location  202 has value 0000000000010010 , or    18  or signed     18
      the location  203 has value 0000000000010111 , or    23  or signed     23
      the location  204 has value 0000000000011001 , or    25  or signed     25
+
+**  I store the five calculate fibonacci numbers starting at LOC 205 and ending
+    at LOC 209. Note: the Fibonacci number for 25 overflows the 16 bit register,
+    hence why it isn't correct. It does, however, match Prof. Moloney's example
+    output on the assignment 3 page. **
      the location  205 has value 0000000000000010 , or     2  or signed      2
      the location  206 has value 0000000000100010 , or    34  or signed     34
      the location  207 has value 0000101000011000 , or  2584  or signed   2584
      the location  208 has value 0110111111110001 , or 28657  or signed  28657
      the location  209 has value 0010010100010001 , or  9489  or signed   9489
-Type decimal address to view memory,  q  to quit or  c  to continue: MIC-1 emulator finishing, goodbye
+Type decimal address to view memory,  q  to quit or  c  to continue:
 
+MIC-1 emulator finishing, goodbye

@@ -32,7 +32,8 @@ example of running my code, and typing location "198" followed by "f" and
 "10". In this file you can see my code's output matches the Professor's example
 output on the assignment page. It also makes sense based on my Fibonacci C code,
 although obviously the 25th Fibonacci number overflows the 16 bit storage that
-the MIC-1 uses.
+the MIC-1 uses. You may also see the "annotated" version in the following file:
+"output_annotated.txt"
 
 You can also see the output of my code by just running "Make" and checking the
 "output.txt" file. You can also manually compile it using the following commands:

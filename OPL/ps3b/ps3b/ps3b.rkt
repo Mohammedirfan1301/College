@@ -85,25 +85,28 @@
 
 ;; all odd numbers
 (define (odds lst) 
-  ;; some map/filter expr over
+  ;; Simple filter to get only the odd numbers.
   (filter odd? lst))
 
 ;; each number tripled
 ;; e.g. 3, 6, 9, ... , 300
 (define (triples lst)
-  ;; maps and/or filters over
-  (map (lambda (x) (* x x x)) lst))
+  ;; I used a map to triple each number.
+  (map (lambda (x) (* x 3)) lst))
 
 ;; sum of squares
 ;; i.e., 1 + 4 + 9 + 16 + ... + 10000
 (define (square-sum lst)
-  ;; probably an accumulation is involved here
-  1)
+  (if (null? lst)
+      0   ;; Base case of zero.
+      (+ (* (car lst) (car lst)) (square-sum(cdr lst)))))
 
 ;; product of each item
 ;; = 1 * 2 * 3 * ... * 100
 (define (products lst)
-  1)
+  (if (null? lst)
+      1   ;; Base case of zero.
+      (* (car lst) (products(cdr lst)))))
 
 ;; suppose we have a list of lists.
 ;; each sublist contains two numbers; e.g.:
