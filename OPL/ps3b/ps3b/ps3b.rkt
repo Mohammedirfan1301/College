@@ -29,17 +29,25 @@
 
 ;a)
 (define (double-list1 lst)
-  1)
+  (if (null? lst)
+      '()
+      (cons (* 2 (car lst))
+            (double-list1 (cdr lst)))))
 
 ;b)
 ;; using scale-list 
 (define (double-list2 lst)
-  1)
+  (define (scale-list items factor)
+    (if (null? items)
+        nil
+        (cons (* (car items) factor)
+              (scale-list (cdr items) factor))))
+  (scale-list lst 2))  ;; Double it cuz its double list.
 
 ;c)
 ;; using map
 (define (double-list3 lst)
-  1)
+  (map (lambda (x) (* x 2)) lst))
 
 ;; SICP exercise 2.21 (pp. 106), on square-list.
 
