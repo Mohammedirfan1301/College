@@ -52,10 +52,14 @@
 ;; SICP exercise 2.21 (pp. 106), on square-list.
 
 (define (square-list1 items)
-  1)
+   (if (null? items)
+      '()
+      (cons (* (car items) (car items))
+            (square-list1 (cdr items))
+ )))
 
 (define (square-list2 items)
-  1)
+  (map (lambda (x) (* x x)) items))
 
 ;; enum-range is a procedure that generates a list of ints
 ;; beginning with "a" and ending with "b" (inclusive).
@@ -67,7 +71,11 @@
 
 ;; write an iterative-process version of this.
 (define (enum-range-i a b)
-  1)
+  (define (iter-enum-range x y)
+    (if (> x y)
+      '()
+      (cons x (iter-enum-range (+ x 1) y))))
+  (iter-enum-range a b))
 
 ;; this is a list of the first 100 natural numbers
 (define my-nats (enum-range-i 1 100))
@@ -78,13 +86,13 @@
 ;; all odd numbers
 (define (odds lst) 
   ;; some map/filter expr over
-  1)
+  (filter odd? lst))
 
 ;; each number tripled
 ;; e.g. 3, 6, 9, ... , 300
 (define (triples lst)
   ;; maps and/or filters over
-  1)
+  (map (lambda (x) (* x x x)) lst))
 
 ;; sum of squares
 ;; i.e., 1 + 4 + 9 + 16 + ... + 10000
