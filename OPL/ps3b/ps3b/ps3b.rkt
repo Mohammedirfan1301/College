@@ -98,14 +98,15 @@
 ;; i.e., 1 + 4 + 9 + 16 + ... + 10000
 (define (square-sum lst)
   (if (null? lst)
-      0   ;; Base case of zero.
+      0   ;; Base case of zero since its addition.
+      ;; add the squares all together.
       (+ (* (car lst) (car lst)) (square-sum(cdr lst)))))
 
 ;; product of each item
 ;; = 1 * 2 * 3 * ... * 100
 (define (products lst)
   (if (null? lst)
-      1   ;; Base case of zero.
+      1   ;; Base case of ONE.
       (* (car lst) (products(cdr lst)))))
 
 ;; suppose we have a list of lists.
@@ -126,8 +127,20 @@
 
 ;; write the accumulation function here
 (define (sum-of-prod-lists lst)
-  ;; some accum
-  1) 
+  ;; Code here. I did it using recursion.
+  ;; no idea how to use accumulate to do this.
+  (if (null? lst)
+      0   ;; Base case of zero since its addition.
+      
+      ;; Add the pairs together.
+      ;;  caar lst should return 1
+      ;;  cadar lst should return 2
+      ;; then we do (* 1 2) which returns 2
+      ;; then we do (+ 2 (recursive call))
+      ;; in the end we get something like what the assignment asks for:
+      ;; (1 * 2) + (3 * 4) + ... etc
+      (+ (* (caar lst) (cadar lst)) (sum-of-prod-lists(cdr lst)))))
+      
 
 ;; now let's do it with a flat list; e.g.
 ;; if given: '(1 2 3 4 .... 99 100)
@@ -140,8 +153,19 @@
 ;; you've just computed a product, or need to carry forward
 ;; a multiplicand to the next operation
 (define (sum-of-prods lst)
-  ;; just need a single accumulation if it's done right
-  1)
+  ;; Code here. I did it using recursion.
+  ;; no idea how to use accumulate to do this.
+  (if (null? lst)
+      0   ;; Base case of zero since its addition.
+      
+      ;; Add the pairs together.
+      ;;  car lst should return 1
+      ;;  cadr lst should return 2
+      ;; then we do (* 1 2) which returns 2
+      ;; then we do (+ 2 (recursive call))
+      ;; in the end we get something like what the assignment asks for:
+      ;; (1 * 2) + (3 * 4) + ... etc
+      (+ (* (car lst) (cadr lst)) (sum-of-prods(cddr lst)))))
 
 ;; SICP exercise 2.35 (pp. 120), redefining count-leaves as an
 ;; accumulation.  Fill in the below procedure. Replace '<??>.
@@ -150,6 +174,16 @@
 ;; e.g.:
 ;;  (define tree (list 1 2 (list 3 4) (list 5 (list 6 7)))) 
 ;;  (count-leaves tree) => 7
+
+#|
+count-leaves looks like this:
+
+(define (count-leaves x)
+  (cond ((null? x) 0)
+        ((not (pair? x)) 1)
+        (else (+ (count-leaves (car x))
+                 (count-leaves (cdr x))))))
+|#
 
 (define (count-leaves tree)
   (accumulate '<??> '<??> (map '<??> '<??>)))
