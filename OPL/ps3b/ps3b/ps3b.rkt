@@ -250,7 +250,21 @@ count-leaves looks like this:
   (accumulate cons '<??> '<??>))
 
 (define (length-from-fold sequence)
-  (accumulate '<??> 0 sequence))
+  (accumulate 
+   #|
+       I think this one is actually trivial if you bothered to do
+       the other problems. Basically I use lambda (a b) in order to
+       get each peace of the sequence. I then add 1 to b every time to
+       do a quick count of the list. This passes the 3 tests and appears
+       to work so I don't know what else I should have to explain for credit.
+       
+       TL&DR: this one is trivial.
+   |#
+   
+   (lambda (a b)  ;; Using lambda fnc similar to original code.
+      (+ b 1))    ;; This should just count the length of sequence haha.
+   
+   0 sequence))
 
 ;; Solve SICP exercise 2.27 on deep-reverse.
 ;;
