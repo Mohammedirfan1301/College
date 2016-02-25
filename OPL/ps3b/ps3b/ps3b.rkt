@@ -177,13 +177,25 @@
   
   ;; Accumulate function here
   (accumulate (lambda (a b)  ;; Using lambda fnc similar to original code.
-                      (print a)
-                      (print b)
-                (if (null? b)
-                    0
-                    (+ (* (cons a b) b))))  ;; (1 * 2) + (3 * 4) + ... etc
-                      '()       ;; Base case of null.
-                      lst))     ;; Passing in the list.
+                ;; DEBUG CODE
+                (printf "a is ~a\nb is ~a\n" a b)
+                
+                ;; Using cond to figure out what we need to do.
+                (cond 
+                   ;; First round we must detect the 0 in b.
+                   ((equal? 0 b) a)
+                   
+                   ;; Whenever we get a null, sum / product stuff.
+                   ((pair? b) (+ (car b) (cadr b)))
+                   
+                   ;; Else cons together stuff into b.
+                   (else (cons a b))
+                )
+                    
+              )
+              
+              0            ;; Base case of null.
+              lst))        ;; Passing in the list.
 
 ;; SICP exercise 2.35 (pp. 120), redefining count-leaves as an
 ;; accumulation.  Fill in the below procedure. Replace '<??>.
@@ -207,13 +219,18 @@ count-leaves looks like this:
 ;; count-leaves inside some sort of accumulate function.
 (define (count-leaves tree)
   (accumulate (lambda (x y)
-                (cond ((null? x) 0)
-                      ((not (pair? x)) 1)
-                      (else (+ (car x)
-                               (cdr x))))
+                ;; DEBUG CODE
+                ;;(printf "x is ~a\ny is ~a\n" x y)
+                
+                (cond ((null? x) 0)        ;; null gets nothing.
+                      ((pair? x) (+ y 2))  ;; pairs get +2
+                      (else (+ y 1)))      ;; everything else gets +1
               )
-              0 
-              (map (lambda (x) x) tree)))
+              0                            ;; base case of 0.
+              ;; i don't really use the map for anything. this basically
+              ;; returns all the elements without messing anything up.
+              (map (lambda (x) x) tree)))  
+             
 
 ;; SICP exercise 2.33 (pp. 119), implementing map, append, and
 ;; length.  Replace '<??> with answer
@@ -256,7 +273,9 @@ count-leaves looks like this:
 ;  (my-reverse '((1 2) (3 4))) => '((3 4) (1 2))
 
 (define (my-reverse items) 
-  items)
+  ;; From the Racket docs, found here:
+  ;; https://docs.racket-lang.org/reference/pairs.html
+  (reverse items))
 
 ; deep reverse
 ; recursively reverse sublists
@@ -266,5 +285,7 @@ count-leaves looks like this:
 ;  (deep-reverse '((1 2) (3 (4 5)))) => '(((5 4) 3) (2 1))
 
 (define (deep-reverse items) 
-  items)
+  ;; From the Racket docs, found here:
+  ;; https://docs.racket-lang.org/reference/pairs.html
+  (reverse items))
 
