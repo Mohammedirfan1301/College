@@ -189,7 +189,7 @@
                    ((pair? b) (+ (car b) (cadr b)))
                    
                    ;; Else cons together stuff into b.
-                   (else (cons a b))
+                   (else (append (cons a '()) (cons b '())))
                 )
                     
               )
@@ -244,16 +244,27 @@ count-leaves looks like this:
 ;; your way to an answer.
 
 (define (map-from-fold p sequence)
-  (accumulate (lambda (x y) '<??> ) nil sequence))
+  (accumulate 
+      (lambda (x y)
+          ;; DEBUG CODE
+          (printf "x is ~a\ny is ~a\n" x y)
+          (cons x y)
+        
+      ) 
+      nil 
+      sequence))
 
 (define (append-from-fold seq1 seq2)
-  (accumulate cons '<??> '<??>))
+  (accumulate cons nil 
+              ;; Testing.
+              (map (lambda (x y) (cons x y)) seq1 seq2)))
 
 (define (length-from-fold sequence)
   (accumulate 
    #|
        I think this one is actually trivial if you bothered to do
-       the other problems. Basically I use lambda (a b) in order to
+       the other problems and use some debug code to figure out how the
+       lambda x y / a b stuff works. Basically I use lambda (a b) in order to
        get each peace of the sequence. I then add 1 to b every time to
        do a quick count of the list. This passes the 3 tests and appears
        to work so I don't know what else I should have to explain for credit.
