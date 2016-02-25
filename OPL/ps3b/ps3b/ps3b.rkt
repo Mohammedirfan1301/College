@@ -177,7 +177,11 @@
   
   ;; Accumulate function here
   (accumulate (lambda (a b)  ;; Using lambda fnc similar to original code.
-                      (+ (* (car a) (cadr a)) b))  ;; (1 * 2) + (3 * 4) + ... etc
+                      (print a)
+                      (print b)
+                (if (null? b)
+                    0
+                    (+ (* (cons a b) b))))  ;; (1 * 2) + (3 * 4) + ... etc
                       '()       ;; Base case of null.
                       lst))     ;; Passing in the list.
 
@@ -199,8 +203,17 @@ count-leaves looks like this:
                  (count-leaves (cdr x))))))
 |#
 
+;; Attempting to mess around with this, basically the original
+;; count-leaves inside some sort of accumulate function.
 (define (count-leaves tree)
-  (accumulate '<??> '<??> (map '<??> '<??>)))
+  (accumulate (lambda (x y)
+                (cond ((null? x) 0)
+                      ((not (pair? x)) 1)
+                      (else (+ (car x)
+                               (cdr x))))
+              )
+              0 
+              (map (lambda (x) x) tree)))
 
 ;; SICP exercise 2.33 (pp. 119), implementing map, append, and
 ;; length.  Replace '<??> with answer
