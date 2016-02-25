@@ -127,8 +127,8 @@
 
 ;; write the accumulation function here
 (define (sum-of-prod-lists lst)
-  ;; Code here. I did it using recursion.
-  ;; no idea how to use accumulate to do this.
+  ;; Old code here. I did it first using recursion.
+  #|
   (if (null? lst)
       0   ;; Base case of zero since its addition.
       
@@ -140,6 +140,13 @@
       ;; in the end we get something like what the assignment asks for:
       ;; (1 * 2) + (3 * 4) + ... etc
       (+ (* (caar lst) (cadar lst)) (sum-of-prod-lists(cdr lst)))))
+  |#
+  
+  ;; Accumulate function here
+  (accumulate (lambda (a b)  ;; Using lambda fnc similar to original code.
+                      (+ (* (car a) (cadr a)) b))  ;; (1 * 2) + (3 * 4) + ... etc
+                      0         ;; Base case of 0.
+                      lst))     ;; Passing in the list.
       
 
 ;; now let's do it with a flat list; e.g.
@@ -153,8 +160,8 @@
 ;; you've just computed a product, or need to carry forward
 ;; a multiplicand to the next operation
 (define (sum-of-prods lst)
-  ;; Code here. I did it using recursion.
-  ;; no idea how to use accumulate to do this.
+  ;; Old code here. I did it first using recursion.
+  #|
   (if (null? lst)
       0   ;; Base case of zero since its addition.
       
@@ -166,6 +173,13 @@
       ;; in the end we get something like what the assignment asks for:
       ;; (1 * 2) + (3 * 4) + ... etc
       (+ (* (car lst) (cadr lst)) (sum-of-prods(cddr lst)))))
+  |#
+  
+  ;; Accumulate function here
+  (accumulate (lambda (a b)  ;; Using lambda fnc similar to original code.
+                      (+ (* (car a) (cadr a)) b))  ;; (1 * 2) + (3 * 4) + ... etc
+                      '()       ;; Base case of null.
+                      lst))     ;; Passing in the list.
 
 ;; SICP exercise 2.35 (pp. 120), redefining count-leaves as an
 ;; accumulation.  Fill in the below procedure. Replace '<??>.
