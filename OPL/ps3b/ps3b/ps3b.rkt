@@ -202,28 +202,81 @@
               0            ;; Base case of null.
               lst))        ;; Passing in the list.
     |#
-    ;; Accumulate function here
+  #|  V2 HERE WITH NEARLY WORKING CODE EXCEPT FOR RETURNING THE ANSWER
+         AS A LIST...
+  ;; Accumulate function here
   (accumulate (lambda (a b)  ;; Using lambda fnc similar to original code.
                 ;; DEBUG CODE
-                (printf "a is ~a\nb is ~a\n" a b)
+                ;; must disable this when submitting or testing!
+                ;;(printf "a is ~a\nb is ~a\n" a b)
                 
                 ;; Using cond to figure out what we need to do.
                 (cond 
                    ;; First round we must detect the 0 in b.
                    ((equal? 0 b) a)
                    
-                   ;; Whenever we get a null, sum / product stuff.
-                   ((pair? b) (append a (* (car b) (cadr b))))
+                   ;; Detect if b is a number.
+                   ((number? b) (list (* a b)))
                    
-                   ;; Else cons together stuff into b.
-                   (else (list a b) )
+                   ;; Detect pairs, so we know when to multiply and add together.
+                   ;; basically we'd have like
+                   ;; (4 30)
+                   ;; now we want to do
+                   ;; (3*4 + 30)
+                   ;; and get something like
+                   ;; (42)
+                   ((equal? (length b) 2) (list (+ (* a (car b)) (cadr b))))
+                   
+                   ;; Whenever we get a null, sum / product stuff.
+                   ((list? b) (append (list a) b))
+                   
+                   ;; Current problem: 
+                   ;; I GET THE RIGHT ANSWER, BUT IN LIST FORM!!!
+                   
+                   ;; Else ???
+                   (else printf("What am I doing here?\n"))
                 )
                     
               )
               
               0            ;; Base case of null.
               lst))        ;; Passing in the list.
-    
+    |#
+  
+  ;; Accumulate function here
+  (accumulate (lambda (a b)  ;; Using lambda fnc similar to original code.
+                ;; DEBUG CODE
+                ;; must disable this when submitting or testing!
+                ;;(printf "a is ~a\nb is ~a\n" a b)
+                
+                ;; Using cond to figure out what we need to do.
+                (cond 
+                   ;; First round we must detect the 0 in b.
+                   ((equal? 0 b) a)
+                   
+                   ;; Detect if b is a number.
+                   ((number? b) (list (* a b)))
+                   
+                   ;; Detect pairs, so we know when to multiply and add together.
+                   ;; basically we'd have like
+                   ;; (4 30)
+                   ;; now we want to do
+                   ;; (3*4 + 30)
+                   ;; and get something like
+                   ;; (42)
+                   ((equal? (length b) 2) (list (+ (* a (car b)) (cadr b))))
+                   
+                   ;; Whenever we get a null, sum / product stuff.
+                   ((list? b) (append (list a) b))
+                   
+                   ;; Else ???
+                   (else printf("What am I doing here?\n"))
+                )
+                    
+              )
+              
+              0            ;; Base case of null.
+              lst))        ;; Passing in the list.
 
 ;; SICP exercise 2.35 (pp. 120), redefining count-leaves as an
 ;; accumulation.  Fill in the below procedure. Replace '<??>.
@@ -275,17 +328,35 @@ count-leaves looks like this:
   (accumulate 
       (lambda (x y)
           ;; DEBUG CODE
-          (printf "x is ~a\ny is ~a\n" x y)
-          (cons x y)
+          ;; I WAS FAILING TESTS WITH THIS ON, SILLY ME.
+          ;;(printf "x is ~a\ny is ~a\n" x y)
+        
+          ;; This was my original attempt as I thought it just needed to
+          ;; generate a list or something.
+          ;; Then I realized I needed to use the "p" procedure on the elements
+          ;; of the list.
+          ;;(cons x y)
+          
+          ;; Another attempt, which should call the procedure "p" on "x"
+          ;; and cons it with y. X is any given element of the list, and
+          ;; "y" is the final list at the end.
+          (cons (p x) y)
         
       ) 
       nil 
       sequence))
 
 (define (append-from-fold seq1 seq2)
-  (accumulate cons nil 
-              ;; Testing.
-              (map (lambda (x y) (cons x y)) seq1 seq2)))
+  ;; This should just append the second list to the end of the first list.
+  ;; e.g. '(1 2) '(3 4) should become (1 2 3 4)
+  ;; I first tried just doing seq1 seq2 but noticed when I ran one
+  ;; of the test cases it failed. Seems like this was the output:
+  ;; '(3 4 1 2)
+  ;; I tried swapping the order around of seq1 and seq2 and got the right output:
+  ;; '(1 2 3 4)
+  ;; I think the accumulate function is to blame, and swapping them around
+  ;; fixed that bug.
+  (accumulate cons seq2 seq1))
 
 (define (length-from-fold sequence)
   (accumulate 
