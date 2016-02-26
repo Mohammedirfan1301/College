@@ -2,6 +2,9 @@
 
 ;; ps3b
 ;; last updated Wed Feb 17 07:49:03 2016 fredm@cs.uml.edu
+;; Jason Downing
+;; 2/25/2016
+;; jason@downing.io
 
 ;; +++++++++++++++ Required for auto grading ++++++++++++++++++++++++++++
 (define nil '())
@@ -39,8 +42,8 @@
 (define (double-list2 lst)
   (define (scale-list items factor)
     (if (null? items)
-        nil                    ;; base case.
-        (cons (* (car items) factor)   ;; double it or whatever.
+        nil                                       ;; base case.
+        (cons (* (car items) factor)              ;; double it.
               (scale-list (cdr items) factor))))  ;; iterative call.
   (scale-list lst 2))  ;; Double it cuz its double list.
 
@@ -54,7 +57,7 @@
 ;; Recursive version
 (define (square-list1 items)
    (if (null? items)
-      nil            ;; base case.
+      nil                                ;; base case.
       (cons (* (car items) (car items))  ;; square stuff
             (square-list1 (cdr items))   ;; recursion.
  )))
@@ -75,7 +78,7 @@
 (define (enum-range-i a b)
   (define (iter-enum-range x y)
     (if (> x y)
-      nil       ;; base case.
+      nil                                     ;; base case.
       (cons x (iter-enum-range (+ x 1) y))))  ;; iterative call.
   (iter-enum-range a b)) ;; seed it.
 
@@ -504,6 +507,9 @@ This version almost reverses sub lists, it spits out something like this:
 > (deep-reverse (list (list 1 2) (list 3 4)))
 '((3 4) (1 2))
 
+Passes the first test since it does the same thing as my-reverse
+and returns "(3 2 1)" or what not for the first case.
+
 (define (deep-reverse items) 
   ;; This one's a little tricker.
   ;; DEBUG CODE
@@ -534,12 +540,14 @@ This version almost reverses sub lists, it spits out something like this:
   ))
 |#
 
-;; Hopefully this version works.
+;; This is the working version.
+;; It reverses numbers and lists by calling itself recursively to
+;; reverse the lists.
 (define (deep-reverse items) 
   ;; This one's a little tricker.
   ;; DEBUG CODE
   ;; must disable this when submitting or testing!
- #| (if (null? items)
+#| (if (null? items)
       (printf "'()\n")
       (printf "Current item is ~a\n" (car items))
   ) |#
@@ -553,7 +561,10 @@ This version almost reverses sub lists, it spits out something like this:
     ;; If so, just do some more recursive calls first to make the list
     ;; reversed. Assuming there's only numbers anyway.
     ;; This function is basically like my-reverse if we find a number anyway.
-    ((number? (car items)) (append (deep-reverse (cdr items)) (list (car items))))
+    ((number? (car items)) 
+              (append (deep-reverse (cdr items)) 
+                      (list (car items))
+              ))
     
     ;; If we find a pair then do a recursive call to deal with it.
     ;; We should be able to use the same code from my-reverse, just need
@@ -568,7 +579,9 @@ This version almost reverses sub lists, it spits out something like this:
                     (list (deep-reverse (car items)))
             ))
     
-    ;; Otherwise recursive call to find the base case.
+    ;; Otherwise make recursive call to find the base case.
     ;; Make sure to keep appending in reverse too.
-    (else (append (deep-reverse (cdr items)) (list (car items))))
+    (else  (append (deep-reverse (cdr items)) 
+                    (list (car items))
+            ))
   ))
