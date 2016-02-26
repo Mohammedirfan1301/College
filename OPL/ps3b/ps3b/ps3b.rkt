@@ -446,7 +446,23 @@ count-leaves looks like this:
 (define (my-reverse items) 
   ;; From the Racket docs, found here:
   ;; https://docs.racket-lang.org/reference/pairs.html
-  (reverse items))
+  ;;(reverse items)
+  
+  ;; Detect the end of the recursion / empty lists.
+  (if (null? items)
+      nil        ;; BASE CASE OF NULL
+      ;; Doing the recursive call first makes it reverse the
+      ;; order of the items funny enough.
+      ;; Also I found the "append" function on the docs where I also found
+      ;; the "reverse" function which I initially tried and passed all 3 tests
+      ;; for this function with.
+      ;; Docs found here:
+      ;; https://docs.racket-lang.org/reference/pairs.html
+      ;; Specifically the "(append lst ...) part.
+      (append (my-reverse (cdr items))    
+              (list (car items)))          
+  )
+)
 
 ; deep reverse
 ; recursively reverse sublists
@@ -455,7 +471,95 @@ count-leaves looks like this:
 ;  (deep-reverse '((1 2) (3 4))) => '((4 3) (2 1))
 ;  (deep-reverse '((1 2) (3 (4 5)))) => '(((5 4) 3) (2 1))
 
+#|
+This version prints out "'(((() 3) 2) 1)" which is almost right I think
+for the first case.
+
 (define (deep-reverse items) 
-  ;; From the Racket docs, found here:
-  ;; https://docs.racket-lang.org/reference/pairs.html
-  (reverse items))
+  ;; This one's a little tricker.
+  ;; DEBUG CODE
+  ;; must disable this when submitting or testing!
+ #| (if (null? items)
+      (printf "'()\n")
+      (printf "Current item is ~a\n" (car items))
+  ) |#
+  
+  ;; Need some conditions to solve this.
+  (cond 
+    ;; Base case / if the "items" list is null.
+    ((null? items) nil)
+    
+    ;; See if we have a number.
+    ;; If so, just do some more recursive calls first to make the list
+    ;; reversed. Assuming there's only numbers anyway.
+    ((number? (car items)) (list (deep-reverse (cdr items)) (car items)))
+     
+    ;; Otherwise recursive call.
+    (else (deep-reverse (cdr items)))  ;; Recursive call.
+  ))
+|#
+
+#|
+This version almost reverses sub lists, it spits out something like this:
+> (deep-reverse (list (list 1 2) (list 3 4)))
+'((3 4) (1 2))
+
+(define (deep-reverse items) 
+  ;; This one's a little tricker.
+  ;; DEBUG CODE
+  ;; must disable this when submitting or testing!
+ #| (if (null? items)
+      (printf "'()\n")
+      (printf "Current item is ~a\n" (car items))
+  ) |#
+  
+  ;; Need some conditions to solve this.
+  (cond 
+    ;; Base case / if the "items" list is null.
+    ((null? items) nil)
+    
+    ;; See if we have a number.
+    ;; If so, just do some more recursive calls first to make the list
+    ;; reversed. Assuming there's only numbers anyway.
+    ;; This is basically like my-reverse if we find a number anyway.
+    ((number? (car items)) (append (deep-reverse (cdr items)) (list (car items))))
+    
+    ;; If we find a pair then recursive call to deal with it.
+    ;; We should be able to use the same code from my-reverse, just need
+    ;; to account for the pair.
+    ((pair? (car items)) (append (deep-reverse (cdr items)) (list (car items))))
+    
+    ;; Otherwise recursive call to find the base case.
+    (else (deep-reverse (cdr items)))  ;; Recursive call.
+  ))
+|#
+
+(define (deep-reverse items) 
+  ;; This one's a little tricker.
+  ;; DEBUG CODE
+  ;; must disable this when submitting or testing!
+ #| (if (null? items)
+      (printf "'()\n")
+      (printf "Current item is ~a\n" (car items))
+  ) |#
+  
+  ;; Need some conditions to solve this.
+  (cond 
+    ;; Base case / if the "items" list is null.
+    ((null? items) nil)
+    
+    ;; See if we have a number.
+    ;; If so, just do some more recursive calls first to make the list
+    ;; reversed. Assuming there's only numbers anyway.
+    ;; This is basically like my-reverse if we find a number anyway.
+    ((number? (car items)) (append (deep-reverse (cdr items)) (list (car items))))
+    
+    ;; If we find a pair then recursive call to deal with it.
+    ;; We should be able to use the same code from my-reverse, just need
+    ;; to account for the pair.
+    ((pair? (car items)) (append (deep-reverse (cdr items)) (list (car items))))
+    
+    ;; Otherwise recursive call to find the base case.
+    ;; Make sure to keep appending in reverse too.
+    (else (append (deep-reverse (cdr items)) (list (car items))))
+  ))
