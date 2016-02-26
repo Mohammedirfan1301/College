@@ -30,34 +30,36 @@
 ;a)
 (define (double-list1 lst)
   (if (null? lst)
-      '()
-      (cons (* 2 (car lst))
-            (double-list1 (cdr lst)))))
+      nil                      ;; base case.
+      (cons (* 2 (car lst))    ;; double everything in the list
+            (double-list1 (cdr lst)))))  ;; Recursive call.
 
 ;b)
 ;; using scale-list 
 (define (double-list2 lst)
   (define (scale-list items factor)
     (if (null? items)
-        nil
-        (cons (* (car items) factor)
-              (scale-list (cdr items) factor))))
+        nil                    ;; base case.
+        (cons (* (car items) factor)   ;; double it or whatever.
+              (scale-list (cdr items) factor))))  ;; iterative call.
   (scale-list lst 2))  ;; Double it cuz its double list.
 
 ;c)
 ;; using map
 (define (double-list3 lst)
-  (map (lambda (x) (* x 2)) lst))
+  (map (lambda (x) (* x 2)) lst))  ;; (* x 2) doubles it
 
 ;; SICP exercise 2.21 (pp. 106), on square-list.
 
+;; Recursive version
 (define (square-list1 items)
    (if (null? items)
-      '()
-      (cons (* (car items) (car items))
-            (square-list1 (cdr items))
+      nil            ;; base case.
+      (cons (* (car items) (car items))  ;; square stuff
+            (square-list1 (cdr items))   ;; recursion.
  )))
 
+;; Map version
 (define (square-list2 items)
   (map (lambda (x) (* x x)) items))
 
@@ -73,9 +75,9 @@
 (define (enum-range-i a b)
   (define (iter-enum-range x y)
     (if (> x y)
-      '()
-      (cons x (iter-enum-range (+ x 1) y))))
-  (iter-enum-range a b))
+      nil       ;; base case.
+      (cons x (iter-enum-range (+ x 1) y))))  ;; iterative call.
+  (iter-enum-range a b)) ;; seed it.
 
 ;; this is a list of the first 100 natural numbers
 (define my-nats (enum-range-i 1 100))
@@ -106,7 +108,7 @@
 ;; = 1 * 2 * 3 * ... * 100
 (define (products lst)
   (if (null? lst)
-      1   ;; Base case of ONE.
+      1   ;; Base case of ONE since this a product.
       (* (car lst) (products(cdr lst)))))
 
 ;; suppose we have a list of lists.
@@ -119,7 +121,7 @@
 
 (define (pair-seq a b)
   (if (> a b)
-      '()
+      nil      ;; base case of '().
       (cons (list a (+ a 1))
 	    (pair-seq (+ a 2) b))))
 
@@ -175,6 +177,9 @@
       (+ (* (car lst) (cadr lst)) (sum-of-prods(cddr lst)))))
   |#
   
+  #|
+            V1 HERE
+
   ;; Accumulate function here
   (accumulate (lambda (a b)  ;; Using lambda fnc similar to original code.
                 ;; DEBUG CODE
@@ -186,16 +191,39 @@
                    ((equal? 0 b) a)
                    
                    ;; Whenever we get a null, sum / product stuff.
-                   ((pair? b) (+ (car b) (cadr b)))
+                   ((pair? b) (list a (* (car b) (cadr b))))
                    
                    ;; Else cons together stuff into b.
-                   (else (append (cons a '()) (cons b '())))
+                   (else (list a b) )
                 )
                     
               )
               
               0            ;; Base case of null.
               lst))        ;; Passing in the list.
+    |#
+    ;; Accumulate function here
+  (accumulate (lambda (a b)  ;; Using lambda fnc similar to original code.
+                ;; DEBUG CODE
+                (printf "a is ~a\nb is ~a\n" a b)
+                
+                ;; Using cond to figure out what we need to do.
+                (cond 
+                   ;; First round we must detect the 0 in b.
+                   ((equal? 0 b) a)
+                   
+                   ;; Whenever we get a null, sum / product stuff.
+                   ((pair? b) (append a (* (car b) (cadr b))))
+                   
+                   ;; Else cons together stuff into b.
+                   (else (list a b) )
+                )
+                    
+              )
+              
+              0            ;; Base case of null.
+              lst))        ;; Passing in the list.
+    
 
 ;; SICP exercise 2.35 (pp. 120), redefining count-leaves as an
 ;; accumulation.  Fill in the below procedure. Replace '<??>.
