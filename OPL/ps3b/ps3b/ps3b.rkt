@@ -534,6 +534,7 @@ This version almost reverses sub lists, it spits out something like this:
   ))
 |#
 
+;; Hopefully this version works.
 (define (deep-reverse items) 
   ;; This one's a little tricker.
   ;; DEBUG CODE
@@ -551,13 +552,21 @@ This version almost reverses sub lists, it spits out something like this:
     ;; See if we have a number.
     ;; If so, just do some more recursive calls first to make the list
     ;; reversed. Assuming there's only numbers anyway.
-    ;; This is basically like my-reverse if we find a number anyway.
+    ;; This function is basically like my-reverse if we find a number anyway.
     ((number? (car items)) (append (deep-reverse (cdr items)) (list (car items))))
     
-    ;; If we find a pair then recursive call to deal with it.
+    ;; If we find a pair then do a recursive call to deal with it.
     ;; We should be able to use the same code from my-reverse, just need
-    ;; to account for the pair.
-    ((pair? (car items)) (append (deep-reverse (cdr items)) (list (car items))))
+    ;; to account for the pair needing to be reversed as well.
+    ((pair? (car items)) 
+            ;; Similar to my-reverse again.
+            (append (deep-reverse (cdr items)) 
+                    ;; But since this is a deep-reverse, this
+                    ;; will need a recursive call in order to get sub lists 
+                    ;; like "(3 4)" looking like "(4 3)" which is the point 
+                    ;; of this function.
+                    (list (deep-reverse (car items)))
+            ))
     
     ;; Otherwise recursive call to find the base case.
     ;; Make sure to keep appending in reverse too.
