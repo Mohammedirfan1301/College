@@ -213,6 +213,10 @@
 (insert-record (make-record "Foreigner" "Foreigner" 3.71 'Classic-Rock 0))          
 (insert-record (make-record "Double Vision" "Foreigner" 4.99 'Classic-Rock 0))
 
+;; Test cases for "blues-sale" function
+(insert-record (make-record "Midnight Run" "Bobby Blue Bland" 8.1 'blues 2))
+(insert-record (make-record "Phantom Blues" "Taj Mahal" 8.1 'blues 3))
+
 ;;;;;;;1c.
 ; all-titles
 ; map the title operator over the db.
@@ -242,7 +246,8 @@
 ;  a new record with the num of copies increased by the restock count, or
 ;  just the existing record (if title doesn't match)
 (define (restock this-title num-copies db)
-  ;; Check variable for matching by title / artist.
+  
+  ;; Check variable for matching by title
   (define check null)
   
   ;; Match by title
@@ -257,10 +262,27 @@
   ;; See if what we got was null or not.
   (if (null? check)
       ;; true case, so the title doesn't match.
-      this-title
+      nil
       
-      (update_DB check this-title num-copies db)
+      ;; Map over the DB and update the record.
+      ;; This will then return the update database as required.
+      (map 
+         (lambda (rec)
+           ;; See if the title is equal, as we want to update the record if so.
+           (if (equal? this-title (car rec))
+               ;; Update the record.
+               (make-record this-title (cadar check) (caddar check) (car (cdddar check)) num-copies)
+               
+               ;; false case so do nothing but return the rec.
+               rec
+            )
+         )
+         db)
 
+      
+      ;; This is all old code, I left it in here for future reference.
+      ;; I was also trying to modify cdDB myself until I record the discussion post here:
+      ;; https://groups.google.com/forum/#!topic/uml-opl-spr16/uPeL4rq4DRg
       
       ;; false case, so update that record in the database.
       ;(list this-title (cadar check) (caddar check) (car (cdddar check)) num-copies)
@@ -277,12 +299,13 @@
 )
 
 ;; Update DB file.
+#|
 (define (update_DB check this-title num-copies db)
    (define old_rec (make-record this-title (cadar check)(caddar check) (car (cdddar check)) (cadr (cdddar check))))
    (define new_rec (make-record this-title (cadar check)(caddar check) (car (cdddar check)) num-copies))
    (set! db (remove old_rec cdDB))            ;; First we remove
    (set! cdDB (append cdDB (list new_rec)))   ;; Then we append.
-)
+)|#
 
 
 ;;;;;;;;1f.
@@ -332,9 +355,41 @@
 ;  just outputs the existing record
 (define (blues-sale db)
   
-  ;; need to filter all blues CDs, and discount by 10%.
+  ;; Check variable for matching by category
+  (define check null)
   
-  'foo)
+  ;; Match by title
+  (set! check
+    (filter 
+       (lambda (rec) 
+         (equal? (category rec) 'blues)  ;; Filter by just the "blues" category.
+       ) 
+    db)
+  )
+  
+  ;; See if what we got was null or not.
+  (if (null? check)
+      ;; true case, so the title doesn't match.
+      nil
+      
+      ;; Map over the DB and update the record.
+      ;; This will then return the update database as required.
+      (map 
+         (lambda (rec)
+           ;; See if the title is equal, as we want to update the record if so.
+           (if (equal? 'blues (car (cdddr rec)))
+               ;; Update the record.
+               ;;             Title     Artist      Price (10% off)       Category             Units
+               (make-record (car rec) (cadr rec) (* (caddr rec) .90) (car (cdddr rec)) (car (cddddr rec)))
+               
+               ;; false case so do nothing but return the rec.
+               rec
+            )
+         )
+         db)
+  )
+)
+  
 
 ;;;;;;;;1i.
 ; carry-cd?
