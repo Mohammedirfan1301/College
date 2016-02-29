@@ -35,17 +35,29 @@
 ;; Answer:
 ;2a.
 (define (count-leaves tree) 
-   (tree-manip tree 0 '() +)
+  ;; give it the tree, starting value of 0,
+  ;; (lambda (x) 1) will return 1 for each leaf,
+  ;; and + to add all the leaves together.
+  ;; Example output: (count-leaves test-tree) => 7
+  (tree-manip tree 0 (lambda (x) 1) +)
 )
 
 ;2b.
 (define (sum-leaves tree) 
-   (tree-manip tree 0 '() +)
+  ;; give it the tree, starting value of 0,
+  ;; (lambda (x) x) will return the value of each leaf,
+  ;; and + to add all the values together (sum it up).
+  ;; Example output: (sum-leaves test-tree) => 28
+  (tree-manip tree 0 (lambda (x) x) +)
 )
 
 ;2c.
 (define (triple-leaves tree) 
-   (tree-manip tree 0 '() +)
+  ;; give it the tree, starting value of nil ('()),
+  ;; (lambda (x) (* x 3)) will return (x*3) for each leaf,
+  ;; and cons will add them all together in a list.
+  ;; Example output: (sum-leaves test-tree) => '(3 (6 (9 (12) 15) 18) 21)
+  (tree-manip tree nil (lambda (x) (* x 3)) cons)
 )
 
 ;; **********************************************************************
@@ -56,8 +68,16 @@
 ;; uncomment line starting with "foldl" and replace with answer
 
 (define (count-leaves-with-map t)
-;;  (foldl '<??> '<??> (map '<??> '<??>)))
-  135)  ;; not the right answer :)
+  ;; Need to sum up using + and 0 as the initial value.
+  (foldl + 0 (map 
+              (lambda (leaf) 
+                ;; Need to determine if each leaf is a pair or not.
+                (if (pair? leaf)
+                    2 ;; Yes, so add 2.
+                    1 ;; Nope, so add 1.
+                )
+              ) t))
+)  
 
 
 ;; **********************************************************************
@@ -87,16 +107,16 @@
 ;;Answer:
 ;3.b 
 (define (flip-cons lst1 lst2)  
-  (cons (flip lst1) (flip lst2))
+  ((flip cons) lst1 lst2)
 )
 
 (define (flip-minus x y)  
-  (negate (flip x) (flip y))
+  ((flip -) x y)
 )
 
 ;3.c
 (define (flip-odd x)
-  (negate x)
+  ((negate even?) x)
 )
 
 ;; **********************************************************************
@@ -118,7 +138,19 @@
 ;;Answer:
 ;; Given in the question that accumulate is also known as fold-right. So,
 (define (fold-right op initial sequence) 
-  1)
+  ;; This doesn't work, fix it.
+  ;; From the book 2.38
+  (define (iter result rest)
+    (if (null? rest)
+        result
+        (iter (op result (car rest))
+              (cdr rest)
+        )
+    )
+  )
+  (iter initial sequence)
+)
+
 
 ;(fold-right / 1 (list 1 2 3))
 ;write substitution steps
