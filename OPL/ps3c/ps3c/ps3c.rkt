@@ -203,21 +203,38 @@
 (insert-record (make-record "Vault: Def Leppard Greatest Hits" "Def Leppard" 10.99 'Classic-Rock 999))
 (insert-record (make-record "Leftoverture" "Kansas" 4.79 'Classic-Rock 111))
 
+;; Test cases for "titles in stock"
+(insert-record (make-record "Foreigner" "Foreigner" 3.71 'Classic-Rock 0))          
+(insert-record (make-record "Double Vision " "Foreigner" 4.99 'Classic-Rock 0))
+
 ;;;;;;;1c.
 ; all-titles
 ; map the title operator over the db.
 ; use the built-in "map" operation and your title selector procedure
 ; to return a list of all the titles in a database.
 (define (all-titles db)
-  'foo)
+  (map title db))
 
 ;;;;;;1d.
 ; titles-in-stock
 ; use the built-in "filter" operation to filter a database to 
 ; keep only records with units-in-stock being more than zero.
 ; then, map the title selector over that result.
+
+;; This is currently returning albums with "0" in stock...
 (define (titles-in-stock db)
-  'foo)
+  (all-titles
+       (filter 
+       ;; This lambda will do the filtering.
+       ;; rec is a given record in the form:
+       ;; '("Revolver" "The Beatles" 14.99 rock 3)
+       (lambda (rec)
+          ;; Check if this records stock is greater than 0.
+          (if (> 0 (units-in-stock rec))  
+            rec        ;; True case, return x.
+            nil))      ;; False case, return nil.
+       db)
+  ))
 
 ;;;;;;;1e.
 ; restock
