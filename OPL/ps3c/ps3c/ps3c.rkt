@@ -231,7 +231,7 @@
        (lambda (rec)
           ;; Check if this records stock is greater than 0.
           (if (> 0 (units-in-stock rec))  
-            rec        ;; True case, return x.
+            rec        ;; True case, return rec.
             nil))      ;; False case, return nil.
        db)
   ))
@@ -248,7 +248,18 @@
 ; titles-by
 ; filter the db by matching on artist, then map title over it.
 (define (titles-by this-artist db)
-  'foo)
+  (all-titles
+       (filter 
+       ;; This lambda will do the filtering.
+       ;; rec is a given record in the form:
+       ;; '("Revolver" "The Beatles" 14.99 rock 3)
+       (lambda (rec)
+          ;; Check if this records stock is greater than 0.
+          (if (equal? this-artist (artist rec))  
+            rec        ;; True case, return rec.
+            nil))      ;; False case, return nil.
+       db)
+  ))
 
 ;;;;;;;;1g.
 ; copies-in-stock
