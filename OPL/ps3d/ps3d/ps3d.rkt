@@ -35,15 +35,18 @@
 ;; Answer:
 ;2a.
 (define (count-leaves tree) 
-  1)
+   (tree-manip tree 0 '() +)
+)
 
 ;2b.
 (define (sum-leaves tree) 
-  1)
+   (tree-manip tree 0 '() +)
+)
 
 ;2c.
 (define (triple-leaves tree) 
-  1)
+   (tree-manip tree 0 '() +)
+)
 
 ;; **********************************************************************
 ;;
@@ -84,14 +87,17 @@
 ;;Answer:
 ;3.b 
 (define (flip-cons lst1 lst2)  
-  0)
+  (cons (flip lst1) (flip lst2))
+)
 
 (define (flip-minus x y)  
-  0)
+  (negate (flip x) (flip y))
+)
 
 ;3.c
 (define (flip-odd x)
-  0)
+  (negate x)
+)
 
 ;; **********************************************************************
 ;;
