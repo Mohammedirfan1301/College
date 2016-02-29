@@ -313,6 +313,9 @@
 ;  outputs a new record with adjusted price (if category is blues), or
 ;  just outputs the existing record
 (define (blues-sale db)
+  
+  ;; need to filter all blues CDs, and discount by 10%.
+  
   'foo)
 
 ;;;;;;;;1i.
@@ -329,7 +332,6 @@
     (filter 
        (lambda (rec) 
          (equal? (title rec) this-title)
-         (equal? (artist rec) this-artist)
        ) 
     db)
   )
