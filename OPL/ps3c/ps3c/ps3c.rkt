@@ -74,6 +74,12 @@
 (define (insert-record rec)
   (set! cdDB (append cdDB (list rec))))
 
+;; Update one record
+(define (update-record rec)
+  (set! cdDB (remove rec cdDB))     ;; First we remove
+  ;;(set! cdDB (append cdDB (list rec)))   ;; Then we append.
+)
+
 ; Selectors
 ; these should retrieve the appropriate item from the record object.
 ;
@@ -205,7 +211,7 @@
 
 ;; Test cases for "titles in stock"
 (insert-record (make-record "Foreigner" "Foreigner" 3.71 'Classic-Rock 0))          
-(insert-record (make-record "Double Vision " "Foreigner" 4.99 'Classic-Rock 0))
+(insert-record (make-record "Double Vision" "Foreigner" 4.99 'Classic-Rock 0))
 
 ;;;;;;;1c.
 ; all-titles
@@ -236,7 +242,30 @@
 ;  a new record with the num of copies increased by the restock count, or
 ;  just the existing record (if title doesn't match)
 (define (restock this-title num-copies db)
-  'foo)
+  ;; Check variable for matching by title / artist.
+  (define check null)
+  
+  ;; Match by title
+  (set! check
+    (filter 
+       (lambda (rec) 
+         (equal? (title rec) this-title)
+       ) 
+    db)
+  )
+  
+  ;; See if what we got was null or not.
+  (if (null? check)
+      ;; true case, so the title doesn't match.
+      this-title
+      
+      ;; false case, so update that record in the database.
+      ;(list this-title (cadar check) (caddar check) (car (cdddar check)) num-copies)
+      
+      ;; This is broken badly.
+      (update-record (make-record this-title (cadar check)(caddar check) (car (cdddar check)) num-copies))
+ )
+)
 
 ;;;;;;;;1f.
 ; titles-by
@@ -249,16 +278,14 @@
   )
 )
 
-;; Variable for 1G.
-(define check null)
-
 ;;;;;;;;1g.
 ; copies-in-stock
 ; filter by by matching title and artist, then apply units-in-stock to it.
 ; make sure to deal with the case of the record not existing in the DB
 ; this should produce a number
 (define (copies-in-stock this-title this-artist db)
-
+  ;; Check variable for matching by title / artist.
+  (define check null)
   
   ;; Match by title & artist
   (set! check
@@ -272,11 +299,11 @@
   
   ;; See if what we got was null or not.
   (if (null? check)
-      ;; true case so apply units-in-stock to it.
-      (units-in-stock (car check))
-      
-      ;; false case so return 0.
+      ;; true case so return 0.
       0  
+      
+      ;; false case so apply units-in-stock to it.
+      (units-in-stock (car check))
   )
 )
 
@@ -294,4 +321,28 @@
 ; then return a boolean if units-in-stock is more than 0.
 ; make sure to deal with the case of the record not existing in the DB
 (define (carry-cd? this-title this-artist db)
-  #f)
+  ;; Check variable for matching by title / artist.
+  (define check null)
+  
+  ;; Match by title & artist
+  (set! check
+    (filter 
+       (lambda (rec) 
+         (equal? (title rec) this-title)
+         (equal? (artist rec) this-artist)
+       ) 
+    db)
+  )
+  
+  ;; See if what we got was null or not.
+  (if (null? check)
+      ;; true case so return false since there is no record...
+      #f  
+      
+      ;; false case so apply units-in-stock to it.
+      (if (> (units-in-stock (car check)) 0)
+          #t  ;; Greater than 0 so true.
+          #f  ;; 0 or less, so false.
+      )
+  )
+)
