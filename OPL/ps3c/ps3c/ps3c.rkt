@@ -75,9 +75,9 @@
   (set! cdDB (append cdDB (list rec))))
 
 ;; Update one record
-(define (update-record rec)
-  (set! cdDB (remove rec cdDB))     ;; First we remove
-  ;;(set! cdDB (append cdDB (list rec)))   ;; Then we append.
+(define (update-record old_rec new_rec)
+  (set! cdDB (remove old_rec cdDB))          ;; First we remove
+  (set! cdDB (append cdDB (list new_rec)))   ;; Then we append.
 )
 
 ; Selectors
@@ -249,7 +249,7 @@
   (set! check
     (filter 
        (lambda (rec) 
-         (equal? (title rec) this-title)
+         (equal? (title rec) this-title)  ;; Filter by just this CD title
        ) 
     db)
   )
@@ -259,13 +259,31 @@
       ;; true case, so the title doesn't match.
       this-title
       
+      (update_DB check this-title num-copies db)
+
+      
       ;; false case, so update that record in the database.
       ;(list this-title (cadar check) (caddar check) (car (cdddar check)) num-copies)
       
-      ;; This is broken badly.
-      (update-record (make-record this-title (cadar check)(caddar check) (car (cdddar check)) num-copies))
- )
+      ;; This should take an old record and replace it with a new record.
+      #|(update-record 
+          ;; Old Record to remove
+          (make-record this-title (cadar check)(caddar check) (car (cdddar check)) (cadr (cdddar check)))
+          
+          ;; New Record to add & return.
+          (make-record this-title (cadar check)(caddar check) (car (cdddar check)) num-copies)
+      )|#
+  )
 )
+
+;; Update DB file.
+(define (update_DB check this-title num-copies db)
+   (define old_rec (make-record this-title (cadar check)(caddar check) (car (cdddar check)) (cadr (cdddar check))))
+   (define new_rec (make-record this-title (cadar check)(caddar check) (car (cdddar check)) num-copies))
+   (set! db (remove old_rec cdDB))            ;; First we remove
+   (set! cdDB (append cdDB (list new_rec)))   ;; Then we append.
+)
+
 
 ;;;;;;;;1f.
 ; titles-by
