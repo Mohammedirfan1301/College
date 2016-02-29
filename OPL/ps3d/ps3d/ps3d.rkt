@@ -70,13 +70,14 @@
 (define (count-leaves-with-map t)
   ;; Need to sum up using + and 0 as the initial value.
   (foldl + 0 (map 
-              (lambda (leaf) 
-                ;; Need to determine if each leaf is a pair or not.
-                (if (pair? leaf)
+               (lambda (leaf) 
+                 ;; Need to determine if each leaf is a pair or not.
+                 (if (pair? leaf)
                     2 ;; Yes, so add 2.
                     1 ;; Nope, so add 1.
-                )
-              ) t))
+                 )
+               ) t)
+  )
 )  
 
 
@@ -106,16 +107,19 @@
 
 ;;Answer:
 ;3.b 
-(define (flip-cons lst1 lst2)  
+(define (flip-cons lst1 lst2)
+  ;; flip cons
   ((flip cons) lst1 lst2)
 )
 
 (define (flip-minus x y)  
+  ;; flip minus
   ((flip -) x y)
 )
 
 ;3.c
 (define (flip-odd x)
+  ;; negate in terms of even?
   ((negate even?) x)
 )
 
