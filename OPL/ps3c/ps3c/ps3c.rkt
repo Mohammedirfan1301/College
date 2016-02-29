@@ -66,7 +66,7 @@
 ; 
 ; write code to do that and return a "record" object.
 (define (make-record title artist price category units-in-stock)
-  'foo)
+  (list title artist price category units-in-stock))
 
 ; Insert one record into the database, by rebinding the global symbol
 ; cdDB to a new list with the new record appended.
@@ -82,7 +82,22 @@
 ;
 ; write selector procedures for each of the fields of record.
 (define (title rec)
-  "The White Album")
+  (printf "hello\n")
+  (define (title-iter rec DB)
+      (cond
+         ;; Didn't find it so return nil.
+         ;;((null? (DB) nil))
+        
+         ;; FOUND IT! return the title.
+         ((equal? (car cdDB) rec) (caar cdDB))
+         
+         ;; Keep looping.
+         (printf "hey im looping\n")
+         (else (title-iter rec (cdr cdDB)))
+      )
+  )
+  (title-iter rec cdDB)
+)
 
 (define (artist rec)
   "The Beatles")
