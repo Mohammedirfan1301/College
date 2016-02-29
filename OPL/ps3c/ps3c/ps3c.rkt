@@ -82,34 +82,109 @@
 ;
 ; write selector procedures for each of the fields of record.
 (define (title rec)
-  (printf "hello\n")
+  ;; This is an iterative helper function to search the DB for
+  ;; the given record.
+  ;; I did it iteratively because I couldn't figure out a recursive solution. ¯\_(ツ)_/¯
   (define (title-iter rec DB)
       (cond
-         ;; Didn't find it so return nil.
-         ;;((null? (DB) nil))
+         ;; We didn't find the record so return a nil.
+         ((null? DB) nil)
         
-         ;; FOUND IT! return the title.
-         ((equal? (car cdDB) rec) (caar cdDB))
+         ;; FOUND IT! return the **TITLE**. 
+         ;; (found this through trial and error in the console)
+         ((equal? (car DB) rec) (caar DB))
          
          ;; Keep looping.
-         (printf "hey im looping\n")
-         (else (title-iter rec (cdr cdDB)))
+         (else (title-iter rec (cdr DB)))
       )
   )
+  ;; Gotta seed the iterative helper function.
   (title-iter rec cdDB)
 )
 
 (define (artist rec)
-  "The Beatles")
+  ;; This is an iterative helper function to search the DB for
+  ;; the given record.
+  ;; I did it iteratively because I couldn't figure out a recursive solution. ¯\_(ツ)_/¯
+  (define (title-iter rec DB)
+      (cond
+         ;; We didn't find the record so return a nil.
+         ((null? DB) nil)
+        
+         ;; FOUND IT! return the **ARTIST**. 
+         ;; (found this through trial and error in the console)
+         ((equal? (car DB) rec) (cadar DB))
+         
+         ;; Keep looping.
+         (else (title-iter rec (cdr DB)))
+      )
+  )
+  ;; Gotta seed the iterative helper function.
+  (title-iter rec cdDB)
+)
 
 (define (price rec)
-  18.99)
+  ;; This is an iterative helper function to search the DB for
+  ;; the given record.
+  ;; I did it iteratively because I couldn't figure out a recursive solution. ¯\_(ツ)_/¯
+  (define (title-iter rec DB)
+      (cond
+         ;; We didn't find the record so return a nil.
+         ((null? DB) nil)
+        
+         ;; FOUND IT! return the **PRICE**. 
+         ;; (found this through trial and error in the console)
+         ((equal? (car DB) rec) (caddar DB))
+         
+         ;; Keep looping.
+         (else (title-iter rec (cdr DB)))
+      )
+  )
+  ;; Gotta seed the iterative helper function.
+  (title-iter rec cdDB)
+)
 
 (define (category rec)
-  'rock)
+  ;; This is an iterative helper function to search the DB for
+  ;; the given record.
+  ;; I did it iteratively because I couldn't figure out a recursive solution. ¯\_(ツ)_/¯
+  (define (title-iter rec DB)
+      (cond
+         ;; We didn't find the record so return a nil.
+         ((null? DB) nil)
+        
+         ;; FOUND IT! return the **CATEGORY**. 
+         ;; (found this through trial and error in the console)
+         ((equal? (car DB) rec) (car (cdddar DB)))
+         
+         ;; Keep looping.
+         (else (title-iter rec (cdr DB)))
+      )
+  )
+  ;; Gotta seed the iterative helper function.
+  (title-iter rec cdDB)
+)
 
 (define (units-in-stock rec)
-  17)
+  ;; This is an iterative helper function to search the DB for
+  ;; the given record.
+  ;; I did it iteratively because I couldn't figure out a recursive solution. ¯\_(ツ)_/¯
+  (define (title-iter rec DB)
+      (cond
+         ;; We didn't find the record so return a nil.
+         ((null? DB) nil)
+        
+         ;; FOUND IT! return the **UNITS IN STOCK**. 
+         ;; (found this through trial and error in the console)
+         ((equal? (car DB) rec) (cadr (cdddar DB)))
+         
+         ;; Keep looping.
+         (else (title-iter rec (cdr DB)))
+      )
+  )
+  ;; Gotta seed the iterative helper function.
+  (title-iter rec cdDB)
+)
 
 ;;;;;;;1b.
 
@@ -121,7 +196,12 @@
 ; remember, insert-record is already provided;
 ; this should just work once you've implemented your constructor
 ; and selectors correctly.
-(insert-record (make-record "Facelift" "Alice in Chains" 12.98 'rock 7))
+(insert-record (make-record "Revolver" "The Beatles" 14.99 'rock 3))
+(insert-record (make-record "Facelift" "Alice in Chains" 12.98 'Rock 7))
+(insert-record (make-record "Pyromania" "Def Leppard" 6.78 'Classic-Rock 100))
+(insert-record (make-record "Hysteria" "Def Leppard" 10.99 'Classic-Rock 99))
+(insert-record (make-record "Vault: Def Leppard Greatest Hits" "Def Leppard" 10.99 'Classic-Rock 999))
+(insert-record (make-record "Leftoverture" "Kansas" 4.79 'Classic-Rock 111))
 
 ;;;;;;;1c.
 ; all-titles
