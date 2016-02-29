@@ -223,18 +223,12 @@
 
 ;; This is currently returning albums with "0" in stock...
 (define (titles-in-stock db)
+  ;; Call all-titles on the filtered database.
   (all-titles
-       (filter 
-       ;; This lambda will do the filtering.
-       ;; rec is a given record in the form:
-       ;; '("Revolver" "The Beatles" 14.99 rock 3)
-       (lambda (rec)
-          ;; Check if this records stock is greater than 0.
-          (if (> 0 (units-in-stock rec))  
-            rec        ;; True case, return rec.
-            nil))      ;; False case, return nil.
-       db)
-  ))
+    ;; Return only the records which are in stock (1 or more items in stock)
+    (filter (lambda (rec) (> (units-in-stock rec) 0)) db)
+  )
+)
 
 ;;;;;;;1e.
 ; restock
@@ -248,18 +242,15 @@
 ; titles-by
 ; filter the db by matching on artist, then map title over it.
 (define (titles-by this-artist db)
+  ;; Call all-titles on the filtered database.
   (all-titles
-       (filter 
-       ;; This lambda will do the filtering.
-       ;; rec is a given record in the form:
-       ;; '("Revolver" "The Beatles" 14.99 rock 3)
-       (lambda (rec)
-          ;; Check if this records stock is greater than 0.
-          (if (equal? this-artist (artist rec))  
-            rec        ;; True case, return rec.
-            nil))      ;; False case, return nil.
-       db)
-  ))
+    ;; Return only the records with the given artist.
+    (filter (lambda (rec) (equal? (artist rec) this-artist)) db)
+  )
+)
+
+;; Variable for 1G.
+(define check null)
 
 ;;;;;;;;1g.
 ; copies-in-stock
@@ -267,7 +258,27 @@
 ; make sure to deal with the case of the record not existing in the DB
 ; this should produce a number
 (define (copies-in-stock this-title this-artist db)
-  'foo)
+
+  
+  ;; Match by title & artist
+  (set! check
+    (filter 
+       (lambda (rec) 
+         (equal? (title rec) this-title)
+         (equal? (artist rec) this-artist)
+       ) 
+    db)
+  )
+  
+  ;; See if what we got was null or not.
+  (if (null? check)
+      ;; true case so apply units-in-stock to it.
+      (units-in-stock (car check))
+      
+      ;; false case so return 0.
+      0  
+  )
+)
 
 ;;;;;;;;1h. 
 ; blues-sale
