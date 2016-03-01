@@ -149,10 +149,7 @@
 ;; Given in the question that accumulate is also known as fold-right.
 ;; Basically fold-right is the same as accumulate...
 (define (fold-right op initial sequence) 
-  ;; Could just call accumulate.
-  ;;(accumulate op initial sequence)
-  
-  ;; Or just reuse the accumulate code but make it fold-right.
+  ;; Just make Accumulate fold-right.
   (if (null? sequence)
       initial
       (op (car sequence)
@@ -161,40 +158,81 @@
   )
 )
 
+;; This is the fold-left function from 2.38
+;; Pasted here for doing the substitution easily.
+(define (fold-left op initial sequence)
+  (define (iter result rest)
+    (if (null? rest)
+        result
+        (iter (op result (car rest)) (cdr rest))
+    )
+  )
+  (iter initial sequence)
+)
+
 
 ;(fold-right / 1 (list 1 2 3))
 #|
 
-(/ 1 (fold-right / 1 (list 2 3)))       ;; first recursive call
-(/ 1 (/ 2 (fold-right / 1 (list 3))))   ;; second recursive call
-(/ 1 (/ 2 (/ 3 (fold-right / 1 '()))))  ;; last recursive call for nil case.
+(/ 1 (fold-right / 1 (list 2 3)))       ;; First recursive call
+(/ 1 (/ 2 (fold-right / 1 (list 3))))   ;; Second recursive call
+(/ 1 (/ 2 (/ 3 (fold-right / 1 nil )))) ;; Last recursive call for nil case.
 (/ 1 (/ 2 (/ 3 1)))                     ;; nil returns initial or "1"
 (/ 1 (/ 2 3))                           ;; 3/1 = 3
 (/ 1 (2/3))                             ;; 2/3 = 2/3
-= (3/2)                                 ;; 1/[2/3] = 3/2 (final answer)
+= (3/2)                                 ;; 1/[2/3] = 3/2 
+                                        ;; Final answer is [3/2]
 
 |#
 
 ;(fold-left / 1 (list 1 2 3))
 #|
 
-
+(iter 1 (list 1 2 3))                ;; Start
+(iter (/ 1 1) (list 2 3))            ;; First loop
+(iter (/ (/ 1 1) 2) (list 3))        ;; Second loop
+(iter (/ (/ (/ 1 1) 2) 3) '()))      ;; Final loop, returns 1.
+(/ (/ (/ (/ 1 1) 2) 3) 1)            ;; Start dividing from the inside now.
+(/ (/ (/ 1 2) 3) 1)                  ;; 1/1 = 1
+(/ (/ [1/2] 3) 1)                    ;; 1/2 = 1/2
+(/ [1/6] 1)                          ;; [1/2] / [3/1] = [1/2] * [1/3] = [1/6]
+= [1/6]                              ;; Final answer is [1/6]
 
 |#
 
 ;(fold-right list nil (list 1 2 3))
 #|
 
+(list 1 (fold-right list nil (list 2 3) ))             ;; First recursive call
+(list 1 (list 2 (fold-right list nil (list 3) )))      ;; Second recursive call
+(list 1 (list 2 (list 3 (fold-right list nil '() ))))  ;; Final call for the nil case.
+(list 1 (list 2 (list 3 nil )))          ;; returns nil
+(list 1 (list 2 '(3)))                   ;; list of 3 at the end
+(list 1 '(2 (3)))                        ;; followed by list of '(2 (3))
+= '(1 (2 (3)))                           ;; final answer.
+
 |#
 
 ;(fold-left list nil (list 1 2 3))
 #|
+
+(iter '() (list 1 2 3) )                        ;; Start
+(iter (list '() 1) (list 2 3) )                 ;; First loop
+(iter (list (list '() 1) 2) (list 3) )          ;; Second loop
+(iter (list (list (list '() 1) 2) 3) '() )      ;; Final loop for nil case.
+(list (list (list '() 1) 2) 3) '() )            ;; nil case returns nil.
+(list (list '(() 1) 2) 3) '() )                 ;; Inside out.
+(list '( (() 1) 2) 3) '() )                     
+= '((() 1) 2) 3)                                ;; Final answer.
 
 |#
 
 ;op property:
 ;--------------
 ;write the property (with example if possible)
+
+;; Last thing to answer, whatever this question is anyway.
+
 
 ;After answering the above replace #f to #t
 (define p4 #f)
