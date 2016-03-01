@@ -197,9 +197,15 @@
 ;;
 ;; Fill in the below procedure
 ;; 
+
+;; This is V1 and it passes the first 3 bucket tests (13 / 14 / 15).
+#|
 (define (bucket lst)
   ;; testing 1 2 3
   (fold-right 
+    ;; Doing this similar to ps3b or whatever where I did something
+    ;; similar to in class with lambda (x y) where X is the current thing
+    ;; and Y is whatever gets returned.
     (lambda (x y)
       ;; DEBUG OUTPUT (COMMENT OUT FOR TESTING)
       ;;(printf "x = ~a\ty = ~a\n" x y)
@@ -207,9 +213,66 @@
           nil           ;; Return nil for nil X's.
          (if (null? y)  ;; Otherwise check Y.
            (list (list x))  ;; True case, return number in list form.
-           (if (equal? x (car y))  ;; Otherwise check if X is same as old X.
-               (list (append x))     ;; True
-               (list (append x))     ;; False
+           (if (equal? x (caar y))  ;; Otherwise check if X is same as old X.
+               (list (list (caar y) x))     ;; True
+               (list (list x))     ;; False
+           )
+         )
+      )
+    )
+  nil lst)  ;; give it nil for initial and the lst for the sequence.
+)|#
+
+;; This is V2. I managed to get tests 13, 14, 15, and 16 all working.
+#|
+(define (bucket lst)
+  ;; testing 1 2 3
+  (fold-right 
+    ;; Doing this similar to ps3b or whatever where I did something
+    ;; similar to in class with lambda (x y) where X is the current thing
+    ;; and Y is whatever gets returned.
+    (lambda (x y)
+      ;; DEBUG OUTPUT (COMMENT OUT FOR TESTING)
+      ;; (printf "x = ~a\ty = ~a\n" x y)
+      (if (null? x)
+          nil           ;; Return nil for nil X's.
+         (if (null? y)  ;; Otherwise check Y.
+           (list (list x))  ;; True case, return number in list form.
+           (if (equal? x (caar y))  ;; Otherwise check if X is same as old X.
+               ;; True so group them together.
+               (list (list (caar y) x))     
+               
+               ;; False, don't group just append the lists.
+               (append (list (list x)) y)   
+           )
+         )
+      )
+    )
+  nil lst)  ;; give it nil for initial and the lst for the sequence.
+)
+|#
+
+;; This is my final version, V3. It should pass tests 13 through 17
+;; successfully. Example output for the tests will be put below.
+(define (bucket lst)
+  ;; testing 1 2 3
+  (fold-right 
+    ;; Doing this similar to ps3b or whatever where I did something
+    ;; similar to in class with lambda (x y) where X is the current thing
+    ;; and Y is whatever gets returned.
+    (lambda (x y)
+      ;; DEBUG OUTPUT (COMMENT OUT FOR TESTING)
+      (printf "x = ~a\ty = ~a\n" x y)
+      (if (null? x)
+          nil           ;; Return nil for nil X's.
+         (if (null? y)  ;; Otherwise check Y.
+           (list (list x))  ;; True case, return number in list form.
+           (if (equal? x (caar y))  ;; Otherwise check if X is same as old X.
+               ;; True so group them together and then append.
+               (append (append (list (list x (caar y)))) y)
+               
+               ;; False, don't group just append the lists.
+               (append (list (list x)) y)   
            )
          )
       )
