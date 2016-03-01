@@ -244,7 +244,7 @@ The output for (fold-right - 1 (list 1 2 3)) is [1], while
 the output for (fold-left - 1 (list 1 2 3)) is [-5].
 
 Since addition and multiplication show the same results, but
-subtraction and division show different results this means that
+subtraction and division show different results, this means that
 fold-right and fold-left will produce the same values for sequences
 given that op is both assocative and communitive, which both addition
 and multiplication are. Divison and subtraction are not assocative or
