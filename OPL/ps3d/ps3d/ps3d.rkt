@@ -69,14 +69,13 @@
 
 (define (count-leaves-with-map t)
   ;; Need to sum up using + and 0 as the initial value.
-  (foldl + 0 (map 
-               (lambda (leaf) 
+  (foldl + 0 (map (lambda (leaf) 
                  ;; Need to determine if each leaf is a pair or not.
                  (if (pair? leaf)
                     2 ;; Yes, so add 2.
                     1 ;; Nope, so add 1.
-                 )
-               ) t)
+                 )) 
+              t)
   )
 )  
 
@@ -142,17 +141,12 @@
 ;;Answer:
 ;; Given in the question that accumulate is also known as fold-right. So,
 (define (fold-right op initial sequence) 
-  ;; This doesn't work, fix it.
-  ;; From the book 2.38
-  (define (iter result rest)
-    (if (null? rest)
-        result
-        (iter (op result (car rest))
-              (cdr rest)
-        )
-    )
+  (if (null? sequence)
+      initial
+      (op (car sequence)
+          (fold-right op initial (cdr sequence))
+      )
   )
-  (iter initial sequence)
 )
 
 
@@ -204,6 +198,23 @@
 ;; Fill in the below procedure
 ;; 
 (define (bucket lst)
-  lst);
+  ;; testing 1 2 3
+  (fold-right 
+    (lambda (x y)
+      ;; DEBUG OUTPUT (COMMENT OUT FOR TESTING)
+      ;;(printf "x = ~a\ty = ~a\n" x y)
+      (if (null? x)
+          nil           ;; Return nil for nil X's.
+         (if (null? y)  ;; Otherwise check Y.
+           (list (list x))  ;; True case, return number in list form.
+           (if (equal? x (car y))  ;; Otherwise check if X is same as old X.
+               (list (append x))     ;; True
+               (list (append x))     ;; False
+           )
+         )
+      )
+    )
+  nil lst)  ;; give it nil for initial and the lst for the sequence.
+)
 
 ;; ************************ END OF FILE *********************************
