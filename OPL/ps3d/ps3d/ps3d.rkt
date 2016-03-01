@@ -138,9 +138,21 @@
 ;(fold-right list nil (list 1 2 3))
 ;(fold-left list nil (list 1 2 3))
 
+;; Accumulate function.
+(define (accumulate op initial sequence)
+  (if (null? sequence)
+      initial
+      (op (car sequence)
+          (accumulate op initial (cdr sequence)))))
+
 ;;Answer:
-;; Given in the question that accumulate is also known as fold-right. So,
+;; Given in the question that accumulate is also known as fold-right.
+;; Basically fold-right is the same as accumulate...
 (define (fold-right op initial sequence) 
+  ;; Could just call accumulate.
+  ;;(accumulate op initial sequence)
+  
+  ;; Or just reuse the accumulate code but make it fold-right.
   (if (null? sequence)
       initial
       (op (car sequence)
@@ -151,16 +163,34 @@
 
 
 ;(fold-right / 1 (list 1 2 3))
-;write substitution steps
+#|
+
+(/ 1 (fold-right / 1 (list 2 3)))       ;; first recursive call
+(/ 1 (/ 2 (fold-right / 1 (list 3))))   ;; second recursive call
+(/ 1 (/ 2 (/ 3 (fold-right / 1 '()))))  ;; last recursive call for nil case.
+(/ 1 (/ 2 (/ 3 1)))                     ;; nil returns initial or "1"
+(/ 1 (/ 2 3))                           ;; 3/1 = 3
+(/ 1 (2/3))                             ;; 2/3 = 2/3
+= (3/2)                                 ;; 1/[2/3] = 3/2 (final answer)
+
+|#
 
 ;(fold-left / 1 (list 1 2 3))
-;write substitution steps
+#|
+
+
+
+|#
 
 ;(fold-right list nil (list 1 2 3))
-;write substitution steps
+#|
+
+|#
 
 ;(fold-left list nil (list 1 2 3))
-;write substitution steps
+#|
+
+|#
 
 ;op property:
 ;--------------
@@ -262,14 +292,20 @@
     ;; and Y is whatever gets returned.
     (lambda (x y)
       ;; DEBUG OUTPUT (COMMENT OUT FOR TESTING)
-      (printf "x = ~a\ty = ~a\n" x y)
+      ;;(printf "x = ~a\ty = ~a\n" x y)
       (if (null? x)
           nil           ;; Return nil for nil X's.
          (if (null? y)  ;; Otherwise check Y.
            (list (list x))  ;; True case, return number in list form.
            (if (equal? x (caar y))  ;; Otherwise check if X is same as old X.
                ;; True so group them together and then append.
-               (append (append (list (list x (caar y)))) y)
+               ;; Then cons together so as to not break the list,
+               ;; which V2 breaks on the last test case because it doesn't
+               ;; account for >2 pairs (e.g. 1 1 1)
+               ;; This took a fair amount of trial and error to finally
+               ;; get this little bit to work, which ended up passing
+               ;; the final test.
+               (cons (append (list x) (car y)) (cdr y))
                
                ;; False, don't group just append the lists.
                (append (list (list x)) y)   
