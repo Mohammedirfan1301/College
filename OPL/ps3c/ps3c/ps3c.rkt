@@ -189,24 +189,18 @@
 ; make sure to deal with the case of the record not existing in the DB
 ; this should produce a number
 (define (copies-in-stock this-title this-artist db)
-  ;; Check variable for matching by title / artist.
-  (define check null)
   
-  ;; Match by title & artist
-  (set! check
-    (filter 
-       (lambda (rec) 
-         (equal? (title rec) this-title)
-         (equal? (artist rec) this-artist)
-       ) 
-    db)
-  )
+  ;; Filter by title & artist. Check will hold the record (if it exists).
+  ;; Apply "and" because we need to match BOTH title AND artist to find the record.
+  (define check 
+    (filter (lambda (rec) (and (equal? this-title (title rec))
+                          (equal? (artist rec) this-artist))) db))
   
-  ;; See if what we got was null or not.
+  ;; See if the record exists or not.
   (if (null? check)
-      0                              ;; true case so return 0.
-      (units-in-stock (car check))   ;; false case so apply units-in-stock to it.
-  )
+    0                              ;; Return 0, we didn't find it.
+    (units-in-stock (car check))   ;; Record exists so call units-in-stock on it.
+  )                                ;; car because check looks like '(()) and we want just '()
 )
 
 ;;;;;;;;1h. 
@@ -234,24 +228,16 @@
 ; then return a boolean if units-in-stock is more than 0.
 ; make sure to deal with the case of the record not existing in the DB
 (define (carry-cd? this-title this-artist db)
-  ;; Check variable for matching by title / artist.
-  (define check null)
   
-  ;; Match by title & artist
-  (set! check
-    (filter 
-       (lambda (rec) 
-         (equal? (title rec) this-title)  ;; Just need to check the title.
-       ) 
-    db)
-  )
+  ;; Check variable for matching by title / artist.
+  ;; Just need to check the title.
+  (define check (filter (lambda (rec) (equal? (title rec) this-title)) db) )
   
   ;; See if what we got was null or not.
   (if (null? check)
-      ;; true case so return false since there is no record...
-      #f  
+      #f  ;; Return false because check is null, so we don't have a matching record.
       
-      ;; false case so apply units-in-stock to it.
+      ;; Call units-in-stock and see if it is greater than zero.
       (if (> (units-in-stock (car check)) 0)
           #t  ;; Greater than 0 so true.
           #f  ;; 0 or less, so false.
