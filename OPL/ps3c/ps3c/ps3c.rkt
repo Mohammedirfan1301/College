@@ -233,7 +233,8 @@
   
   ;; Check variable for matching by title / artist.
   ;; Just need to check the title.
-  (define check (filter (lambda (rec) (equal? (title rec) this-title)) db) )
+  (define check (filter (lambda (rec) 
+     (and (equal? this-title (title rec)) (equal? (artist rec) this-artist))) db) )
   
   ;; See if what we got was null or not.
   (if (null? check)
