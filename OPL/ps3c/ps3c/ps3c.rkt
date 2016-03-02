@@ -215,38 +215,17 @@
 ;  outputs a new record with adjusted price (if category is blues), or
 ;  just outputs the existing record
 (define (blues-sale db)
-  
-  ;; Check variable for matching by category
-  (define check null)
-  
-  ;; Match by title
-  (set! check
-    (filter 
-       (lambda (rec) 
-         (equal? (category rec) 'blues)  ;; Filter by just the "blues" category.
-       ) 
-    db)
-  )
-  
-  ;; See if what we got was null or not.
-  (if (null? check)
-      ;; true case, so the title doesn't match.
-      nil
-      
-      ;; Map over the DB and update the record.
-      ;; This will then return the update database as required.
-      (map (lambda (rec)
-           ;; See if the title is equal, as we want to update the record if so.
-           (if (equal? 'blues (car (cdddr rec)))
-               ;; Update the record.
-               ;;             Title     Artist      Price (10% off)       Category             Units
-               (make-record (car rec) (cadr rec) (* (caddr rec) .90) (car (cdddr rec)) (car (cddddr rec)))
+  ;; Map over the DB and update the record.
+  ;; This will then return the update database as required.
+  (map (lambda (rec)
+     ;; See if the title is equal, as we want to update the record if so.
+     (if (equal? 'blues (category rec))
+         ;; Update the record.
+         (make-record (title rec) (artist rec) (* (price rec) .90) (category rec) (units-in-stock rec))
                
-               ;; false case so do nothing but return the rec.
-               rec
-            ))
-      db)
-  )
+         rec    ;; false case so do nothing but return the rec.
+     ))
+   db)
 )
   
 ;;;;;;;;1i.
