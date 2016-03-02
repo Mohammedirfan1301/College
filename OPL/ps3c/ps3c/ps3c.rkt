@@ -74,12 +74,6 @@
 (define (insert-record rec)
   (set! cdDB (append cdDB (list rec))))
 
-;; Update one record
-(define (update-record old_rec new_rec)
-  (set! cdDB (remove old_rec cdDB))          ;; First we remove
-  (set! cdDB (append cdDB (list new_rec)))   ;; Then we append.
-)
-
 ; Selectors
 ; these should retrieve the appropriate item from the record object.
 ;
@@ -88,108 +82,26 @@
 ;
 ; write selector procedures for each of the fields of record.
 (define (title rec)
-  ;; This is an iterative helper function to search the DB for
-  ;; the given record.
-  ;; I did it iteratively because I couldn't figure out a recursive solution. ¯\_(ツ)_/¯
-  (define (title-iter rec DB)
-      (cond
-         ;; We didn't find the record so return a nil.
-         ((null? DB) nil)
-        
-         ;; FOUND IT! return the **TITLE**. 
-         ;; (found this through trial and error in the console)
-         ((equal? (car DB) rec) (caar DB))
-         
-         ;; Keep looping.
-         (else (title-iter rec (cdr DB)))
-      )
-  )
-  ;; Gotta seed the iterative helper function.
-  (title-iter rec cdDB)
+  ;; Record looks like this: 
+  ;; '("Revolver" "The Beatles" 14.99 rock 3)
+  ;; Since rec is a list, we just want the first string.
+  (first rec)    ;; Same as "car"
 )
 
 (define (artist rec)
-  ;; This is an iterative helper function to search the DB for
-  ;; the given record.
-  ;; I did it iteratively because I couldn't figure out a recursive solution. ¯\_(ツ)_/¯
-  (define (title-iter rec DB)
-      (cond
-         ;; We didn't find the record so return a nil.
-         ((null? DB) nil)
-        
-         ;; FOUND IT! return the **ARTIST**. 
-         ;; (found this through trial and error in the console)
-         ((equal? (car DB) rec) (cadar DB))
-         
-         ;; Keep looping.
-         (else (title-iter rec (cdr DB)))
-      )
-  )
-  ;; Gotta seed the iterative helper function.
-  (title-iter rec cdDB)
+  (second rec)   ;; Artist the is "second" item that we want. (same as "cadr")
 )
 
 (define (price rec)
-  ;; This is an iterative helper function to search the DB for
-  ;; the given record.
-  ;; I did it iteratively because I couldn't figure out a recursive solution. ¯\_(ツ)_/¯
-  (define (title-iter rec DB)
-      (cond
-         ;; We didn't find the record so return a nil.
-         ((null? DB) nil)
-        
-         ;; FOUND IT! return the **PRICE**. 
-         ;; (found this through trial and error in the console)
-         ((equal? (car DB) rec) (caddar DB))
-         
-         ;; Keep looping.
-         (else (title-iter rec (cdr DB)))
-      )
-  )
-  ;; Gotta seed the iterative helper function.
-  (title-iter rec cdDB)
+  (third rec)    ;; Price is the "third" item that we want.   (same as "caddr")
 )
 
 (define (category rec)
-  ;; This is an iterative helper function to search the DB for
-  ;; the given record.
-  ;; I did it iteratively because I couldn't figure out a recursive solution. ¯\_(ツ)_/¯
-  (define (title-iter rec DB)
-      (cond
-         ;; We didn't find the record so return a nil.
-         ((null? DB) nil)
-        
-         ;; FOUND IT! return the **CATEGORY**. 
-         ;; (found this through trial and error in the console)
-         ((equal? (car DB) rec) (car (cdddar DB)))
-         
-         ;; Keep looping.
-         (else (title-iter rec (cdr DB)))
-      )
-  )
-  ;; Gotta seed the iterative helper function.
-  (title-iter rec cdDB)
+  (fourth rec)   ;; Category is the "fourth" item that we want. (same as "cadddr")
 )
 
 (define (units-in-stock rec)
-  ;; This is an iterative helper function to search the DB for
-  ;; the given record.
-  ;; I did it iteratively because I couldn't figure out a recursive solution. ¯\_(ツ)_/¯
-  (define (title-iter rec DB)
-      (cond
-         ;; We didn't find the record so return a nil.
-         ((null? DB) nil)
-        
-         ;; FOUND IT! return the **UNITS IN STOCK**. 
-         ;; (found this through trial and error in the console)
-         ((equal? (car DB) rec) (cadr (cdddar DB)))
-         
-         ;; Keep looping.
-         (else (title-iter rec (cdr DB)))
-      )
-  )
-  ;; Gotta seed the iterative helper function.
-  (title-iter rec cdDB)
+  (fifth rec)    ;; Units is the "fifth" item in the list that we want. (same as "(car (cddddr rec))")
 )
 
 ;;;;;;;1b.
