@@ -85,19 +85,19 @@
   ;; Record looks like this: 
   ;; '("Revolver" "The Beatles" 14.99 rock 3)
   ;; Since rec is a list, we just want the first string.
-  (first rec)    ;; Same as "car"
+  (first rec)    ;; Same as "car rec"
 )
 
 (define (artist rec)
-  (second rec)   ;; Artist the is "second" item that we want. (same as "cadr")
+  (second rec)   ;; Artist the is "second" item that we want. (same as "cadr rec")
 )
 
 (define (price rec)
-  (third rec)    ;; Price is the "third" item that we want.   (same as "caddr")
+  (third rec)    ;; Price is the "third" item that we want.   (same as "caddr rec")
 )
 
 (define (category rec)
-  (fourth rec)   ;; Category is the "fourth" item that we want. (same as "cadddr")
+  (fourth rec)   ;; Category is the "fourth" item that we want. (same as "cadddr rec")
 )
 
 (define (units-in-stock rec)
@@ -159,66 +159,18 @@
 ;  just the existing record (if title doesn't match)
 (define (restock this-title num-copies db)
   
-  ;; Check variable for matching by title
-  (define check null)
-  
-  ;; Match by title
-  (set! check
-    (filter 
-       (lambda (rec) 
-         (equal? (title rec) this-title)  ;; Filter by just this CD title
-       ) 
-    db)
-  )
-  
-  ;; See if what we got was null or not.
-  (if (null? check)
-      ;; true case, so the title doesn't match.
-      nil
-      
-      ;; Map over the DB and update the record.
-      ;; This will then return the update database as required.
-      (map 
-         (lambda (rec)
-           ;; See if the title is equal, as we want to update the record if so.
-           (if (equal? this-title (car rec))
-               ;; Update the record.
-               (make-record this-title (cadar check) (caddar check) (car (cdddar check)) num-copies)
+  ;; Map over the DB and update the record.
+  ;; This will then return the update database as required.
+  (map (lambda (rec)
+     ;; See if the title is equal, as we want to update the record if so.
+     (if (equal? this-title (title rec))
+         ;; Update the record.
+         (make-record this-title (artist rec) (price rec) (category rec) num-copies)
                
-               ;; false case so do nothing but return the rec.
-               rec
-            )
-         )
-         db)
-
-      
-      ;; This is all old code, I left it in here for future reference.
-      ;; I was also trying to modify cdDB myself until I record the discussion post here:
-      ;; https://groups.google.com/forum/#!topic/uml-opl-spr16/uPeL4rq4DRg
-      
-      ;; false case, so update that record in the database.
-      ;(list this-title (cadar check) (caddar check) (car (cdddar check)) num-copies)
-      
-      ;; This should take an old record and replace it with a new record.
-      #|(update-record 
-          ;; Old Record to remove
-          (make-record this-title (cadar check)(caddar check) (car (cdddar check)) (cadr (cdddar check)))
-          
-          ;; New Record to add & return.
-          (make-record this-title (cadar check)(caddar check) (car (cdddar check)) num-copies)
-      )|#
-  )
+         rec    ;; false case so do nothing but return the rec.
+     ))
+   db)
 )
-
-;; Update DB file.
-#|
-(define (update_DB check this-title num-copies db)
-   (define old_rec (make-record this-title (cadar check)(caddar check) (car (cdddar check)) (cadr (cdddar check))))
-   (define new_rec (make-record this-title (cadar check)(caddar check) (car (cdddar check)) num-copies))
-   (set! db (remove old_rec cdDB))            ;; First we remove
-   (set! cdDB (append cdDB (list new_rec)))   ;; Then we append.
-)|#
-
 
 ;;;;;;;;1f.
 ; titles-by
@@ -252,11 +204,8 @@
   
   ;; See if what we got was null or not.
   (if (null? check)
-      ;; true case so return 0.
-      0  
-      
-      ;; false case so apply units-in-stock to it.
-      (units-in-stock (car check))
+      0                              ;; true case so return 0.
+      (units-in-stock (car check))   ;; false case so apply units-in-stock to it.
   )
 )
 
@@ -286,8 +235,7 @@
       
       ;; Map over the DB and update the record.
       ;; This will then return the update database as required.
-      (map 
-         (lambda (rec)
+      (map (lambda (rec)
            ;; See if the title is equal, as we want to update the record if so.
            (if (equal? 'blues (car (cdddr rec)))
                ;; Update the record.
@@ -296,13 +244,11 @@
                
                ;; false case so do nothing but return the rec.
                rec
-            )
-         )
-         db)
+            ))
+      db)
   )
 )
   
-
 ;;;;;;;;1i.
 ; carry-cd?
 ; filter the db for a matching record,
@@ -316,7 +262,7 @@
   (set! check
     (filter 
        (lambda (rec) 
-         (equal? (title rec) this-title)
+         (equal? (title rec) this-title)  ;; Just need to check the title.
        ) 
     db)
   )
