@@ -176,6 +176,7 @@
 ; titles-by
 ; filter the db by matching on artist, then map title over it.
 (define (titles-by this-artist db)
+  
   ;; Call all-titles on the filtered database.
   (all-titles
     ;; Return only the records with the given artist.
@@ -209,6 +210,7 @@
 ;  outputs a new record with adjusted price (if category is blues), or
 ;  just outputs the existing record
 (define (blues-sale db)
+
   ;; Map over the DB and update the record.
   ;; This will then return the update database as required.
   (map (lambda (rec)
