@@ -33,7 +33,30 @@
 ;; the code for the length 1 case is quite similar to the original
 ;; implementation; you should bring it in and modify it
 (define (make-sum a1 . augend)
-  'z)
+  ;(printf "a1 = ~s\taugend = ~s" a1 augend)
+  (cond 
+        ;; Null case is just "'x" or whatever a1 is.
+        ((null? augend) a1)
+        
+        ;; a1 is zero case.
+        ((equal? a1 0) (car augend))
+        
+        ;; augend is length 1 & zero case.
+        ((and (equal? (length augend) 1) 
+              (number? a1) (equal? (car augend) 0)) a1)
+        
+        ;; Length 1 is "'(a1 + augend)
+        ((and (equal? (length augend) 1) 
+              (number? a1) (number? (car augend))) (+ a1 (car augend)))
+        
+        
+        
+        ;((=number? a1 0) a2)
+	     ;((=number? a2 0) a1)
+        ;((and )
+        ;; Print out like this instead: '(x + 3)
+	     ;(else (list a1 '+ a2))))
+        (else (list '+ a1 (car augend)))))
 
 (define (sum? x)
   (and (pair? x) (eq? (car x) '+)))
@@ -73,7 +96,6 @@
 (define (exponent x) (caddr x))
 
 ;;; deriv including exponentiation
-
 (define (deriv exp var)
   (cond ((number? exp) 0)
 	((variable? exp)

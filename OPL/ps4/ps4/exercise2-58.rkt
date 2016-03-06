@@ -85,7 +85,6 @@
 (define (exponent x) (caddr x))
 
 ;;; deriv including exponentiation
-
 (define (deriv exp var)
   (cond ((number? exp) 0)
 	    ((variable? exp)
