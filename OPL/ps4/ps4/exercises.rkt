@@ -32,7 +32,10 @@
 ;;       (cons (accumulate op init <??>  )
 ;;             (accumulate-n op init <??> ))))
 (define (accumulate-n op init seqs)
-  seqs)
+   (if (null? (car seqs))
+       nil
+       (cons (accumulate op init (map car seqs))
+             (accumulate-n op init (map cdr seqs) ))))
 
 
 ;; **********************************************************************
@@ -41,24 +44,54 @@
 ;; Write the answers and explanation in comment line and change #f to #t
 
 ;(list 'a 'b 'c)
-(define p2_1 #f)
+#|
+The interpreter prints out the following: '(a b c)
+This makes sense since the "list" will combine a, b and c
+into one list.
+|#
+(define p2_1 #t)
 
 ;(list (list 'george))
-(define p2_2 #f)
+#|
+The interpreter prints out: '((george))
+This is obvious since a (list (list)) becomes a double list,
+with an outer list and an inner list.
+|#
+(define p2_2 #t)
 
 ;(cdr '((x1 x2) (y1 y2)))
-(define p2_3 #f)
+#|
+The interpreter prints out: '((y1 y2))
+This is because the cdr???
+|#
+(define p2_3 #t)
 
 ;(cadr '((x1 x2) (y1 y2)))
+#|
+The interpreter prints out: '(y1 y2)
+???
+|#
 (define p2_4 #f)
 
 ;(pair? (car '(a short list)))
+#|
+The interpreter prints out: #f
+???
+|#
 (define p2_5 #f)
 
 ;(memq 'red '((red shoes) (blue socks)))
+#|
+The interpreter prints out: #f
+???
+|#
 (define p2_6 #f)
 
 ;(memq 'red '(red shoes blue socks))
+#|
+The interpreter prints out: '(red shoes blue socks)
+???
+|#
 (define p2_7 #f)
 
 ;; **********************************************************************
@@ -80,6 +113,11 @@
 ; Write the answer and explanation for the below procedure call and replace
 ; #f with #t.
 
+#|
+Seems like this is because the double single quotes, '', car
+will end up getting that single quote ' and it ends up printing out
+'quote as well.
+|#
 (define p4 #f)
 
 ;; **********************************************************************
