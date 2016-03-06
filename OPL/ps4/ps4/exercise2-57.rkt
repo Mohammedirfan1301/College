@@ -100,7 +100,16 @@
 
 ;; may also construct a product expression
 (define (multiplicand p)
-  'z)
+  (cond 
+        ;; length = 1 case
+        ((equal? (length p) 3) (caddr p))
+        
+        ;; length is >2, and check for augend
+        ;(and (equal? (length p) 3)
+             ;(equal? (
+        
+        ;; length = 2+ case
+        (else (append (list '*) (cddr p)))))
 
 ;;; differentiation for exponents
 (define (make-exponentiation x y)
