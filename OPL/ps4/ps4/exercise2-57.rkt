@@ -67,7 +67,27 @@
 ;; like make-sum, this should work with 1, 2, or 3+ args
 ;; and perform reductions on 1 and 2 arg cases
 (define (make-product m1 . multiplicand)
-  'z)
+  ;(printf "a1 = ~s\taugend = ~s" a1 augend)
+  (cond 
+        ;; Null case is just "'x" or whatever a1 is.
+        ;(printf "null case")
+        ((null? multiplicand) m1)
+        
+        ;; m1 is 1 case.
+        ((equal? m1 1) (car multiplicand))
+        
+        ;; multiplicand is length 1 & 1 case.
+        ((and (equal? (length multiplicand) 1) 
+              (equal? (car multiplicand) 1)) m1)
+        
+        ;; Length 1 is "'(* m1 augend)
+        ((and (equal? (length multiplicand) 1) 
+              (number? m1) 
+              (number? (car multiplicand))) 
+         (* m1 (car multiplicand)))
+        
+        ; Otherwise just return a list of * m1 and all the multiplicand values.
+        (else (append (list '* m1) multiplicand))))
 
 (define (product? x) (and (pair? x) (eq? (car x) '*)))
 
