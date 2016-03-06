@@ -62,7 +62,12 @@
 ;; you will need to test for the length of the augend, and do
 ;; something different the length=1 case and length is 2+ case. 
 (define (augend s)
-  'z)
+  (cond 
+        ;; length = 1 case
+        ((equal? (length s) 3) (caddr s))
+        
+        ;; length = 2+ case
+        (else (append (list '+) (cddr s)))))
 
 ;; like make-sum, this should work with 1, 2, or 3+ args
 ;; and perform reductions on 1 and 2 arg cases
