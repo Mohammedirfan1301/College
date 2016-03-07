@@ -34,22 +34,22 @@
 ;; implementation; you should bring it in and modify it
 (define (make-sum a1 . augend)
   ;(printf "a1 = ~s\taugend = ~s" a1 augend)
-  (cond 
+  (cond
         ;; Null case is just "'x" or whatever a1 is.
         ;(printf "null case")
         ((null? augend) a1)
-        
+
         ;; a1 is zero case.
         ((equal? a1 0) (car augend))
-        
+
         ;; augend is length 1 & zero case.
-        ((and (equal? (length augend) 1) 
+        ((and (equal? (length augend) 1)
               (equal? (car augend) 0)) a1)
-        
+
         ;; Length 1 is "'(a1 + augend)
-        ((and (equal? (length augend) 1) 
+        ((and (equal? (length augend) 1)
               (number? a1) (number? (car augend))) (+ a1 (car augend)))
-        
+
         ; Otherwise just return a list of + a1 and all the augend values.
         (else (append (list '+ a1) augend))))
 
@@ -60,36 +60,39 @@
 
 ;; you're allowed to have augend also be a constructor
 ;; you will need to test for the length of the augend, and do
-;; something different the length=1 case and length is 2+ case. 
+;; something different the length = 1 case and length is 2+ case.
 (define (augend s)
-  (cond 
+  (cond
         ;; length = 1 case
         ((equal? (length s) 3) (caddr s))
-        
+
         ;; length = 2+ case
         (else (append (list '+) (cddr s)))))
 
 ;; like make-sum, this should work with 1, 2, or 3+ args
 ;; and perform reductions on 1 and 2 arg cases
 (define (make-product m1 . multiplicand)
-  (cond 
+  (cond
         ;; Null case is just "'x" or whatever a1 is.
         ;(printf "null case")
         ((null? multiplicand) m1)
-        
+
+        ;; m1 is 0 case.
+        ((equal? m1 0) 0)
+
         ;; m1 is 1 case.
         ((equal? m1 1) (car multiplicand))
-        
+
         ;; multiplicand is length 1 & 1 case.
-        ((and (equal? (length multiplicand) 1) 
+        ((and (equal? (length multiplicand) 1)
               (equal? (car multiplicand) 1)) m1)
-        
+
         ;; Length 1 is "'(* m1 augend)
-        ((and (equal? (length multiplicand) 1) 
-              (number? m1) 
-              (number? (car multiplicand))) 
+        ((and (equal? (length multiplicand) 1)
+              (number? m1)
+              (number? (car multiplicand)))
          (* m1 (car multiplicand)))
-        
+
         ; Otherwise just return a list of * m1 and all the multiplicand values.
         (else (append (list '* m1) multiplicand))))
 
@@ -99,14 +102,10 @@
 
 ;; may also construct a product expression
 (define (multiplicand p)
-  (cond 
+  (cond
         ;; length = 1 case
         ((equal? (length p) 3) (caddr p))
-        
-        ;; length is >2, and check for augend
-        ;(and (equal? (length p) 3)
-             ;(equal? (
-        
+
         ;; length = 2+ case
         (else (append (list '*) (cddr p)))))
 
@@ -132,17 +131,15 @@
 	 (make-sum (deriv (addend exp) var)
 		   (deriv (augend exp) var)))
 	((product? exp)
-	 (make-sum 
+	 (make-sum
 	  (make-product (multiplier exp)
 			(deriv (multiplicand exp) var))
 	  (make-product (deriv (multiplier exp) var)
 			(multiplicand exp))))
 	((exponentiation? exp)
 	 (make-product (exponent exp)
-		       (make-product (make-exponentiation (base exp) 
+		       (make-product (make-exponentiation (base exp)
 							  (- (exponent exp) 1))
 				     (deriv (base exp) var))))
 	(else
 	 (error "unknown expression type -- DERIV" exp))))
-
-

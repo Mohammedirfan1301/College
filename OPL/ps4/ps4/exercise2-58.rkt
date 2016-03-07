@@ -29,7 +29,7 @@
 	    ((=number? a2 0) a1)
         ((and (number? a1) (number? a2)) (+ a1 a2))
         ;; Print out like this instead: '(x + 3)
-	    (else (list a1 '+ a2))))  
+	    (else (list a1 '+ a2))))
 
 ;; This should return "+" in the test file.
 (define (sum? x)
@@ -53,7 +53,7 @@
 	    (else (list m1 '* m2))))
 
 ;; This should print out "#t" for the test case.
-(define (product? x) 
+(define (product? x)
   ;; Similar to sum?, we want "cadr" to get to the "*".
   (and (pair? x) (eq? (cadr x) '*)))
 
@@ -99,10 +99,8 @@
 			               (multiplicand exp))))
 	    ((exponentiation? exp)
 	       (make-product (exponent exp)
-		             (make-product (make-exponentiation (base exp) 
+		             (make-product (make-exponentiation (base exp)
 							        (- (exponent exp) 1))
 				           (deriv (base exp) var))))
 	    (else
 	       (error "unknown expression type -- DERIV" exp))))
-
-
