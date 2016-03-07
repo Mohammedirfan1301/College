@@ -23,13 +23,8 @@ build:
 # This is from the assignment 3 Makefile
 test:
 	./mic1 rmd.prom div.obj 0 1024 < div.in > actual.out || true
-	diff -c actual.out div.out | cat -vet
-
 	./mic1 rmd.prom mult.obj 0 1024 < mult.in > actual.out || true
-	diff -c actual.out mult.out | cat -vet
-
 	./mic1 rmd.prom rshift.obj 0 1024 < rshift.in > actual.out || true
-	diff -c actual.out rshift.out | cat -vet
 
 # Clean up all the files.
 clean:
