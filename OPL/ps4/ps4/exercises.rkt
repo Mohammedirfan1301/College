@@ -22,7 +22,7 @@
 ;;
 ;; e.g.,
 ;; (accumulate-n + 0 '((1 2 3) (4 5 6) (7 8 9)))
-;; 
+;;
 ;; should be
 ;; (12 15 18)
 ;;
@@ -58,7 +58,7 @@ which is can be printed out as "a b c".
 The interpreter prints out: ((george))
 This is since a (list (list)) becomes a list of a list,
 with an outer list and an inner list, hence the double parentheses.
-It prints out "george" inside the two lists because of the quote in 
+It prints out "george" inside the two lists because of the quote in
 front of george, which makes it a symbol.
 |#
 (define p2_2 #t)
@@ -66,7 +66,7 @@ front of george, which makes it a symbol.
 ;(cdr '((x1 x2) (y1 y2)))
 #|
 The interpreter prints out: '((y1 y2))
-This is because cdr gets the second item in a list, 
+This is because cdr gets the second item in a list,
 which ends up being a list of two symbols.
 |#
 (define p2_3 #t)
@@ -74,11 +74,11 @@ which ends up being a list of two symbols.
 ;(cadr '((x1 x2) (y1 y2)))
 #|
 The interpreter prints out: '(y1 y2)
-This is because cadr is "car (cdr)", which first gets 
-the cdr of a list, and then the car of that list. Since 
+This is because cadr is "car (cdr)", which first gets
+the cdr of a list, and then the car of that list. Since
 this is a list of two lists containing two symbols each,
 cdr of '((x1 x2) (y1 y2))) will print out the same as in p2_3,
-'((y1 y2)). Getting the car of "'((y1 y2))" will get the first 
+'((y1 y2)). Getting the car of "'((y1 y2))" will get the first
 item in that list, which is a list containing two symbols.
 |#
 (define p2_4 #t)
@@ -101,7 +101,7 @@ in this case "a" is not a pair since its just one item.
 The interpreter prints out: #f
 
 memq checks to see if a symbol is contained in a list.
-It does not check sublists, and since the symbol red 
+It does not check sublists, and since the symbol red
 is inside a sublist it will not be found since memq just
 sees two lists, and no symbols since it doesn't check the
 two lists inside the main list.
@@ -114,7 +114,7 @@ two lists inside the main list.
 The interpreter prints out: '(red shoes blue socks)
 
 memq checks to see if a symbol is inside a list. The
-intreperter was able to find the symbol red in this case
+interpreter was able to find the symbol red in this case
 because it is a flat list of four symbols, and the symbol
 red is present at the very beginning of the list (although it
 could be present anywhere in the list).
@@ -140,14 +140,14 @@ Example outputs for example:
 ;;3. Exercise 2.54 on pp. 145, building your own version of equal?.
 ; Fill in the below procedure
 
-(define (my-equal? list1 list2) 
+(define (my-equal? list1 list2)
    (cond
          ;; Check to see if the lists are null first.
          ((and (null? list1) (null? list2)) #t)
-         
+
          ;; Check to see if just one of the lists is null.
          ((or (null? list1) (null? list2)) #f)
-         
+
          ;; Compare the two lists recursively.
          ;; Must be a pair, and need to recursively compare
          ;; the two lists by comparing each item, and then cdr
@@ -155,7 +155,7 @@ Example outputs for example:
          ((and (pair? list1) (pair? list2))
           (and (my-equal? (car list1) (car list2))
                (my-equal? (cdr list1) (cdr list2))))
-         
+
          ;; Else call eq?
          (else (eq? list1 list2))))
 
@@ -164,9 +164,9 @@ Example outputs for example:
 ; Eva Lu Ator types to the interpreter the expression
 ;
 ; (car ''abracadabra)
-; 
+;
 ; To her surprise, the interpreter prints back quote. Explain.
-; 
+;
 ; Write the answer and explanation for the below procedure call and replace
 ; #f with #t.
 
