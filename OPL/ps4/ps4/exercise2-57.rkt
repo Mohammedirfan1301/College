@@ -72,7 +72,6 @@
 ;; like make-sum, this should work with 1, 2, or 3+ args
 ;; and perform reductions on 1 and 2 arg cases
 (define (make-product m1 . multiplicand)
-  ;(printf "a1 = ~s\taugend = ~s" a1 augend)
   (cond 
         ;; Null case is just "'x" or whatever a1 is.
         ;(printf "null case")

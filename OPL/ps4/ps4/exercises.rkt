@@ -171,11 +171,16 @@ Example outputs for example:
 ; #f with #t.
 
 #|
-Seems like this is because the double single quotes, '', car
-will end up getting that single quote ' and it ends up printing out
-'quote as well.
+
+This is because a single quote, ', is the shorter version of "quote".
+As a result ''abracadabra is the same thing as '(quote abracadabra),
+which if evaluated in the interpreter will return the same thing,
+''abracadabra. When you call car on '(quote abracadabra), you get
+back a quote, which makes sense since this is a list of two items,
+and car gets the first item which is a quote.
+
 |#
-(define p4 #f)
+(define p4 #t)
 
 ;; **********************************************************************
 
