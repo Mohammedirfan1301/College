@@ -115,6 +115,14 @@
 114:ac := rshift(ac); goto 135;
 115:alu := tir + tir; if n then goto 163;       { if 1111 1111 11 goto line 163 (HALT) }
 116:mar := sp; a := sp + 1; rd;                 { else 1111 1111 10 = DIV }
+
+; A = remainder  (d)
+; B = DIVISOR    (a)
+; C = DIVIDEND   (b)
+; D = Negative Dividend (e)
+; E = Quotient   (c)
+; F = Value Flag (f)
+
 117:rd;                                         { read SP+1. Remember to read twice. }
 118:mar := a; b := mbr; rd;                     { store sp (dividend) into B }
 119:rd;                                         { Remember to read twice. }
@@ -122,10 +130,14 @@
 121:f := (-1);                                  { set f to -1 }
 122:alu := b; if n then goto 135;               { if dividend is neg, make divisor pos. }
 123:alu := c; if n then goto 140;               { if divisor is neg, make dividend pos. }
+
+{ Make dividend negative before dividing. }
 124:d := inv(c);                                { make dividend negative. }
 125:d := d + 1;
 126:alu := b + d; if n then goto 135;           { check for divisor > dividend}
 127:alu := c; if z then goto 150;               { divide by zero case }
+
+{ start dividing here }
 128:e := 0;                                     { e is the quotient }
 129:c := inv(c);                                { make divisor neg }
 130:c := c + 1;
@@ -133,28 +145,42 @@
 132:e := e + 1;                                 { increment quotient }
 133:b := b + c; if n then goto 152;             { subtract divisor from dividend. }
 134:goto 131;                                   { keep looping, if n above will catch.}
+
+{ make divisor positive }
 135:b := inv(b)                                 { make divisor positive. }
 136:b := 1;
 137:f := f + 1;                                 { value is negative. }
 138:alu := c; if n then goto 140;               { still need to check if dividend is neg. }
 139:goto 124;                                   { start dividing. }
+
+{ make dividend positive }
 140:c := inv(c);                                { make dividend positive }
 141:c := c + 1;
 142:f := f + 1;                                 { value is negative. }
 143:goto 124;                                   { start dividing. }
+
+{ remainder = dividend for divisor > dividend }
 144:a := b;                                     { remainder = dividend for divisor > dividend }
 145:e := 0;                                     { quotient = 0 }
 146:ac := 0;                                    { successful divide anyway. }
-147:goto 157;                                   { save the values and return }
+147:goto xx;                                    { save the values and return }
+
+{ remainder = -1 for divide by zero. }
 148:a := (-1);                                  { remainder = -1 for divide by zero. }
 149:e := 0;                                     { quotient = 0 }
 150:ac := (-1)                                  { unsuccessful divide. }
-151:goto 157;                                   { save the values and return }
+151:goto xx;                                    { save the values and return }
+
+{ done with regular division }
 152:ac := 0;                                    { done with regular division + success }
 153:e := e + (-1);                              { adjust quotient }
 154:alu := f; if z then goto 157;               { if f = 0, quotient is negative. }
+
+{ make quotient negative }
 155:e := inv(e);                                { make quotient negative }
 156:e := e + 1;
+
+{ done! so save stuff }
 157:sp := sp + (-1);                            { decrement sp }
 158:mar := sp; mbr := a; wr;                    { push remainder to sp-1 }
 159:wr;                                         { write twice. }
