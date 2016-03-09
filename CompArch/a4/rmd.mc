@@ -113,7 +113,7 @@
 112:b := band(ir, a);
 113:b := b + (-1); if n then goto 137;
 114:ac := rshift(ac); goto 135;
-115:alu := tir + tir; if n then goto 170;       { if 1111 1111 11 goto line 200 (HALT) }
+115:alu := tir + tir; if n then goto 163;       { if 1111 1111 11 goto line 163 (HALT) }
 116:mar := sp; a := sp + 1; rd;                 { else 1111 1111 10 = DIV }
 
 ; A = remainder  (d)
@@ -143,7 +143,7 @@
 130:c := c + 1;
 131:a := b;                                     { set remainder }
 132:e := e + 1;                                 { increment quotient }
-133:b := b + c; if n then goto 154;             { subtract divisor from dividend. }
+133:b := b + c; if n then goto 152;             { subtract divisor from dividend. }
 134:goto 131;                                   { keep looping, if n above will catch.}
 
 { make divisor positive }
@@ -151,7 +151,7 @@
 136:b := 1;
 137:f := f + 1;                                 { value is negative. }
 138:alu := c; if n then goto 140;               { still need to check if dividend is neg. }
-139:
+139:goto 124;                                   { start dividing. }
 
 { make dividend positive }
 140:c := inv(c);                                { make dividend positive }
@@ -159,31 +159,32 @@
 142:f := f + 1;                                 { value is negative. }
 143:goto 124;                                   { start dividing. }
 
+{ remainder = dividend for divisor > dividend }
+144:a := b;                                     { remainder = dividend for divisor > dividend }
+145:e := 0;                                     { quotient = 0 }
+146:ac := 0;                                    { successful divide anyway. }
+147:goto xx;                                    { save the values and return }
 
-144:goto 0;
-145:goto 0;
-146:goto 0;
-147:goto 0;
-148:goto 0;
-149:goto 0;
-150:d := inv(d);                    { since the remainder is negative, make it positive }
-151:d := d + 1;                     { by flipping the bits / adding 1. }
-152:goto 160;                       { now we're done! }
-153:goto 0;
-154:goto 0;
-155:goto 0;
-156:goto 0;
-157:goto 0;
-158:goto 0;
-159:d := 0;                         { make quotient 0 }
-160:sp := sp + (-1);                { move stack ptr back one }
-161:mar := sp; mbr := e; wr;        { push remainder onto stack }
-162:wr;                             { write twice! }
-163:sp := sp + (-1);                { move stack ptr back one }
-164:mar := sp; mbr := d; wr;        { push quotient onto stack }
-165:wr; goto 0;                     { write twice! also return to beg. of loop }
-166:goto 0;
-167:goto 0;
-168:goto 0;
-169:goto 0;
-170:rd; wr;                                          { 1111 1111 11 = HALT }
+{ remainder = -1 for divide by zero. }
+148:a := (-1);                                  { remainder = -1 for divide by zero. }
+149:e := 0;                                     { quotient = 0 }
+150:ac := (-1)                                  { unsuccessful divide. }
+151:goto xx;                                    { save the values and return }
+
+{ done with regular division }
+152:ac := 0;                                    { done with regular division + success }
+153:e := e + (-1);                              { adjust quotient }
+154:alu := f; if z then goto 157;               { if f = 0, quotient is negative. }
+
+{ make quotient negative }
+155:e := inv(e);                                { make quotient negative }
+156:e := e + 1;
+
+{ done! so save stuff }
+157:sp := sp + (-1);                            { decrement sp }
+158:mar := sp; mbr := a; wr;                    { push remainder to sp-1 }
+159:wr;                                         { write twice. }
+160:sp := sp + (-1);                            { decrement stack pointer again. }
+161:mar := sp; mbr := e; wr;                    { psuh quotient onto sp-2 }
+162:wr; goto 0;                                 { done! return to loop. }
+163:rd; wr;                                     { 1111 1111 11 = HALT }
