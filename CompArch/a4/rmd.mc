@@ -92,7 +92,7 @@
 91:rd;                                          { need to read twice }
 92:c := mbr;                                    { stack value is now in C }
 93:d := 0;                                      { start result at 0 (D will hold final value) }
-94:alu := b; if z then goto 100;                { if mult. by zero, we're done as D is 0 by default }
+94:alu := b; if z then goto 100;                { if mult. by zero, we're done as D is 0}
 95:d := c + d;                                  { result = stack value + result (one round of mult.) }
 96:alu := c; if n then goto 104;                { if the orig. number is NEGATIVE, check if it overflowed }
 97:alu := d; if n then goto 103;                { if the orig. number is NOT neg, check if it overflowed }
@@ -108,40 +108,58 @@
 107:goto 98;        { not overflow, continue looping (at the end of the loop - NOT THE BEGINNING) }
 108:a := lshift(1);                             { 1111 1111 01 = RSHIFT }
 109:a := lshift(a + 1);                         { this is from Prof. Maloney's help directory }
-110:a := lshift(a + 1);  { URL: http://www.cs.uml.edu/~bill/cs305/assignment_4_help_dir/promfile_nand_rshift.txt }
+110:a := lshift(a + 1);
 111:a := a + 1;
 112:b := band(ir, a);
 113:b := b + (-1); if n then goto 137;
 114:ac := rshift(ac); goto 135;
-115:alu := tir + tir; if n then goto 170;             { if 1111 1111 11 goto line 200 (HALT) }
-116:mar := sp; f := sp + 1; rd;                       { else 1111 1111 10 = DIV }
-117:rd;                                               { read SP+1. Remember to read twice. }
-118:b := mbr;                                         { store SP+1 (divisor) into B }
-119:mar := sp; f := sp + 1; rd;                       { read SP. }
-120:rd;                                               { Remember to read twice. }
-121:a := mbr;                                         { store SP (dividend) into A }
-122:d := 0;                                           { start the remainder at 0 }
-123:e := 0;                                           { counter (e) starts at 0 }
-124:c := inv(b);      { make C negative so we can do subtraction by doing addition }
-125:c := c + 1;       { add 1 to inverse to get negative }
-126:alu := a; if n then goto 159;     { zero case, if dividend is zero, then result should be zero. }
-127:d := a + c;                       { subtract the divisor from A (dividend). }
-128:alu := d; if z then goto 160;     { if the remainder hits 0, we're done! }
-129:alu := d; if n then goto 150;     { if the remainder hits negative, almost done. }
-130:goto 160;                         { keep looping until remainder is 0 or negative. }
-131:goto 0;
-132:goto 0;
-133:goto 0;
-134:goto 0;                         { Other cases can go here }
-135:goto 0;                         { Things to deal with include: }
-136:goto 0;                         { 0 dividend }
-137:goto 0;                         { Negative divisor / positive dividend }
-138:goto 0;                         { Positive divisor / negative dividend }
-139:goto 0;                         { Negative divisor and negative dividend }
-140:goto 0;
-141:goto 0;
-142:goto 0;
-143:goto 0;
+115:alu := tir + tir; if n then goto 170;       { if 1111 1111 11 goto line 200 (HALT) }
+116:mar := sp; a := sp + 1; rd;                 { else 1111 1111 10 = DIV }
+
+; A = remainder  (d)
+; B = DIVISOR    (a)
+; C = DIVIDEND   (b)
+; D = Negative Dividend (e)
+; E = Quotient   (c)
+; F = Value Flag (f)
+
+117:rd;                                         { read SP+1. Remember to read twice. }
+118:mar := a; b := mbr; rd;                     { store sp (dividend) into B }
+119:rd;                                         { Remember to read twice. }
+120:c := mbr;                                   { store sp+1 (divisor) into c }
+121:f := (-1);                                  { set f to -1 }
+122:alu := b; if n then goto 135;               { if dividend is neg, make divisor pos. }
+123:alu := c; if n then goto 140;               { if divisor is neg, make dividend pos. }
+
+{ Make dividend negative before dividing. }
+124:d := inv(c);                                { make dividend negative. }
+125:d := d + 1;
+126:alu := b + d; if n then goto 135;           { check for divisor > dividend}
+127:alu := c; if z then goto 150;               { divide by zero case }
+
+{ start dividing here }
+128:e := 0;                                     { e is the quotient }
+129:c := inv(c);                                { make divisor neg }
+130:c := c + 1;
+131:a := b;                                     { set remainder }
+132:e := e + 1;                                 { increment quotient }
+133:b := b + c; if n then goto 154;             { subtract divisor from dividend. }
+134:goto 131;                                   { keep looping, if n above will catch.}
+
+{ make divisor positive }
+135:b := inv(b)                                 { make divisor positive. }
+136:b := 1;
+137:f := f + 1;                                 { value is negative. }
+138:alu := c; if n then goto 140;               { still need to check if dividend is neg. }
+139:
+
+{ make dividend positive }
+140:c := inv(c);                                { make dividend positive }
+141:c := c + 1;
+142:f := f + 1;                                 { value is negative. }
+143:goto 124;                                   { start dividing. }
+
+
 144:goto 0;
 145:goto 0;
 146:goto 0;
