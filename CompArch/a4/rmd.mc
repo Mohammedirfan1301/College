@@ -111,8 +111,8 @@
 110:a := lshift(a + 1);
 111:a := a + 1;
 112:b := band(ir, a);
-113:b := b + (-1); if n then goto 137;
-114:ac := rshift(ac); goto 135;
+113:b := b + (-1); if n then goto 0;            { return to main }
+114:ac := rshift(ac); goto 113;                 { keep looping }
 115:alu := tir + tir; if n then goto 163;       { if 1111 1111 11 goto line 163 (HALT) }
 116:mar := sp; a := sp + 1; rd;                 { else 1111 1111 10 = DIV }
 117:rd;                                         { read SP+1. Remember to read twice. }
@@ -162,3 +162,4 @@
 161:mar := sp; mbr := e; wr;                    { psuh quotient onto sp-2 }
 162:wr; goto 0;                                 { done! return to loop. }
 163:rd; wr;                                     { 1111 1111 11 = HALT }
+164:goto 0;
