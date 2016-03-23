@@ -57,8 +57,8 @@
 ;; I did this using three ifs, although you could use "and" as well.
 (define smallest-of-three
   (lambda (a b c)
-    (if (<= a b) a
-        (if (<= b c) b              ;; this is the "else" to the above if (< a b)
+    (if (< a b) a
+        (if (< b c) b              ;; this is the "else" to the above if (< a b)
             (if (<= c a) c a)))))   ;; this is the final "else"
                                     ;; the final "a" is a catch-all for all equal to
 
