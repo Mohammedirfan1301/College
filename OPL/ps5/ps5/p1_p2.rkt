@@ -75,7 +75,7 @@ support the new operation.
 ;;;    all the procedures called in evaluating the expression
 ;;;    (magnitude z) where z is the object shown in figure 2.24.
 ;;;    Change #f to #t after answering.
-(define p2_1 #f)
+(define p2_1 #t)
 #|
 The operations was only defined for rectangular and polar, and not for complex.
 This is why it failed, as the operations were not defined for the complex case.
@@ -84,13 +84,26 @@ By adding in the four lines suggested, the complex tag will be supported and the
 error message from apply-generic will not appear.
 
 Procedure Trace:
+
+First we have the following operation:
 (magnitude '(complex rectangular 3 . 4))
 
-this then calls
+this then calls:
 (apply-generic 'magnitude '(complex rectangular 3 . 4))
 
-followed by:
+What happens is apply-generic calls the procedure it was given.
+Ssince Z also has two tags, complex and rectangular, the complex tag 
+gets stripped off, and we end up with:
 (apply magnitude '((rectangular 3 . 4)))
+
+Which then leads to:
+(magnitude '(rectangular 3 . 4))
+
+We can then go through and deal with the rectangular package:
+(apply-generic 'magnitude '(rectangular 3 . 4))
+(apply rectanguler-magnitude '((3 . 4))))
+(rectanguler-magnitude '(3 . 4)))
+= 5
 
 |#
 
