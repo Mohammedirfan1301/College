@@ -119,7 +119,12 @@
        (lambda (x y) (tag (/ x y))))
   (put 'make 'scheme-number
        (lambda (x) (tag x)))
-  )
+
+  ;;***********************************************************
+  ;; equ? for regular scheme numbers.
+  ;;***********************************************************
+  (put 'equ? '(scheme-number scheme-number) =)
+)
  ; "installed scheme number package")
 
 (define (make-scheme-number n)
@@ -146,6 +151,14 @@
   (define (div-rat x y)
     (make-rat (* (numer x) (denom y))
               (* (denom x) (numer y))))
+  
+  ;;***********************************************************
+  ;; equ? for rational numbers.
+  ;;***********************************************************
+  (define (equ? x y)
+    (= (* (numer x) (denom y)) (* (numer y) (denom x))) 
+  )
+  
   ;; interface to rest of the system
   (define (tag x) (attach-tag 'rational x))
   (put 'add '(rational rational)
@@ -159,7 +172,13 @@
 
   (put 'make 'rational
        (lambda (n d) (tag (make-rat n d))))
-  )
+  
+  ;;***********************************************************
+  ;; adding equ? for rational numbers into the table
+  ;;***********************************************************
+  (put 'equ? '(rational rational) equ?)
+)
+
 ;  "installed rational package")
 
 (define (make-rat n d)
@@ -171,6 +190,7 @@
     ((get 'make-from-real-imag 'rectangular) x y))
   (define (make-from-mag-ang r a)
     ((get 'make-from-mag-ang 'polar) r a))
+  
   ;; internal procedures
   (define (add-complex z1 z2)
     (make-from-real-imag (+ (real-part z1) (real-part z2))
@@ -184,6 +204,14 @@
   (define (div-complex z1 z2)
     (make-from-mag-ang (/ (magnitude z1) (magnitude z2))
                        (- (angle z1) (angle z2))))
+  ;;***********************************************************
+  ;; equ? for complex numbers.
+  ;;***********************************************************
+  (define (equ? z1 z2)
+    (and  (= (real-part z1) (real-part z2))
+          (= (imag-part z1) (imag-part z2))
+    )
+  )
 
   ;; interface to rest of the system
   (define (tag z) (attach-tag 'complex z))
@@ -199,7 +227,11 @@
        (lambda (x y) (tag (make-from-real-imag x y))))
   (put 'make-from-mag-ang 'complex
        (lambda (r a) (tag (make-from-mag-ang r a))))
-  )
+  ;;***********************************************************
+  ;; adding equ? for complex numbers into the table
+  ;;***********************************************************
+  (put 'equ? '(complex complex) equ?)
+)
  ;  "installed complex package")
 
 (define (make-complex-from-real-imag x y)
@@ -207,6 +239,13 @@
 
 (define (make-complex-from-mag-ang r a)
   ((get 'make-from-mag-ang 'complex) r a))
+
+;;***********************************************************
+;; generic equ?
+;;***********************************************************
+(define (equ? x y)
+  (apply-generic 'equ? x y)
+)
 
 ;;; install packages
 (install-rectangular-package)
