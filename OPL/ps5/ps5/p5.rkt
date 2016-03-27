@@ -279,7 +279,15 @@
 ;; What happens if we call exp with two complex numbers as arguments?
 
 ;;; PUT YOUR ANSWER HERE
+#|
 
+If we to call exp with two complex numbers as arguments, then apply-generic
+will fail to obtain the method it needs and end up trying to coerce one complex
+type into itself, by recursively calling apply-generic with the same type.
+Since this is complex -> complex, apply-generic will end up
+recursively calling itself forever.
+
+|#
 
 
 ;; b. Is Louis correct that something had to be done about coercion with
@@ -287,12 +295,16 @@
 ;; is?
 
 ;;; PUT YOUR ANSWER HERE
-
+; He is wrong, apply-generic works fine as it currently is.
 
 ;; c. Modify apply-generic so that it doesn't try coercion if the two
 ;; arguments have the same type.
 
 ;;; PUT YOUR ANSWER HERE
 ;;; code and explanations
+
+
+
+
 
 ;;; **************************** END OF FILE *************************
