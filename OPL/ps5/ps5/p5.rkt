@@ -222,9 +222,36 @@
     (let ((proc (get op type-tags)))
       (if proc
           (apply proc (map contents args))
-	(display (list
-		  "No method for these types -- APPLY-GENERIC"
-		  (list op type-tags)))))))
+          (if (= (length args) 2)
+              (let ((type1 (car type-tags))
+                    (type2 (cadr type-tags))
+                    (a1 (car args))
+                    (a2 (cadr args)))
+                ;; I added a check to see if they are equal.
+                (if (equal? type1 type2)
+                    ;; Equal case
+                    ;; If the two types are equal we want to throw an errror.
+                    (error "No method for these types"
+                     (list op type-tags))
+                    
+                    ;; Not equal case
+                    ;; If they aren't equal its fine to continue.
+                    (let ((t1->t2 (get-coercion type1 type2))
+                          (t2->t1 (get-coercion type2 type1)))
+                      (cond (t1->t2
+                             (apply-generic op (t1->t2 a1) a2))
+                            (t2->t1
+                             (apply-generic op a1 (t2->t1 a2)))
+                            (else
+                             (error "No method for these types"
+                                    (list op type-tags)))))))
+              (error "No method for these types"
+                     (list op type-tags)))))))
+
+;; Added these in as Prof. Martin mentioned this in class.
+(define coercion-table (make-table))
+(define get-coercion (coercion-table 'lookup-proc))
+(define put-coercion (coercion-table 'insert-proc!))
 
 ;;; SOME TEST CODE
 ;(define n1 (make-scheme-number 1))	; (scheme-number . 1)
@@ -239,8 +266,12 @@
 
 ;(define z1 (make-complex-from-real-imag 1 1)) ; (complex rectangular 1 . 1)
 ;(define z2 (make-complex-from-mag-ang 2 0))   ; (complex polar 2 . 0)
-;;; (mul z1 z2)
-;;; (complex polar 2.8284271247461903 . 0.7853981633974483)
+;(mul z1 z2)
+;(complex polar 2.8284271247461903 . 0.7853981633974483)
+
+;; examples of coercion in action
+; (add n1 z1)
+; (add n1 z2)
 
 ;;;+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
@@ -318,7 +349,7 @@ I added this in from the book.
                     (a1 (car args))
                     (a2 (cadr args)))
                 ;; I added a check to see if they are equal.
-                (if (equal type1 type2)
+                (if (equal? type1 type2)
                     ;; Equal case
                     ;; If the two types are equal we want to throw an errror.
                     (error "No method for these types"
@@ -339,13 +370,11 @@ I added this in from the book.
                      (list op type-tags)))))))
 
 Explanation:
-
 I kept the code basically the same as the book, except I added a check to 
 see if the two types are equal. If the two types are equal, then
 we do not want to try coercion. However, if the two types are not equal we
 should be fine to try coercion. This change should avoid infinite recursion,
 as the code will throw an error if it is given two of the same type.
-
 |#
 
 ;;; **************************** END OF FILE *************************
