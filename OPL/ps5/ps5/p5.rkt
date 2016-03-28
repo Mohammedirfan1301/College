@@ -284,8 +284,8 @@
 If we to call exp with two complex numbers as arguments, then apply-generic
 will fail to obtain the method it needs and end up trying to coerce one complex
 type into itself, by recursively calling apply-generic with the same type.
-Since this is complex -> complex, apply-generic will end up
-recursively calling itself forever.
+Since this is complex -> complex, apply-generic will end up in a infinite
+recursively loop.
 
 |#
 
@@ -303,8 +303,49 @@ recursively calling itself forever.
 ;;; PUT YOUR ANSWER HERE
 ;;; code and explanations
 
+#|
+CODE HERE
+I added this in from the book.
 
+(define (apply-generic op . args)
+  (let ((type-tags (map type-tag args)))
+    (let ((proc (get op type-tags)))
+      (if proc
+          (apply proc (map contents args))
+          (if (= (length args) 2)
+              (let ((type1 (car type-tags))
+                    (type2 (cadr type-tags))
+                    (a1 (car args))
+                    (a2 (cadr args)))
+                ;; I added a check to see if they are equal.
+                (if (equal type1 type2)
+                    ;; Equal case
+                    ;; If the two types are equal we want to throw an errror.
+                    (error "No method for these types"
+                     (list op type-tags))
+                    
+                    ;; Not equal case
+                    ;; If they aren't equal its fine to continue.
+                    (let ((t1->t2 (get-coercion type1 type2))
+                          (t2->t1 (get-coercion type2 type1)))
+                      (cond (t1->t2
+                             (apply-generic op (t1->t2 a1) a2))
+                            (t2->t1
+                             (apply-generic op a1 (t2->t1 a2)))
+                            (else
+                             (error "No method for these types"
+                                    (list op type-tags)))))))
+              (error "No method for these types"
+                     (list op type-tags)))))))
 
+Explanation:
 
+I kept the code basically the same as the book, except I added a check to 
+see if the two types are equal. If the two types are equal, then
+we do not want to try coercion. However, if the two types are not equal we
+should be fine to try coercion. This change should avoid infinite recursion,
+as the code will throw an error if it is given two of the same type.
+
+|#
 
 ;;; **************************** END OF FILE *************************
