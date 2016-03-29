@@ -2,93 +2,93 @@
 ; Assignment 5
 ; Used http://www.cs.uml.edu/~bill/cs305/IO_str_and_echo.asm for help.
 
-AddInput:             ; Main loop.
-  lodd start:         ; Starting value
-  stod 4095           ; Start transmitter
-  call xbsywt:        ; Receiver function call.
-  loco rangeStr:      ; Load "Enter an int" string
-  call nextw:         ; Print out string
-  call input:         ; Get input
-  lodd bin:           ; Load binary number
-  stod sum:           ; Save the sum
-  loco rangeStr:      ; Load "Enter an int" string
-  call nextw:         ; Print out string
-  call input:         ; Get input
-  lodd bin:           ; Load binary number
-  addd sum:           ; Add the sum.
-  stod sum:           ; Store
-  stod data:          ; Store
-  jneg overflow:      ; Overflow error.
-  loco sumStr:        ; Load summary string
-  call nextw:         ; Print summary string
-  call encode:        ; ???
-  lodd zero:          ; returns 0
-  halt
+AddInput:                       ; Main loop.
+  lodd start:                   ; Starting value
+  stod 4095                     ; Start transmitter
+  call xbsywt:                  ; Receiver function call.
+  loco rangeStr:                ; Load "Enter an int" string
+  call nextw:                   ; Print out string
+  call input:                   ; Get input
+  lodd bin:                     ; Load binary number
+  stod sum:                     ; Save the sum
+  loco rangeStr:                ; Load "Enter an int" string
+  call nextw:                   ; Print out string
+  call input:                   ; Get input
+  lodd bin:                     ; Load binary number
+  addd sum:                     ; Add the sum.
+  stod sum:                     ; Store
+  stod data:                    ; Store
+  jneg overflow:                ; Overflow error.
+  loco sumStr:                  ; Load summary string
+  call nextw:                   ; Print summary string
+  call convert:                 ; Convert answer
+  lodd zero:                    ; returns 0
+  halt                          ; HALT DON'T CATCH FIRE
 
-overflow:             ; overflow function
-  loco errorStr:      ; load overflow error string.
-  call nextw:         ; output to the screen
-  lodd negone:        ; put -1 into the AC
-  halt
+; overflow function
+overflow:   loco errorStr:      ; load overflow error string.
+            call nextw:         ; output to the screen
+            lodd negone:        ; put -1 into the AC
+            halt                ; HALT DON'T CATCH FIRE
 
-input:                ; Get input?
-  lodd start:
-  stod 4093
-  call rbsywt:
-  lodd 4092
-  subd numset:
-  push
+; Get input from the user.
+input:      lodd start:
+            stod 4093
+            call rbsywt:
+            lodd 4092
+            subd numset:
+            push
 
-loop:                 ; Loop?
-  call rbsywt:
-  lodd 4092
-  stod next:
-  subd nl:
-  jzer endnum:
-  mult 10
-  lodd next:
-  subd numset:
-  addl 0
-  stol 0
-  jump loop:
+; Get next digit
+loop:       call rbsywt:
+            lodd 4092
+            stod next:
+            subd nl:
+            jzer endnum:        ; Done, go to next number.
+            mult 10             ; multiply by 10.
+            lodd next:
+            subd numset:
+            addl 0
+            stol 0
+            jump loop:
 
-endnum:               ; Last number?
-  pop
-  stod bin:
-  lodd 4092
-  loco 0
-  retn
+; Last number
+endnum:     pop
+            stod bin:           ; Binary number
+            lodd 4092
+            loco 0
+            retn
 
-encode:               ; encode and loop for all chars
-  lodd start:
-  stod 4095
-  lodd negone:
-  push
-  lodd mask:
-  push
+; Convert function
+convert:    lodd start:         ; Transmitter
+            stod 4095
+            lodd negone:        ; load -1 into AC
+            push                ; push -1 onto stack
+            lodd mask:          ; load mask into AC
+            push                ; push mask onto stack
 
-loop2:                ; Second loop.
-  lodd data:
-  jzer output:
-  lodd mask:
-  push
-  lodd data:
-  push
-  div                 ; divide.
-  pop
-  stod data:
-  pop
-  insp 2
-  addd numset:
-  push
-  jump loop2:
+; Loop for getting the answer
+answer:     lodd data:          ; Load answer into AC
+            jzer output:        ; When done, print the answer.
+            lodd mask:          ; Load mask
+            push                ; Push mask onto stack
+            lodd data:          ; Load answer into AC
+            push                ; Push answer onto stack
+            div                 ; Divide the answer by the mask
+            pop                 ; Get result into AC
+            stod data:          ; Store new value into answer
+            pop
+            insp 2              ; Clean up the stack
+            addd numset:        ; Convert to character.
+            push                ; Push the AC onto stack
+            jump answer:        ; Keep looping
 
-output:               ; Output a number.
-  pop
-  jneg done:          ; returns, done = retn
-  stod 4094
-  call xbsywt:
-  jump output:
+; Output result function.
+output:     pop                 ; Get result into AC
+            jneg done:          ; if -1 we're done!
+            stod 4094           ; store AC into register
+            call xbsywt:        ; print result
+            jump output:        ; print the next result.
 
 ; *******************************************************
 ; This code is from the help file location here:
@@ -153,16 +153,15 @@ add1:       addl 1              ; Add 1 to counters
 finish:     lodl 1              ; finished so return.
             retn
 
-; Not sure if this is needed.
-done:       retn        ; Return function
+done:       retn                ; Return function
 
 ; Variables down here.
 next:        0
 bin:         0        ;; Binary number
 sum:         0        ;; Sum variable
 data:        0
-count:       0
-str:         0
+count:       0        ;; Counter
+str:         0        ;; String ptr
 mask:       10        ;; Mask
 start:       8        ;; Start transmitter
 nl:         10        ;; Newline
@@ -172,6 +171,6 @@ zero:        0        ;; constant  0
 one:         1        ;; constant  1
 numset:     48        ;; constant 48
 c255:      255        ;; constant 255
-rangeStr:  "Enter an integer between 1 and 32767: "
+rangeStr:  "Enter an integer between 1 and 32767: "   ;; Output strings
 sumStr:    "The sum of these numbers is:"
 errorStr:  "Overflow, no sum possible!"
