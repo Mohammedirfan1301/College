@@ -23,18 +23,47 @@
 
 ;;; Code for the generic arithmetic system.  Start
 ;;; to read and understand here.
+
+;; Modify this function
 (define (attach-tag type-tag contents)
-  (cons type-tag contents))
+  ;; Need to see if it's a number.
+  (if (number? contents)
+    contents                    ;; Number case
+    (cons type-tag contents)    ;; Not a number, so tag it.
+  )
+)
 
+;; Also this function
 (define (type-tag datum)
-  (if (pair? datum)
-      (car datum)
-    (display (list "Bad tagged datum --- TYPE-TAG" datum))))
+  ;; Need to first check for numbers.
+  (if (number? datum)
+    'scheme-number        ;; Number case.
 
+    ;; Otherwise check to see if it's a pair.
+    (if (pair? datum)
+      (car datum)         ;; Pair case.
+
+      ;; Else, bad tagged datum.
+      (display (list "Bad tagged datum --- TYPE-TAG" datum))
+    )
+  )
+)
+
+;; Final function to modify.
 (define (contents datum)
-  (if (pair? datum)
-      (cdr datum)
-    (display (list "Bad tagged datum --- CONTENTS" datum))))
+  ;; Need to first check for numbers.
+  (if (number? datum)
+    datum        ;; Number case.
+
+    ;; Otherwise check to see if it's a pair.
+    (if (pair? datum)
+      (cdr datum)         ;; Pair case.
+
+      ;; Else, bad tagged datum.
+      (display (list "Bad tagged datum --- TYPE-TAG" datum))
+     )
+  )
+)
 
 (define (square x) (* x x))
 
@@ -48,7 +77,7 @@
              (square (imag-part z)))))
   (define (angle z)
     (atan (imag-part z) (real-part z)))
-  (define (make-from-mag-ang r a) 
+  (define (make-from-mag-ang r a)
     (cons (* r (cos a)) (* r (sin a))))
 
   ;; interface to the rest of the system
@@ -73,7 +102,7 @@
     (* (magnitude z) (cos (angle z))))
   (define (imag-part z)
     (* (magnitude z) (sin (angle z))))
-  (define (make-from-real-imag x y) 
+  (define (make-from-real-imag x y)
     (cons (sqrt (+ (square x) (square y)))
           (atan y x)))
 
@@ -229,7 +258,7 @@
 ;;; SOME TEST CODE
 ;(define n1 (make-scheme-number 1))	; (scheme-number . 1)
 ;(define n2 (make-scheme-number 2))	; (scheme-number . 2)
-;;(add n1 n2)				
+;;(add n1 n2)
 					; (scheme-number . 3)
 
 ;(define r1 (make-rat 3 4))		; (rational 3 . 4)
@@ -255,7 +284,7 @@
 ;;   simply as Scheme numbers rather than as pairs whose car is the
 ;;   symbol scheme-number.
 
-;;;Answer: 
+;;;Answer:
 ;;; Make changes to procedures in the above stater code
 
 ;;; Tests:
