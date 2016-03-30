@@ -1,109 +1,108 @@
 ; Jason Downing
 ; Assignment 5
-; Used http://www.cs.uml.edu/~bill/cs305/IO_str_and_echo.asm for help.
+; Used Moloney's /~bill/cs305/ directory for help.
 
-AddInput:                       ; Main loop.
-  lodd start:                   ; Starting value
-  stod 4095                     ; Start transmitter
-  call xbsywt:                  ; Receiver function call.
-  loco rangeStr:                ; Load "Enter an int" string
-  call nextw:                   ; Print out string
-  call input:                   ; Get input
-  lodd bin:                     ; Load binary number
-  stod sum:                     ; Save the sum
-  loco rangeStr:                ; Load "Enter an int" string
-  call nextw:                   ; Print out string
-  call input:                   ; Get input
-  lodd bin:                     ; Load binary number
-  addd sum:                     ; Add the sum.
-  stod sum:                     ; Store
-  stod data:                    ; Store
-  jneg overflow:                ; Overflow error.
-  loco sumStr:                  ; Load summary string
-  call nextw:                   ; Print summary string
-  call convert:                 ; Convert answer
-  lodd zero:                    ; returns 0
-  halt                          ; HALT DON'T CATCH FIRE
+AddInput:   lodd start:             ; Starting value
+            stod 4095               ; Start transmitter
+            call xbsywt:            ; Receiver function call.
+            loco rangeStr:          ; Load "Enter an int" string
+            call nextw:             ; Print out string
+            call getInput:          ; Get input
+            lodd bin:               ; Load binary number
+            stod sum:               ; Save the sum
+            loco rangeStr:          ; Load "Enter an int" string
+            call nextw:             ; Print out string
+            call getInput:          ; Get input
+            lodd bin:               ; Load binary number
+            addd sum:               ; Add the sum.
+            stod sum:               ; Store
+            stod data:              ; Store
+            jneg OverFlow:          ; Overflow error.
+            loco sumStr:            ; Load summary string
+            call nextw:             ; Print summary string
+            call convert:           ; Convert answer
+            lodd zero:              ; returns 0
+            halt                    ; HALT DON'T CATCH FIRE
 
 ; overflow function
-overflow:   loco errorStr:      ; load overflow error string.
-            call nextw:         ; output to the screen
-            lodd negone:        ; put -1 into the AC
-            halt                ; HALT DON'T CATCH FIRE
+OverFlow:   loco errorStr:          ; load overflow error string.
+            call nextw:             ; output to the screen
+            lodd negone:            ; put -1 into the AC
+            halt                    ; HALT DON'T CATCH FIRE
 
 ; Get input from the user.
-input:      lodd start:
+getInput:   lodd start:
             stod 4093
             call rbsywt:
             lodd 4092
             subd numset:
             push
 
-; Get next digit
-loop:       call rbsywt:
+; Get the next digit function
+getDigit:   call rbsywt:
             lodd 4092
             stod next:
             subd nl:
-            jzer endnum:        ; Done, go to next number.
-            mult 10             ; multiply by 10.
+            jzer endnum:            ; Done, go to next number.
+            mult 10                 ; multiply by 10.
             lodd next:
             subd numset:
             addl 0
             stol 0
-            jump loop:
+            jump getDigit:          ; Keep looping til we've got all the digits.
 
-; Last number
+; We're done, so save the number.
 endnum:     pop
-            stod bin:           ; Binary number
+            stod bin:               ; Binary number
             lodd 4092
             loco 0
             retn
 
 ; Convert function
-convert:    lodd start:         ; Transmitter
+convert:    lodd start:             ; Transmitter
             stod 4095
-            lodd negone:        ; load -1 into AC
-            push                ; push -1 onto stack
-            lodd mask:          ; load mask into AC
-            push                ; push mask onto stack
+            lodd negone:            ; load -1 into AC
+            push                    ; push -1 onto stack
+            lodd mask:              ; load mask into AC
+            push                    ; push mask onto stack
 
 ; Loop for getting the answer
-answer:     lodd data:          ; Load answer into AC
-            jzer output:        ; When done, print the answer.
-            lodd mask:          ; Load mask
-            push                ; Push mask onto stack
-            lodd data:          ; Load answer into AC
-            push                ; Push answer onto stack
-            div                 ; Divide the answer by the mask
-            pop                 ; Get result into AC
-            stod data:          ; Store new value into answer
+answer:     lodd data:              ; Load answer into AC
+            jzer output:            ; When done, print the answer.
+            lodd mask:              ; Load mask
+            push                    ; Push mask onto stack
+            lodd data:              ; Load answer into AC
+            push                    ; Push answer onto stack
+            div                     ; Divide the answer by the mask
+            pop                     ; Get result into AC
+            stod data:              ; Store new value into answer
             pop
-            insp 2              ; Clean up the stack
-            addd numset:        ; Convert to character.
-            push                ; Push the AC onto stack
-            jump answer:        ; Keep looping
+            insp 2                  ; Clean up the stack
+            addd numset:            ; Convert to character.
+            push                    ; Push the AC onto stack
+            jump answer:            ; Keep looping
 
 ; Output result function.
-output:     pop                 ; Get result into AC
-            jneg done:          ; if -1 we're done!
-            stod 4094           ; store AC into register
-            call xbsywt:        ; print result
-            jump output:        ; print the next result.
+output:     pop                     ; Get result into AC
+            jneg done:              ; if -1 we're done!
+            stod 4094               ; store AC into register
+            call xbsywt:            ; print result
+            jump output:            ; print the next result.
 
 ; *******************************************************
 ; This code is from the help file location here:
 ; http://www.cs.uml.edu/~bill/cs305/IO_str_and_echo.asm
 ; *******************************************************
-nextw:      pshi                ; Outputs a string that has been loaded.
+nextw:      pshi                    ; Outputs a string that has been loaded.
             addd one:
             stod str:
             pop
-            jzer crnl:          ; carriage return / newline function
+            jzer crnl:              ; carriage return / newline function
             stod 4094
             push
             subd c255:
-            jneg crnl:          ; carriage return / newline function
-            call sb:            ; calls the sb function to loco 8
+            jneg crnl:              ; carriage return / newline function
+            call sb:                ; calls the sb function to loco 8
             insp 1
             push
             call xbsywt:
@@ -114,27 +113,27 @@ nextw:      pshi                ; Outputs a string that has been loaded.
             jump nextw:
 
 ; This function outputs a carriage return and newline.
-crnl:       lodd cr:            ; carriage return
-            stod 4094           ; 4094 is where the CR is written
-            call xbsywt:        ; output carriage return
-            lodd nl:            ; newline
-            stod 4094           ; 4094 is where the NR is written
-            call xbsywt:        ; output newline
+crnl:       lodd cr:                ; carriage return
+            stod 4094               ; 4094 is where the CR is written
+            call xbsywt:            ; output carriage return
+            lodd nl:                ; newline
+            stod 4094               ; 4094 is where the NR is written
+            call xbsywt:            ; output newline
             retn
 
-xbsywt:     lodd 4095           ; Transmitter (output loop)
+xbsywt:     lodd 4095               ; Transmitter (output loop)
             subd mask:
             jneg xbsywt:
             retn
 
-rbsywt:     lodd 4093           ; Receiver (input loop)
+rbsywt:     lodd 4093               ; Receiver (input loop)
             subd mask:
             jneg rbsywt:
             retn
 
-sb:         loco 8              ; SB function
+sb:         loco 8                  ; SB function
 
-loop1:      jzer finish:        ; Check to see if we're done.
+loop1:      jzer finish:            ; Check to see if we're done.
             subd one:
             stod count:
             lodl 1
@@ -144,16 +143,16 @@ loop1:      jzer finish:        ; Check to see if we're done.
             lodd count:
             jump loop1:
 
-add1:       addl 1              ; Add 1 to counters
+add1:       addl 1                  ; Add 1 to counters
             addd one:
             stol 1
             lodd count:
             jump loop1:
 
-finish:     lodl 1              ; finished so return.
+finish:     lodl 1                  ; finished so return.
             retn
 
-done:       retn                ; Return function
+done:       retn                    ; Return function
 
 ; Variables down here.
 next:        0
