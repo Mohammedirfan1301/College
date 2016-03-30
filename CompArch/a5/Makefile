@@ -1,3 +1,7 @@
+# Jason Downing
+# Makefile for Assignment 5
+# Type "make" in terminal to run
+
 # Run the whole Makefile
 all: build test
 
