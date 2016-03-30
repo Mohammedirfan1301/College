@@ -2,10 +2,7 @@
 ; Assignment 5
 ; Used Moloney's /~bill/cs305/ directory for help.
 
-; *******************************************************
-;  Main loop and functions
-; *******************************************************
-
+;  Main loop
 AddInput:   lodd on:                ; Starting value of 8.
             stod 4095               ; Transmitter address
             call xbsywt:            ; Receiver function call.
@@ -100,7 +97,7 @@ printAns:   pop                     ; Get result into AC
             jneg done:              ; if negative we're done!
             stod 4094               ; store AC into output buffer
             call xbsywt:            ; print result
-            jump printAns:            ; print the next result.
+            jump printAns:          ; print the next result.
 
 ; *******************************************************
 ;  This code is from the help file location here:
@@ -179,20 +176,20 @@ done:       retn                    ; Return function
 ; 4094 = output buffer
 ; 4095 = transmitter address
 
-nextChar:    0        ;; next char
-binarynum:   0        ;; binary number
-sum:         0        ;; Sum variable
-count:       0        ;; Counter
-str:         0        ;; String ptr
-mask:       10        ;; Mask
-on:          8        ;; Start transmitter
-nl:         10        ;; ASCII value of Newline (nl)
-cr:         13        ;; ASCII value of Carriage Return (cr)
+rangeStr:  "Enter an integer between 1 and 32767: "   ;; Output strings
+sumStr:    "The sum of these numbers is:"
+errorStr:  "Overflow, no sum possible!"
 neg1:       -1        ;; constant -1
 zero:        0        ;; constant  0
 one:         1        ;; constant  1
 ascii:      48        ;; constant 48 (ASCII value for 0)
 c255:      255        ;; constant 255
-rangeStr:  "Enter an integer between 1 and 32767: "   ;; Output strings
-sumStr:    "The sum of these numbers is:"
-errorStr:  "Overflow, no sum possible!"
+nextChar:    0        ;; next char
+binarynum:   0        ;; binary number
+sum:         0        ;; Sum variable
+count:       0        ;; Counter
+str:         0        ;; String ptr
+on:          8        ;; Start transmitter
+mask:       10        ;; Mask
+nl:         10        ;; ASCII value of Newline (nl)
+cr:         13        ;; ASCII value of Carriage Return (cr)

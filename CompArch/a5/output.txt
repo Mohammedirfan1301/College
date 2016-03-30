@@ -6,7 +6,7 @@ ubuntu@desktop: a5$ make
 ./mic1 prom_mrd.dat a5.obj 0 1024
 
 Read in 152 micro instructions
-Read in 187 machine instructions
+Read in 186 machine instructions
 Starting PC is : 0000000000000000  base 10:       0
 Starting SP is : 0000010000000000  base 10:    1024
 
@@ -17,7 +17,7 @@ Enter an integer between 1 and 32767:
 The sum of these numbers is:
 235
 
-ProgramCounter : 0000000000010101  , or    21  or signed     21
+ProgramCounter : 0000000000010100  , or    20  or signed     20
 Accumulator    : 0000000000000000  , or     0  or signed      0
 InstructionReg : 1111111111000000  , or 65472  or signed    -64
 TempInstr      : 1000000000000000  , or 32768  or signed -32768
@@ -29,7 +29,7 @@ DRegister      : 0000000000000010  , or     2  or signed      2
 ERegister      : 0000000000000000  , or     0  or signed      0
 FRegister      : 0000000000000000  , or     0  or signed      0
 
-Total cycles   : 4215280
+Total cycles   : 2876889
 
 Type decimal address to view memory,  q  to quit or  c  to continue:
 
@@ -41,7 +41,7 @@ ubuntu@desktop: a5$ make
 ./mic1 prom_mrd.dat a5.obj 0 1024
 
 Read in 152 micro instructions
-Read in 187 machine instructions
+Read in 186 machine instructions
 Starting PC is : 0000000000000000  base 10:       0
 Starting SP is : 0000010000000000  base 10:    1024
 
@@ -52,7 +52,7 @@ Enter an integer between 1 and 32767:
 The sum of these numbers is:
 17298
 
-ProgramCounter : 0000000000010101  , or    21  or signed     21
+ProgramCounter : 0000000000010100  , or    20  or signed     20
 Accumulator    : 0000000000000000  , or     0  or signed      0
 InstructionReg : 1111111111000000  , or 65472  or signed    -64
 TempInstr      : 1000000000000000  , or 32768  or signed -32768
@@ -64,7 +64,7 @@ DRegister      : 0000000000000001  , or     1  or signed      1
 ERegister      : 0000000000000000  , or     0  or signed      0
 FRegister      : 0000000000000000  , or     0  or signed      0
 
-Total cycles   : 10832439
+Total cycles   : 5141108
 
 Type decimal address to view memory,  q  to quit or  c  to continue:
 
@@ -76,7 +76,7 @@ ubuntu@desktop: a5$ make
 ./mic1 prom_mrd.dat a5.obj 0 1024
 
 Read in 152 micro instructions
-Read in 187 machine instructions
+Read in 186 machine instructions
 Starting PC is : 0000000000000000  base 10:       0
 Starting SP is : 0000010000000000  base 10:    1024
 
@@ -86,7 +86,7 @@ Enter an integer between 1 and 32767:
 12400
 Overflow, no sum possible!
 
-ProgramCounter : 0000000000011001  , or    25  or signed     25
+ProgramCounter : 0000000000101110  , or    46  or signed     46
 Accumulator    : 1111111111111111  , or 65535  or signed     -1
 InstructionReg : 1111111111000000  , or 65472  or signed    -64
 TempInstr      : 1000000000000000  , or 32768  or signed -32768
@@ -98,7 +98,7 @@ DRegister      : 0011000001110000  , or 12400  or signed  12400
 ERegister      : 0000000000000000  , or     0  or signed      0
 FRegister      : 0000000000000000  , or     0  or signed      0
 
-Total cycles   : 4005541
+Total cycles   : 4299671
 
 Type decimal address to view memory,  q  to quit or  c  to continue:
 
@@ -110,7 +110,7 @@ ubuntu@desktop: a5$ make
 ./mic1 prom_mrd.dat a5.obj 0 1024
 
 Read in 152 micro instructions
-Read in 187 machine instructions
+Read in 186 machine instructions
 Starting PC is : 0000000000000000  base 10:       0
 Starting SP is : 0000010000000000  base 10:    1024
 
@@ -121,7 +121,7 @@ Enter an integer between 1 and 32767:
 The sum of these numbers is:
 35
 
-ProgramCounter : 0000000000010101  , or    21  or signed     21
+ProgramCounter : 0000000000010100  , or    20  or signed     20
 Accumulator    : 0000000000000000  , or     0  or signed      0
 InstructionReg : 1111111111000000  , or 65472  or signed    -64
 TempInstr      : 1000000000000000  , or 32768  or signed -32768
@@ -133,7 +133,7 @@ DRegister      : 0000000000000011  , or     3  or signed      3
 ERegister      : 0000000000000000  , or     0  or signed      0
 FRegister      : 0000000000000000  , or     0  or signed      0
 
-Total cycles   : 3771946
+Total cycles   : 2120166
 
 Type decimal address to view memory,  q  to quit or  c  to continue:
 
@@ -145,7 +145,7 @@ ubuntu@desktop: a5$ make
 ./mic1 prom_mrd.dat a5.obj 0 1024
 
 Read in 152 micro instructions
-Read in 187 machine instructions
+Read in 186 machine instructions
 Starting PC is : 0000000000000000  base 10:       0
 Starting SP is : 0000010000000000  base 10:    1024
 
@@ -156,7 +156,7 @@ Enter an integer between 1 and 32767:
 The sum of these numbers is:
 1344
 
-ProgramCounter : 0000000000010101  , or    21  or signed     21
+ProgramCounter : 0000000000010100  , or    20  or signed     20
 Accumulator    : 0000000000000000  , or     0  or signed      0
 InstructionReg : 1111111111000000  , or 65472  or signed    -64
 TempInstr      : 1000000000000000  , or 32768  or signed -32768
@@ -168,6 +168,6 @@ DRegister      : 0000000000000001  , or     1  or signed      1
 ERegister      : 0000000000000000  , or     0  or signed      0
 FRegister      : 0000000000000000  , or     0  or signed      0
 
-Total cycles   : 2414946
+Total cycles   : 3382112
 
 Type decimal address to view memory,  q  to quit or  c  to continue:
