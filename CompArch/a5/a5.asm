@@ -2,6 +2,9 @@
 ; Assignment 5
 ; Used Moloney's /~bill/cs305/ directory for help.
 
+; *******************************************************
+;  Main loop and functions
+; *******************************************************
 AddInput:   lodd on:                ; Starting value of 8.
             stod 4095               ; Transmitter address
             call xbsywt:            ; Receiver function call.
@@ -41,18 +44,18 @@ getInput:   lodd on:                ; Transmitter on
             stod 4093               ; Address
             call rbsywt:            ; Call transmitter
             lodd 4092               ; Get first digit
-            subd numset:            ; Subtract 48
+            subd ascii48:           ; Subtract 48
             push                    ; Push to stack
 
 ; Get Digits loop
 getDigit:   call rbsywt:            ; Call transmitter
             lodd 4092               ; get next digit
-            stod next:              ; store it in next
+            stod nextChar:          ; store it in next
             subd nl:                ; Subtract 10 to see if the NL char was entered.
             jzer endnum:            ; NL char was entered, so done!
             mult 10                 ; multiply value on stack by 10.
-            lodd next:              ; Load ASCII for next digit
-            subd numset:            ; Subtract 48
+            lodd nextChar:          ; Load ASCII for next digit
+            subd ascii48:           ; Subtract 48
             addl 0                  ; Add the multiplied value to the AC
             stol 0                  ; Store the sum on the stack
             jump getDigit:          ; Keep looping til we've got all the digits.
@@ -84,7 +87,7 @@ answer:     lodd data:              ; Load answer into AC
             stod data:              ; Store new value into answer
             pop                     ; Pop stack
             insp 2                  ; Clean up the stack
-            addd numset:            ; Convert to character.
+            addd ascii48:           ; Convert to character.
             push                    ; Push the AC onto stack
             jump answer:            ; Keep looping
 
@@ -96,8 +99,8 @@ output:     pop                     ; Get result into AC
             jump output:            ; print the next result.
 
 ; *******************************************************
-; This code is from the help file location here:
-; http://www.cs.uml.edu/~bill/cs305/IO_str_and_echo.asm
+;  This code is from the help file location here:
+;  http://www.cs.uml.edu/~bill/cs305/IO_str_and_echo.asm
 ; *******************************************************
 nextw:      pshi                    ; Outputs a string that has been loaded.
             addd one:
@@ -160,8 +163,10 @@ finish:     lodl 1                  ; finished so return.
 
 done:       retn                    ; Return function
 
-; Variables down here.
-next:        0        ;; next char
+; *******************************************************
+;   Variables
+; *******************************************************
+nextChar:   0         ;; next char
 binarynum:   0        ;; binary number
 sum:         0        ;; Sum variable
 data:        0        ;; Data variable
@@ -174,7 +179,7 @@ cr:         13        ;; Carriage Return
 negone:     -1        ;; constant -1
 zero:        0        ;; constant  0
 one:         1        ;; constant  1
-numset:     48        ;; constant 48
+ascii48:    48        ;; constant 48 (ASCII 0)
 c255:      255        ;; constant 255
 rangeStr:  "Enter an integer between 1 and 32767: "   ;; Output strings
 sumStr:    "The sum of these numbers is:"

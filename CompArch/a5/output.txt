@@ -1,0 +1,173 @@
+********************************************************************************
+* Results of running: 235 + 0
+********************************************************************************
+ubuntu@desktop: a5$ make
+./masm < a5.asm > a5.obj
+./mic1 prom_mrd.dat a5.obj 0 1024
+
+Read in 152 micro instructions
+Read in 187 machine instructions
+Starting PC is : 0000000000000000  base 10:       0
+Starting SP is : 0000010000000000  base 10:    1024
+
+Enter an integer between 1 and 32767:
+235
+Enter an integer between 1 and 32767:
+0
+The sum of these numbers is:
+235
+
+ProgramCounter : 0000000000010101  , or    21  or signed     21
+Accumulator    : 0000000000000000  , or     0  or signed      0
+InstructionReg : 1111111111000000  , or 65472  or signed    -64
+TempInstr      : 1000000000000000  , or 32768  or signed -32768
+StackPointer   : 0000010000000000  , or  1024  or signed   1024
+ARegister      : 1111111111110101  , or 65525  or signed    -11
+BRegister      : 1111111111110110  , or 65526  or signed    -10
+CRegister      : 0000000000000000  , or     0  or signed      0
+DRegister      : 0000000000000010  , or     2  or signed      2
+ERegister      : 0000000000000000  , or     0  or signed      0
+FRegister      : 0000000000000000  , or     0  or signed      0
+
+Total cycles   : 4215280
+
+Type decimal address to view memory,  q  to quit or  c  to continue:
+
+********************************************************************************
+* Results of running: 16341 + 957
+********************************************************************************
+ubuntu@desktop: a5$ make
+./masm < a5.asm > a5.obj
+./mic1 prom_mrd.dat a5.obj 0 1024
+
+Read in 152 micro instructions
+Read in 187 machine instructions
+Starting PC is : 0000000000000000  base 10:       0
+Starting SP is : 0000010000000000  base 10:    1024
+
+Enter an integer between 1 and 32767:
+16341
+Enter an integer between 1 and 32767:
+957
+The sum of these numbers is:
+17298
+
+ProgramCounter : 0000000000010101  , or    21  or signed     21
+Accumulator    : 0000000000000000  , or     0  or signed      0
+InstructionReg : 1111111111000000  , or 65472  or signed    -64
+TempInstr      : 1000000000000000  , or 32768  or signed -32768
+StackPointer   : 0000010000000000  , or  1024  or signed   1024
+ARegister      : 1111111111110101  , or 65525  or signed    -11
+BRegister      : 1111111111110110  , or 65526  or signed    -10
+CRegister      : 0000000000000000  , or     0  or signed      0
+DRegister      : 0000000000000001  , or     1  or signed      1
+ERegister      : 0000000000000000  , or     0  or signed      0
+FRegister      : 0000000000000000  , or     0  or signed      0
+
+Total cycles   : 10832439
+
+Type decimal address to view memory,  q  to quit or  c  to continue:
+
+********************************************************************************
+* Results of running: 23786 + 12400
+********************************************************************************
+ubuntu@desktop: a5$ make
+./masm < a5.asm > a5.obj
+./mic1 prom_mrd.dat a5.obj 0 1024
+
+Read in 152 micro instructions
+Read in 187 machine instructions
+Starting PC is : 0000000000000000  base 10:       0
+Starting SP is : 0000010000000000  base 10:    1024
+
+Enter an integer between 1 and 32767:
+23786
+Enter an integer between 1 and 32767:
+12400
+Overflow, no sum possible!
+
+ProgramCounter : 0000000000011001  , or    25  or signed     25
+Accumulator    : 1111111111111111  , or 65535  or signed     -1
+InstructionReg : 1111111111000000  , or 65472  or signed    -64
+TempInstr      : 1000000000000000  , or 32768  or signed -32768
+StackPointer   : 0000010000000000  , or  1024  or signed   1024
+ARegister      : 1111111111110101  , or 65525  or signed    -11
+BRegister      : 1111111111111111  , or 65535  or signed     -1
+CRegister      : 0000000000000000  , or     0  or signed      0
+DRegister      : 0011000001110000  , or 12400  or signed  12400
+ERegister      : 0000000000000000  , or     0  or signed      0
+FRegister      : 0000000000000000  , or     0  or signed      0
+
+Total cycles   : 4005541
+
+Type decimal address to view memory,  q  to quit or  c  to continue:
+
+********************************************************************************
+* Results of running: 12 + 23
+********************************************************************************
+ubuntu@desktop: a5$ make
+./masm < a5.asm > a5.obj
+./mic1 prom_mrd.dat a5.obj 0 1024
+
+Read in 152 micro instructions
+Read in 187 machine instructions
+Starting PC is : 0000000000000000  base 10:       0
+Starting SP is : 0000010000000000  base 10:    1024
+
+Enter an integer between 1 and 32767:
+12
+Enter an integer between 1 and 32767:
+23
+The sum of these numbers is:
+35
+
+ProgramCounter : 0000000000010101  , or    21  or signed     21
+Accumulator    : 0000000000000000  , or     0  or signed      0
+InstructionReg : 1111111111000000  , or 65472  or signed    -64
+TempInstr      : 1000000000000000  , or 32768  or signed -32768
+StackPointer   : 0000010000000000  , or  1024  or signed   1024
+ARegister      : 1111111111110101  , or 65525  or signed    -11
+BRegister      : 1111111111110110  , or 65526  or signed    -10
+CRegister      : 0000000000000000  , or     0  or signed      0
+DRegister      : 0000000000000011  , or     3  or signed      3
+ERegister      : 0000000000000000  , or     0  or signed      0
+FRegister      : 0000000000000000  , or     0  or signed      0
+
+Total cycles   : 3771946
+
+Type decimal address to view memory,  q  to quit or  c  to continue:
+
+********************************************************************************
+* Results of running: 1 + 1343
+********************************************************************************
+ubuntu@desktop: a5$ make
+./masm < a5.asm > a5.obj
+./mic1 prom_mrd.dat a5.obj 0 1024
+
+Read in 152 micro instructions
+Read in 187 machine instructions
+Starting PC is : 0000000000000000  base 10:       0
+Starting SP is : 0000010000000000  base 10:    1024
+
+Enter an integer between 1 and 32767:
+1
+Enter an integer between 1 and 32767:
+1343
+The sum of these numbers is:
+1344
+
+ProgramCounter : 0000000000010101  , or    21  or signed     21
+Accumulator    : 0000000000000000  , or     0  or signed      0
+InstructionReg : 1111111111000000  , or 65472  or signed    -64
+TempInstr      : 1000000000000000  , or 32768  or signed -32768
+StackPointer   : 0000010000000000  , or  1024  or signed   1024
+ARegister      : 1111111111110101  , or 65525  or signed    -11
+BRegister      : 1111111111110110  , or 65526  or signed    -10
+CRegister      : 0000000000000000  , or     0  or signed      0
+DRegister      : 0000000000000001  , or     1  or signed      1
+ERegister      : 0000000000000000  , or     0  or signed      0
+FRegister      : 0000000000000000  , or     0  or signed      0
+
+Total cycles   : 2414946
+
+Type decimal address to view memory,  q  to quit or  c  to continue:
