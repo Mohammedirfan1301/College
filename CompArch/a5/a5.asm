@@ -37,8 +37,8 @@ AddInput:   lodd on:                ; Starting value of 8.
             halt                    ; HALT DON'T CATCH FIRE
 
 ; Get input from the user.
-getInput:   lodd on:                ; Transmitter on
-            stod 4093               ; Address
+getInput:   lodd on:                ; Receiver on
+            stod 4093               ; Receiver Address
             call rbsywt:            ; Call transmitter
             lodd 4092               ; Get first digit from input buffer
             subd ascii:             ; Subtract 48 (ASCII value of 0)
@@ -81,7 +81,7 @@ convert:    lodd on:                ; Start transmitter
 
 ; Loop for getting the answer
 answer:     lodd sum:               ; Load answer into AC
-            jzer output:            ; When done, print the answer.
+            jzer printAns:          ; When done, print the answer.
             lodd mask:              ; Load mask
             push                    ; Push mask onto stack
             lodd sum:               ; Load answer into AC
@@ -95,12 +95,12 @@ answer:     lodd sum:               ; Load answer into AC
             push                    ; Push the AC onto stack
             jump answer:            ; Keep looping
 
-; Output result function.
-output:     pop                     ; Get result into AC
-            jneg done:              ; if -1 we're done!
+; Print answer function.
+printAns:   pop                     ; Get result into AC
+            jneg done:              ; if negative we're done!
             stod 4094               ; store AC into output buffer
             call xbsywt:            ; print result
-            jump output:            ; print the next result.
+            jump printAns:            ; print the next result.
 
 ; *******************************************************
 ;  This code is from the help file location here:
