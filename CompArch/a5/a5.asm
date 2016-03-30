@@ -2,26 +2,32 @@
 ; Assignment 5
 ; Used Moloney's /~bill/cs305/ directory for help.
 
-AddInput:   lodd start:             ; Starting value
-            stod 4095               ; Start transmitter
+AddInput:   lodd on:             ; Starting value of 8.
+            stod 4095               ; Transmitter address
             call xbsywt:            ; Receiver function call.
+
             loco rangeStr:          ; Load "Enter an int" string
             call nextw:             ; Print out string
             call getInput:          ; Get input
-            lodd bin:               ; Load binary number
+            lodd binarynum:         ; Load binary number
             stod sum:               ; Save the sum
+
             loco rangeStr:          ; Load "Enter an int" string
             call nextw:             ; Print out string
             call getInput:          ; Get input
-            lodd bin:               ; Load binary number
+
+            lodd binarynum:         ; Load binary number
             addd sum:               ; Add the sum.
-            stod sum:               ; Store
-            stod data:              ; Store
+            stod sum:               ; Store sum
+            stod data:              ; Store sum into data as well.
+
             jneg OverFlow:          ; Overflow error.
+
             loco sumStr:            ; Load summary string
             call nextw:             ; Print summary string
             call convert:           ; Convert answer
-            lodd zero:              ; returns 0
+            lodd zero:              ; returns 0, no error.
+
             halt                    ; HALT DON'T CATCH FIRE
 
 ; overflow function
@@ -31,36 +37,36 @@ OverFlow:   loco errorStr:          ; load overflow error string.
             halt                    ; HALT DON'T CATCH FIRE
 
 ; Get input from the user.
-getInput:   lodd start:
-            stod 4093
-            call rbsywt:
-            lodd 4092
-            subd numset:
-            push
+getInput:   lodd on:                ; Transmitter on
+            stod 4093               ; Address
+            call rbsywt:            ; Call transmitter
+            lodd 4092               ; Get first digit
+            subd numset:            ; Subtract 48
+            push                    ; Push to stack
 
-; Get the next digit function
-getDigit:   call rbsywt:
-            lodd 4092
-            stod next:
-            subd nl:
-            jzer endnum:            ; Done, go to next number.
-            mult 10                 ; multiply by 10.
-            lodd next:
-            subd numset:
-            addl 0
-            stol 0
+; Get Digits loop
+getDigit:   call rbsywt:            ; Call transmitter
+            lodd 4092               ; get next digit
+            stod next:              ; store it in next
+            subd nl:                ; Subtract 10 to see if the NL char was entered.
+            jzer endnum:            ; NL char was entered, so done!
+            mult 10                 ; multiply value on stack by 10.
+            lodd next:              ; Load ASCII for next digit
+            subd numset:            ; Subtract 48
+            addl 0                  ; Add the multiplied value to the AC
+            stol 0                  ; Store the sum on the stack
             jump getDigit:          ; Keep looping til we've got all the digits.
 
 ; We're done, so save the number.
-endnum:     pop
-            stod bin:               ; Binary number
-            lodd 4092
+endnum:     pop                     ; Get the number
+            stod binarynum:         ; Store it in the binary number var
+            lodd 4092               ; Load the receiver
             loco 0
-            retn
+            retn                    ; Done so return.
 
 ; Convert function
-convert:    lodd start:             ; Transmitter
-            stod 4095
+convert:    lodd on:                ; Start transmitter
+            stod 4095               ; Transmitter address
             lodd negone:            ; load -1 into AC
             push                    ; push -1 onto stack
             lodd mask:              ; load mask into AC
@@ -76,7 +82,7 @@ answer:     lodd data:              ; Load answer into AC
             div                     ; Divide the answer by the mask
             pop                     ; Get result into AC
             stod data:              ; Store new value into answer
-            pop
+            pop                     ; Pop stack
             insp 2                  ; Clean up the stack
             addd numset:            ; Convert to character.
             push                    ; Push the AC onto stack
@@ -155,14 +161,14 @@ finish:     lodl 1                  ; finished so return.
 done:       retn                    ; Return function
 
 ; Variables down here.
-next:        0
-bin:         0        ;; Binary number
+next:        0        ;; next char
+binarynum:   0        ;; binary number
 sum:         0        ;; Sum variable
-data:        0
+data:        0        ;; Data variable
 count:       0        ;; Counter
 str:         0        ;; String ptr
 mask:       10        ;; Mask
-start:       8        ;; Start transmitter
+on:          8        ;; Start transmitter
 nl:         10        ;; Newline
 cr:         13        ;; Carriage Return
 negone:     -1        ;; constant -1
