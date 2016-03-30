@@ -2,13 +2,13 @@
 ; Assignment 5
 ; Used Moloney's /~bill/cs305/ directory for help.
 
-AddInput:   lodd on:             ; Starting value of 8.
+AddInput:   lodd on:                ; Starting value of 8.
             stod 4095               ; Transmitter address
             call xbsywt:            ; Receiver function call.
 
             loco rangeStr:          ; Load "Enter an int" string
             call nextw:             ; Print out string
-            call getInput:          ; Get input
+            call getInput:          ; Get input from the user
             lodd binarynum:         ; Load binary number
             stod sum:               ; Save the sum
 
@@ -30,7 +30,7 @@ AddInput:   lodd on:             ; Starting value of 8.
 
             halt                    ; HALT DON'T CATCH FIRE
 
-; overflow function
+; Overflow function
 OverFlow:   loco errorStr:          ; load overflow error string.
             call nextw:             ; output to the screen
             lodd negone:            ; put -1 into the AC
