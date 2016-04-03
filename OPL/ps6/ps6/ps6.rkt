@@ -16,7 +16,7 @@
   )  
 )
 
-(define exercise-3.1-env #f)
+(define exercise-3.1-env #t)
 ;; change to #t after you include diagram
 
 ;; Exercise 3.2
@@ -29,28 +29,22 @@
 ;; exercise3.2-env.png (or .jpg)
 
 (define (make-monitored f)
-  (let ((number-of-calls 0))
+  (let ((calls 0))
+    (define (reset_calls) 
+      (set! calls 0))
     (define (mf sym)
-      (cond 
-            ;; Reset symbol is the input
-            ((eq? sym 'reset)
-                  (begin (set! number-of-calls 0) 0))
-            
-            ;; How many calls symbol is the input
-            ((eq? sym 'how-many-calls) 
-                  number-of-calls)
-            
-            ;; Otherwise increase number of calls.
-            (else (begin 
-                    (set! number-of-calls 
-                          (+ number-of-calls 1))
-                    (f sym)))
-            )
-      )
-  mf)
-)
+      (cond   ;; Reset symbol is the input
+        ((eq? sym 'reset) reset_calls)
+        
+        ;; How many calls symbol is the input
+        ((eq? sym 'how-many-calls?) calls)
+        
+        ;; Otherwise increase number of calls.
+        (else (set! calls (+ calls 1))
+              (f sym))))
+    mf))
 
-(define exercise-3.2-env #f)
+(define exercise-3.2-env #t)
 ;; change to #t after you include diagram
 
 
@@ -65,15 +59,12 @@
   (define (deposit amount)
     (set! balance (+ balance amount))
     balance)
-  (define (display-error)
-    "Error, incorrect password")
   (define (dispatch p m)
     (if (eq? p password)
         (cond ((eq? m 'withdraw) withdraw)
               ((eq? m 'deposit) deposit)
-              (else (error "Unknown request -- MAKE-ACCOUNT"
-                           m)))
-        display-error))
+              (else (error "Unknown request -- MAKE-ACCOUNT" m)))
+        "Incorrect password"))
   dispatch)
                                        
 ;; Exercise 3.4
