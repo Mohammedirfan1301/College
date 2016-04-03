@@ -29,7 +29,26 @@
 ;; exercise3.2-env.png (or .jpg)
 
 (define (make-monitored f)
-  'foo)
+  (let ((number-of-calls 0))
+    (define (mf sym)
+      (cond 
+            ;; Reset symbol is the input
+            ((eq? sym 'reset)
+                  (begin (set! number-of-calls 0) 0))
+            
+            ;; How many calls symbol is the input
+            ((eq? sym 'how-many-calls) 
+                  number-of-calls)
+            
+            ;; Otherwise increase number of calls.
+            (else (begin 
+                    (set! number-of-calls 
+                          (+ number-of-calls 1))
+                    (f sym)))
+            )
+      )
+  mf)
+)
 
 (define exercise-3.2-env #f)
 ;; change to #t after you include diagram
