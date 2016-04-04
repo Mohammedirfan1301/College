@@ -29,20 +29,20 @@
 ;; exercise3.2-env.png (or .jpg)
 
 (define (make-monitored f)
-  (let ((calls 0))
-    (define (reset_calls) 
-      (set! calls 0))
-    (define (mf sym)
-      (cond   ;; Reset symbol is the input
-        ((eq? sym 'reset) reset_calls)
-        
-        ;; How many calls symbol is the input
-        ((eq? sym 'how-many-calls?) calls)
-        
-        ;; Otherwise increase number of calls.
-        (else (set! calls (+ calls 1))
-              (f sym))))
-    mf))
+  (define calls 0)
+  (define (reset_calls) 
+    (set! calls 0))
+  (define (mf sym)
+    (cond   ;; Reset symbol is the input
+      ((eq? sym 'reset) reset_calls)
+      
+      ;; How many calls symbol is the input
+      ((eq? sym 'how-many-calls?) calls)
+      
+      ;; Otherwise increase number of calls.
+      (else (set! calls (+ calls 1))
+            (f sym))))
+  mf)
 
 (define exercise-3.2-env #t)
 ;; change to #t after you include diagram
@@ -59,12 +59,18 @@
   (define (deposit amount)
     (set! balance (+ balance amount))
     balance)
-  (define (dispatch p m)
-    (if (eq? p password)
-        (cond ((eq? m 'withdraw) withdraw)
-              ((eq? m 'deposit) deposit)
-              (else (error "Unknown request -- MAKE-ACCOUNT" m)))
-        "Incorrect password"))
+  
+  ; Displays an incorrect password error, like the test file wants.
+  (define (display-incorrect useless)
+    "Incorrect password")
+  
+  ; Modified this function.
+  (define (dispatch pass sym)
+    (if (eq? pass password)
+        (cond ((eq? sym 'withdraw) withdraw)
+              ((eq? sym 'deposit) deposit)
+              (else (error "Unknown request -- MAKE-ACCOUNT" sym)))
+        display-incorrect))
   dispatch)
                                        
 ;; Exercise 3.4
@@ -84,18 +90,36 @@
   (define (deposit amount)
     (set! balance (+ balance amount))
     balance)
-  (define (display-error)
-    "Error, incorrect password")
-  (define (dispatch p m)
-    (if (eq? p password)
-        (cond ((eq? m 'withdraw) withdraw)
-              ((eq? m 'deposit) deposit)
-              (else (error "Unknown request -- MAKE-ACCOUNT"
-                           m)))
-        display-error))
+  
+  ; Displays an incorrect password error, like the test file wants.
+  (define (display-incorrect useless)
+    "Incorrect password")
+  
+  ; Modified this function.
+  (define password-attempts 0)
+  (define (dispatch pass sym)
+    (if (eq? pass password)
+        ; If the password is correct, see if the account is locked or not.
+        (if (> password-attempts 7)
+            ; Call the cops, the account is locked.
+            call-the-cops    
+            
+            ; Account isn't locked, so continue.
+            (begin (set! password-attempts 0)
+                   (cond ((eq? sym 'withdraw) withdraw)
+                         ((eq? sym 'deposit) deposit)
+                         (else (error "Unknown request -- MAKE-ACCOUNT" sym)))))
+        
+        ; Increase password attempts and see if we should 
+        ; call the cops or display an error.
+        (begin (set! password-attempts
+                     (+ password-attempts 1))
+               (if (> password-attempts 7)
+                   call-the-cops
+                   display-incorrect))))
   dispatch)
   
 ; don't modify this
-(define (call-the-cops)
+(define (call-the-cops useless)
   "your account has been locked. please call customer service.")
   
