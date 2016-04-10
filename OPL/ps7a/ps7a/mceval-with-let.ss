@@ -30,8 +30,6 @@
         (make-procedure (lambda-parameters exp) (lambda-body exp) env))
         ((begin? exp) (eval-sequence (begin-actions exp) env))
         ((cond? exp) (mc-eval (cond->if exp) env))
-   
-        ;; uml:not
         ((let? exp) (mc-eval (let->combination exp) env))
         ((application? exp)
         (mc-apply (mc-eval (operator exp) env)
@@ -500,7 +498,8 @@ Tests / evidence that uml:or works:
 (define (primitive-implementation proc) (cadr proc))
 
 (define primitive-procedures
-  (list (list 'uml:car car)
+  (list 
+   (list 'uml:car car)
 	(list 'uml:cdr cdr)
 	(list 'uml:cons cons)
 	(list 'uml:null? null?)
@@ -510,7 +509,8 @@ Tests / evidence that uml:or works:
 	(list 'uml:/ /)
 	(list 'uml:= =)
 	(list 'uml:> >)
-	(list 'uml:< <)))
+	(list 'uml:< <)
+   (list 'uml:not not)))   ;; Added in for uml:not
 
 
 (define (primitive-procedure-names)
@@ -578,11 +578,57 @@ Tests / evidence that uml:or works:
 ; then, copy-paste into a comment here how the procedure is
 ; represented internally.
 ; change this flag to true.
-(define printed-uml:not? #f)
+(define printed-uml:not? #t)
 
 
+#|
+I implemented uml:not using the primitive method, which uses the Scheme not procedure
+found on the racket docs page: https://docs.racket-lang.org/reference/booleans.html
 
+I basically added the following line of code to the primitive-procedures variable:
+(list 'uml:not not))
 
+Primitives first appear in the primitive-procedures as a list of lists, where each
+list is the primitive. primitive-procedure-names is first called to map the names 
+of each procedure to the list primitive-procedures. primitive-procedure-objects
+is then called which creates the procedures.
 
+********************************
+   Test / Evidence this works
+********************************
+;;; MC-Eval input: (uml:not true)
+;;; MC-Eval value: #f
+;;; Not true is false.
 
+;;; MC-Eval input: (uml:not false)
+;;; MC-Eval value: #t
+;;; Not false is true.
+
+;;; MC-Eval input: (uml:not 'hello)
+;;; (error: Unbound variable quote)(error: Unbound variable hello)(error: Unknown procedure type -- MC-APPLY #<void>)
+;;; MC-Eval value: #f
+;;; Not sure why I get a bunch of errors, but the final MC-Eval value is false, which makes sense
+;;; since ANYTHING other then false should return false. So random stuff that isn't "false" should be #f.
+
+*****************************
+   The Global Environment:
+*****************************
+> the-global-environment
+(((nil false true uml:car uml:cdr uml:cons uml:null? uml:+ uml:- uml:* uml:/ uml:= uml:> uml:< uml:not)
+  ()
+  #f
+  #t
+  (primitive #<procedure:mcar>)
+  (primitive #<procedure:mcdr>)
+  (primitive #<procedure:mcons>)
+  (primitive #<procedure:null?>)
+  (primitive #<procedure:+>)
+  (primitive #<procedure:->)
+  (primitive #<procedure:*>)
+  (primitive #<procedure:/>)
+  (primitive #<procedure:=>)
+  (primitive #<procedure:>>)
+  (primitive #<procedure:<>)
+  (primitive #<procedure:not>)))
+|#
 
