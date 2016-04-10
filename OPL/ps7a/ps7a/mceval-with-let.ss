@@ -22,21 +22,19 @@
         ((assignment? exp) (eval-assignment exp env))
         ((definition? exp) (eval-definition exp env))
         ((if? exp) (eval-if exp env))
-   ;; uml:and
-	((and? exp) (eval-and exp env))
+        
+        ((and? exp) (eval-and exp env))       ;; uml:and
+        ((or? exp) (eval-or exp env))         ;; Added in for uml:or
+        
         ((lambda? exp)
-         (make-procedure (lambda-parameters exp) (lambda-body exp) env))
+        (make-procedure (lambda-parameters exp) (lambda-body exp) env))
         ((begin? exp) (eval-sequence (begin-actions exp) env))
         ((cond? exp) (mc-eval (cond->if exp) env))
-   ;; Added in for uml:or
-   ((or? exp) (eval-or exp env))
-        ((lambda? exp)
-         (make-procedure (lambda-parameters exp) (lambda-body exp) env))
-        ((begin? exp) (eval-sequence (begin-actions exp) env))
-        ((cond? exp) (mc-eval (cond->if exp) env))
-	((let? exp) (mc-eval (let->combination exp) env))
+   
+        ;; uml:not
+        ((let? exp) (mc-eval (let->combination exp) env))
         ((application? exp)
-         (mc-apply (mc-eval (operator exp) env)
+        (mc-apply (mc-eval (operator exp) env)
 		(list-of-values (operands exp) env)))
         (else (error "Unknown expression type -- MC-EVAL"))))
 
@@ -581,3 +579,10 @@ Tests / evidence that uml:or works:
 ; represented internally.
 ; change this flag to true.
 (define printed-uml:not? #f)
+
+
+
+
+
+
+
