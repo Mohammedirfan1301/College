@@ -22,18 +22,16 @@
         ((assignment? exp) (eval-assignment exp env))
         ((definition? exp) (eval-definition exp env))
         ((if? exp) (eval-if exp env))
-        
         ((and? exp) (eval-and exp env))       ;; uml:and
         ((or? exp) (eval-or exp env))         ;; Added in for uml:or
-        
         ((lambda? exp)
-        (make-procedure (lambda-parameters exp) (lambda-body exp) env))
+         (make-procedure (lambda-parameters exp) (lambda-body exp) env))
         ((begin? exp) (eval-sequence (begin-actions exp) env))
         ((cond? exp) (mc-eval (cond->if exp) env))
         ((let? exp) (mc-eval (let->combination exp) env))
         ((application? exp)
-        (mc-apply (mc-eval (operator exp) env)
-		(list-of-values (operands exp) env)))
+         (mc-apply (mc-eval (operator exp) env)
+		 (list-of-values (operands exp) env)))
         (else (error "Unknown expression type -- MC-EVAL"))))
 
 
@@ -609,6 +607,15 @@ is then called which creates the procedures.
 ;;; MC-Eval value: #f
 ;;; Not sure why I get a bunch of errors, but the final MC-Eval value is false, which makes sense
 ;;; since ANYTHING other then false should return false. So random stuff that isn't "false" should be #f.
+
+;;; MC-Eval input: (uml:not hello)
+;;; (error: Unbound variable hello)
+;;; MC-Eval value: #f
+;;; Not of a variable is false, since anything other than false returns false.
+
+;;; MC-Eval input: (uml:not 1)
+;;; MC-Eval value: #f
+;;; Not of a number is also false, as seen in the above two examples.
 
 *****************************
    The Global Environment:
