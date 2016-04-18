@@ -18,7 +18,6 @@ typedef struct nament {
   struct nament *next;  /* next name in symbol table */
 } SYMTABENTRY;
 
-
 void print_first_pass (int headers);
 void generate_code (void);
 void add_symbol (char *symbol, int line_number);
@@ -30,7 +29,7 @@ FILE *p1, *p2;
 char cstr_12[13];
 
 int main (int argc, char* argv[]) {
-  int i, start, pc_offset = 0, pc = 0;
+  int start, pc_offset = 0, pc = 0;
   int linum = 0, object_file = 0, dump_tab = 0;
   int line_number, new_pc;
   char instruction[18];
@@ -54,16 +53,17 @@ int main (int argc, char* argv[]) {
   p1 = fopen("masmlinker", "w+");
   unlink("masmlinker");
 
-  for (i = start; i < argc; i++) {
-    // Check that we can open the file
-    if ( (p2 = fopen(argv[i], "r")) == NULL) {
-      printf("Cannot open file named: %s", argv[i]);
+  for (int x = start; x < argc; x++) {
+    // Try and open the file.
+    if ( (p2 = fopen(argv[x], "r")) == NULL) {        // Couldn't open it if we get a NULL
+      printf("Cannot open file named: %s", argv[x]);  // So output and error and exit.
       exit(2);
     }
 
     while (fscanf(p2, "%d %s", &pc, instruction) != EOF) {
-      // Check for end of program
-      if(pc == 4096) break;
+      if (pc == 4096) {     // Check for end of program
+        break;
+      }
 
       new_pc = pc + pc_offset;
       symbol[0] = '\0';
@@ -75,6 +75,7 @@ int main (int argc, char* argv[]) {
 
       fprintf(p1, " %d %s %s \n", new_pc, instruction, symbol);
     }
+
     while (fscanf(p2, "%s %d", symbol, &line_number) != EOF) {
       add_symbol(symbol, line_number + pc_offset);
     }
@@ -83,7 +84,7 @@ int main (int argc, char* argv[]) {
     fclose(p2);
   }
 
-  /* if this option was on do it */
+  // No headers case.
   if (object_file) {
     print_first_pass(NO_HEADERS);
     printf("4096 x\n");
@@ -91,7 +92,7 @@ int main (int argc, char* argv[]) {
     return 0;
   }
 
-  /* do this option if it was on */
+  // Headers case
   if (linum) {
     print_first_pass(HEADERS);
   }
@@ -104,16 +105,14 @@ int main (int argc, char* argv[]) {
 void print_first_pass (int headers) {
   char inbuf[81];
 
+  // Headers option
   if (headers == HEADERS) {
-    printf("\n First pass\n");
     rewind(p1);
 
     while (fgets(inbuf, 80, p1) != NULL) {
       printf(" %s", inbuf);
     }
-
-    printf("\n Second Pass \n");
-  } else {
+  } else {          // No headers
     rewind(p1);
 
     while (fgets(inbuf, 80, p1) != NULL) {
@@ -122,9 +121,9 @@ void print_first_pass (int headers) {
   }
 }
 
-void generate_code () {
+void generate_code() {
   char instruction [18];
-  int pc, mask, sym_val, i, j, old_pc, diff;
+  int pc, mask, sym_val, old_pc, diff;
   char symbol[26];
 
   old_pc = 0;
@@ -132,7 +131,7 @@ void generate_code () {
 
   while (fscanf(p1, "%d %s", &pc, instruction) != EOF) {
     if ( (diff = pc - old_pc) > 1 ) {
-      for(j = 1; j < diff; j++) {
+      for(int x = 1; x < diff; x++) {
         printf("1111111111111111 \n");
       }
     }
@@ -148,34 +147,32 @@ void generate_code () {
       }
 
       // contains end of instruction
-      for (i = 0; i<12; i++) {
-        cstr_12[i] = '0';
+      for (int x = 0; x < 12; x++) {
+        cstr_12[x] = '0';
       }
 
-      cstr_12[12] = '\0';
+      cstr_12[12] = '\0';   // Null char
       mask = 2048;
 
-      for (i = 0; i < 12; i++) {
+      for (int x = 0; x < 12; x++) {
 
         if (sym_val & mask) {
-          cstr_12[i] = '1';
+          cstr_12[x] = '1';
         }
         mask >>= 1;
       }
 
-      for (i = 0; i < 12; i++) {
-        instruction[i + 5] = cstr_12[i];
+      for (int x = 0; x < 12; x++) {
+        instruction[x + 5] = cstr_12[x];
       }
 
       printf("%s\n", &instruction[1]);
 
     } else {
-      /* instruction is cooked */
+      // instruction is cooked
       printf("%s\n", instruction);
     }
   }
-
-  return;
 }
 
 // add to symbol table
@@ -194,18 +191,14 @@ void add_symbol (char *symbol, int line_number) {
 
   strcpy(newSymbol -> name, symbol);
   newSymbol -> addr = line_number;
-
-  return;
 }
 
 // Traverse list print every node
 void append_table() {
-  while(symtab != NULL) {
+  while (symtab != NULL) {
     printf("%s \t\t\t%d\n", symtab -> name, symtab -> addr);
     symtab = symtab -> next;
   }
-
-  return;
 }
 
 // Return address of symbol to resolve code
@@ -222,5 +215,6 @@ int get_sym_val (char *symbol) {
       list = list -> next;
     }
   }
+
   return -1;
 }
