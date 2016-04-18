@@ -1,0 +1,266 @@
+USE THE LINKER TO BUILD OBJECT FILES FOR main1.asm
+AND FOR myadd.asm in the first example and for main.asm
+and lcshift.asm in the second:
+
+main1.asm content is:
+
+main:   lodd arg1:
+        push
+        lodd arg2:
+        push
+        call myadd:
+        stod rslt:
+        halt
+        .LOC 10
+arg1:   25
+arg2:   75
+rslt:    0
+
+
+THIS FILE HAS NO SYMBOL RESOLUTION FOR SYMBOL myadd: SO
+IT CANNOT BE MADE INTO AN EXECUTABLE WITH A SIMPLE masm_mrd
+COMMAND:
+
+bash-3.00$ masm_mrd < main1.asm
+0000000000001010
+1111010000000000
+0000000000001011
+1111010000000000
+no symbol in symbol table: myadd:  <<== assembler gives error
+bash-3.00$
+
+
+WE CAN MAKE AN OBJECT FILE FOR LATER LINKING BY USING -o
+OPTION WITH masm_mrd:
+
+
+bash-3.00$ masm_mrd -o < main1.asm
+   0  U0000000000000000    arg1:
+   1  1111010000000000
+   2  U0000000000000000    arg2:
+   3  1111010000000000
+   4  U1110000000000000    myadd:   <<== unknown in this file
+   5  U0001000000000000    rslt:
+   6  1111111111000000
+   10  0000000000011001
+   11  0000000001001011
+   12  0000000000000000
+  4096 x
+    rslt:                       12
+    arg2:                       11
+    arg1:                       10
+    main:                        0
+bash-3.00$
+
+
+
+HERE IS THE CONTENT OF myadd.asm:
+
+myadd:  lodl 1
+        addl 2
+        addd bias:
+        retn
+bias:   100
+
+
+WE CAN ALSO MAKE AN OBJECT FILE FOR THIS:
+
+bash-3.00$ masm_mrd -o < myadd.asm
+   0  1000000000000001
+   1  1010000000000010
+   2  U0010000000000000    bias:
+   3  1111100000000000
+   4  0000000001100100
+  4096 x
+    bias:                        4
+    myadd:                       0
+bash-3.00$
+
+
+
+IN BOTH CASES WE ALLOWED THE OUTPUT TO COME ON THE SCREEN, 
+BUT WE COULD HAVE REDIRECTED TO FILES FOR LINKING USE:
+
+masm_mrd -o < main1.asm > main1.o
+
+AND
+
+masm_mrd -o < myadd.asm > myadd.o
+
+
+NOW WE CAN TAKE THESE .o FILES AND USE THE LINKER TO MAKE
+AN EXECUTABLE FILE:
+
+bash-3.00$ linker main1.o myadd.o     <<== this is my linker
+0000000000001010
+1111010000000000
+0000000000001011
+1111010000000000
+1110000000001101
+0001000000001100
+1111111111000000
+1111111111111111
+1111111111111111
+1111111111111111
+0000000000011001
+0000000001001011
+0000000000000000
+1000000000000001
+1010000000000010
+0010000000010001
+1111100000000000
+0000000001100100
+bash-3.00$
+
+
+THIS EXECUTABLE WAS LISTED ON THE SCREEN, BUT WE COULD HAVE 
+REDIRECTED IT TO A FILE TO USE FOR EXECUTION:
+
+bash-3.00$ linker main1.o myadd.o > m1.exe
+
+
+AND NOW WE CAN RUN THIS EXECUTABLE AS USUAL:
+
+bash-3.00$ mic1 prom_mrd.dat m1.exe 0 1024
+
+Read in 152 micro instructions
+Read in 18 machine instructions
+Starting PC is : 0000000000000000  base 10:       0
+Starting SP is : 0000010000000000  base 10:    1024
+
+
+ProgramCounter : 0000000000000111  base 10:       7
+Accumulator    : 0000000011001000  base 10:     200
+InstructionReg : 1111111111000000  base 10:   65472
+TempInstr      : 1000000000000000  base 10:   32768
+StackPointer   : 0000001111111110  base 10:    1022
+ARegister      : 1010001111111111  base 10:   41983
+BRegister      : 0000000000000000  base 10:       0
+CRegister      : 0000000000000000  base 10:       0
+DRegister      : 0000000000000000  base 10:       0
+ERegister      : 0000000000000000  base 10:       0
+FRegister      : 0000000000000000  base 10:       0
+
+Total cycles   : 113
+
+Type decimal address to view memory,  q  to quit or  c  to continue: 12
+     the location   12 has value 0000000011001000 , or   200  or signed    200
+Type  <Enter>  to continue debugging
+Type        q  to quit
+Type        f for forward range
+Type        b for backward range: q
+MIC-1 emulator finishing, goodbye
+
+bash-3.00$
+
+
+AND WE CAN SEE THE CORRECT RESULT IN LOCATION 12 WHERE WE HAVE THE
+VARIABLE  rslt:  IN MEMORY
+
+
+THE SECOND EXAMPLE INCLUDES THE FILES NAMED main.asm AND lcshift.asm ALSO 
+IN THIS DIRECTORY.  THE main.asm FILE LOADS A CONSTAINT VALUE OF 7 IN THE AC
+AND THEN PUSHES IT ON THE STACK AND CALLS THE LABEL lcshift:
+
+THE CODE IN THE lcshift.asm FILE INCLUDES THE LABEL NAMED lcshift:
+AND THIS LABEL IS CALLED FROM THE main.asm FILE.  THE lcshift: LABEL IS
+THE ENTRY POINT FOR A FUNCTION THAT DOES A LEFT CIRCULAR SHIFT ON THE
+ARGUMENT THAT IS PASSED TO IT ON THE STACK.  THE RESULT OF THE LEFT CIRCULAR
+SHIFT IS RETURNED IN THE AC TO THE CALLING CODE IN main.asm WHICH THEN 
+STORES IT AT THE LABEL rslt:  WHICH IS LOCATED AT ADDRESS 9 IN MEMORY.
+THE COMMANDS TO COMPILE THE TWO ASM FILES INTO OBJECT FILES AND THEN LINK 
+THE OBJECT FILES INTO AN EXECUTABLE AND RUN THE EXECUTABLE ARE SEEN BELOW 
+(the linker used here is my linker, and this is the program you have to
+create for this assignment).  WHEN THE DEBUGGER IS FINALLY ENTERED 
+VIA THE HALT COMMAND, WE CAN VERIFY THAT THE RESULT OF A LEFT CIRCULAT 
+SHIFT ON THE VALUE OF 7 IS 14 (all bits circularly shifted onnce to the left):
+
+
+-bash-4.1$ cd cs305
+-bash-4.1$ ls
+a4_div_test.asm                     MasmSrc
+a4_mult_test.asm                    masm_sym
+a4_rshift_test.asm                  mcc
+a6_help_dir                         MccMcvSrc
+adder.asm                           mcv
+adder.obj                           mic1
+as2testdata                         Mic1Src
+Assignment_7_help.txt               microcode_original.mc
+convert_float_to_bits.c             NandRshiftExample
+convert_float_to_bits_c.txt         prom.dat
+IO_str_and_echo_10_bit_opcodes.obj  prom_mrd.dat
+IO_str_and_echo.asm                 test.asm
+IO_str_and_echo.obj                 testasm.c
+IO_str_and_scan_number.asm          testasm.o
+masm                                testasm.s
+masm_mrd                            test.obj
+-bash-4.1$ cd a6_help_dir
+-bash-4.1$ ls -l
+total 128
+-rw-r--r-- 1 bill fac  3546 Nov 11 20:19 example_linker_use.txt
+-rw-r--r-- 1 bill fac    76 Nov 11 20:19 lcshift.asm
+-rwxr-xr-x 1 bill fac   306 Nov 11 20:19 m1.exe
+-rw-r--r-- 1 bill fac   108 Nov 11 20:19 main1.asm
+-rw-r--r-- 1 bill fac   423 Nov 11 20:19 main1.o
+-rw-r--r-- 1 bill fac    88 Nov 11 20:19 main.asm
+-rwxr-xr-x 1 bill fac 68765 Nov 11 20:19 masm_mrd
+-rwxr-xr-x 1 bill fac 48997 Nov 11 20:19 mic1
+-rw-r--r-- 1 bill fac    50 Nov 11 20:19 myadd.asm
+-rw-r--r-- 1 bill fac   204 Nov 11 20:19 myadd.o
+-rw------- 1 bill fac  5016 Nov 11 20:19 prom_mrd.dat
+-bash-4.1$ ./masm_mrd -o < main.asm > main.o
+-bash-4.1$ ./masm_mrd -o < lcshift.asm > lcshift.o
+-bash-4.1$ ~/cs305demo/A6/linker main.o lcshift.o > lc.exe  <<== my linker
+-bash-4.1$ ./mic1 prom_mrd_v1.dat lc.exe 0 1024
+
+Read in 152 micro instructions
+Read in 18 machine instructions
+Starting PC is : 0000000000000000  base 10:       0
+Starting SP is : 0000010000000000  base 10:    1024
+
+
+ProgramCounter : 0000000000000101  base 10:       5
+Accumulator    : 0000000000001110  base 10:      14
+InstructionReg : 1111111111000000  base 10:   65472
+TempInstr      : 1000000000000000  base 10:   32768
+StackPointer   : 0000001111111111  base 10:    1023
+ARegister      : 1010001111111111  base 10:   41983
+BRegister      : 0000000000000000  base 10:       0
+CRegister      : 0000000000000000  base 10:       0
+DRegister      : 0000000000000000  base 10:       0
+ERegister      : 0000000000000000  base 10:       0
+FRegister      : 0000000000000000  base 10:       0
+
+Total cycles   : 91
+
+Type decimal address to view memory,  q  to quit or  c  to continue: 9
+     the location    9 has value 0000000000001110 , or    14  or signed     14
+Type  <Enter>  to continue debugging
+Type        q  to quit
+Type        f for forward range
+Type        b for backward range: q
+MIC-1 emulator finishing, goodbye
+
+-bash-4.1$ pwd
+/usr/cs/fac1/bill/cs305/a6_help_dir
+-bash-4.1$ ls -l
+total 128
+-rw-r--r-- 1 bill fac  3546 Nov 11 20:19 example_linker_use.txt
+-rw------- 1 bill fac     0 Nov 11 20:29 lc.exe
+-rw-r--r-- 1 bill fac    76 Nov 11 20:19 lcshift.asm
+-rw------- 1 bill fac     0 Nov 11 20:27 lcshift.o
+-rwxr-xr-x 1 bill fac   306 Nov 11 20:19 m1.exe
+-rw-r--r-- 1 bill fac   108 Nov 11 20:19 main1.asm
+-rw-r--r-- 1 bill fac   423 Nov 11 20:19 main1.o
+-rw-r--r-- 1 bill fac    88 Nov 11 20:19 main.asm
+-rw------- 1 bill fac     0 Nov 11 20:27 main.o
+-rwxr-xr-x 1 bill fac 68765 Nov 11 20:19 masm_mrd
+-rwxr-xr-x 1 bill fac 48997 Nov 11 20:19 mic1
+-rw-r--r-- 1 bill fac    50 Nov 11 20:19 myadd.asm
+-rw-r--r-- 1 bill fac   204 Nov 11 20:19 myadd.o
+-rw------- 1 bill fac  5016 Nov 11 20:19 prom_mrd.dat
+-bash-4.1$
+
+THE SOURCE FILES AND ASSEMBLED OBJECT FILES FOR THE EXAMPLES CAN BE
+FOUND IN THIS DIRECTORY.  YOU NEED TO WRITE THE LINKER PROGRAM TO CREATE
+AN EXECUTABLE FROM A SET OF OBJECT FILES.
