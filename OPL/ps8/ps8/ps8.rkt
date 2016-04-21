@@ -137,7 +137,8 @@
 ;;;
 
 (define my-integers
-  (cons-stream 1 (stream-map (lambda (x) x) my-integers)))
+  ;; This was in the book, it basically just does + 1 on all the integers.
+  (cons-stream 1 (stream-map (lambda (x) (+ x 1)) my-integers)))
 
  
 ;;; ******************************************************************
@@ -150,9 +151,11 @@
 ;;; the following procedure, which simply returns its argument after
 ;;; printing it:
 ;;;
-;;; (define (show x)
-;;;   (display-line x)
-;;;   x)
+#|
+     (define (show x)
+      (display-line x)
+       x)
+|#
 ;;;
 ;;; What does the interpreter print in response to evaluating each
 ;;; expression in the following sequence?
@@ -160,14 +163,49 @@
 ;;; Put your answer in comments and change the symbol #f to #t after
 ;;; answering.
 
-(define p4_1 #f)
+(define p4_1 #t)
 ;;; (define x (stream-map show (stream-enumerate-interval 0 10)))
+#|
+All that is printed is a single "0".
+This is because when stream-map gets called, it applies show to the
+stream-enumerate-interval expression which gets delayed and only
+the zero ends up showing up when show actually runs.
+|#
 
-(define p4_2 #f)
+(define p4_2 #t)
 ;;; (stream-ref x 5)
+#|
+What gets printed out is:
+> (stream-ref x 5)
 
-(define p4_3 #f)
+1
+2
+3
+4
+55
+
+The 5 is printed twice because stream-ref must caculate out the first
+5 elements until it hits the 6th element which is when it stops. It then
+prints out what stream-ref wants, which is the "5". The first numbers, 1-5,
+is basically from the calculations while the last 5 is from stream-ref.
+|#
+
+(define p4_3 #t)
 ;;; (stream-ref x 7)
+#|
+All that gets printed out is the following:
+> (stream-ref x 7)
+
+6
+77
+
+This is interesting because the first numbers, 1-5, do not need to be
+recalculated since we already found them when we ran "(stream-ref x 5)".
+As a result, the first five elements have already been found but the last
+two need to be calculated, and that is why only 6 and 7 get printed out,
+and then the result from stream-ref which is the second "7".
+
+|#
 
 
 ;;; ******************************************************************
@@ -187,9 +225,14 @@
 ;;;
 ;;; Put your answers in comments, and change the value of p6 from
 ;;; #f to #t after answering.
-(define p6 #f)
+(define p6 #t)
 
+#|
+This stream will start at 1 and then apply (add-streams) to s and s when
+the full list is needed. add-streams will double s since it is given s twice,
+so the stream will be 1, and then powers of two.
 
+|#
 
 
 ;;; ******************************************************************
@@ -207,10 +250,10 @@
 ;;; (define factorials (cons-stream 1 (mul-streams <??> <??>)))
 
 (define (mul-streams s1 s2)
-  s1)
+  (stream-map-general * s1 s2))
 
 (define factorials 
-  (cons-stream 1 (mul-streams integers integers)))
+  (cons-stream 1 (mul-streams factorials integers)))
 
 
 
