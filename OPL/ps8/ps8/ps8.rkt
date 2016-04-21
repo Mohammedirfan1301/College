@@ -116,7 +116,14 @@
   (= (remainder x y) 0))
 
 (define (divisible-by-2-3-5 int-stream)
-  int-stream)
+  (stream-filter
+       (lambda (x)
+         (cond
+           ((divisible? x 2) x)
+           ((divisible? x 3) x)
+           ((divisible? x 5) x)
+           (else #f)))
+   int-stream))
 
 
 
