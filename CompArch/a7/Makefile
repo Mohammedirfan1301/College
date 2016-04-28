@@ -1,5 +1,5 @@
 # Standard flags for compiling C programs.
-CC = gcc
+CC 		= gcc
 CFLAGS	= -std=c99 -o -Werror -Wextra -Wall
 
 all:

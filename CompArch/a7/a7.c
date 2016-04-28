@@ -91,8 +91,8 @@ int main(void) {
           printf("\nCHILD PROG: about to read pipe and report parent message:\n\n");
 
           read(msg_pipe[0], msg_buf, 100);
-
           printf("CHILD PROC: parent's msg is: %s\n", msg_buf);
+
           printf("CHILD PROC: Process parent ID now is: %d\n", getppid());
           printf("CHILD PROC: ### Goodbye ###\n");
           exit(1);

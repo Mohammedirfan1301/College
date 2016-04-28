@@ -1,0 +1,42 @@
+********************************************************************************
+	This is the output file for assignment 7. It is pretty straight forward,
+	as it follows almost the exact output that the help file lays out at:
+	http://www.cs.uml.edu/~bill/cs305/Assignment_7_help.txt
+********************************************************************************
+
+This is the Parent process report:
+
+PARENT PROG:  Process ID is:		8385
+PARENT PROC:  Process parent ID is:	4166
+PARENT PROC:  Real UID is:		1000
+PARENT PROC:  Real GID is:		1000
+PARENT PROC:  Effective UID is:		1000
+PARENT PROC:  Effective GID is:		1000
+PARENT PROC:  Process priority is:	0
+
+PARENT PROC: will now create child, write pipe,
+   and do a normal termination
+
+********************************************************************************
+	This line is in the wrong spot! It should be below the child process
+	report, after the "about to read pipe and report parent message:" line.
+********************************************************************************
+PARENT PROG: Created child with 8386 PID
+
+This is the Child process report:
+
+CHILD PROG:  Process ID is:		8386
+CHILD PROC:  Process parent ID is:	8385
+CHILD PROC:  Real UID is:		1000
+CHILD PROC:  Real GID is:		1000
+CHILD PROC:  Effective UID is:		1000
+CHILD PROC:  Effective GID is:		1000
+CHILD PROC:  Process priority is:	0
+
+CHILD PROG: about to read pipe and report parent message:
+
+CHILD PROC: parent's msg is:
+This is the pipe message from the parent with 8385 PID
+
+CHILD PROC: Process parent ID now is: 2110
+CHILD PROC: ### Goodbye ###
