@@ -3,6 +3,9 @@
  *  All rights reserved.
  *  MIT Licensed - see http://opensource.org/licenses/MIT for details.
  *
+ *  This file is based off of Assignment_7_help.txt from Prof. Moloney's help directory,
+ *  found at the following URL: http://www.cs.uml.edu/~bill/cs305/Assignment_7_help.txt
+ *
  */
 #include <sys/types.h>
 #include <unistd.h>
@@ -10,80 +13,92 @@
 #include <errno.h>
 #include <stdlib.h>
 #include <sys/resource.h>
+#include <string.h>
 
-// need just a main function, no args
+int main(void) {
+  // some local variables
+  pid_t   pid, ppid;
+  int     ruid, rgid, euid, egid;
+  int     priority;
+  char    msg_buf[100];
+  int     msg_pipe[2];
 
-int main(void)
-{
+  // use the pipe() system call to create the pipe
+  if(pipe(msg_pipe) == -1) {
+    perror("failed in Parent pipe creation:");
+    exit(7);
+  }
 
-// some local variables
+  // use various system calls to collect and print process details
+  printf("\nThis is the Parent process report:\n");
+  pid  = getpid();
+  ppid = getppid();
+  ruid = getuid();
+  euid = geteuid();
+  rgid = getgid();
+  egid = getegid();
+  priority = getpriority(PRIO_PROCESS, 0);
 
-        pid_t   pid, ppid;
-        int     ruid, rgid, euid, egid;
-        int     priority;
-        char    msg_buf[100];
-        int     msg_pipe[2];
+  printf("\nPARENT PROG:  Process ID is:\t\t%d\n", pid);
+  printf("PARENT PROC:  Process parent ID is:\t%d\n", ppid);
+  printf("PARENT PROC:  Real UID is:\t\t%d\n", ruid);
+  printf("PARENT PROC:  Real GID is:\t\t%d\n", rgid);
+  printf("PARENT PROC:  Effective UID is:\t\t%d\n", euid);
+  printf("PARENT PROC:  Effective GID is:\t\t%d\n", egid);
+  printf("PARENT PROC:  Process priority is:\t%d\n", priority);
 
-// use the pipe() system call to create the pipe
+  printf("\nPARENT PROC: will now create child, write pipe,\n \
+  and do a normal termination\n");
 
-        if(pipe(msg_pipe) == -1){
-                perror("failed in Parent pipe creation:");
-                exit(7);
-        }
+  // use the sprintf() call to build a message to write into the pipe
+  // and dont forget to write the message into the pipe before parent exits
+  sprintf(msg_buf, "\nThis is the pipe message from the parent with %d PID\n", pid);
 
-// use various system calls to collect and print process details
+  // now use the fork() call to create the child:
+  switch (pid = fork()) {
 
-        printf("\nThis is the Parent process report:\n");
-        pid  = getpid();
-        ppid = getppid();
-        ruid = getuid();
-        euid = geteuid();
-        rgid = getgid();
-        egid = getegid();
-        priority = getpriority(PRIO_PROCESS, 0);
+        // if the call failes
+        case -1:
+          perror("Fork call failed: ");
+          exit(1);
 
-        printf("\nPARENT PROG:  Process ID is:\t\t%d\n\
-PARENT PROC:  Process parent ID is:\t%d\n\
-PARENT PROC:  Real UID is:\t\t%d\n\
-PARENT PROC:  Real GID is:\t\t%d\n\
-PARENT PROC:  Effective UID is:\t\t%d\n\
-PARENT PROC:  Effective GID is:\t\t%d\n\
-PARENT PROC:  Process priority is:\t%d\n",
-	pid, ppid, ruid, rgid, euid, egid, priority);
+        // this is the parent's case
+        default:
+          printf("\nPARENT PROG: Created child with %d PID\n", pid);
+          write(msg_pipe[1], msg_buf, strlen(msg_buf));
+          exit(1);
 
-	printf("\nPARENT PROC: will now create child, write pipe,\n \
-and do a normal termination\n");
+        // this is the child's case
+        case 0:
+          printf("\nThis is the Child process report:\n");
 
-// use the sprintf() call to build a message to write into the pipe
-// and dont forget to write the message into the pipe before parent exits
-//
+          pid  = getpid();
+          ppid = getppid();
+          ruid = getuid();
+          euid = geteuid();
+          rgid = getgid();
+          egid = getegid();
+          priority = getpriority(PRIO_PROCESS, 0);
 
+          printf("\nCHILD PROG:  Process ID is:\t\t%d\n", pid);
+          printf("CHILD PROC:  Process parent ID is:\t%d\n", ppid);
+          printf("CHILD PROC:  Real UID is:\t\t%d\n", ruid);
+          printf("CHILD PROC:  Real GID is:\t\t%d\n", rgid);
+          printf("CHILD PROC:  Effective UID is:\t\t%d\n", euid);
+          printf("CHILD PROC:  Effective GID is:\t\t%d\n", egid);
+          printf("CHILD PROC:  Process priority is:\t%d\n", priority);
 
-// now use the fork() call to create the child:
-//
-// format is:
-//
-// 	switch (pid = fork()){
-//        case -1: // if the call failes
-//
-//        default: // this is the parent's case
-//                 // parent must write message to pipe and
-//                 // do a normal exit
-//
-//        case 0:  // this is the child's case
-//		   // child must create and print report
-//                 // child must read pipe message and print
-//		   // a modified version of it to output
-//		   // child must do a normal exit
+          printf("\nCHILD PROG: about to read pipe and report parent message:\n\n");
 
-                read(msg_pipe[0], msg_buf, 100);
+          read(msg_pipe[0], msg_buf, 100);
 
-		printf("CHILD PROC: parent's msg is %s\n" msg_buf);
-		printf("CHILD PROC: Process parent ID now is:   %d\n",
-                                                            getppid());
-		printf("CHILD PROC: ### Goodbye ###\n");
-		exit(0);
-        } // switch and child end
+          printf("CHILD PROC: parent's msg is: %s\n", msg_buf);
+          printf("CHILD PROC: Process parent ID now is: %d\n", getppid());
+          printf("CHILD PROC: ### Goodbye ###\n");
+          exit(1);
+  } // switch and child end
+
+  return 0;
 }
 
 
