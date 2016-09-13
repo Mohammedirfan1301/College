@@ -20,6 +20,9 @@ void sigfunc (int signum) {
   // sigfunc must load prof program with execl
   execl("assign1", "/home/asus/Code/College/Operating_Systems/a1", (char*)NULL);
   perror("\nexecl() failure!\n\n");
+
+  printf("Bye.\n");
+  exit(0);
 }
 
 int main (void) {
@@ -163,7 +166,26 @@ int main (void) {
     // parent wakes from wait call when child dies
     // parent prints child term status and finishes
 
-    // Print child term status?
+    // Print child term status
+    printf("Child process terminated! Here's how it terminated: \n");
+
+    // exit or signal
+    if (status == SIGTERM) {
+      printf("Child process EXITED.\n");
+    }
+    else {
+      printf("Child process SIGNALED.\n");
+    }
+
+    char path[1024] = "core*";
+
+    // core dump or no core dump.
+    if (0 == access(path, 0)) {
+      printf("Child process **generated** a core dump!\n");
+    }
+    else {
+      printf("Child process ***did not*** generate a core dump!\n");
+    }
   }
 
   return 0;

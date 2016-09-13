@@ -11,4 +11,4 @@ all:
 
 clean:
 	# Remove the executable / output file.
-	rm a1
+	rm a1 assign1
