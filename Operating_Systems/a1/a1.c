@@ -1,8 +1,9 @@
-/** This is the source file for the first assignment  **/
-/** You may find it helpful to cut and paste from it  **/
-/** The executable you need to exec has been compiled **/
-/**   from this file and is located on mercury at:    **/
-/**                 ~bill/cs308/A1                    **/
+/*
+    Jason Downing
+    Assignment 1
+    Operating Systems - COMP.3060?
+    9/13/2016
+*/
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -13,11 +14,29 @@
 #include <string.h>
 #include <sys/resource.h>
 
+/*
+      Useful links:
+      https://www.gnu.org/software/libc/manual/html_node/Creating-a-Pipe.html
+      http://tldp.org/LDP/lpg/node11.html
+      http://man7.org/tlpi/code/online/diff/pipes/simple_pipe.c.html
+      http://web.mst.edu/~ercal/284/UNIX-fork-exec/Fork-Execl.c
+      http://www.csl.mtu.edu/cs4411.ck/www/NOTES/signal/raise.html
+      http://stackoverflow.com/questions/19414460/for-the-following-c-program-execl-returns-1-signifying-a-permission-denied-er
+      https://www.gnu.org/software/libc/manual/html_node/Exit-Status.html
+*/
+
 int counter = 0, counter_2G = 0;
 
 // your signal handler function, includes execl call
 void sigfunc (int signum) {
   // sigfunc must load prof program with execl
+
+  /*
+      TODO:
+        - change path for CS servers!
+        - keep old path for offline testing!
+  */
+
   execl("assign1", "/home/asus/Code/College/Operating_Systems/a1", (char*)NULL);
   perror("\nexecl() failure!\n\n");
 
