@@ -45,20 +45,20 @@ int main(void)
 
   pid = getpid();
   ppid = getppid();
-  rgid = getgid();
   ruid = getuid();
-  egid = getegid();
+  rgid = getgid();
   euid = geteuid();
+  egid = getegid();
   nice(5);
   priority = getpriority(PRIO_PROCESS, 0);
 
-  printf("\nThis is the Prof process report:\n\n");
+  printf("\nThis is the Prof process report:\n");
   printf("PROF PROG:  Process ID is:\t\t%d\n", pid);
   printf("PROF PROG:  Process parent ID is:\t%d\n", ppid);
-  printf("PROF PROG:  Real GID is:\t\t%d\n", rgid);
   printf("PROF PROG:  Real UID is:\t\t%d\n", ruid);
-  printf("PROF PROG:  Effective GID is:\t\t%d\n", egid);
+  printf("PROF PROG:  Real GID is:\t\t%d\n", rgid);
   printf("PROF PROG:  Effective UID is:\t\t%d\n", euid);
+  printf("PROF PROG:  Effective GID is:\t\t%d\n", egid);
   printf("PROF PROG:  Process priority is:\t%d\n\n", priority);
 
   printf("PROF PROG: going into and endless loop, use\n");

@@ -1,7 +1,7 @@
 /*
     Jason Downing
     Assignment 1
-    Operating Systems - COMP.3060?
+    Operating Systems - COMP.3080
     9/13/2016
 */
 
@@ -29,163 +29,141 @@ int counter = 0, counter_2G = 0;
 
 // your signal handler function, includes execl call
 void sigfunc (int signum) {
-  // sigfunc must load prof program with execl
 
-  /*
-      TODO:
-        - change path for CS servers!
-        - keep old path for offline testing!
-  */
+  printf("\nCHILD PROCESS: Awake in handler.\n");
 
-  execl("assign1", "/home/asus/Code/College/Operating_Systems/a1", (char*)NULL);
+  // run Professor program using excel
+  execl("assign1", "", (char*)NULL);
+
+  // Error output
   perror("\nexecl() failure!\n\n");
-
-  printf("Bye.\n");
-  exit(0);
+  exit(1);
 }
 
 int main (void) {
-  int status;
-
-  //****************************************************************************
-  //                      create pipe with pipe call
-  //****************************************************************************
-  int     fd[2], nbytes;
-  pid_t   childpid;
+  pid_t   child_pid, pid, ppid;
+  int     fd[2], nbytes, status;
+  int     ruid, rgid, euid, egid;
+  int     priority;
   char    string[] = "Hello, world!\n";
   char    readbuffer[80];
+  char    path[1024] = "core*";
 
-  pipe(fd);
+  //  create pipe with pipe call
+  if(pipe(fd) == -1) {
+    perror("\npipe failure!\n\n");
+    exit(2);
+  }
 
-  //****************************************************************************
-  //                      print out your credentials
-  //****************************************************************************
-  pid_t pid, ppid;
-  int ruid, rgid, euid, egid;
-  int priority;
-
+  // Gather credentials
   pid = getpid();
   ppid = getppid();
-  rgid = getgid();
   ruid = getuid();
-  egid = getegid();
+  rgid = getgid();
   euid = geteuid();
+  egid = getegid();
   nice(5);
   priority = getpriority(PRIO_PROCESS, 0);
 
+  //  print out parent credentials
   printf("PARENT Credentials:\n");
   printf("PARENT:  Process ID is:\t\t%d\n", pid);
   printf("PARENT:  Process parent ID is:\t%d\n", ppid);
-  printf("PARENT:  Real GID is:\t\t%d\n", rgid);
   printf("PARENT:  Real UID is:\t\t%d\n", ruid);
-  printf("PARENT:  Effective GID is:\t%d\n", egid);
+  printf("PARENT:  Real GID is:\t\t%d\n", rgid);
   printf("PARENT:  Effective UID is:\t%d\n", euid);
+  printf("PARENT:  Effective GID is:\t%d\n", egid);
   printf("PARENT:  Process priority is:\t%d\n\n", priority);
 
-  //****************************************************************************
-  //                      fork child, block on pipe with read call
-  //****************************************************************************
-  if((childpid = fork()) == -1)
+  //  fork child, block on pipe with read call
+  if((child_pid = fork()) == -1)
   {
-    perror("fork");
-    exit(1);
+    perror("failed to fork");
+    exit(3);
   }
 
-  // Child Process
-  if(childpid == 0) {
-    //****************************************************************************
-    //                    child installs sigfunc with sigaction call
-    //****************************************************************************
+  //****************************************************************************
+  //                                Child Process
+  //****************************************************************************
+  if (child_pid == 0) {
+    //  child installs sigfunc with sigaction call
     sigset_t  mask, proc_mask;
     struct sigaction new;
 
-    sigemptyset(&proc_mask);                     /** clear signal mask **/
-    sigprocmask(SIG_SETMASK, &proc_mask, NULL);
+    sigemptyset(&proc_mask);                      // Clear signal mask
+    sigprocmask(SIG_SETMASK, &proc_mask, NULL);   // Set proc mask
 
     sigemptyset(&mask);
-    new.sa_mask = mask;
-    new.sa_handler = sigfunc;
-    new.sa_flags = 0;
+    new.sa_mask = mask;             // Set signal mask
+    new.sa_handler = sigfunc;       // Set signal function
+    new.sa_flags = 0;               // Set signal flags
 
     // Error check
-    if(sigaction(SIGTERM, &new, NULL) == -1) {
+    if (sigaction(SIGTERM, &new, NULL) == -1) {
       perror("failed in sigaction:");
-      exit(2);
+      exit(4);
     }
 
     // Gathering credentials
     pid = getpid();
     ppid = getppid();
-    rgid = getgid();
     ruid = getuid();
-    egid = getegid();
+    rgid = getgid();
     euid = geteuid();
+    egid = getegid();
     nice(5);
     priority = getpriority(PRIO_PROCESS, 0);
 
-    //****************************************************************************
-    //                    child must print out credentials
-    //****************************************************************************
+    //  print out child credentials
     printf("CHILD Credentials:\n");
     printf("CHILD:  Process ID is:\t\t%d\n", pid);
     printf("CHILD:  Process parent ID is:\t%d\n", ppid);
-    printf("CHILD:  Real GID is:\t\t%d\n", rgid);
     printf("CHILD:  Real UID is:\t\t%d\n", ruid);
-    printf("CHILD:  Effective GID is:\t%d\n", egid);
+    printf("CHILD:  Real GID is:\t\t%d\n", rgid);
     printf("CHILD:  Effective UID is:\t%d\n", euid);
+    printf("CHILD:  Effective GID is:\t%d\n", egid);
     printf("CHILD:  Process priority is:\t%d\n", priority);
 
-    //****************************************************************************
-    //                    child must write pipe with write call
-    //****************************************************************************
-    close(fd[0]);                 // Child process closes up input side of pipe
-    write(fd[1], string, (strlen(string)+1));     // write pipe
+    // Child process closes up input side of pipe
+    close(fd[0]);
+
+    //  child must write pipe with write call
+    write(fd[1], string, (strlen(string)+1));
 
     //****************************************************************************
     //                    child enters endless loop
     //****************************************************************************
-    while (counter_2G < 10) {
-      counter ++;
-      if (counter < 0) {
-        counter = 0;
+    while (counter_2G < 10) {   // Runs for a max of 20 billion iterations
+      counter++;
+      if (counter < 0) {        // Every time counter goes negative, reset it.
+        counter = 0;            // This is roughly 2G, or 2 billion iterations.
         counter_2G++;
       }
     }
 
     // Timeout if the signal never comes through.
     write(1,"Child: timed out after 20 billion iterations\n", 51);
-    exit(2);
+    exit(5);
   }
 
-  // Parent Process
+  //****************************************************************************
+  //                        Parent Process
+  //****************************************************************************
   else {
-    // Parent process closes up output side of pipe
+    //                Parent process closes up output side of pipe
     close(fd[1]);
 
     // block on pipe with read call
     nbytes = read(fd[0], readbuffer, sizeof(readbuffer));
 
     // parent wakes from pipe read (after child writes)
-
     // parent sends SIGTERM to child pid with kill call
-    kill(childpid, SIGTERM);
+    kill(child_pid, SIGTERM);
 
     // parent blocks on wait call
-    wait(&status); /* can use wait(NULL) since exit status
-                        from child is not used. */
+    wait(&status);
 
-    // child moves to sigfunc when SIGTERM arrives
-    // prof program will print out credentials
-    // prof program installs its own signal handler
-    // prof program prompts user for kill command
-    // prof program enters endless loop
-    // user enters shell kill command
-    // prof program enters signal handler, will exit
-
-    // parent wakes from wait call when child dies
     // parent prints child term status and finishes
-
-    // Print child term status
     printf("Child process terminated! Here's how it terminated: \n");
 
     // exit or signal
@@ -195,8 +173,6 @@ int main (void) {
     else {
       printf("Child process SIGNALED.\n");
     }
-
-    char path[1024] = "core*";
 
     // core dump or no core dump.
     if (0 == access(path, 0)) {
