@@ -25,6 +25,16 @@
       https://www.gnu.org/software/libc/manual/html_node/Exit-Status.html
 */
 
+// Exit status union.
+typedef union {
+  int exit_status;
+  struct {
+    unsigned sig_num: 7;
+    unsigned core_dmp: 1;
+    unsigned exit_num: 8;
+  } parts;
+} The_Wait_Status;
+
 int counter = 0, counter_2G = 0;
 
 // your signal handler function, includes execl call
@@ -33,16 +43,16 @@ void sigfunc (int signum) {
   printf("\nCHILD PROCESS: Awake in handler.\n");
 
   // run Professor program using excel
-  execl("assign1", "", (char*)NULL);
-
-  // Error output
-  perror("\nexecl() failure!\n\n");
-  exit(1);
+  if ( execl("assign1", "", (char*)NULL) == -1) {
+    perror("\nexecl() failure!\n\n");
+    exit(3);
+  }
 }
 
 int main (void) {
+  The_Wait_Status exit_union;
   pid_t   child_pid, pid, ppid;
-  int     fd[2], nbytes, status;
+  int     fd[2];
   int     ruid, rgid, euid, egid;
   int     priority;
   char    string[] = "Hello, world!\n";
@@ -50,9 +60,9 @@ int main (void) {
   char    path[1024] = "core*";
 
   //  create pipe with pipe call
-  if(pipe(fd) == -1) {
+  if (pipe(fd) == -1) {
     perror("\npipe failure!\n\n");
-    exit(2);
+    exit(3);
   }
 
   // Gather credentials
@@ -76,7 +86,7 @@ int main (void) {
   printf("PARENT:  Process priority is:\t%d\n\n", priority);
 
   //  fork child, block on pipe with read call
-  if((child_pid = fork()) == -1)
+  if ((child_pid = fork()) == -1)
   {
     perror("failed to fork");
     exit(3);
@@ -100,8 +110,8 @@ int main (void) {
 
     // Error check
     if (sigaction(SIGTERM, &new, NULL) == -1) {
-      perror("failed in sigaction:");
-      exit(4);
+      perror("\nSigation failed!\n");
+      exit(3);
     }
 
     // Gathering credentials
@@ -128,11 +138,12 @@ int main (void) {
     close(fd[0]);
 
     //  child must write pipe with write call
-    write(fd[1], string, (strlen(string)+1));
+    if (write(fd[1], string, (strlen(string)+1)) == -1) {
+      perror("\nWrite failed!\n");
+      exit(3);
+    }
 
-    //****************************************************************************
-    //                    child enters endless loop
-    //****************************************************************************
+    //  child enters endless loop
     while (counter_2G < 10) {   // Runs for a max of 20 billion iterations
       counter++;
       if (counter < 0) {        // Every time counter goes negative, reset it.
@@ -143,43 +154,52 @@ int main (void) {
 
     // Timeout if the signal never comes through.
     write(1,"Child: timed out after 20 billion iterations\n", 51);
-    exit(5);
+    exit(3);
   }
 
   //****************************************************************************
   //                        Parent Process
   //****************************************************************************
   else {
-    //                Parent process closes up output side of pipe
+    //  Parent process closes up output side of pipe
     close(fd[1]);
 
     // block on pipe with read call
-    nbytes = read(fd[0], readbuffer, sizeof(readbuffer));
+    if (read(fd[0], readbuffer, sizeof(readbuffer)) == -1) {
+      perror("\nRead failed!\n");
+      exit(3);
+    }
 
     // parent wakes from pipe read (after child writes)
     // parent sends SIGTERM to child pid with kill call
-    kill(child_pid, SIGTERM);
+    if (kill(child_pid, SIGTERM) == -1) {
+      perror("\nKill failed!\n");
+      exit(3);
+    }
 
     // parent blocks on wait call
-    wait(&status);
+    if ( (pid = wait(&exit_union.exit_status)) == -1) {
+      perror("\nWait failed!\n");
+      exit(3);
+    }
 
     // parent prints child term status and finishes
-    printf("Child process terminated! Here's how it terminated: \n");
+    printf("Child %d terminated with ", pid);
 
-    // exit or signal
-    if (status == SIGTERM) {
-      printf("Child process EXITED.\n");
+    // Check for exit code vs signal code
+    if (exit_union.parts.sig_num == 0) {
+      printf("exit code %d and ", exit_union.parts.exit_num);
     }
     else {
-      printf("Child process SIGNALED.\n");
+      printf("signal code %d and ", exit_union.parts.sig_num);
     }
 
-    // core dump or no core dump.
-    if (0 == access(path, 0)) {
-      printf("Child process **generated** a core dump!\n");
+    // Check for core dump vs no core dump
+    if (exit_union.parts.core_dmp == 0) {
+      printf("no core dump.\n");
     }
     else {
-      printf("Child process ***did not*** generate a core dump!\n");
+      printf("generated a core dump.\n");
     }
   }
 
