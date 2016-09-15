@@ -4,7 +4,6 @@
     Operating Systems - COMP.3080
     9/13/2016
 */
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <sys/types.h>
@@ -61,7 +60,7 @@ int main (void) {
 
   //  create pipe with pipe call
   if (pipe(fd) == -1) {
-    perror("\npipe failure!\n\n");
+    perror("\nPipe failure!\n\n");
     exit(3);
   }
 
@@ -88,7 +87,7 @@ int main (void) {
   //  fork child, block on pipe with read call
   if ((child_pid = fork()) == -1)
   {
-    perror("failed to fork");
+    perror("\nFailed to fork\n");
     exit(3);
   }
 
@@ -110,7 +109,7 @@ int main (void) {
 
     // Error check
     if (sigaction(SIGTERM, &new, NULL) == -1) {
-      perror("\nSigation failed!\n");
+      perror("\nSig action failed!\n");
       exit(3);
     }
 

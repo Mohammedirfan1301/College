@@ -15,8 +15,8 @@
 int counter = 0, counter_2G = 0;
 
 void sig_handler(int signal) {
-  printf("\nPROF PROG: Awake in handler - You Got Me With Signal\n");
-  printf("Number %d after spinning for more\n than %d %s loop iterations. Goodbye! :)\n\n\n",
+  printf("PROF PROG: Awake in handler - You Got Me With Signal\n");
+  printf("Number %d after spinning for more\n than %d %s loop iterations. Goodbye! :)\n\n",
           signal, ((counter_2G)?counter_2G*2:counter), ((counter_2G)?"Billion":"\0"));
   exit(1);
 }
