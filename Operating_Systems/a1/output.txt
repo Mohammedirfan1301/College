@@ -1,0 +1,46 @@
+asus@asus: a1$ make all
+# Compile the program.
+gcc  a1.c -o a1
+# Compile the professor's program.
+gcc  assign1.c -o assign1
+asus@asus: a1$ ./a1 &
+[1] 5082
+asus@asus: a1$ PARENT Credentials:
+PARENT:  Process ID is:   5082
+PARENT:  Process parent ID is:  4940
+PARENT:  Real UID is:   1000
+PARENT:  Real GID is:   1000
+PARENT:  Effective UID is:  1000
+PARENT:  Effective GID is:  1000
+PARENT:  Process priority is: 5
+
+CHILD Credentials:
+CHILD:  Process ID is:    5083
+CHILD:  Process parent ID is: 5082
+CHILD:  Real UID is:    1000
+CHILD:  Real GID is:    1000
+CHILD:  Effective UID is: 1000
+CHILD:  Effective GID is: 1000
+CHILD:  Process priority is:  10
+
+CHILD PROCESS: Awake in handler.
+
+This is the Prof process report:
+PROF PROG:  Process ID is:    5083
+PROF PROG:  Process parent ID is: 5082
+PROF PROG:  Real UID is:    1000
+PROF PROG:  Real GID is:    1000
+PROF PROG:  Effective UID is:   1000
+PROF PROG:  Effective GID is:   1000
+PROF PROG:  Process priority is:  15
+
+PROF PROG: going into and endless loop, use
+kill 5083  to kill me now
+
+kill 5083
+PROF PROG: Awake in handler - You Got Me With Signal
+Number 15 after spinning for more
+ than 2 Billion loop iterations. Goodbye! :)
+
+Child 5083 terminated with exit code 1 and no core dump.
+asus@asus: a1$

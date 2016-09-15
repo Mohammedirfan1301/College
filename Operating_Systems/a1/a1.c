@@ -20,8 +20,8 @@
       http://man7.org/tlpi/code/online/diff/pipes/simple_pipe.c.html
       http://web.mst.edu/~ercal/284/UNIX-fork-exec/Fork-Execl.c
       http://www.csl.mtu.edu/cs4411.ck/www/NOTES/signal/raise.html
-      http://stackoverflow.com/questions/19414460/for-the-following-c-program-execl-returns-1-signifying-a-permission-denied-er
       https://www.gnu.org/software/libc/manual/html_node/Exit-Status.html
+      http://unix.stackexchange.com/questions/103731/run-a-command-without-making-me-wait
 */
 
 // Exit status union.
