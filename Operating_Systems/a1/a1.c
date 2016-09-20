@@ -71,7 +71,6 @@ int main (void) {
   rgid = getgid();
   euid = geteuid();
   egid = getegid();
-  nice(5);
   priority = getpriority(PRIO_PROCESS, 0);
 
   //  print out parent credentials
@@ -120,7 +119,6 @@ int main (void) {
     rgid = getgid();
     euid = geteuid();
     egid = getegid();
-    nice(5);
     priority = getpriority(PRIO_PROCESS, 0);
 
     //  print out child credentials
