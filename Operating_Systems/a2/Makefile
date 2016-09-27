@@ -8,4 +8,4 @@ all:
 
 clean:
 	# Remove the executable / output file.
-	rm a2_sort a2_grep
+	rm a2_sort a2_grep sorted_data

@@ -101,13 +101,13 @@ int main (int argc, char *argv[]) {
     printf("%s", msg);
 
     // Count all the matches
-    if (msg == '\n') {
+    if (msg[0] == '\n') {
       count++;
     }
   }
 
   // Print the final area code / count
-  printf("\n Found %d matches in the grep data!\n", count);
+  printf("\nFound %d matches in the grep data!\n", count);
 
   return 0;
 }
