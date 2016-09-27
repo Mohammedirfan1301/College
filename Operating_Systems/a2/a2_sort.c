@@ -20,9 +20,11 @@
 #define WRITE 1
 
 int main (int argc, char *argv[]) {
-  int     inPipe[2], outPipe[2];
-  char    readBuffer[512];
   pid_t   child_pid;
+  int     inPipe[2], outPipe[2];
+  int     total = 0, count = -1, oldAreaCode = 0, areaCode = 0;
+  char    readBuffer[512], first[80], last[80], msg[2];
+  FILE    *outWrite, *sortData, *sortOut, *sortIn;
 
   if (argc == 1 || argc > 2) {
     printf("\nUsage: ./a2_sort file_name_to_sort\n\n");
@@ -79,9 +81,6 @@ int main (int argc, char *argv[]) {
   //****************************************************************************
   //                                Parent case
   //****************************************************************************
-  FILE *outWrite, *sortData, *sortOut, *sortIn;
-  char msg[2];
-
   // Open the out pipe as a file.
   outWrite = fdopen(outPipe[WRITE], "w");
 
@@ -120,9 +119,6 @@ int main (int argc, char *argv[]) {
     printf("Error opening temp data file for reading!\n");
     exit(4);
   }
-
-  int total = 0, count = -1, oldAreaCode = 0, areaCode = 0;
-  char first[80], last[80];
 
   // Run through the entire list, one line at a time
   while (fgets(readBuffer, 80, sortIn) != NULL) {

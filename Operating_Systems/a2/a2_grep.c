@@ -21,7 +21,8 @@
 
 int main (int argc, char *argv[]) {
   int     inPipe[2], outPipe[2];
-  char    readBuffer[512];
+  FILE *outWrite, *grepData;
+  char    readBuffer[512], msg[2];
   pid_t   child_pid;
 
   if (argc == 1 || argc > 2) {
@@ -79,9 +80,6 @@ int main (int argc, char *argv[]) {
   //****************************************************************************
   //                                Parent case
   //****************************************************************************
-  FILE *outWrite, *grepData;
-  char msg[2];
-
   // Open the out pipe as a file.
   outWrite = fdopen(outPipe[WRITE], "w");
 
