@@ -18,12 +18,14 @@
 
 #define READ 0
 #define WRITE 1
+#define LINE_WIDTH 80
 
 int main (int argc, char *argv[]) {
   pid_t   child_pid;
   int     inPipe[2], outPipe[2];
-  char    readBuffer[80];
-  FILE    *outWrite, *grepData;
+  int     count = 0, bytes_read = 0, grep_file;
+  char    line_buffer[80];
+  FILE    *outWrite, *grepData, *grepTemp;
 
   // Check to see if the user used the program correctly.
   if (argc == 1 || argc > 2) {
@@ -97,8 +99,8 @@ int main (int argc, char *argv[]) {
   }
 
   // Loop to send each line of the file through the pipe.
-  while (fgets(readBuffer, 80, grepData) != NULL) {
-    fprintf(outWrite, "%s", readBuffer);
+  while (fgets(line_buffer, LINE_WIDTH, grepData) != NULL) {
+    fprintf(outWrite, "%s", line_buffer);
   }
 
   // close unneeded files and pipes.
@@ -109,27 +111,29 @@ int main (int argc, char *argv[]) {
   fclose(grepData);
 
   // Open temp file to write child output to.
-  int count = 0, bytes_read = 0;
-  FILE* grepTemp = fopen("grep_temp.txt", "w+");
-  int grep_file = open("grep_temp.txt", O_RDWR);
+  grepTemp = fopen("grep_temp.txt", "w+");
+  grep_file = open("grep_temp.txt", O_RDWR);
 
   // Read from child, and put the results into a temp file.
   // Make sure to check for read errors
-  while ( (bytes_read = read(inPipe[READ], readBuffer, 80)) != 0) {
+  while ( (bytes_read = read(inPipe[READ], line_buffer, LINE_WIDTH)) != 0) {
     // Check for write errors
-    if (write(grep_file, readBuffer, bytes_read) == -1) {
+    if (write(grep_file, line_buffer, bytes_read) == -1) {
       printf("Error writing to temp file!\n");
       exit(4);
     }
   }
 
   // Count the number of lines in the temp file (grep matches)
-  while (fgets(readBuffer, 80, grepTemp) != NULL) {
+  while (fgets(line_buffer, LINE_WIDTH, grepTemp) != NULL) {
     count++;
   }
 
   // Print the number of matches that grep found.
   printf("\nFound %d matches in the grep data!\n\n", count);
+
+  // Close the grep temp file
+  fclose(grepTemp);
 
   return 0;
 }

@@ -18,12 +18,15 @@
 
 #define READ 0
 #define WRITE 1
+#define LINE_WIDTH 80
 
 int main (int argc, char *argv[]) {
   pid_t   child_pid;
   int     inPipe[2], outPipe[2];
-  char    readBuffer[80], first[80], last[80];
-  FILE    *outWrite, *sortData;
+  int     count = -1, total = 0, oldAreaCode = 0, curAreaCode = 0;
+  int     bytes_read = 0, sort_file = 0;
+  char    line_buffer[80], first[80], last[80];
+  FILE    *outWrite, *sortData, *sortTemp;
 
   // Check to see if the user used the program correctly.
   if (argc == 1 || argc > 2) {
@@ -95,8 +98,8 @@ int main (int argc, char *argv[]) {
   }
 
   // Loop to send each line of the file through the pipe.
-  while (fgets(readBuffer, 80, sortData) != NULL) {
-    fprintf(outWrite, "%s", readBuffer);
+  while (fgets(line_buffer, LINE_WIDTH, sortData) != NULL) {
+    fprintf(outWrite, "%s", line_buffer);
   }
 
   // close unneeded files and pipes.
@@ -107,39 +110,38 @@ int main (int argc, char *argv[]) {
   fclose(sortData);
 
   // Open file to write sorted data to.
-  int total = 0, count = -1, oldAreaCode = 0, areaCode = 0, bytes_read = 0;
-  FILE* sortTemp = fopen("sorted_temp.txt", "w+");
-  int sort_file = open("sorted_temp.txt", O_RDWR);
+  sortTemp = fopen("sorted_temp.txt", "w+");
+  sort_file = open("sorted_temp.txt", O_RDWR);
 
   // Read from child, and put the results into a temp file.
   // Make sure to check for read errors
-  while ( (bytes_read = read(inPipe[READ], readBuffer, 80)) != 0) {
+  while ( (bytes_read = read(inPipe[READ], line_buffer, LINE_WIDTH)) != 0) {
     // Check for write errors
-    if (write(sort_file, readBuffer, bytes_read) == -1) {
+    if (write(sort_file, line_buffer, bytes_read) == -1) {
       printf("Error writing to temp file!\n");
       exit(4);
     }
   }
 
   // Run through the entire list, one line at a time
-  while (fgets(readBuffer, 80, sortTemp) != NULL) {
-    sscanf(readBuffer, "%s %s %d\n", last, first, &areaCode);
+  while (fgets(line_buffer, LINE_WIDTH, sortTemp) != NULL) {
+    sscanf(line_buffer, "%s %s %d\n", last, first, &curAreaCode);
 
     // Detect the first areaCode.
     if (oldAreaCode == 0) {
-      oldAreaCode = areaCode;
+      oldAreaCode = curAreaCode;
       count++;
     }
 
     // Count the number of people with the same area code
-    if (oldAreaCode == areaCode) {
+    if (oldAreaCode == curAreaCode) {
       count++;
       total++;
     }
     else {
       // Found a new area code, so print it + the count we found.
       printf("Area code %d had %d unique names\n", oldAreaCode, count);
-      oldAreaCode = areaCode;
+      oldAreaCode = curAreaCode;
       count = 1;
       total++;
     }
