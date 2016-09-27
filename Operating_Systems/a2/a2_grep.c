@@ -20,11 +20,12 @@
 #define WRITE 1
 
 int main (int argc, char *argv[]) {
-  int     inPipe[2], outPipe[2];
-  FILE *outWrite, *grepData;
-  char    readBuffer[512], msg[2];
   pid_t   child_pid;
+  int     inPipe[2], outPipe[2];
+  char    readBuffer[80];
+  FILE    *outWrite, *grepData;
 
+  // Check to see if the user used the program correctly.
   if (argc == 1 || argc > 2) {
     printf("\nUsage: ./a2_grep file_name_to_grep\n");
     exit(1);
@@ -83,7 +84,7 @@ int main (int argc, char *argv[]) {
   // Open the out pipe as a file.
   outWrite = fdopen(outPipe[WRITE], "w");
 
-  // Open the file to be sorted (will be sent to child)
+  // Open the file to be fed to grep (will be sent to child)
   if ( (grepData = fopen(argv[1], "r")) == NULL) {
     perror("\nError opening file!\n");
   }
@@ -101,18 +102,21 @@ int main (int argc, char *argv[]) {
   fclose(grepData);
 
   // Open file to write to.
-  msg[1] = '\0';
-  int count = 0;
+  int count = 0, bytes_read = 0;
+  FILE* temp = fopen("temp.txt", "w+");
+  int new_file = open("temp.txt", O_RDWR);
 
-  // Run through the grep data looking for matches.
-  while (read(inPipe[READ], msg, 1) > 0) {
-    // Debugging output
-    //printf("%s", msg);
-
-    // Count all the matches
-    if (msg[0] == '\n') {
-      count++;
+  // Read from child, and put the results into a temp file.
+  while ( (bytes_read = read(inPipe[READ], readBuffer, 80)) != 0) {
+    if (write(new_file, readBuffer, bytes_read) == -1) {
+      printf("Error writing to temp file!\n");
+      exit(4);
     }
+  }
+
+  // Count the number of lines in the temp file (grep matches)
+  while (fgets(readBuffer, 80, temp) != NULL) {
+    count++;
   }
 
   // Print the final area code / count

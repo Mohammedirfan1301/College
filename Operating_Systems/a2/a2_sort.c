@@ -23,9 +23,10 @@ int main (int argc, char *argv[]) {
   pid_t   child_pid;
   int     inPipe[2], outPipe[2];
   int     total = 0, count = -1, oldAreaCode = 0, areaCode = 0;
-  char    readBuffer[512], first[80], last[80], msg[2];
+  char    readBuffer[80], first[80], last[80], msg[2];
   FILE    *outWrite, *sortData, *sortOut, *sortIn;
 
+  // Check to see if the user used the program correctly.
   if (argc == 1 || argc > 2) {
     printf("\nUsage: ./a2_sort file_name_to_sort\n\n");
     exit(1);
