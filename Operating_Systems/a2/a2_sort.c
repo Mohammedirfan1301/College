@@ -8,6 +8,8 @@
 #include <stdlib.h>
 #include <fcntl.h>
 #include <unistd.h>
+#include <string.h>
+#include <errno.h>
 
 /*
     Useful links:
@@ -22,101 +24,123 @@
     sort -k3,3 -k1,1 cs308a2_sort_data.txt
 */
 
-int main (void) {
+#define READ 0
+#define WRITE 1
+
+int main (int argc, char *argv[]) {
   int     inPipe[2], outPipe[2], rd_bytes;
   char    readBuffer[512];
   pid_t   child_pid;
 
+  // See if the user supplied a file to open
+  // if (argc == 1 || argc > 2) {
+  //   printf("\nUsage: ./a2_sort file-to-sort\n\n");
+  //   exit(1);
+  // }
+
   // Create a pipe, and check for failure (-1)
   if (pipe(outPipe) == -1 || pipe(inPipe) == -1) {
-    perror("\nPipe failure!\n\n");
+    perror("\nParent pipe failure!\n\n");
     exit(2);
   }
 
-  switch (fork() ) {
-    // Call failed
-    case -1:
-      perror("\nFailed to fork\n");
-      exit(1);
+  // Fork to create a child process
+  child_pid = fork();
 
-    case 0:
-      // Closing stdout
-      if (close(0) == -1) {
-          perror("\nCHILD pipe close error: stdout[0].\n");
-          exit(3);
-      }
-
-      // Alias for stdout
-      if (dup(outPipe[0]) != 0) {
-          perror("\nCHILD pipe dup error: stdout[0].\n");
-          exit(3);
-      }
-
-      // Closing stdin
-      if (close(1) == -1) {
-          perror("\nCHILD pipe close error: stdin[1].\n");
-          exit(3);
-      }
-
-      // Alias for stdin
-      if (dup(inPipe[1]) != 1) {
-          perror("\nCHILD pipe dup error: stdout[1].\n");
-          exit(3);
-      }
-
-      // Close unneeded pipes
-      if (close(outPipe[0]) == -1 || close(outPipe[1]) == -1
-          || close(inPipe[0]) == -1 || close(inPipe[1]) == -1) {
-        perror("\nCHILD: pipe failed to close.\n");
-        exit(4);
-      }
-
-      // Run the sort
-      // Command looks like: sort -k3,3 -k1,1 cs308a2_sort_data.txt
-      //execlp("sort", "-k3,3", "-k1,1", NULL);
-      execlp("sort", "sort", "-k", "3.3n", "-k", "1.1", "-k", "2.2", NULL);
-
-      perror("\nSort has failed to run correctly.\n");
-      exit(4);
-  }   // end of switch / child
-
-  // Close unneeded pipes
-  if (close(outPipe[0]) == -1 || close(inPipe[1]) == -1) {
-      printf("\nCould not close pipes");
-      exit(3);
+  // Error case
+  if (child_pid == -1) {
+    perror("\nFailed to create a child process!\n");
+    exit(1);
   }
+  //****************************************************************************
+  //                                 Child case
+  //****************************************************************************
+  else if (child_pid == 0) {
 
-  // Open the file to be sorted
-  int fd = 0;
-  fd = open("cs308a2_sort_data", O_RDONLY, 0);
+    // Channel plumbing for stdin
+    close(0);
 
-  // Read the data from the file
-  while (rd_bytes = read(fd, readBuffer, 80)) {
-    // Write the data from the file into the pipe. Check for errors.
-    if (write(outPipe[1], readBuffer, rd_bytes) == -1) {
-      printf("\nUnabled to write to child.\n");
-      exit(2);
+    if (dup(outPipe[READ]) != 0) {
+        perror("\nCHILD pipe dup error: outPipe[READ].\n");
+        exit(3);
     }
+
+    close(outPipe[READ]);
+    close(outPipe[WRITE]);
+
+    // Channel plumbing for stdout
+    close(1);
+
+    if (dup(inPipe[WRITE]) != 1) {
+        perror("\nCHILD pipe dup error: inPipe[WRITE].\n");
+        exit(3);
+    }
+
+    close(inPipe[READ]);
+    close(inPipe[WRITE]);
+
+    // Run the sort
+    // Command looks like: sort -k3,3 -k1,1 cs308a2_sort_data.txt
+    //execlp("sort", "-k3,3", "-k1,1", NULL);
+    execlp("sort", "sort", "-k", "3.3n", "-k", "1.1", "-k", "2.2", NULL);
+
+    perror("\nSort has failed to run correctly.\n");
+    exit(4);
+  }
+  //****************************************************************************
+  //                                Parent case
+  //****************************************************************************
+  FILE *outWrite, *sortData, *sortOut, *sortIn;
+  char msg[2];
+
+  // Open the out pipe as a file.
+  outWrite = fdopen(outPipe[WRITE], "w");
+
+  // Open the file to be sorted (will be sent to child)
+  if ( (sortData = fopen("cs308a2_sort_data", "r")) == NULL) {
+    perror("\nError opening file!\n");
   }
 
-  // Close unneeded pipes
-  if (close(outPipe[1] == -1)) {
-    printf("\nCould not close pipe\n");
-    exit(3);
+  // Loop to send each line of the file through the pipe.
+  while (fgets(readBuffer, 80, sortData) != NULL) {
+    fprintf(outWrite, readBuffer);
   }
 
-  // Open child's stdout
-  FILE* fp = fdopen(inPipe[0], "r");
+  // close unneeded files and pipes.
+  fflush(outWrite);
+  fclose(outWrite);
+  close(outPipe[READ]);
+  close(inPipe[WRITE]);
+  fclose(sortData);
 
-  int count = -1;
-  int oldAreaCode = 0;
-  int areaCode, three, four;
+  // Open file to write to.
+  msg[1] = '\0';
+  sortOut = fopen("sorted_data", "w");
+
+  // Print out data returned by sort
+  while (read(inPipe[READ], msg, 1) > 0) {
+    fprintf(sortOut, "%s", msg);
+  }
+
+  // Close output file
+  fflush(sortOut);
+  fclose(sortOut);
+
+  // Open file for reading
+  if ( (sortIn = fopen("sorted_data", "r")) == NULL) {
+    printf("Error opening temp data file for reading!\n");
+    exit(4);
+  }
+
+  int count = -1, oldAreaCode = 0, areaCode = 0;
   char first[80], last[80];
 
   printf("Got to the part where we sort stuff.\n");
 
   // Run through the entire list, one line at a time.
-  while (fscanf(fp, "%s %s %d %d %d\n", last, first, &areaCode, &three, &four) != EOF) {
+  while (fgets(readBuffer, 80, sortIn) != EOF) {
+    fscanf(readBuffer, "%s %s %d\n", last, first, &areaCode);
+
     // Detect the first areaCode.
     if (oldAreaCode == 0) {
       oldAreaCode = areaCode;
@@ -126,7 +150,6 @@ int main (void) {
     // Count the number of people with the same area code
     if (oldAreaCode == areaCode) {
       count++;
-      continue;
     }
     else {
       // Found a new area code, so print it + the count we found.
@@ -138,9 +161,6 @@ int main (void) {
 
   // Print the final area code / count
   printf("%d: %d\n", oldAreaCode, count);
-
-  // Close the child's stdout.
-  fclose(fp);
 
   return 0;
 }
