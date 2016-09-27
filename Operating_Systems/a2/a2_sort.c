@@ -24,11 +24,11 @@
 
 int main (void) {
   int     inPipe[2], outPipe[2], rd_bytes;
-  char    readBuffer[80];
+  char    readBuffer[512];
   pid_t   child_pid;
 
   // Create a pipe, and check for failure (-1)
-  if (pipe(inPipe) == -1 || pipe(outPipe) == -1) {
+  if (pipe(outPipe) == -1 || pipe(inPipe) == -1) {
     perror("\nPipe failure!\n\n");
     exit(2);
   }
@@ -82,26 +82,26 @@ int main (void) {
 
   // Close unneeded pipes
   if (close(outPipe[0]) == -1 || close(inPipe[1]) == -1) {
-      perror("\nCould not close pipes");
+      printf("\nCould not close pipes");
       exit(3);
   }
 
   // Open the file to be sorted
   int fd = 0;
-  fd = open("cs308a2_sort_data.txt", O_RDONLY, 0);
+  fd = open("cs308a2_sort_data", O_RDONLY, 0);
 
   // Read the data from the file
   while (rd_bytes = read(fd, readBuffer, 80)) {
     // Write the data from the file into the pipe. Check for errors.
     if (write(outPipe[1], readBuffer, rd_bytes) == -1) {
-      perror("\nUnabled to write to child.\n");
+      printf("\nUnabled to write to child.\n");
       exit(2);
     }
   }
 
   // Close unneeded pipes
   if (close(outPipe[1] == -1)) {
-    perror("\nCould not close pipe\n");
+    printf("\nCould not close pipe\n");
     exit(3);
   }
 
@@ -117,8 +117,6 @@ int main (void) {
 
   // Run through the entire list, one line at a time.
   while (fscanf(fp, "%s %s %d %d %d\n", last, first, &areaCode, &three, &four) != EOF) {
-    printf("HI!\n");
-
     // Detect the first areaCode.
     if (oldAreaCode == 0) {
       oldAreaCode = areaCode;
@@ -128,10 +126,12 @@ int main (void) {
     // Count the number of people with the same area code
     if (oldAreaCode == areaCode) {
       count++;
+      continue;
     }
     else {
       // Found a new area code, so print it + the count we found.
       printf("%d: %d\n", oldAreaCode, count);
+      oldAreaCode = areaCode;
       count = 1;
     }
   }
