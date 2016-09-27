@@ -6,205 +6,108 @@
 */
 #include <stdio.h>
 #include <stdlib.h>
-#include <sys/types.h>
+#include <fcntl.h>
 #include <unistd.h>
-#include <errno.h>
-#include <signal.h>
 #include <string.h>
-#include <sys/resource.h>
+#include <errno.h>
 
-/*
-      Useful links:
-      https://www.gnu.org/software/libc/manual/html_node/Creating-a-Pipe.html
-      http://tldp.org/LDP/lpg/node11.html
-      http://man7.org/tlpi/code/online/diff/pipes/simple_pipe.c.html
-      http://web.mst.edu/~ercal/284/UNIX-fork-exec/Fork-Execl.c
-      http://www.csl.mtu.edu/cs4411.ck/www/NOTES/signal/raise.html
-      https://www.gnu.org/software/libc/manual/html_node/Exit-Status.html
-      http://unix.stackexchange.com/questions/103731/run-a-command-without-making-me-wait
-*/
+#define READ 0
+#define WRITE 1
 
-/*
-    grep command should be:
-    grep 123 cs308a2_grep_data_1.txt
-    grep 123 cs308a2_grep_data_2.txt
-*/
+int main (int argc, char *argv[]) {
+  int     inPipe[2], outPipe[2], rd_bytes;
+  char    readBuffer[512];
+  pid_t   child_pid;
 
-// Exit status union.
-typedef union {
-  int exit_status;
-  struct {
-    unsigned sig_num: 7;
-    unsigned core_dmp: 1;
-    unsigned exit_num: 8;
-  } parts;
-} The_Wait_Status;
-
-int counter = 0, counter_2G = 0;
-
-// your signal handler function, includes execl call
-void sigfunc (int signum) {
-
-  printf("\nCHILD PROCESS: Awake in handler.\n");
-
-  // run Professor program using excel
-  if ( execl("assign1", "", (char*)NULL) == -1) {
-    perror("\nexecl() failure!\n\n");
-    exit(3);
-  }
-}
-
-int main (void) {
-  The_Wait_Status exit_union;
-  pid_t   child_pid, pid, ppid;
-  int     fd[2];
-  int     ruid, rgid, euid, egid;
-  int     priority;
-  char    string[] = "Hello, world!\n";
-  char    readbuffer[80];
-  char    path[1024] = "core*";
-
-  //  create pipe with pipe call
-  if (pipe(fd) == -1) {
-    perror("\nPipe failure!\n\n");
-    exit(3);
+  // Create a pipe, and check for failure (-1)
+  if (pipe(outPipe) == -1 || pipe(inPipe) == -1) {
+    perror("\nParent pipe failure!\n\n");
+    exit(2);
   }
 
-  // Gather credentials
-  pid = getpid();
-  ppid = getppid();
-  ruid = getuid();
-  rgid = getgid();
-  euid = geteuid();
-  egid = getegid();
-  priority = getpriority(PRIO_PROCESS, 0);
+  // Fork to create a child process
+  child_pid = fork();
 
-  //  print out parent credentials
-  printf("PARENT Credentials:\n");
-  printf("PARENT:  Process ID is:\t\t%d\n", pid);
-  printf("PARENT:  Process parent ID is:\t%d\n", ppid);
-  printf("PARENT:  Real UID is:\t\t%d\n", ruid);
-  printf("PARENT:  Real GID is:\t\t%d\n", rgid);
-  printf("PARENT:  Effective UID is:\t%d\n", euid);
-  printf("PARENT:  Effective GID is:\t%d\n", egid);
-  printf("PARENT:  Process priority is:\t%d\n\n", priority);
-
-  //  fork child, block on pipe with read call
-  if ((child_pid = fork()) == -1)
-  {
-    perror("\nFailed to fork\n");
-    exit(3);
+  // Error case
+  if (child_pid == -1) {
+    perror("\nFailed to create a child process!\n");
+    exit(1);
   }
-
   //****************************************************************************
-  //                                Child Process
+  //                                 Child case
   //****************************************************************************
-  if (child_pid == 0) {
-    //  child installs sigfunc with sigaction call
-    sigset_t  mask, proc_mask;
-    struct sigaction new;
+  else if (child_pid == 0) {
 
-    sigemptyset(&proc_mask);                      // Clear signal mask
-    sigprocmask(SIG_SETMASK, &proc_mask, NULL);   // Set proc mask
+    // Channel plumbing for stdin
+    close(0);
 
-    sigemptyset(&mask);
-    new.sa_mask = mask;             // Set signal mask
-    new.sa_handler = sigfunc;       // Set signal function
-    new.sa_flags = 0;               // Set signal flags
-
-    // Error check
-    if (sigaction(SIGTERM, &new, NULL) == -1) {
-      perror("\nSig action failed!\n");
-      exit(3);
+    if (dup(outPipe[READ]) != 0) {
+        perror("\nCHILD pipe dup error: outPipe[READ].\n");
+        exit(3);
     }
 
-    // Gathering credentials
-    pid = getpid();
-    ppid = getppid();
-    ruid = getuid();
-    rgid = getgid();
-    euid = geteuid();
-    egid = getegid();
-    priority = getpriority(PRIO_PROCESS, 0);
+    close(outPipe[READ]);
+    close(outPipe[WRITE]);
 
-    //  print out child credentials
-    printf("CHILD Credentials:\n");
-    printf("CHILD:  Process ID is:\t\t%d\n", pid);
-    printf("CHILD:  Process parent ID is:\t%d\n", ppid);
-    printf("CHILD:  Real UID is:\t\t%d\n", ruid);
-    printf("CHILD:  Real GID is:\t\t%d\n", rgid);
-    printf("CHILD:  Effective UID is:\t%d\n", euid);
-    printf("CHILD:  Effective GID is:\t%d\n", egid);
-    printf("CHILD:  Process priority is:\t%d\n", priority);
+    // Channel plumbing for stdout
+    close(1);
 
-    // Child process closes up input side of pipe
-    close(fd[0]);
-
-    //  child must write pipe with write call
-    if (write(fd[1], string, (strlen(string)+1)) == -1) {
-      perror("\nWrite failed!\n");
-      exit(3);
+    if (dup(inPipe[WRITE]) != 1) {
+        perror("\nCHILD pipe dup error: inPipe[WRITE].\n");
+        exit(3);
     }
 
-    //  child enters endless loop
-    while (counter_2G < 10) {   // Runs for a max of 20 billion iterations
-      counter++;
-      if (counter < 0) {        // Every time counter goes negative, reset it.
-        counter = 0;            // This is roughly 2G, or 2 billion iterations.
-        counter_2G++;
-      }
-    }
+    close(inPipe[READ]);
+    close(inPipe[WRITE]);
 
-    // Timeout if the signal never comes through.
-    write(1,"Child: timed out after 20 billion iterations\n", 51);
-    exit(3);
+    // Run grep
+    execlp("grep", "grep", "123", NULL);
+
+    perror("\nSort has failed to run correctly.\n");
+    exit(4);
+  }
+  //****************************************************************************
+  //                                Parent case
+  //****************************************************************************
+  FILE *outWrite, *grepData;
+  char msg[2];
+
+  // Open the out pipe as a file.
+  outWrite = fdopen(outPipe[WRITE], "w");
+
+  // Open the file to be sorted (will be sent to child)
+  if ( (grepData = fopen("cs308a2_grep_data_1", "r")) == NULL) {
+    perror("\nError opening file!\n");
   }
 
-  //****************************************************************************
-  //                        Parent Process
-  //****************************************************************************
-  else {
-    //  Parent process closes up output side of pipe
-    close(fd[1]);
+  // Loop to send each line of the file through the pipe.
+  while (fgets(readBuffer, 80, grepData) != NULL) {
+    fprintf(outWrite, readBuffer);
+  }
 
-    // block on pipe with read call
-    if (read(fd[0], readbuffer, sizeof(readbuffer)) == -1) {
-      perror("\nRead failed!\n");
-      exit(3);
-    }
+  // close unneeded files and pipes.
+  fflush(outWrite);
+  fclose(outWrite);
+  close(outPipe[READ]);
+  close(inPipe[WRITE]);
+  fclose(grepData);
 
-    // parent wakes from pipe read (after child writes)
-    // parent sends SIGTERM to child pid with kill call
-    if (kill(child_pid, SIGTERM) == -1) {
-      perror("\nKill failed!\n");
-      exit(3);
-    }
+  // Open file to write to.
+  msg[1] = '\0';
+  int count = 0;
 
-    // parent blocks on wait call
-    if ( (pid = wait(&exit_union.exit_status)) == -1) {
-      perror("\nWait failed!\n");
-      exit(3);
-    }
+  // Run through the grep data looking for matches.
+  while (read(inPipe[READ], msg, 1) > 0) {
+    printf("%s", msg);
 
-    // parent prints child term status and finishes
-    printf("Child %d terminated with ", pid);
-
-    // Check for exit code vs signal code
-    if (exit_union.parts.sig_num == 0) {
-      printf("exit code %d and ", exit_union.parts.exit_num);
-    }
-    else {
-      printf("signal code %d and ", exit_union.parts.sig_num);
-    }
-
-    // Check for core dump vs no core dump
-    if (exit_union.parts.core_dmp == 0) {
-      printf("no core dump.\n");
-    }
-    else {
-      printf("generated a core dump.\n");
+    // Count all the matches
+    if (msg == '\n') {
+      count++;
     }
   }
+
+  // Print the final area code / count
+  printf("\n Found %d matches in the grep data!\n", count);
 
   return 0;
 }

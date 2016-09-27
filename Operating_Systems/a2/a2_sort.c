@@ -11,19 +11,6 @@
 #include <string.h>
 #include <errno.h>
 
-/*
-    Useful links:
-    http://stackoverflow.com/questions/7866039/whats-the-opposite-of-closefd-in-c
-    http://codewiki.wikidot.com/c%3asystem-calls%3adup
-    http://stackoverflow.com/questions/5256599/what-are-file-descriptors-explained-in-simple-terms
-    http://pubs.opengroup.org/onlinepubs/7908799/xsh/open.html
-*/
-
-/*
-    sort command should be:
-    sort -k3,3 -k1,1 cs308a2_sort_data.txt
-*/
-
 #define READ 0
 #define WRITE 1
 
@@ -74,8 +61,6 @@ int main (int argc, char *argv[]) {
     close(inPipe[WRITE]);
 
     // Run the sort
-    // Command looks like: sort -k3,3 -k1,1 cs308a2_sort_data.txt
-    //execlp("sort", "-k3,3", "-k1,1", NULL);
     execlp("sort", "sort", "-k", "3.3n", "-k", "1.1", "-k", "2.2", NULL);
 
     perror("\nSort has failed to run correctly.\n");
@@ -129,7 +114,7 @@ int main (int argc, char *argv[]) {
   int count = -1, oldAreaCode = 0, areaCode = 0;
   char first[80], last[80];
 
-  // Run through the entire list, one line at a time.
+  // Run through the entire list, one line at a time
   while (fgets(readBuffer, 80, sortIn) != NULL) {
     sscanf(readBuffer, "%s %s %d\n", last, first, &areaCode);
 
