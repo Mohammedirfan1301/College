@@ -7,7 +7,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <fcntl.h>
-#include <string.h>
+#include <unistd.h>
 
 /*
     Useful links:
@@ -23,7 +23,7 @@
 */
 
 int main (void) {
-  int     inPipe[2], outPipe[2], bytes;
+  int     inPipe[2], outPipe[2], rd_bytes;
   char    readBuffer[80];
   pid_t   child_pid;
 
@@ -87,16 +87,61 @@ int main (void) {
 
   // Close unneeded pipes
   if (close(outPipe[0]) == -1 || close(inPipe[1]) == -1) {
-      printf("\nCould not close pipes");
+      perror("\nCould not close pipes");
       exit(3);
   }
 
   // Open the file to be sorted
   int fd = 0;
-  fd = open("cs308a2_sort_data", O_RDONLY, 0);
+  fd = open("cs308a2_sort_data.txt", O_RDONLY, 0);
+
+  // Read the data from the file
+  while (rd_bytes = read(fd, readBuffer, 80)) {
+    // Write the data from the file into the pipe. Check for errors.
+    if (write(outPipe[1], readBuffer, rd_bytes) == -1) {
+      perror("\nUnabled to write to child.\n");
+      exit(2);
+    }
+  }
+
+  // Close unneeded pipes
+  if (close(outPipe[1] == -1)) {
+    perror("\nCould not close pipe\n");
+    exit(3);
+  }
 
   // Open child's stdout
   FILE* fp = fdopen(inPipe[0], "r");
+
+  int count = 0;
+  int oldAreaCode = 0;
+  int areaCode, three, four;
+  char first[80], last[80];
+
+  // Detect the first areaCode.
+  if (fscanf(fp, "%s %s %d %d %d\n", last, first, &areaCode, &three, &four) != EOF) {
+    oldAreaCode = areaCode;
+    count++;
+  }
+
+  // Run through the entire list, one line at a time.
+  while (fscanf(fp, "%s %s %d %d %d\n", last, first, &areaCode, &three, &four) != EOF) {
+    // Count the number of people with the same area code
+    if (oldAreaCode == areaCode) {
+      count++;
+    }
+    else {
+      // Found a new area code, so print it + the count we found.
+      printf("%d: %d\n", oldAreaCode, count);
+      count = 1;
+    }
+  }
+
+  // Print the final area code / count
+  printf("%d: %d\n", oldAreaCode, count);
+
+  // Close the child's stdout.
+  fclose(fp);
 
   return 0;
 }
