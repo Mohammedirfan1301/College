@@ -1,0 +1,19 @@
+asus@asus: a2$ ./a2_sort cs308a2_sort_data
+Area code 103 had 87 unique names
+Area code 215 had 107 unique names
+Area code 220 had 114 unique names
+Area code 316 had 96 unique names
+Area code 403 had 100 unique names
+Area code 508 had 101 unique names
+Area code 579 had 103 unique names
+Area code 604 had 86 unique names
+Area code 617 had 88 unique names
+Area code 783 had 77 unique names
+
+959 lines were processed in this report.
+asus@asus: a2$ ./a2_grep cs308a2_grep_data_1
+
+Found 28 matches in the grep data!
+
+asus@asus: a2$ ./a2_grep cs308a2_grep_data_2
+^C

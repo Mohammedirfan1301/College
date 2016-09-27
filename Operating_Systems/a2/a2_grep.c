@@ -20,7 +20,7 @@
 #define WRITE 1
 
 int main (int argc, char *argv[]) {
-  int     inPipe[2], outPipe[2], rd_bytes;
+  int     inPipe[2], outPipe[2];
   char    readBuffer[512];
   pid_t   child_pid;
 
@@ -92,7 +92,7 @@ int main (int argc, char *argv[]) {
 
   // Loop to send each line of the file through the pipe.
   while (fgets(readBuffer, 80, grepData) != NULL) {
-    fprintf(outWrite, readBuffer);
+    fprintf(outWrite, "%s", readBuffer);
   }
 
   // close unneeded files and pipes.

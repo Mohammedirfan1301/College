@@ -92,7 +92,7 @@ int main (int argc, char *argv[]) {
 
   // Loop to send each line of the file through the pipe.
   while (fgets(readBuffer, 80, sortData) != NULL) {
-    fprintf(outWrite, readBuffer);
+    fprintf(outWrite, "%s", readBuffer);
   }
 
   // close unneeded files and pipes.
@@ -121,7 +121,7 @@ int main (int argc, char *argv[]) {
     exit(4);
   }
 
-  int count = -1, oldAreaCode = 0, areaCode = 0;
+  int total = 0, count = -1, oldAreaCode = 0, areaCode = 0;
   char first[80], last[80];
 
   // Run through the entire list, one line at a time
@@ -137,17 +137,22 @@ int main (int argc, char *argv[]) {
     // Count the number of people with the same area code
     if (oldAreaCode == areaCode) {
       count++;
+      total++;
     }
     else {
       // Found a new area code, so print it + the count we found.
-      printf("%d: %d\n", oldAreaCode, count);
+      printf("Area code %d had %d unique names\n", oldAreaCode, count);
       oldAreaCode = areaCode;
       count = 1;
+      total++;
     }
   }
 
   // Print the final area code / count
-  printf("%d: %d\n", oldAreaCode, count);
+  printf("Area code %d had %d unique names\n", oldAreaCode, count);
+
+  // Print out the total number of lines processed.
+  printf("\n%d lines were processed in this report.\n", total);
 
   return 0;
 }
