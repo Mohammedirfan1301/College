@@ -27,13 +27,13 @@ int main (int argc, char *argv[]) {
   char    line_buffer[80];
   FILE    *outWrite, *grepData, *grepTemp;
 
-  // Check to see if the user used the program correctly.
+  // Check to see if the user used the program correctly
   if (argc == 1 || argc > 2) {
     printf("\nUsage: ./a2_grep file_name_to_grep\n");
     exit(1);
   }
 
-  // Create a pipe, and check for failure (-1)
+  // Create two pipes
   if (pipe(outPipe) == -1 || pipe(inPipe) == -1) {
     perror("\nParent pipe failure!\n\n");
     exit(2);
@@ -75,7 +75,7 @@ int main (int argc, char *argv[]) {
 
     // Close unneeded pipes
     if (close(outPipe[READ]) == -1 || close(outPipe[WRITE]) == -1 ||
-        close(inPipe[READ]) == -1 || close(inPipe[WRITE]) == -1) {
+        close( inPipe[READ]) == -1 || close( inPipe[WRITE]) == -1) {
       perror("\nCHILD close error!\n");
       exit(3);
     }
@@ -90,7 +90,7 @@ int main (int argc, char *argv[]) {
   //****************************************************************************
   //                                Parent case
   //****************************************************************************
-  // Open the out pipe as a file.
+  // Open the out pipe as a file
   outWrite = fdopen(outPipe[WRITE], "w");
 
   // Open the file to be sent to the child (who runs grep on this data)
@@ -98,24 +98,24 @@ int main (int argc, char *argv[]) {
     perror("\nError opening file!\n");
   }
 
-  // Loop to send each line of the file through the pipe.
+  // Send each line of the grep file to the child
   while (fgets(line_buffer, LINE_WIDTH, grepData) != NULL) {
     fprintf(outWrite, "%s", line_buffer);
   }
 
-  // close unneeded files and pipes.
+  // close unneeded files and pipes
   fflush(outWrite);
   fclose(outWrite);
   close(outPipe[READ]);
   close(inPipe[WRITE]);
   fclose(grepData);
 
-  // Open temp file to write child output to.
+  // Open temp file to write child output to
   grepTemp = fopen("grep_temp.txt", "w+");
   grep_file = open("grep_temp.txt", O_RDWR);
 
-  // Read from child, and put the results into a temp file.
-  // Make sure to check for read errors
+  // Read each line back from the child into a buffer, and then write
+  // the buffer to a temporary grep file to process later
   while ( (bytes_read = read(inPipe[READ], line_buffer, LINE_WIDTH)) != 0) {
     // Check for write errors
     if (write(grep_file, line_buffer, bytes_read) == -1) {
@@ -124,16 +124,17 @@ int main (int argc, char *argv[]) {
     }
   }
 
-  // Count the number of lines in the temp file (grep matches)
+  // Count the number of lines in the temporary grep file
   while (fgets(line_buffer, LINE_WIDTH, grepTemp) != NULL) {
     count++;
   }
 
-  // Print the number of matches that grep found.
+  // Print the number of matches that grep found
   printf("\nFound %d matches in the grep data!\n\n", count);
 
-  // Close the grep temp file
+  // Close the temporary grep file and the last pipe
   fclose(grepTemp);
+  close(inPipe[READ]);
 
   return 0;
 }
