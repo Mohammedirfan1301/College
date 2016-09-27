@@ -11,6 +11,11 @@
 #include <string.h>
 #include <errno.h>
 
+/*
+    Grep command should look like:
+    grep "123" FILE_TO_GREP_HERE
+*/
+
 #define READ 0
 #define WRITE 1
 
@@ -103,7 +108,8 @@ int main (int argc, char *argv[]) {
 
   // Run through the grep data looking for matches.
   while (read(inPipe[READ], msg, 1) > 0) {
-    printf("%s", msg);
+    // Debugging output
+    //printf("%s", msg);
 
     // Count all the matches
     if (msg[0] == '\n') {
@@ -112,7 +118,7 @@ int main (int argc, char *argv[]) {
   }
 
   // Print the final area code / count
-  printf("\nFound %d matches in the grep data!\n", count);
+  printf("\nFound %d matches in the grep data!\n\n", count);
 
   return 0;
 }

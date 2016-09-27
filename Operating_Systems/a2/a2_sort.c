@@ -11,16 +11,21 @@
 #include <string.h>
 #include <errno.h>
 
+/*
+    Sort command should look like:
+    sort -k3,3 -k1,1 FILE_TO_SORT
+*/
+
 #define READ 0
 #define WRITE 1
 
 int main (int argc, char *argv[]) {
-  int     inPipe[2], outPipe[2], rd_bytes;
+  int     inPipe[2], outPipe[2];
   char    readBuffer[512];
   pid_t   child_pid;
 
   if (argc == 1 || argc > 2) {
-    printf("\nUsage: ./a2_sort file_name_to_sort\n");
+    printf("\nUsage: ./a2_sort file_name_to_sort\n\n");
     exit(1);
   }
 
@@ -66,7 +71,7 @@ int main (int argc, char *argv[]) {
     close(inPipe[WRITE]);
 
     // Run the sort
-    execlp("sort", "sort", "-k", "3.3n", "-k", "1.1", "-k", "2.2", NULL);
+    execlp("sort", "sort", "-k3,3", "-k1,1", NULL);
 
     perror("\nSort has failed to run correctly.\n");
     exit(4);

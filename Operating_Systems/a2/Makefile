@@ -1,10 +1,14 @@
 # Standard flags for compiling C programs.
 CC = gcc
+FLAGS = -O -Werror -Wall -Wextra -Wundef -Winit-self
 
-all:
-	# Compile the two programs.
-	$(CC) a2_sort.c -o a2_sort
-	$(CC) a2_grep.c -o a2_grep
+all: sort grep
+
+sort:	a2_sort.c
+	$(CC) a2_sort.c $(FLAGS) -o a2_sort
+
+grep: a2_grep.c
+	$(CC) a2_grep.c $(FLAGS) -o a2_grep
 
 clean:
 	# Remove the executable / output file.
