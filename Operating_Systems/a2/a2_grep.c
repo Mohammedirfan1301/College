@@ -40,7 +40,7 @@ int main (int argc, char *argv[]) {
   // Fork to create a child process
   child_pid = fork();
 
-  // Error case
+  // Check for errors in forking
   if (child_pid == -1) {
     perror("\nFailed to create a child process!\n");
     exit(1);
@@ -49,32 +49,39 @@ int main (int argc, char *argv[]) {
   //                                 Child case
   //****************************************************************************
   else if (child_pid == 0) {
-
     // Channel plumbing for stdin
-    close(0);
+    if (close(0) == -1) {
+      perror("\nCHILD pipe error!\n");
+      exit(3);
+    }
 
     if (dup(outPipe[READ]) != 0) {
-        perror("\nCHILD pipe dup error: outPipe[READ].\n");
-        exit(3);
+      perror("\nCHILD pipe dup error: outPipe[READ].\n");
+      exit(3);
     }
-
-    close(outPipe[READ]);
-    close(outPipe[WRITE]);
 
     // Channel plumbing for stdout
-    close(1);
-
-    if (dup(inPipe[WRITE]) != 1) {
-        perror("\nCHILD pipe dup error: inPipe[WRITE].\n");
-        exit(3);
+    if (close(1) == -1) {
+      perror("\nCHILD pipe error!\n");
+      exit(3);
     }
 
-    close(inPipe[READ]);
-    close(inPipe[WRITE]);
+    if (dup(inPipe[WRITE]) != 1) {
+      perror("\nCHILD pipe dup error: inPipe[WRITE].\n");
+      exit(3);
+    }
+
+    // Close unneeded pipes
+    if (close(outPipe[READ]) == -1 || close(outPipe[WRITE]) == -1 ||
+        close(inPipe[READ]) == -1 || close(inPipe[WRITE]) == -1) {
+      perror("\nCHILD close error!\n");
+      exit(3);
+    }
 
     // Run grep
     execlp("grep", "grep", "123", NULL);
 
+    // Report errors for running sort
     perror("\nSort has failed to run correctly.\n");
     exit(4);
   }
@@ -84,7 +91,7 @@ int main (int argc, char *argv[]) {
   // Open the out pipe as a file.
   outWrite = fdopen(outPipe[WRITE], "w");
 
-  // Open the file to be fed to grep (will be sent to child)
+  // Open the file to be sent to the child (who runs grep on this data)
   if ( (grepData = fopen(argv[1], "r")) == NULL) {
     perror("\nError opening file!\n");
   }
@@ -101,25 +108,27 @@ int main (int argc, char *argv[]) {
   close(inPipe[WRITE]);
   fclose(grepData);
 
-  // Open file to write to.
+  // Open temp file to write child output to.
   int count = 0, bytes_read = 0;
-  FILE* temp = fopen("temp.txt", "w+");
-  int new_file = open("temp.txt", O_RDWR);
+  FILE* grepTemp = fopen("grep_temp.txt", "w+");
+  int grep_file = open("grep_temp.txt", O_RDWR);
 
   // Read from child, and put the results into a temp file.
+  // Make sure to check for read errors
   while ( (bytes_read = read(inPipe[READ], readBuffer, 80)) != 0) {
-    if (write(new_file, readBuffer, bytes_read) == -1) {
+    // Check for write errors
+    if (write(grep_file, readBuffer, bytes_read) == -1) {
       printf("Error writing to temp file!\n");
       exit(4);
     }
   }
 
   // Count the number of lines in the temp file (grep matches)
-  while (fgets(readBuffer, 80, temp) != NULL) {
+  while (fgets(readBuffer, 80, grepTemp) != NULL) {
     count++;
   }
 
-  // Print the final area code / count
+  // Print the number of matches that grep found.
   printf("\nFound %d matches in the grep data!\n\n", count);
 
   return 0;

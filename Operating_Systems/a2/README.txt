@@ -17,8 +17,6 @@ asus@asus: a2$ grep -o "123" cs308a2_grep_data_1 | uniq -c
 asus@asus: a2$ grep -o "123" cs308a2_grep_data_2 | uniq -c
    9158 123
 
-This is the same "grep 123"
-
 This is interesting because my program appears to infinite loop on the second
 dataset. Yet, grep shows 9,158 matches! I believe something with the forking
 of the process causes the loop to run endlessly. Grep clearly has some code
