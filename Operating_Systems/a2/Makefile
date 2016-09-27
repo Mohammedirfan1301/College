@@ -2,9 +2,10 @@
 CC = gcc
 
 all:
-	# Compile the program.
-	$(CC) a2.c -o a2
+	# Compile the two programs.
+	$(CC) a2_sort.c -o a2_sort
+	$(CC) a2_grep.c -o a2_grep
 
 clean:
 	# Remove the executable / output file.
-	rm a2
+	rm a2_sort a2_grep
