@@ -6,99 +6,97 @@
 */
 #include <stdio.h>
 #include <stdlib.h>
-#include <sys/types.h>
-#include <unistd.h>
-#include <errno.h>
-#include <signal.h>
+#include <fcntl.h>
 #include <string.h>
-#include <sys/resource.h>
 
 /*
-      Useful links:
-      https://www.gnu.org/software/libc/manual/html_node/Creating-a-Pipe.html
-      http://tldp.org/LDP/lpg/node11.html
-      http://man7.org/tlpi/code/online/diff/pipes/simple_pipe.c.html
-      http://web.mst.edu/~ercal/284/UNIX-fork-exec/Fork-Execl.c
-      http://www.csl.mtu.edu/cs4411.ck/www/NOTES/signal/raise.html
-      https://www.gnu.org/software/libc/manual/html_node/Exit-Status.html
-      http://unix.stackexchange.com/questions/103731/run-a-command-without-making-me-wait
+    Useful links:
+    http://stackoverflow.com/questions/7866039/whats-the-opposite-of-closefd-in-c
+    http://codewiki.wikidot.com/c%3asystem-calls%3adup
+    http://stackoverflow.com/questions/5256599/what-are-file-descriptors-explained-in-simple-terms
+    http://pubs.opengroup.org/onlinepubs/7908799/xsh/open.html
 */
 
 /*
     sort command should be:
-    sort -k3,3 -k1,1  cs308a2_sort_data.txt
+    sort -k3,3 -k1,1 cs308a2_sort_data.txt
 */
 
-int counter = 0, counter_2G = 0;
-
 int main (void) {
-  The_Wait_Status exit_union;
-  pid_t   child_pid, pid, ppid;
-  int     fd[2];
-  int     ruid, rgid, euid, egid;
-  int     priority;
-  char    string[] = "Hello, world!\n";
-  char    readbuffer[80];
-  char    path[1024] = "core*";
+  int     inPipe[2], outPipe[2], bytes;
+  char    readBuffer[80];
+  pid_t   child_pid;
 
-  //  create 1st pipe with pipe call
-  if (pipe(fd) == -1) {
+  // Create a pipe, and check for failure (-1)
+  if (pipe(inPipe) == -1 || pipe(outPipe) == -1) {
     perror("\nPipe failure!\n\n");
-    exit(3);
+    exit(2);
   }
 
-  //****************************************************************************
-  //                                Child Process
-  //****************************************************************************
+  //  fork child, block on pipe with read call
+  if ( (child_pid = fork() ) == -1) {
+    perror("\nFailed to fork\n");
+    exit(2);
+  }
+
+  //  Child Process
   if (child_pid == 0) {
-    // Gathering credentials
-    pid = getpid();
-    ppid = getppid();
-    ruid = getuid();
-    rgid = getgid();
-    euid = geteuid();
-    egid = getegid();
-    priority = getpriority(PRIO_PROCESS, 0);
+    // Closing stdout
+    if (close(0) == -1) {
+        perror("\nCHILD pipe close error: stdout[0].\n");
+        exit(3);
+    }
 
-    //  print out child credentials
-    printf("CHILD Credentials:\n");
-    printf("CHILD:  Process ID is:\t\t%d\n", pid);
-    printf("CHILD:  Process parent ID is:\t%d\n", ppid);
-    printf("CHILD:  Real UID is:\t\t%d\n", ruid);
-    printf("CHILD:  Real GID is:\t\t%d\n", rgid);
-    printf("CHILD:  Effective UID is:\t%d\n", euid);
-    printf("CHILD:  Effective GID is:\t%d\n", egid);
-    printf("CHILD:  Process priority is:\t%d\n", priority);
+    // Alias for stdout
+    if (dup(outPipe[0]) != 0) {
+        perror("\nCHILD pipe dup error: stdout[0].\n");
+        exit(3);
+    }
 
-    // Child process closes up input side of pipe
-    close(fd[0]);
+    // Closing stdin
+    if (close(1) == -1) {
+        perror("\nCHILD pipe close error: stdin[1].\n");
+        exit(3);
+    }
 
-    //  child must write pipe with write call
-    if (write(fd[1], string, (strlen(string)+1)) == -1) {
-      perror("\nWrite failed!\n");
+    // Alias for stdin
+    if (dup(inPipe[1]) != 1) {
+        perror("\nCHILD pipe dup error: stdout[1].\n");
+        exit(3);
+    }
+
+    // Close unneeded pipes
+    if (close(outPipe[0]) == -1 || close(outPipe[1]) == -1) {
+      perror("\nCHILD: pipe failed to close.\n");
+      exit(4);
+    }
+
+    // Close unneeded pipes
+    if (close(inPipe[0]) == -1 || close(inPipe[1]) == -1) {
+      perror("\nCHILD: pipe failed to close.\n");
+      exit(4);
+    }
+
+    // Run the sort
+    // Command looks like: sort -k3,3 -k1,1 cs308a2_sort_data.txt
+    execlp("sort", "-k3,3", "-k1,1", NULL);
+
+    perror("\nSort has failed to run correctly.\n");
+    exit(4);
+  } // End of child
+
+  // Close unneeded pipes
+  if (close(outPipe[0]) == -1 || close(inPipe[1]) == -1) {
+      printf("\nCould not close pipes");
       exit(3);
-    }
-
-    //  child enters endless loop
-    while (counter_2G < 10) {   // Runs for a max of 20 billion iterations
-      counter++;
-      if (counter < 0) {        // Every time counter goes negative, reset it.
-        counter = 0;            // This is roughly 2G, or 2 billion iterations.
-        counter_2G++;
-      }
-    }
-
-    // Timeout if the signal never comes through.
-    write(1,"Child: timed out after 20 billion iterations\n", 51);
-    exit(3);
   }
 
-  //****************************************************************************
-  //                        Parent Process
-  //****************************************************************************
-  else {
+  // Open the file to be sorted
+  int fd = 0;
+  fd = open("cs308a2_sort_data", O_RDONLY, 0);
 
-  }
+  // Open child's stdout
+  FILE* fp = fdopen(inPipe[0], "r");
 
   return 0;
 }
