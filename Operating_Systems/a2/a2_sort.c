@@ -32,12 +32,6 @@ int main (int argc, char *argv[]) {
   char    readBuffer[512];
   pid_t   child_pid;
 
-  // See if the user supplied a file to open
-  // if (argc == 1 || argc > 2) {
-  //   printf("\nUsage: ./a2_sort file-to-sort\n\n");
-  //   exit(1);
-  // }
-
   // Create a pipe, and check for failure (-1)
   if (pipe(outPipe) == -1 || pipe(inPipe) == -1) {
     perror("\nParent pipe failure!\n\n");
@@ -135,11 +129,9 @@ int main (int argc, char *argv[]) {
   int count = -1, oldAreaCode = 0, areaCode = 0;
   char first[80], last[80];
 
-  printf("Got to the part where we sort stuff.\n");
-
   // Run through the entire list, one line at a time.
-  while (fgets(readBuffer, 80, sortIn) != EOF) {
-    fscanf(readBuffer, "%s %s %d\n", last, first, &areaCode);
+  while (fgets(readBuffer, 80, sortIn) != NULL) {
+    sscanf(readBuffer, "%s %s %d\n", last, first, &areaCode);
 
     // Detect the first areaCode.
     if (oldAreaCode == 0) {
