@@ -19,6 +19,11 @@ int main (int argc, char *argv[]) {
   char    readBuffer[512];
   pid_t   child_pid;
 
+  if (argc == 1 || argc > 2) {
+    printf("\nUsage: ./a2_grep file_name_to_grep\n");
+    exit(1);
+  }
+
   // Create a pipe, and check for failure (-1)
   if (pipe(outPipe) == -1 || pipe(inPipe) == -1) {
     perror("\nParent pipe failure!\n\n");
@@ -76,7 +81,7 @@ int main (int argc, char *argv[]) {
   outWrite = fdopen(outPipe[WRITE], "w");
 
   // Open the file to be sorted (will be sent to child)
-  if ( (grepData = fopen("cs308a2_grep_data_1", "r")) == NULL) {
+  if ( (grepData = fopen(argv[1], "r")) == NULL) {
     perror("\nError opening file!\n");
   }
 
