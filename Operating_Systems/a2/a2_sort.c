@@ -108,12 +108,12 @@ int main (void) {
   // Open child's stdout
   FILE* fp = fdopen(inPipe[0], "r");
 
-  int count = 0;
+  int count = -1;
   int oldAreaCode = 0;
   int areaCode, three, four;
   char first[80], last[80];
 
-  //printf("Got to the part where we sort stuff.\n");
+  printf("Got to the part where we sort stuff.\n");
 
   // Run through the entire list, one line at a time.
   while (fscanf(fp, "%s %s %d %d %d\n", last, first, &areaCode, &three, &four) != EOF) {
