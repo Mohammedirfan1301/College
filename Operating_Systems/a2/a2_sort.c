@@ -33,57 +33,52 @@ int main (void) {
     exit(2);
   }
 
-  //  fork child, block on pipe with read call
-  if ( (child_pid = fork() ) == -1) {
-    perror("\nFailed to fork\n");
-    exit(2);
-  }
+  switch (fork() ) {
+    // Call failed
+    case -1:
+      perror("\nFailed to fork\n");
+      exit(1);
 
-  //  Child Process
-  if (child_pid == 0) {
-    // Closing stdout
-    if (close(0) == -1) {
-        perror("\nCHILD pipe close error: stdout[0].\n");
-        exit(3);
-    }
+    case 0:
+      // Closing stdout
+      if (close(0) == -1) {
+          perror("\nCHILD pipe close error: stdout[0].\n");
+          exit(3);
+      }
 
-    // Alias for stdout
-    if (dup(outPipe[0]) != 0) {
-        perror("\nCHILD pipe dup error: stdout[0].\n");
-        exit(3);
-    }
+      // Alias for stdout
+      if (dup(outPipe[0]) != 0) {
+          perror("\nCHILD pipe dup error: stdout[0].\n");
+          exit(3);
+      }
 
-    // Closing stdin
-    if (close(1) == -1) {
-        perror("\nCHILD pipe close error: stdin[1].\n");
-        exit(3);
-    }
+      // Closing stdin
+      if (close(1) == -1) {
+          perror("\nCHILD pipe close error: stdin[1].\n");
+          exit(3);
+      }
 
-    // Alias for stdin
-    if (dup(inPipe[1]) != 1) {
-        perror("\nCHILD pipe dup error: stdout[1].\n");
-        exit(3);
-    }
+      // Alias for stdin
+      if (dup(inPipe[1]) != 1) {
+          perror("\nCHILD pipe dup error: stdout[1].\n");
+          exit(3);
+      }
 
-    // Close unneeded pipes
-    if (close(outPipe[0]) == -1 || close(outPipe[1]) == -1) {
-      perror("\nCHILD: pipe failed to close.\n");
+      // Close unneeded pipes
+      if (close(outPipe[0]) == -1 || close(outPipe[1]) == -1
+          || close(inPipe[0]) == -1 || close(inPipe[1]) == -1) {
+        perror("\nCHILD: pipe failed to close.\n");
+        exit(4);
+      }
+
+      // Run the sort
+      // Command looks like: sort -k3,3 -k1,1 cs308a2_sort_data.txt
+      //execlp("sort", "-k3,3", "-k1,1", NULL);
+      execlp("sort", "sort", "-k", "3.3n", "-k", "1.1", "-k", "2.2", NULL);
+
+      perror("\nSort has failed to run correctly.\n");
       exit(4);
-    }
-
-    // Close unneeded pipes
-    if (close(inPipe[0]) == -1 || close(inPipe[1]) == -1) {
-      perror("\nCHILD: pipe failed to close.\n");
-      exit(4);
-    }
-
-    // Run the sort
-    // Command looks like: sort -k3,3 -k1,1 cs308a2_sort_data.txt
-    execlp("sort", "-k3,3", "-k1,1", NULL);
-
-    perror("\nSort has failed to run correctly.\n");
-    exit(4);
-  } // End of child
+  }   // end of switch / child
 
   // Close unneeded pipes
   if (close(outPipe[0]) == -1 || close(inPipe[1]) == -1) {
@@ -118,14 +113,18 @@ int main (void) {
   int areaCode, three, four;
   char first[80], last[80];
 
-  // Detect the first areaCode.
-  if (fscanf(fp, "%s %s %d %d %d\n", last, first, &areaCode, &three, &four) != EOF) {
-    oldAreaCode = areaCode;
-    count++;
-  }
+  //printf("Got to the part where we sort stuff.\n");
 
   // Run through the entire list, one line at a time.
   while (fscanf(fp, "%s %s %d %d %d\n", last, first, &areaCode, &three, &four) != EOF) {
+    printf("HI!\n");
+
+    // Detect the first areaCode.
+    if (oldAreaCode == 0) {
+      oldAreaCode = areaCode;
+      count++;
+    }
+
     // Count the number of people with the same area code
     if (oldAreaCode == areaCode) {
       count++;
