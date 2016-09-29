@@ -3,7 +3,6 @@
 # 9/27/2016
 CC = gcc
 FLAGS = -O -Werror -Wall -Wextra -Wundef -Winit-self
-#-pedantic
 
 all: a2_sort a2_grep
 
@@ -15,4 +14,4 @@ a2_grep: a2_grep.c
 
 clean:
 	# Remove the executable / output file.
-	rm a2_sort a2_grep sorted_data
+	rm a2_sort a2_grep sorted_temp.txt grep_temp.txt

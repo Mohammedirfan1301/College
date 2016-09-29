@@ -18,21 +18,23 @@
 
 #define READ 0
 #define WRITE 1
+#define LINE_WIDTH 80
 
 int main (int argc, char *argv[]) {
   pid_t   child_pid;
   int     inPipe[2], outPipe[2];
-  int     total = 0, count = -1, oldAreaCode = 0, areaCode = 0;
-  char    readBuffer[80], first[80], last[80], msg[2];
-  FILE    *outWrite, *sortData, *sortOut, *sortIn;
+  int     count = -1, total = 0, oldAreaCode = 0, curAreaCode = 0;
+  int     bytes_read = 0, sort_file = 0;
+  char    line_buffer[80], first[80], last[80];
+  FILE    *outWrite, *sortData, *sortTemp;
 
-  // Check to see if the user used the program correctly.
+  // Check to see if the user used the program correctly
   if (argc == 1 || argc > 2) {
     printf("\nUsage: ./a2_sort file_name_to_sort\n\n");
     exit(1);
   }
 
-  // Create a pipe, and check for failure (-1)
+  // Create two pipes
   if (pipe(outPipe) == -1 || pipe(inPipe) == -1) {
     perror("\nParent pipe failure!\n\n");
     exit(2);
@@ -50,30 +52,35 @@ int main (int argc, char *argv[]) {
   //                                 Child case
   //****************************************************************************
   else if (child_pid == 0) {
-
     // Channel plumbing for stdin
-    close(0);
+    if (close(0) == -1) {
+      perror("\nCHILD pipe error!\n");
+      exit(3);
+    }
 
     if (dup(outPipe[READ]) != 0) {
-        perror("\nCHILD pipe dup error: outPipe[READ].\n");
-        exit(3);
+      perror("\nCHILD pipe dup error: outPipe[READ].\n");
+      exit(3);
     }
-
-    close(outPipe[READ]);
-    close(outPipe[WRITE]);
 
     // Channel plumbing for stdout
-    close(1);
-
-    if (dup(inPipe[WRITE]) != 1) {
-        perror("\nCHILD pipe dup error: inPipe[WRITE].\n");
-        exit(3);
+    if (close(1) == -1) {
+      perror("\nCHILD pipe error!\n");
+      exit(3);
     }
 
-    close(inPipe[READ]);
-    close(inPipe[WRITE]);
+    if (dup(inPipe[WRITE]) != 1) {
+      perror("\nCHILD pipe dup error: inPipe[WRITE].\n");
+      exit(3);
+    }
 
-    // Run the sort
+    // Close unneeded pipes
+    if (close(outPipe[READ]) == -1 || close(outPipe[WRITE]) == -1 ||
+        close( inPipe[READ]) == -1 || close( inPipe[WRITE]) == -1) {
+      perror("\nCHILD close error!\n");
+      exit(3);
+    }
+    // Run sort
     execlp("sort", "sort", "-k3,3", "-k1,1", NULL);
 
     perror("\nSort has failed to run correctly.\n");
@@ -82,64 +89,61 @@ int main (int argc, char *argv[]) {
   //****************************************************************************
   //                                Parent case
   //****************************************************************************
-  // Open the out pipe as a file.
+  // Open the out pipe as a file
   outWrite = fdopen(outPipe[WRITE], "w");
 
-  // Open the file to be sorted (will be sent to child)
+  // Open the file to be sent to the child (who runs sort on this data)
   if ( (sortData = fopen(argv[1], "r")) == NULL) {
     perror("\nError opening file!\n");
   }
 
-  // Loop to send each line of the file through the pipe.
-  while (fgets(readBuffer, 80, sortData) != NULL) {
-    fprintf(outWrite, "%s", readBuffer);
+  // Send each line of the grep file to the child
+  while (fgets(line_buffer, LINE_WIDTH, sortData) != NULL) {
+    fprintf(outWrite, "%s", line_buffer);
   }
 
-  // close unneeded files and pipes.
+  // close unneeded files and pipes
   fflush(outWrite);
   fclose(outWrite);
   close(outPipe[READ]);
+  close(outPipe[WRITE]);
   close(inPipe[WRITE]);
   fclose(sortData);
 
-  // Open file to write to.
-  msg[1] = '\0';
-  sortOut = fopen("sorted_data", "w");
+  // Open a temp file to write sorted data to
+  sortTemp = fopen("sorted_temp.txt", "w+");
+  sort_file = open("sorted_temp.txt", O_RDWR);
 
-  // Print out data returned by sort
-  while (read(inPipe[READ], msg, 1) > 0) {
-    fprintf(sortOut, "%s", msg);
+  // Read each line back from the child into a buffer, and then write
+  // the buffer to a temporary grep file to process later
+  while ( (bytes_read = read(inPipe[READ], line_buffer, LINE_WIDTH)) != 0) {
+    // Check for write errors
+    if (write(sort_file, line_buffer, bytes_read) == -1) {
+      printf("Error writing to temp file!\n");
+      exit(4);
+    }
   }
 
-  // Close output file
-  fflush(sortOut);
-  fclose(sortOut);
+  // Go through the sorted output file, line by line, and count up the total
+  // number of people in each area code
+  while (fgets(line_buffer, LINE_WIDTH, sortTemp) != NULL) {
+    sscanf(line_buffer, "%s %s %d\n", last, first, &curAreaCode);
 
-  // Open file for reading
-  if ( (sortIn = fopen("sorted_data", "r")) == NULL) {
-    printf("Error opening temp data file for reading!\n");
-    exit(4);
-  }
-
-  // Run through the entire list, one line at a time
-  while (fgets(readBuffer, 80, sortIn) != NULL) {
-    sscanf(readBuffer, "%s %s %d\n", last, first, &areaCode);
-
-    // Detect the first areaCode.
+    // Detect the first areaCode
     if (oldAreaCode == 0) {
-      oldAreaCode = areaCode;
+      oldAreaCode = curAreaCode;
       count++;
     }
 
     // Count the number of people with the same area code
-    if (oldAreaCode == areaCode) {
+    if (oldAreaCode == curAreaCode) {
       count++;
       total++;
     }
     else {
-      // Found a new area code, so print it + the count we found.
+      // Found a new area code, so print it and the count that we found
       printf("Area code %d had %d unique names\n", oldAreaCode, count);
-      oldAreaCode = areaCode;
+      oldAreaCode = curAreaCode;
       count = 1;
       total++;
     }
@@ -148,8 +152,12 @@ int main (int argc, char *argv[]) {
   // Print the final area code / count
   printf("Area code %d had %d unique names\n", oldAreaCode, count);
 
-  // Print out the total number of lines processed.
+  // Print out the total number of lines processed
   printf("\n%d lines were processed in this report.\n", total);
+
+  // Close the temporary sort file and the last pipe
+  fclose(sortTemp);
+  close(inPipe[READ]);
 
   return 0;
 }
