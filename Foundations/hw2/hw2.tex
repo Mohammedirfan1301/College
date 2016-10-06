@@ -34,21 +34,30 @@ Give the state diagram of this machine.	\\
 
 \noindent
 Initial state is q3, so that is where the machine will start. \\
-We can use the table to create the nodes, and connect them similar \\
-to HW1's Q0.8 \\
+We can use the table to create the nodes, and connect them as needed. \\
+The accepted state is q3 so we will mark that with a double circle to \\
+show that as the accepted state of the machine. \\
 
 \begin{center}
 \begin{tikzpicture}[>=stealth',shorten >=2pt, auto, node distance=2cm]
 	% Nodes {q1, q2, q3, q4, q5}
 	\node [state] 	(q1) 				{q1};
 	\node [state] 	(q2) [right of=q1]  {q2};
-	\node [state] 	(q3) [right of=q2]  {q3};
+	\node [state, initial, initial text=, initial where=above, accepting]  (q3) [right of=q2]  {q3};
 	\node [state]	(q4) [right of=q3]  {q4};
 	\node [state]   (q5) [right of=q4]  {q5};
 
 	% Paths	{{1, 2}, {2, 3}, {1, 3}, {2, 4}, {1, 4}}
-	\path [->] 	(q1) edge [loop above] node	{d}	(q1)
-	\path [->] 	(q1) edge [] node	{u}	(q2)
+	\path [->] 	(q1) edge [loop above] node	{u}	(q1)
+	            (q1) edge [bend left]  node {d} (q2)
+				(q2) edge [bend left]  node {u} (q1)
+				(q2) edge [bend left]  node {d} (q3)
+				(q3) edge [bend left]  node {u} (q2)
+				(q3) edge [bend left]  node {d} (q4)
+				(q4) edge [bend left]  node {u} (q3)
+				(q4) edge [bend left]  node {d} (q5)
+				(q5) edge [bend left]  node {u} (q4)
+				(q5) edge [loop above] node	{d}	(q5);
 				
 \end{tikzpicture} \\
 \end{center}
