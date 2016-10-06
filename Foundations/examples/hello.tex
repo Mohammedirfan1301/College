@@ -1,0 +1,73 @@
+\documentclass{article}
+\usepackage{color}
+\begin{document}
+
+
+Hello, world! \\
+
+\textbf{this is bold text} \\
+
+\textit{this is italicized} \\
+\underline{underlined text} \\
+\textbf{\textit{bold \& italicized}} \\
+
+Use the \texttt{color} package 
+to change the color of elements in \LaTeX.
+ 
+\noindent
+{\color{blue} \rule{\linewidth}{0.1mm} }
+
+\begin{itemize}
+\color{blue}
+\item First item
+\item Second item
+\end{itemize}
+ 
+\noindent
+{\color{red} \rule{\linewidth}{0.2mm} }
+
+A DFA M may be defined as \\
+
+% begin math mode with leading \$
+$
+M = \{Q, \sum, \delta, q_0, F \} \\
+where Q is the set of states \\
+\sum is the set of symbols in the alphabet \\
+\delta is the transition function \\
+q_0 is the start state \\
+F \subseteq Q is the set of final states \\
+$
+% end math mode with trailing \$
+
+For example \\
+
+% begin math mode with leading \$
+$
+Q = \{q_0, q_1, q_2 \} \\
+\sum = \{0, 1 \} \\
+F = \{q_2 \} \\
+q_0 = q_0 \\
+\delta = \{ ((q_0, 0), q_1), ((q_0, 1), q_0), ((q_1, 0), q_2), ((q_1, 1), q_1) \} \\
+$
+% end math mode with trailing \$
+
+In Table form: \\
+
+\begin{center}
+ \begin{tabular}{||c c c||} 
+ \hline
+ \space 	& 0 		& 1 		\\ [0.5ex] 
+ \hline
+ $q_0$ 		& $q_0$ 	& $q_1$		\\
+ \hline
+ $q_1$ 		& $q_2$ 	& $q_1$		\\
+ \hline
+ $q_2$ 		& $q_0$ 	& $q_2$		\\
+ \hline
+\end{tabular}
+\end{center}
+
+
+
+\end{document} 
+
