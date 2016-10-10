@@ -14,9 +14,8 @@ Homework \#2 - Chapter 1: DFA, NFA\\
 
 \noindent
 1.3 \\
-The formal description of a DFA M is \\
-\{q1, q2, q3, q4, q5 \}, \{u, d\}, $\delta$, q3 , \{q3\}, \\
-where $\delta$  is given by the following table:
+The formal description of a DFA M is \{q1, q2, q3, q4, q5 \}, \\
+\{u, d\}, $\delta$, q3 , \{q3\}, where $\delta$  is given by the following table:
 \begin{center}
 \begin{tabular}{ c | c c }
  & u & d \\
@@ -30,9 +29,6 @@ where $\delta$  is given by the following table:
 \end{center}
 
 \noindent
-Give the state diagram of this machine.	\\
-
-\noindent
 Initial state is q3, so that is where the machine will start. \\
 We can use the table to create the nodes, and connect them as needed. \\
 The accepted state is q3 so we will mark that with a double circle to \\
@@ -41,13 +37,13 @@ show that as the accepted state of the machine. \\
 \begin{center}
 \begin{tikzpicture}[>=stealth',shorten >=2pt, auto, node distance=2cm]
 	% Nodes {q1, q2, q3, q4, q5}
-	\node [state] 	(q1) 				{q1};
-	\node [state] 	(q2) [right of=q1]  {q2};
-	\node [state, initial, initial text=, initial where=above, accepting]  (q3) [right of=q2]  {q3};
-	\node [state]	(q4) [right of=q3]  {q4};
-	\node [state]   (q5) [right of=q4]  {q5};
+	\node [state] 											(q1) 				{q1};
+	\node [state] 											(q2) [right of=q1]  {q2};
+	\node [state, initial, initial where=above, accepting]  (q3) [right of=q2]  {q3};
+	\node [state]											(q4) [right of=q3]  {q4};
+	\node [state]   										(q5) [right of=q4]  {q5};
 
-	% Paths	{{1, 2}, {2, 3}, {1, 3}, {2, 4}, {1, 4}}
+	% Paths
 	\path [->] 	(q1) edge [loop above] node	{u}	(q1)
 	            (q1) edge [bend left]  node {d} (q2)
 				(q2) edge [bend left]  node {u} (q1)
@@ -65,34 +61,538 @@ show that as the accepted state of the machine. \\
 
 \noindent
 1.4: a, c, e, f, g \\
+\indent
+For all parts, $\sum = \{a, b\} $ \\
 
-a. \{w$|$ w has at least three a’s and at least two b’s\} \\
+a. \{ w$|$ w has at least three a\textsc{\char13}s \}
+\begin{center}
+	\begin{tikzpicture}[>=stealth',shorten >=2pt, auto, node distance=2cm]
+	% Nodes {q1, q2, q3, q4, q5, etc}
+	\node [state, initial] 		(q1) 				 {q1};
+	\node [state] 				(q2)  [right of=q1]  {q2};
+	\node [state]   			(q3)  [right of=q2]  {q3};
+	\node [state, accepting]	(q4)  [right of=q3]  {q4};
+	
+	% Paths
+	\path [->] 	(q1) edge 				node	{a}		(q2);
+	\path [->] 	(q1) edge [loop above] 	node	{b}		(q1);
+	\path [->] 	(q2) edge 				node	{a}		(q3);
+	\path [->] 	(q2) edge [loop above] 	node	{b}		(q2);
+	\path [->] 	(q3) edge 				node	{a}		(q4);
+	\path [->] 	(q3) edge [loop above] 	node	{b}		(q3);
+	\path [->] 	(q4) edge [loop above] 	node	{a,b}	(q4);
+	
+	\end{tikzpicture} \\
+\end{center}
 
-c. 
+\{ w$|$ w has at least two b\textsc{\char13}s \}
+\begin{center}
+	\begin{tikzpicture}[>=stealth',shorten >=2pt, auto, node distance=2cm]
+	% Nodes {q1, q2, q3, q4, q5, etc}
+	\node [state, initial] 		(q1) 				 {q1};
+	\node [state] 				(q2)  [right of=q1]  {q2};
+	\node [state, accepting]	(q3)  [right of=q2]  {q3};
+	
+	% Paths
+	\path [->] 	(q1) edge 				node	{b}		(q2);
+	\path [->] 	(q1) edge [loop above] 	node	{a}		(q1);
+	\path [->] 	(q2) edge 				node	{b}		(q3);
+	\path [->] 	(q2) edge [loop above] 	node	{a}		(q2);
+	\path [->] 	(q3) edge [loop above] 	node	{a,b}	(q3);
+	
+	\end{tikzpicture} \\
+\end{center}
+
+\{w$|$ w has at least three a’s and at least two b’s\}
+\begin{center}
+	\begin{tikzpicture}[>=stealth',shorten >=2pt, auto, node distance=2cm]
+	% Nodes {q1, q2, q3, q4, q5, etc}
+	\node [state, initial] 		(q1) 				 {q1};
+	\node [state] 				(q2)  [right of=q1]  {q2};
+	\node [state]   			(q3)  [right of=q2]  {q3};
+	\node [state]				(q4)  [right of=q3]  {q4};
+	\node [state]   			(q5)  [below of=q1]  {q5};
+	\node [state]   			(q6)  [below of=q2]  {q6};
+	\node [state]   			(q7)  [below of=q3]  {q7};
+	\node [state]   			(q8)  [below of=q4]  {q8};
+	\node [state]   			(q9)  [below of=q5]  {q9};
+	\node [state]   			(q10) [below of=q6]  {q10};
+	\node [state]   			(q11) [below of=q7]  {q11};
+	\node [state, accepting]   	(q12) [below of=q8]  {q12};
+	
+	% Paths for first row
+	\path [->] 	(q1) edge 				node	{a}	(q2);
+	\path [->] 	(q1) edge 				node	{b}	(q5);
+	\path [->] 	(q2) edge 				node	{a}	(q3);
+	\path [->] 	(q2) edge 				node	{b}	(q6);
+	\path [->] 	(q3) edge 				node	{a}	(q4);
+	\path [->] 	(q3) edge 				node	{b}	(q7);
+	\path [->] 	(q4) edge [loop right] 	node	{a}	(q4);
+	\path [->] 	(q4) edge 				node	{b}	(q8);
+	
+	% Paths for second row
+	\path [->] 	(q5) edge			 	node	{a}	(q6);
+	\path [->] 	(q5) edge 				node	{b}	(q9);
+	\path [->] 	(q6) edge 				node	{a}	(q7);
+	\path [->] 	(q6) edge 				node	{b}	(q10);
+	\path [->] 	(q7) edge 				node	{a}	(q8);
+	\path [->] 	(q7) edge 				node	{b}	(q11);
+	\path [->] 	(q8) edge [loop right] 	node	{a}	(q8);
+	\path [->] 	(q8) edge 				node	{b}	(q12);
+	
+	% Paths for third row
+	\path [->] 	(q9)  edge 				node  {a} 	(q10);
+	\path [->] 	(q9)  edge [loop below] node  {b} 	(q9);
+	\path [->] 	(q10) edge 				node  {a} 	(q11);
+	\path [->] 	(q10) edge [loop below] node  {b} 	(q10);
+	\path [->] 	(q11) edge 				node  {a} 	(q12);
+	\path [->] 	(q11) edge [loop below]	node  {b} 	(q11);
+	\path [->] 	(q12) edge [loop right] node  {a,b}	(q12);
+
+	\end{tikzpicture} \\
+\end{center}
+
+c. \{ w$|$ w has an even number of a\textsc{\char13}s \}
+\begin{center}
+	\begin{tikzpicture}[>=stealth',shorten >=2pt, auto, node distance=2cm]
+	% Nodes {q1, q2, q3, q4, q5, etc}
+	\node [state, initial, accepting] 		(q1) 				 {q1};
+	\node [state] 							(q2)  [right of=q1]  {q2};
+	
+	% Paths
+	\path [->] 	(q1) edge [bend left]	node	{a}		(q2);
+	\path [->] 	(q1) edge [loop above] 	node	{b}		(q1);
+	\path [->] 	(q2) edge				node	{a}		(q1);
+	\path [->] 	(q2) edge [loop above] 	node	{b}		(q2);
+	
+	\end{tikzpicture} \\
+\end{center}
+
+\{ w$|$ w has one or two b\textsc{\char13}s \}
+\begin{center}
+	\begin{tikzpicture}[>=stealth',shorten >=2pt, auto, node distance=2cm]
+	% Nodes {q1, q2, q3, q4, q5, etc}
+	\node [state, initial] 		(q1) 				 {q1};
+	\node [state, accepting] 	(q2)  [right of=q1]  {q2};
+	\node [state, accepting]    (q3)  [right of=q2]  {q3};
+	\node [state]				(q4)  [right of=q3]  {q4};
+	
+	% Paths
+	\path [->] 	(q1) edge 				node	{b}		(q2);
+	\path [->] 	(q1) edge [loop above] 	node	{a}		(q1);
+	\path [->] 	(q2) edge 				node	{b}		(q3);
+	\path [->] 	(q2) edge [loop above] 	node	{a}		(q2);
+	\path [->] 	(q3) edge 				node	{}		(q4);
+	\path [->] 	(q3) edge [loop above] 	node	{a}		(q3);
+	\path [->] 	(q4) edge [loop above] 	node	{a,b}	(q4);
+	
+	\end{tikzpicture} \\
+\end{center}
+
+\{ w$|$ w has an even number of a\textsc{\char13}s
+and one or two b\textsc{\char13}s \}
+\begin{center}
+	\begin{tikzpicture}[>=stealth',shorten >=2pt, auto, node distance=2cm]
+	% Nodes {q1, q2, q3, q4, q5, etc}
+	\node [state, initial] 		(q1) 				 {q1};
+	\node [state, accepting] 	(q2)  [right of=q1]  {q2};
+	\node [state, accepting]    (q3)  [right of=q2]  {q3};
+	\node [state]				(q4)  [right of=q3]  {q4};
+	\node [state]				(q5)  [below of=q1]  {q5};
+	\node [state]				(q6)  [below of=q2]  {q6};
+	\node [state]				(q7)  [below of=q3]  {q7};
+	\node [state]				(q8)  [below of=q4]  {q8};
+	
+	% Paths
+	\path [->] 	(q1) edge 				node	{b}		(q2);
+	\path [->] 	(q1) edge [bend right]	node	{a}		(q5);
+	\path [->] 	(q2) edge 				node	{b}		(q3);
+	\path [->] 	(q2) edge [bend right]	node	{a}		(q6);
+	\path [->] 	(q3) edge 				node	{b}		(q4);
+	\path [->] 	(q3) edge [bend right]	node	{a}		(q7);
+	\path [->] 	(q4) edge [loop right] 	node	{b}		(q4);
+	\path [->] 	(q4) edge [bend right]	node	{a}		(q8);
+	\path [->] 	(q5) edge [bend right]	node	{a}		(q1);
+	\path [->] 	(q5) edge [bend right]	node	{b}		(q6);
+	\path [->] 	(q6) edge [bend right]	node	{a}		(q2);
+	\path [->] 	(q6) edge [bend right]	node	{b}		(q7);
+	\path [->] 	(q7) edge [bend right]	node	{a}		(q3);
+	\path [->] 	(q7) edge [bend right]	node	{b}		(q8);
+	\path [->] 	(q8) edge [bend right]	node	{a}		(q4);
+	\path [->] 	(q8) edge [loop right]	node	{b}		(q8);
+	
+	\end{tikzpicture} \\
+\end{center}
+
+e. \{ w$|$ w starts with an a \}
+\begin{center}
+	\begin{tikzpicture}[>=stealth',shorten >=2pt, auto, node distance=2cm]
+	% Nodes {q1, q2, q3, q4, q5, etc}
+	\node [state] 									(q1) 				 {q1};
+	\node [state, initial, initial where=above] 	(q2)  [right of=q1]  {q2};
+	\node [state, accepting]						(q3)  [right of=q2]  {q3};
+	
+	% Paths
+	\path [->] 	(q1) edge [loop above] 	node	{a,b}	(q1);
+	\path [->] 	(q2) edge 				node	{b}		(q1);
+	\path [->] 	(q2) edge 				node	{a}		(q3);
+	\path [->] 	(q3) edge [loop above] 	node	{a,b}	(q3);
+	
+	\end{tikzpicture} \\
+\end{center}
+
+\{ w$|$ w has at most one b \}
+\begin{center}
+	\begin{tikzpicture}[>=stealth',shorten >=2pt, auto, node distance=2cm]
+	% Nodes {q1, q2, q3, q4, q5, etc}
+	\node [state, initial,accepting] 	(q1) 				 {q1};
+	\node [state, accepting] 			(q2)  [right of=q1]  {q2};
+	\node [state]						(q3)  [right of=q2]  {q3};
+	
+	% Paths
+	\path [->] 	(q1) edge [loop above] 	node	{a}     (q1);
+	\path [->] 	(q1) edge 				node	{b}		(q2);
+    \path [->] 	(q2) edge [loop above] 	node	{a}     (q2);
+	\path [->] 	(q2) edge 				node	{b}		(q3);
+	\path [->] 	(q3) edge [loop above] 	node	{a,b}	(q3);
+	
+	\end{tikzpicture} \\
+\end{center}
+
+\{ w$|$ w starts with an a and has at most one b \}
+
+not sure how to do this yet... dotted lines and circles are ??? \\
+
+f. \{ w$|$ w has an odd number of a\textsc{\char13}s \}
+\begin{center}
+    \begin{tikzpicture}[>=stealth',shorten >=2pt, auto, node distance=2cm]
+    % Nodes {q1, q2, q3, q4, q5, etc}
+    \node [state, initial] 	    (q1) 				 {q1};
+    \node [state, accepting]    (q2)  [right of=q1]  {q2};
+    
+    % Paths
+    \path [->] 	(q1) edge [loop above] 	node	{b}     (q1);
+    \path [->] 	(q1) edge [bend left]   node	{a}		(q2);
+    \path [->] 	(q2) edge [loop above] 	node	{b}     (q2);
+    \path [->] 	(q2) edge [bend left] 	node	{a}		(q1);
+    
+    \end{tikzpicture} \\
+\end{center}
+
+\{ w$|$ w ends with a b \}
+\begin{center}
+    \begin{tikzpicture}[>=stealth',shorten >=2pt, auto, node distance=2cm]
+    % Nodes {q1, q2, q3, q4, q5, etc}
+    \node [state, initial] 	    (q1) 				 {q1};
+    \node [state, accepting]    (q2)  [right of=q1]  {q2};
+    
+    % Paths
+    \path [->] 	(q1) edge [loop above] 	node	{a}     (q1);
+    \path [->] 	(q1) edge [bend left]   node	{b}		(q2);
+    \path [->] 	(q2) edge [loop above] 	node	{b}     (q2);
+    \path [->] 	(q2) edge [bend left] 	node	{a}		(q1);
+    
+    \end{tikzpicture} \\
+\end{center}
+
+\{ w$|$ w has an odd number of a\textsc{\char13}s and ends with a b \}
+\begin{center}
+    \begin{tikzpicture}[>=stealth',shorten >=2pt, auto, node distance=3cm]
+    % Nodes {q1, q2, q3, q4, q5, etc}
+    \node [state, initial] 	    (q1) 				 {q1};
+    \node [state] 	            (q2)  [right of=q1]  {q2};
+    \node [state] 	            (q3)  [below of=q1]  {q3};
+    \node [state, accepting]    (q4)  [below of=q2]  {q4};
+    
+    % Paths
+    \path [->] 	(q1) edge           	node	        {b}     (q2);
+    \path [->] 	(q1) edge [bend left]   node	        {a}     (q3);
+    \path [->] 	(q2) edge [loop right] 	node	        {b}     (q2);
+    \path [->] 	(q2) edge [bend left]	node	        {a}		(q3);
+    \path [->] 	(q3) edge [bend left]   node	        {a}     (q1);
+    \path [->] 	(q3) edge               node [below]	{b}     (q4);
+    \path [->] 	(q4) edge [loop right] 	node	        {b}     (q4);
+    \path [->] 	(q4) edge [bend right]	node	        {a}		(q1);
+    
+    \end{tikzpicture} \\
+\end{center}
+
+g. \{ w$|$ w has even length \} \\
+\begin{center}
+    \begin{tikzpicture}[>=stealth',shorten >=2pt, auto, node distance=2cm]
+    % Nodes {q1, q2, q3, q4, q5, etc}
+    \node [state, initial, accepting] 	(q1) 				 {q1};
+    \node [state]                       (q2)  [right of=q1]  {q2};
+    
+    % Paths
+    \path [->] 	(q1) edge [bend left]   node	{a,b}		(q2);
+    \path [->] 	(q2) edge [bend left] 	node	{a,b}		(q1);
+    
+    \end{tikzpicture} \\
+\end{center}
+
+\{ w$|$ w has an odd number of a\textsc{\char13}s \}
+\begin{center}
+    \begin{tikzpicture}[>=stealth',shorten >=2pt, auto, node distance=2cm]
+    % Nodes {q1, q2, q3, q4, q5, etc}
+    \node [state, initial] 	  (q1) 				   {q1};
+    \node [state, accepting]  (q2)  [right of=q1]  {q2};
+    
+    % Paths
+    \path [->] 	(q1) edge [bend left]   node	{a}		(q2);
+    \path [->] 	(q1) edge [loop above] 	node	{b}     (q1);
+    \path [->] 	(q2) edge [bend left] 	node	{a}		(q1);
+    \path [->] 	(q2) edge [loop above] 	node	{b}     (q2);
+    
+    \end{tikzpicture} \\
+\end{center}
+
+\{ w$|$ w has even length and an odd number of a\textsc{\char13}s \}
+\begin{center}
+    \begin{tikzpicture}[>=stealth',shorten >=2pt, auto, node distance=3cm]
+    % Nodes {q1, q2, q3, q4, q5, etc}
+    \node [state, initial] 	  (q1) 				   {q1};
+    \node [state] 	          (q2) 	[right of=q2]  {q2};
+    \node [state] 	          (q3) 	[below of=q1]  {q3};
+    \node [state, accepting]  (q4)  [below of=q2]  {q4};
+    
+    % Paths
+    \path [->] 	(q1) edge [bend left]   node	        {b}		(q2);
+    \path [->] 	(q1) edge [bend left] 	node	        {a}     (q3);
+    \path [->] 	(q2) edge [bend left] 	node [above]	{b}		(q1);
+    \path [->] 	(q2) edge [bend left] 	node	        {a}     (q4);
+    \path [->] 	(q3) edge [bend left] 	node	        {a}     (q1);
+    \path [->] 	(q3) edge [bend left] 	node [below]    {b}     (q4);
+    \path [->] 	(q4) edge [bend left] 	node	        {b}     (q3);
+    \path [->] 	(q4) edge [bend left] 	node	        {a}     (q2);
+    
+    \end{tikzpicture} \\
+\end{center}
 
 \noindent
 1.5: c, d, e, f, g, h \\
+\indent
+For all parts, $\sum = \{a, b\} $ \\
+
+c. \{ w$|$ w contains neither the substrings ab nor ba \} \\
+\begin{center}
+    \begin{tikzpicture}[>=stealth',shorten >=2pt, auto, node distance=2cm]
+    % Nodes {q1, q2, q3, q4, q5, etc}
+    \node [state, initial, accepting] 		(q1) 				 {q1};
+    \node [state, accepting] 	            (q2)  [right of=q1]  {q2};
+    \node [state, accepting]                (q3)  [below of=q1]  {q3};
+    \node [state]				            (q4)  [below of=q2]  {q4};
+    
+    % Paths
+    \path [->] 	(q1) edge 				node	{a}		(q2);
+    \path [->] 	(q1) edge 				node	{b}		(q3);
+    \path [->] 	(q2) edge 				node	{b}		(q4);
+    \path [->] 	(q3) edge 				node	{a}		(q4);
+    \path [->] 	(q3) edge [loop below] 	node	{b}		(q3);
+    \path [->] 	(q4) edge [loop right] 	node	{a,b}	(q4);
+    
+    \end{tikzpicture} \\
+\end{center}
+
+d. \{ w$|$ w is any string not in a*b* \} \\
+
+e. \{ w$|$ w is any string not in (ab*)* \} \\
+
+f. \{ w $|$ w is any string not in a* $\bigcup$ b* \} \\
+
+g. \{ w$|$ w is any string that doesn\textsc{\char13}t contain exactly two a\textsc{\char13}s \} \\
+
+h. \{ w$|$ w is any string except a and b \} \\
 
 
 \noindent
 1.6: a, b, c, d, e, f, g, h, I, j, k, l, m, n \\
 
+a. \\
+%{w| w begins with a 1 and ends with a 0}
+
+b. \\
+%{w| w contains at least three 1s}
+
+c. \\
+%{w| w contains the substring 0101 (i.e., w = x0101y for some x and y)}
+
+d. \\
+%{w| w has length at least 3 and its third symbol is a 0}
+
+e. \\
+%{w| w starts with 0 and has odd length, or starts with 1 and has even length}
+
+f. \\
+%{w| w doesn’t contain the substring 110}
+
+g. \\
+%{w| the length of w is at most 5}
+
+h. \\
+%{w| w is any string except 11 and 111}
+
+I. \\
+%{w| every odd position of w is a 1}
+
+j. \\
+%{w| w contains at least two 0s and at most one 1}
+
+k. \\
+%{", 0}
+
+L. \\
+%{w| w contains an even number of 0s, or contains exactly two 1s}
+
+m. \\
+%The empty set
+
+n. \\
+%All strings except the empty string
+
 
 \noindent
 1.7: b, c, d, e, g, h \\
 
+b.
+
+The language of Exercise 1.6l with six states
+%{w| w contains the substring 0101 (i.e., w = x0101y for some x and y)}
+\begin{center}
+    \begin{tikzpicture}[>=stealth',shorten >=2pt, auto, node distance=2cm]
+    % Nodes {q1, q2, q3, q4, q5, etc}
+    \node [state, initial] 		(q1) 				 {q1};
+    \node [state] 				(q2)  [right of=q1]  {q2};
+    \node [state]   			(q3)  [right of=q2]  {q3};
+    \node [state]   			(q4)  [right of=q3]  {q4};
+    \node [state, accepting]	(q5)  [right of=q4]  {q5};
+    
+    % Paths
+    \path [->] 	(q1) edge 				node	{0}		(q2);
+    \path [->] 	(q1) edge [loop above] 	node	{0,1}		(q1);
+    \path [->] 	(q2) edge 				node	{1}		(q3);
+    \path [->] 	(q3) edge 				node	{0}		(q4);
+    \path [->] 	(q4) edge 				node	{1}		(q5);
+    \path [->] 	(q5) edge [loop above] 	node	{0,1}	(q5);
+    
+    \end{tikzpicture} \\
+\end{center}
+
+c.
+
+The language of Exercise 1.6l with six states
+%{w| w contains an even number of 0s, or contains exactly two 1s}
+\begin{center}
+    \begin{tikzpicture}[>=stealth',shorten >=2pt, auto, node distance=3cm]
+    % Nodes {q1, q2, q3, q4, q5, etc}
+    \node [state, initial] 		(q1) 				 {q1};
+    \node [state, accepting] 	(q2)  [right of=q1]  {q2};
+    \node [state]   			(q3)  [right of=q2]  {q3};
+    \node [state]   			(q4)  [below of=q2]  {q4};
+    \node [state]   			(q5)  [right of=q4]  {q5};
+    \node [state, accepting]	(q6)  [right of=q5]  {q6};
+    
+    % Paths
+    \path [->] 	(q1) edge 				node	{$\lambda$}		(q2);
+    \path [->] 	(q1) edge 				node	{$\lambda$}		(q4);
+    \path [->] 	(q2) edge [loop above] 	node	{1}     (q2);
+    \path [->] 	(q2) edge [bend left]	node	{0}		(q3);
+    \path [->] 	(q3) edge [bend left]	node	{0}		(q2);
+    \path [->] 	(q3) edge [loop above] 	node	{1}     (q3);
+    \path [->] 	(q4) edge 				node	{1}		(q5);
+    \path [->] 	(q4) edge [loop above] 	node	{0}     (q4);
+    \path [->] 	(q5) edge 				node	{1}		(q6);
+    \path [->] 	(q5) edge [loop above] 	node	{0}	    (q5);
+    \path [->] 	(q6) edge [loop above] 	node	{0}	    (q6);
+    
+    \end{tikzpicture} \\
+\end{center}
+
+
+d. The language {0} with two states
+\begin{center}
+    \begin{tikzpicture}[>=stealth',shorten >=2pt, auto, node distance=2cm]
+    % Nodes {q1, q2, q3, q4, q5, etc}
+    \node [state, initial] 		(q1) 				 {q1};
+    \node [state, accepting]	(q2)  [right of=q1]  {q2};
+    
+    % Paths
+    \path [->] 	(q1) edge 				node	{0}		(q2);
+    
+    \end{tikzpicture} \\
+\end{center}
+
+
+e. The language 0*1*0+ with three states \\
+\begin{center}
+    \begin{tikzpicture}[>=stealth',shorten >=2pt, auto, node distance=2cm]
+    % Nodes {q1, q2, q3, q4, q5, etc}
+    \node [state, initial] 		(q1) 				 {q1};
+    \node [state] 		        (q2)  [right of=q1]	 {q2};
+    \node [state, accepting]	(q3)  [right of=q2]  {q3};
+    
+    % Paths
+    \path [->] 	(q1) edge 				node	{$\lambda$}	   (q2);
+    \path [->] 	(q1) edge [loop above] 	node	{0}	           (q1);
+    \path [->] 	(q2) edge 				node	{0}	           (q3);
+    \path [->] 	(q2) edge [loop above] 	node	{1}	           (q2);
+    \path [->] 	(q3) edge [loop above] 	node	{0}	           (q3);
+    
+    \end{tikzpicture} \\
+\end{center}
+
+g. The language \{$\epsilon$\} with one state \\
+\begin{center}
+    \begin{tikzpicture}[>=stealth',shorten >=2pt, auto, node distance=2cm]
+    % Nodes {q1, q2, q3, q4, q5, etc}
+    \node [state, initial, accepting] 		(q1) 				 {q1};
+    
+    % no Paths for this one.
+    \end{tikzpicture} \\
+\end{center}
+
+
+h. The language 0* with one state \\
+\begin{center}
+    \begin{tikzpicture}[>=stealth',shorten >=2pt, auto, node distance=2cm]
+    % Nodes {q1, q2, q3, q4, q5, etc}
+    \node [state, initial, accepting] 		(q1) 				 {q1};
+    
+    % Paths
+    \path [->] 	(q1) edge [loop above]	node	{0}		(q1);
+    
+    \end{tikzpicture} \\
+\end{center}
+
 
 \noindent
 1.8: a, b \\
+Use the construction in the proof of Theorem 1.45 to give the state \\
+diagrams of NFAs recognizing the union of the languages described in \\
 
+a. Exercises 1.6a and 1.6b \\
+
+b. Exercises 1.6c and 1.6f \\
 
 \noindent
 1.9: a, b \\
+Use the construction in the proof of Theorem 1.47 to give the state \\
+diagrams of NFAs recognizing the concatenation of the languages described in \\
 
+a. Exercises 1.6g and 1.6i \\
+
+b. Exercises 1.6b and 1.6m \\
 
 \noindent
 1.10: a, b, c \\
+Use the construction in the proof of Theorem 1.49 to give the state \\
+diagrams of NFAs recognizing the star of the languages described in \\
 
+a. Exercise 1.6b \\
+
+b. Exercise 1.6j \\
+
+c. Exercise 1.6m \\
 
 \noindent
 1.12 \\
@@ -101,17 +601,38 @@ c.
 \noindent
 1.13 \\
 
+
 \noindent
 1.16 \\
+
 
 \noindent
 1.17: a, b \\
 
+a. \\
+
+b. \\
+
 \noindent
 1.18 \\
 
+
 \noindent
 1.20: a, b, c, d, e, f, g, h \\
+
+a. a*b* \\
+
+b. a(ba)*b \\
+
+c. a*$\bigcup$b* \\
+
+d. (aaa)* \\
+
+e. $\sum$*a$\sum$*b$\sum$*a$\sum$* \\
+
+g. $(\epsilon \, \bigcup \, a ) \, b$ \\
+
+h.$(a \, \bigcup \, ba \, \bigcup \, bb ) \, \sum *$ \\
 
 \noindent
 1.21 \\
