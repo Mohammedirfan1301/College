@@ -42,3 +42,4 @@ kronos2015/
 *.log
 *.synctex.gz
 *.aux
+*.dvi
