@@ -942,22 +942,22 @@ L.
     % Nodes {q1, q2, q3, q4, q5, etc}
     \node [state, initial, accepting] 	  (q1) 				   {q1};
     \node [state, accepting] 		      (q2)  [right of=q1]  {q2};
-    \node [state]   	                  (q3)  [right of=q2]  {q3};
-    \node [state]	                      (q4)  [right of=q3]  {q4};
+    \node [state, accepting]   	          (q3)  [right of=q2]  {q3};
+    \node [state, accepting]	          (q4)  [right of=q3]  {q4};
     \node [state] 	                      (q5)  [below of=q1]  {q5};
     \node [state]                         (q6)  [below of=q2]  {q6};
     \node [state, accepting] 	          (q7)  [below of=q3]  {q7};
-    \node [state, accepting] 	          (q8)  [below of=q4]  {q8};
+    \node [state] 	          		      (q8)  [below of=q4]  {q8};
     
     % Paths
     \path [->] 	(q1) edge	            node	        {1}		(q2);
     \path [->] 	(q2) edge 				node	        {1}		(q3);
-    \path [->] 	(q3) edge 				node	        {0}		(q4);
-    \path [->] 	(q3) edge 				node [above]    {1}		(q8);
+    \path [->] 	(q3) edge 				node	        {1}		(q4);
+
     
     \path [->] 	(q5) edge	            node	        {1}		(q6);
     \path [->] 	(q6) edge 				node	        {1}		(q7);
-    \path [->] 	(q7) edge 				node [below]	{1}		(q4);
+    \path [->] 	(q7) edge 				node [below]	{1}		(q8);
     
     \path [->] 	(q1) edge [bend left]   node	        {0}		(q5);
     \path [->] 	(q2) edge [bend left]   node	        {0}		(q6);
@@ -968,9 +968,6 @@ L.
     \path [->] 	(q6) edge [bend left]   node	        {0}		(q2);
     \path [->] 	(q7) edge [bend left]   node	        {0}		(q3);
     \path [->] 	(q8) edge [bend left]   node	        {0}		(q4);
-    
-    \path [->] 	(q4) edge [loop above] 	node	        {1}	    (q4);
-    \path [->] 	(q8) edge [loop below] 	node	        {1}	    (q8);
     
     \end{tikzpicture} \\
 \end{center}
@@ -1257,10 +1254,50 @@ c. Exercise 1.6m \\
 
 %*********************************************************************************
 % 1.16 here
-% FINISH 1.16
 
 \noindent
 1.16 \\
+a.
+\begin{center}
+    \begin{tikzpicture}[>=stealth',shorten >=2pt, auto, node distance=2cm]
+    % Nodes {q1, q2, q3, q4, q5, etc}
+    \node [state] 						(q1) 				 {q1};
+    \node [state] 						(q2)  [right of=q1]  {q2};
+    \node [state, initial, initial where=above, accepting]   (q3)  [right of=q2]  {q3};
+    \node [state, accepting]   			(q4)  [right of=q3]  {q4};
+    
+    % Paths
+    \path [->] 	(q1) edge [loop above] 	node	{a,b}	(q1);
+    \path [->] 	(q2) edge 				node	{a}		(q1);
+    \path [->] 	(q2) edge [bend left]	node	{b}		(q3);
+    \path [->] 	(q3) edge [bend left]	node	{b}		(q2);
+    
+    \path [->] 	(q3) edge 				node	{a}		(q4);
+    \path [->] 	(q4) edge [loop above] 	node	{a,b}	(q4);
+    
+    \end{tikzpicture} \\
+\end{center}
+
+b.
+\begin{center}
+    \begin{tikzpicture}[>=stealth',shorten >=2pt, auto, node distance=2cm]
+    % Nodes {q1, q2, q3, q4, q5, etc}
+    \node [state,  initial, accepting] 	(q1) 				 {q1};
+    \node [state, accepting] 			(q2)  [right of=q1]  {q2};
+    \node [state, accepting]   			(q3)  [right of=q2]  {q3};
+    \node [state]   					(q4)  [below of=q1]  {q4};
+    
+    % Paths
+    \path [->] 	(q1) edge 				node	{a}		(q4);
+    \path [->] 	(q1) edge [bend left] 	node	{a}		(q3);
+    \path [->] 	(q2) edge 				node	{a}		(q1);
+    \path [->] 	(q2) edge [loop below] 	node	{b}		(q2);
+    \path [->] 	(q3) edge 				node	{b}		(q2);
+    \path [->] 	(q3) edge [loop below] 	node	{a}		(q3);
+    \path [->] 	(q4) edge [loop left] 	node	{a,b}	(q4);
+    
+    \end{tikzpicture} \\
+\end{center}
 
 %*********************************************************************************
 % 1.17 here
@@ -1378,6 +1415,29 @@ Not members: b, $\epsilon$
 
 \noindent
 1.21 \\
+
+a.
+\begin{center}
+    \begin{tikzpicture}[>=stealth',shorten >=2pt, auto, node distance=2cm]
+    % Nodes {q1, q2, q3, q4, q5, etc}
+    \node [state, initial, accepting] 		(q1) 				 {q1};
+    \node [state, accepting] 				(q2)  [right of=q1]  {q2};
+    \node [state, accepting]   	            (q3)  [right of=q2]  {q3};
+    \node [state]	                        (q4)  [right of=q3]  {q4};
+    
+    % Paths
+    \path [->] 	(q1) edge [bend left]	node	{1}		(q2);
+    \path [->] 	(q1) edge [loop above] 	node	{0}		(q1);
+    \path [->] 	(q2) edge [bend left]	node	{0}		(q1);
+    \path [->] 	(q2) edge 				node	{1}		(q3);
+    \path [->] 	(q3) edge 				node	{0}		(q4);
+    \path [->] 	(q3) edge [loop above] 	node	{1}		(q3);
+    \path [->] 	(q4) edge [loop above] 	node	{0,1}	(q4);
+    
+    \end{tikzpicture} \\
+\end{center}
+
+b.
 
 %*********************************************************************************
 % 1.22 here
