@@ -1043,8 +1043,8 @@ c. The language of Exercise 1.6l with six states
     \node [state, accepting]	(q6)  [right of=q5]  {q6};
     
     % Paths
-    \path [->] 	(q1) edge 				node	{$\lambda$}		(q2);
-    \path [->] 	(q1) edge 				node	{$\lambda$}		(q4);
+    \path [->] 	(q1) edge 				node	{$\epsilon$}		(q2);
+    \path [->] 	(q1) edge 				node	{$\epsilon$}		(q4);
     \path [->] 	(q2) edge [loop above] 	node	{1}     (q2);
     \path [->] 	(q2) edge [bend left]	node	{0}		(q3);
     \path [->] 	(q3) edge [bend left]	node	{0}		(q2);
@@ -1082,7 +1082,7 @@ e. The language 0*1*0\textsuperscript{+} with three states \\
     \node [state, accepting]	(q3)  [right of=q2]  {q3};
     
     % Paths
-    \path [->] 	(q1) edge 				node	{$\lambda$}	   (q2);
+    \path [->] 	(q1) edge 				node	{$\epsilon$}	   (q2);
     \path [->] 	(q1) edge [loop above] 	node	{0}	           (q1);
     \path [->] 	(q2) edge 				node	{0}	           (q3);
     \path [->] 	(q2) edge [loop above] 	node	{1}	           (q2);
@@ -1116,50 +1116,54 @@ h. The language 0* with one state \\
 
 %*********************************************************************************
 % 1.8 here
-% FINISH 1.8
 
 \noindent
 1.8: a, b \\
 Use the construction in the proof of Theorem 1.45 to give the state \\
 diagrams of NFAs recognizing the union of the languages described in \\
 
-a. Exercise 1.6a
+1.8 a. Exercise 1.6a
 %{w| w begins with a 1 and ends with a 0}
 \begin{center}
-    \begin{tikzpicture}[>=stealth',shorten >=2pt, auto, node distance=2cm]
-    % Nodes {q1, q2, q3, q4, q5, etc}
-    \node [state, initial]    	(q1) 				 {q1};
-    \node [state] 				(q2)  [right of=q1]  {q2};
-    \node [state, accepting]   	(q3)  [right of=q2]  {q3};
-    
-    % Paths
-    \path [->] 	(q1) edge 				node	{1}		(q2);
-    \path [->] 	(q2) edge 				node	{0}		(q3);
-    \path [->] 	(q2) edge [loop above] 	node	{0,1}	(q2);
-    
-    \end{tikzpicture} \\
+	\begin{tikzpicture}[>=stealth',shorten >=2pt, auto, node distance=2cm]
+	% Nodes {q1, q2, q3, q4, q5, etc}
+	\node [state, initial]    	(q1) 				 {q1};
+	\node [state] 				(q2)  [right of=q1]  {q2};
+	\node [state, accepting]   	(q3)  [right of=q2]  {q3};
+	\node [state]	            (q4)  [below of=q1]  {q4};
+	
+	% Paths
+	\path [->] 	(q1) edge 				node	{1}		(q2);
+	\path [->] 	(q1) edge 				node	{0}		(q4);
+	\path [->] 	(q2) edge [bend left]	node	{0}		(q3);
+	\path [->] 	(q2) edge [loop above] 	node	{1}		(q2);
+	\path [->] 	(q3) edge [bend left]	node	{1}		(q2);
+	\path [->] 	(q3) edge [loop above] 	node	{0}		(q3);
+	\path [->] 	(q4) edge [loop right] 	node	{0, 1}	(q4);
+	
+	\end{tikzpicture} \\
 \end{center}
 
 Exercise 1.6b
 %{w| w contains at least three 1s}
 \begin{center}
-    \begin{tikzpicture}[>=stealth',shorten >=2pt, auto, node distance=2cm]
-    % Nodes {q1, q2, q3, q4, q5, etc}
-    \node [state, initial] 		(q1) 				 {q1};
-    \node [state] 				(q2)  [right of=q1]  {q2};
-    \node [state]   	        (q3)  [right of=q2]  {q3};
-    \node [state, accepting]	(q4)  [right of=q3]  {q4};
-    
-    % Paths
-    \path [->] 	(q1) edge 				node	{1}		(q2);
-    \path [->] 	(q1) edge [loop above] 	node	{0}		(q1);
-    \path [->] 	(q2) edge 				node	{1}		(q3);
-    \path [->] 	(q2) edge [loop above] 	node	{0}		(q2);
-    \path [->] 	(q3) edge 				node	{1}		(q4);
-    \path [->] 	(q3) edge [loop above] 	node	{0}		(q3);
-    \path [->] 	(q4) edge [loop above] 	node	{0,1}	(q4);
-    
-    \end{tikzpicture} \\
+	\begin{tikzpicture}[>=stealth',shorten >=2pt, auto, node distance=2cm]
+	% Nodes {q1, q2, q3, q4, q5, etc}
+	\node [state, initial] 		(q1) 				 {q1};
+	\node [state] 				(q2)  [right of=q1]  {q2};
+	\node [state]   	        (q3)  [right of=q2]  {q3};
+	\node [state, accepting]	(q4)  [right of=q3]  {q4};
+	
+	% Paths
+	\path [->] 	(q1) edge 				node	{1}		(q2);
+	\path [->] 	(q1) edge [loop above] 	node	{0}		(q1);
+	\path [->] 	(q2) edge 				node	{1}		(q3);
+	\path [->] 	(q2) edge [loop above] 	node	{0}		(q2);
+	\path [->] 	(q3) edge 				node	{1}		(q4);
+	\path [->] 	(q3) edge [loop above] 	node	{0}		(q3);
+	\path [->] 	(q4) edge [loop above] 	node	{0,1}	(q4);
+	
+	\end{tikzpicture} \\
 \end{center}
 
 Exercise 1.6a and Exercise 1.b joined
@@ -1182,29 +1186,104 @@ Exercise 1.6a and Exercise 1.b joined
     \path [->] 	(q3) edge [loop above] 	node	{0,1}     		(q3);
 	\path [->] 	(q3) edge				node	{0}				(q4);
     \path [->] 	(q5) edge 				node	{1}				(q6);
-    \path [->] 	(q5) edge [loop above] 	node	{0,1}	    	(q5);
+    \path [->] 	(q5) edge [loop above] 	node	{0}	    		(q5);
     \path [->] 	(q6) edge 				node	{1}				(q7);
+    \path [->] 	(q6) edge [loop above] 	node	{0}	    		(q6);
     \path [->] 	(q7) edge 				node	{1}				(q8);
+    \path [->] 	(q7) edge [loop above] 	node	{0}	    		(q7);
     \path [->] 	(q8) edge [loop above] 	node	{0,1}	    	(q8);
     
     \end{tikzpicture} \\
 \end{center}
 
-b. Exercises 1.6c and 1.6f \\
+1.8 b. Exercises 1.6c and 1.6f \\
 
 Exercises 1.6c
-
+\begin{center}
+	\begin{tikzpicture}[>=stealth',shorten >=2pt, auto, node distance=3cm]
+	% Nodes {q1, q2, q3, q4, q5, etc}
+	\node [state, initial] 		(q1) 				 {q1};
+	\node [state] 				(q2)  [right of=q1]  {q2};
+	\node [state]   	        (q3)  [right of=q2]  {q3};
+	\node [state]   	        (q4)  [right of=q3]  {q4};
+	\node [state, accepting]	(q5)  [right of=q4]  {q5};
+	
+	% Paths
+	\path [->] 	(q1) edge 				node	{0}		(q2);
+	\path [->] 	(q1) edge [loop above] 	node	{1}		(q1);
+	\path [->] 	(q2) edge 				node	{1}		(q3);
+	\path [->] 	(q2) edge [loop above] 	node	{0}		(q2);
+	\path [->] 	(q3) edge 				node	{0}		(q4);
+	\path [->] 	(q3) edge [bend left]	node	{1}		(q1);
+	\path [->] 	(q4) edge 				node	{1}		(q5);
+	\path [->] 	(q4) edge [bend left] 	node	{0}	    (q2);
+	\path [->] 	(q5) edge [loop above] 	node	{0,1}		(q5);
+	
+	\end{tikzpicture} \\
+\end{center}
 
 Exercises 1.6f
-
+\begin{center}
+	\begin{tikzpicture}[>=stealth',shorten >=2pt, auto, node distance=2cm]
+	% Nodes {q1, q2, q3, q4, q5, etc}
+	\node [state, initial, accepting] 		(q1) 				 {q1};
+	\node [state, accepting] 				(q2)  [right of=q1]  {q2};
+	\node [state, accepting]   	            (q3)  [right of=q2]  {q3};
+	\node [state]	                        (q4)  [right of=q3]  {q4};
+	
+	% Paths
+	\path [->] 	(q1) edge [bend left]	node	{1}		(q2);
+	\path [->] 	(q1) edge [loop above] 	node	{0}		(q1);
+	\path [->] 	(q2) edge [bend left]	node	{0}		(q1);
+	\path [->] 	(q2) edge 				node	{1}		(q3);
+	\path [->] 	(q3) edge 				node	{0}		(q4);
+	\path [->] 	(q3) edge [loop above] 	node	{1}		(q3);
+	\path [->] 	(q4) edge [loop above] 	node	{0,1}	(q4);
+	
+	\end{tikzpicture} \\
+\end{center}
 
 Exercises 1.6c and Exercises 1.6f joined
-
+\begin{center}
+	\begin{tikzpicture}[>=stealth',shorten >=2pt, auto, node distance=2cm]
+	% Nodes {q1, q2, q3, q4, q5, etc}
+	\node [state, initial] 		(q1) 				  {q1};
+	\node [state] 				(q2)   [right of=q1]  {q2};
+	\node [state]   	        (q3)   [right of=q2]  {q3};
+	\node [state]   	        (q4)   [right of=q3]  {q4};
+	\node [state]   	        (q5)   [right of=q4]  {q5};
+	\node [state, accepting]	(q6)   [right of=q5]  {q6};
+	\node [state, accepting]	(q7)   [below of=q2]  {q7};
+	\node [state, accepting]	(q8)   [right of=q7]  {q8};
+	\node [state, accepting]	(q9)   [right of=q8]  {q9};
+	\node [state]				(q10)  [right of=q9]  {q10};
+	
+	% Paths
+	\path [->] 	(q1) edge 				node	{$\epsilon$}		(q2);
+	\path [->] 	(q1) edge 				node	{$\epsilon$}		(q7);
+	\path [->] 	(q2) edge 				node	{0}					(q3);
+	\path [->] 	(q2) edge [loop above] 	node	{0,1}				(q2);
+	\path [->] 	(q3) edge 				node	{1}					(q4);
+	\path [->] 	(q4) edge 				node	{0}					(q5);
+	\path [->] 	(q5) edge 				node	{1}					(q6);
+	\path [->] 	(q6) edge [loop above] 	node	{0,1}				(q6);
+	
+	\path [->] 	(q7) edge 					node			{1}		(q8);
+	\path [->] 	(q7) edge  [loop below] 	node			{0}		(q7);
+	\path [->] 	(q8) edge 					node			{1}		(q9);
+	\path [->] 	(q8) edge  [loop below] 	node			{0}		(q8);
+	\path [->] 	(q9) edge 					node [below]	{0}		(q10);
+	\path [->] 	(q9) edge  [loop below] 	node			{1}		(q9);
+	\path [->] 	(q10) edge [bend right]		node [above]	{1}		(q9);
+	\path [->] 	(q10) edge [loop below] 	node			{0}		(q10);
+	
+	\end{tikzpicture} \\
+\end{center}
 
 %*********************************************************************************
 % 1.9 here
-% FINISH 1.9
 
+\clearpage
 \noindent
 1.9: a, b \\
 Use the construction in the proof of Theorem 1.47 to give the state \\
@@ -1213,44 +1292,330 @@ diagrams of NFAs recognizing the concatenation of the languages described in \\
 a. Exercises 1.6g and 1.6i \\
 
 Exercise 1.6g
-
+\begin{center}
+    \begin{tikzpicture}[>=stealth',shorten >=2pt, auto, node distance=2cm]
+    % Nodes {q1, q2, q3, q4, q5, etc}
+    \node [state, initial, accepting] 	(q1) 				 {q1};
+    \node [state, accepting] 			(q2)  [right of=q1]  {q2};
+    \node [state, accepting]   	        (q3)  [right of=q2]  {q3};
+    \node [state, accepting]	        (q4)  [right of=q3]  {q4};
+    \node [state, accepting] 			(q5)  [right of=q4]  {q5};
+    \node [state] 			            (q6)  [right of=q5]  {q6};
+    
+    % Paths
+    \path [->] 	(q1) edge	            node			{0,1}	(q2);
+    \path [->] 	(q2) edge 				node			{0,1}	(q3);
+    \path [->] 	(q3) edge 				node			{0,1}	(q4);
+    \path [->] 	(q4) edge               node        	{0,1}	(q5);
+    \path [->] 	(q5) edge            	node			{0,1}	(q6);
+    
+    \end{tikzpicture} \\
+\end{center}
 
 Exercise 1.6i
-
+%{w| every odd position of w is a 1}
+\begin{center}
+	\begin{tikzpicture}[>=stealth',shorten >=2pt, auto, node distance=2.5cm]
+	% Nodes {q1, q2, q3, q4, q5, etc}
+	\node [state, initial] 		(q1) 				 {q1};
+	\node [state] 		        (q2) [right of=q1]	 {q2};
+	\node [state, accepting] 	(q3) [below of=q1]	 {q3};
+	\node [state, accepting] 	(q4) [right of=q3]	 {q4};
+	
+	% Paths
+	\path [->] 	(q1) edge 	            node	     {0}		(q2);
+	\path [->] 	(q1) edge  				node [left]	 {1}		(q3);
+	\path [->] 	(q2) edge [loop above]	node	     {0,1}	    (q2);
+	\path [->] 	(q3) edge [bend left]   node	     {0,1}		(q4);
+	\path [->] 	(q4) edge [bend left]   node	     {1}		(q3);
+	\path [->] 	(q4) edge 	            node	     {0}		(q2);
+	
+	\end{tikzpicture} \\
+\end{center}
 
 Exercise 1.6g and Exercise 1.6i joined
-
+\begin{center}
+    \begin{tikzpicture}[>=stealth',shorten >=2pt, auto, node distance=2cm]
+    % Nodes {q1, q2, q3, q4, q5, etc}
+    \node [state, initial] 	    (q1) 				 {q1};
+    \node [state] 			    (q2)  [right of=q1]  {q2};
+    \node [state]   	        (q3)  [right of=q2]  {q3};
+    \node [state]	            (q4)  [right of=q3]  {q4};
+    \node [state] 			    (q5)  [right of=q4]  {q5};
+    \node [state] 			    (q6)  [right of=q5]  {q6};
+    \node [state, accepting] 	(q7)  [below of=q3]  {q7};
+    \node [state, accepting] 	(q8)  [below of=q7]  {q8};
+    
+    % Paths
+    \path [->] 	(q1) edge	            node			{0,1}	(q2);
+    \path [->] 	(q2) edge 				node			{0,1}	(q3);
+    \path [->] 	(q3) edge 				node			{0,1}	(q4);
+    \path [->] 	(q4) edge               node        	{0,1}	(q5);
+    \path [->] 	(q5) edge            	node			{0,1}	(q6);
+    
+    \path [->] 	(q1) edge	            node  [below]	{$\epsilon$}	(q7);
+    \path [->] 	(q2) edge	            node  [below]	{$\epsilon$}	(q7);
+    \path [->] 	(q3) edge	            node  [left]	{$\epsilon$}	(q7);
+    \path [->] 	(q4) edge	            node  [below]	{$\epsilon$}	(q7);
+    \path [->] 	(q5) edge	            node  [below]	{$\epsilon$}	(q7);
+    \path [->] 	(q6) edge	            node  [below]	{$\epsilon$}	(q7);
+    \path [->] 	(q7) edge            	node			{1}				(q8);
+    \path [->] 	(q8) edge [bend left]   node  			{$\epsilon$}	(q7);
+    
+    \end{tikzpicture} \\
+\end{center}
 
 b. Exercises 1.6b and 1.6m \\
 
+Exercise 1.6b
+%{w| w contains at least three 1s}
+\begin{center}
+	\begin{tikzpicture}[>=stealth',shorten >=2pt, auto, node distance=2cm]
+	% Nodes {q1, q2, q3, q4, q5, etc}
+	\node [state, initial] 		(q1) 				 {q1};
+	\node [state] 				(q2)  [right of=q1]  {q2};
+	\node [state]   	        (q3)  [right of=q2]  {q3};
+	\node [state, accepting]	(q4)  [right of=q3]  {q4};
+	
+	% Paths
+	\path [->] 	(q1) edge 				node	{1}		(q2);
+	\path [->] 	(q1) edge [loop above] 	node	{0}		(q1);
+	\path [->] 	(q2) edge 				node	{1}		(q3);
+	\path [->] 	(q2) edge [loop above] 	node	{0}		(q2);
+	\path [->] 	(q3) edge 				node	{1}		(q4);
+	\path [->] 	(q3) edge [loop above] 	node	{0}		(q3);
+	\path [->] 	(q4) edge [loop above] 	node	{0,1}	(q4);
+	
+	\end{tikzpicture} \\
+\end{center}
+
+Exercise 1.6m
+%The empty set
+\begin{center}
+	\begin{tikzpicture}[>=stealth',shorten >=2pt, auto, node distance=2cm]
+	% Nodes {q1, q2, q3, q4, q5, etc}
+	\node [state, initial, accepting] 		(q1) 				 {q1};
+	\node [state] 							(q2) [right of=q1]  {q2};
+	
+	% Paths
+	\path [->] 	(q1) edge 				node	{0,1}		(q2);
+	\path [->] 	(q2) edge [loop above]	node	{0,1}		(q2);
+	
+	\end{tikzpicture} \\
+\end{center}
+
+Exercises 1.6b and 1.6m joined \\
+\begin{center}
+	\begin{tikzpicture}[>=stealth',shorten >=2pt, auto, node distance=2cm]
+	% Nodes {q1, q2, q3, q4, q5, etc}
+	\node [state, initial] 		(q1) 				 {q1};
+	\node [state] 				(q2)  [right of=q1]  {q2};
+	\node [state]   	        (q3)  [right of=q2]  {q3};
+	\node [state]				(q4)  [right of=q3]  {q4};
+	\node [state]				(q5)  [right of=q4]  {q5};
+	
+	% Paths
+	\path [->] 	(q1) edge 				node	{1}				(q2);
+	\path [->] 	(q1) edge [loop above] 	node	{0,1}			(q1);
+	\path [->] 	(q2) edge 				node	{1}				(q3);
+	\path [->] 	(q2) edge [loop above] 	node	{0,1}			(q2);
+	\path [->] 	(q3) edge 				node	{1}				(q4);
+	\path [->] 	(q3) edge [loop above] 	node	{0,1}			(q3);
+	\path [->] 	(q4) edge [loop above] 	node	{0,1}			(q4);
+	\path [->] 	(q4) edge 				node	{$\epsilon$}	(q5);
+	
+	\end{tikzpicture} \\
+\end{center}
+
 %*********************************************************************************
 % 1.10 here
-% FINISH 1.10
 
 \noindent
 1.10: a, b, c \\
 Use the construction in the proof of Theorem 1.49 to give the state \\
 diagrams of NFAs recognizing the star of the languages described in \\
 
+\noindent
 a. Exercise 1.6b \\
+\{w$|$ w contains at least three 1s\}
+\begin{center}
+	\begin{tikzpicture}[>=stealth',shorten >=2pt, auto, node distance=2cm]
+	% Nodes {q1, q2, q3, q4, q5, etc}
+	\node [state, initial] 		(q1) 				 {q1};
+	\node [state] 				(q2)  [right of=q1]  {q2};
+	\node [state]   	        (q3)  [right of=q2]  {q3};
+	\node [state, accepting]	(q4)  [right of=q3]  {q4};
+	
+	% Paths
+	\path [->] 	(q1) edge 				node	{1}		(q2);
+	\path [->] 	(q1) edge [loop above] 	node	{0}		(q1);
+	\path [->] 	(q2) edge 				node	{1}		(q3);
+	\path [->] 	(q2) edge [loop above] 	node	{0}		(q2);
+	\path [->] 	(q3) edge 				node	{1}		(q4);
+	\path [->] 	(q3) edge [loop above] 	node	{0}		(q3);
+	\path [->] 	(q4) edge [loop above] 	node	{0,1}	(q4);
+	
+	\end{tikzpicture} \\
+\end{center}
 
+\noindent
 b. Exercise 1.6j \\
+\{w$|$ w contains at least two 0s and at most one 1\}
+\begin{center}
+	\begin{tikzpicture}[>=stealth',shorten >=2pt, auto, node distance=2cm]
+	% Row 1
+	\node [state, initial] 		(q1) 				 {q1};
+	\node [state] 				(q2)  [right of=q1]  {q2};
+	\node [state]   			(q3)  [right of=q2]  {q3};
+	\node [state]   			(q4)  [right of=q3]  {q4};
+	\node [state]   			(q5)  [right of=q4]  {q5};
+	\node [state, accepting]   	(q6)  [right of=q5]  {q6};
+	
+	% Row 2
+	\node [state] 	            (q7)   [below of=q2]  {q7};
+	\node [state]   			(q8)   [right of=q7]  {q8};
+	\node [state]   			(q9)   [right of=q8]  {q9};
+	\node [state]   			(q10)  [right of=q9]  {q10};
+	
+	% Row 3
+	\node [state] 	            (q11)  [below of=q7]   {q11};
+	\node [state]   			(q12)  [right of=q11]  {q12};
+	\node [state]   			(q13)  [right of=q12]  {q13};
+	\node [state]   			(q14)  [right of=q13]  {q14};
+	
+	% Row 4
+	\node [state] 	            (q15)  [below of=q11]  {q15};
+	\node [state]   			(q16)  [right of=q15]  {q16};
+	\node [state]   			(q17)  [right of=q16]  {q17};
+	\node [state]   			(q18)  [right of=q17]  {q18};
+	
+	% First Column
+	\path [->] 	(q1) edge  [loop above]   	node	{0}					(q1);
+	\path [->] 	(q1) edge	            	node	{$\epsilon$}		(q2);
+	\path [->] 	(q1) edge	            	node	{$\epsilon$}		(q7);
+	\path [->] 	(q1) edge	            	node	{$\epsilon$}		(q11);
+	\path [->] 	(q1) edge	            	node	{$\epsilon$}		(q15);
+	
+	% 2nd Column
+	\path [->] 	(q2)  edge	           	 	node	{0}					(q3);
+	\path [->] 	(q7)  edge	            	node	{0}					(q8);
+	\path [->] 	(q11) edge	            	node	{0}					(q12);
+	\path [->] 	(q15) edge	            	node	{1}					(q16);
+	
+	% 3rd Column
+	\path [->] 	(q3)  edge	           	 	node	{0}					(q4);
+	\path [->] 	(q8)  edge	            	node	{1}					(q9);
+	\path [->] 	(q12) edge	            	node	{0}					(q13);
+	\path [->] 	(q16) edge	            	node	{0}					(q17);
+	
+	% 4th Column
+	\path [->] 	(q4)  edge	           	 	node	{0}					(q5);
+	\path [->] 	(q9)  edge	            	node	{0}					(q10);
+	\path [->] 	(q13) edge	            	node	{1}					(q14);
+	\path [->] 	(q17) edge	            	node	{0}					(q18);
+	
+	% Last Column
+	\path [->] 	(q6)  edge  [loop above]   	node	{0}					(q6);
+	\path [->] 	(q5)  edge	            	node	{$\epsilon$}		(q6);
+	\path [->] 	(q10) edge	            	node	{$\epsilon$}		(q6);
+	\path [->] 	(q14) edge	            	node	{$\epsilon$}		(q6);
+	\path [->] 	(q18) edge	            	node	{$\epsilon$}		(q6);
+	
+	\end{tikzpicture} \\
+\end{center}
 
 c. Exercise 1.6m \\
+\begin{center}
+	\begin{tikzpicture}[>=stealth',shorten >=2pt, auto, node distance=2cm]
+	% Nodes {q1, q2, q3, q4, q5, etc}
+	\node [state, initial, accepting] 		(q1) 				 {q1};
+	\node [state] 							(q2) [right of=q1]   {q2};
+	
+	% Paths
+	\path [->] 	(q1) edge 				node	{$\epsilon$}	(q2);
+	
+	\end{tikzpicture} \\
+\end{center}
 
 %*********************************************************************************
 % 1.12 here
-% FINISH 1.12
 
 \noindent
 1.12 \\
 
+\noindent
+Let D = \{w$|$ w contains an even number of a$\textsc{\char13}$s and an odd number of 
+b$\textsc{\char13}$s  \\
+and does not contain the substring ab\}. Give a DFA with five states that \\
+recognizes D and a regular expression that generates D. \\
+(Suggestion: Describe D more simply.) \\
+
+\begin{center}
+	\begin{tikzpicture}[>=stealth',shorten >=2pt, auto, node distance=3cm]
+	% Nodes {q1, q2, q3, q4, q5, etc}
+	\node [state, initial] 		(q1) 				 {q1};
+	\node [state, accepting] 	(q2)  [right of=q1]  {q2};
+	\node [state]   	        (q3)  [right of=q2]  {q3};
+	\node [state, accepting]	(q4)  [right of=q3]  {q4};
+	\node [state]				(q5)  [below of=q3]  {q5};
+	
+	% Paths
+	\path [->] 	(q1) edge [bend left]	node	{b}				(q2);
+	\path [->] 	(q1) edge [bend right]	node	{a}				(q5);
+	\path [->] 	(q2) edge [bend left] 	node	{b}				(q1);
+	\path [->]  (q2) edge 				node	{a}				(q3);
+	\path [->] 	(q3) edge [bend left]	node	{a}				(q4);
+	\path [->]  (q3) edge 				node	{b}				(q5);
+	\path [->] 	(q4) edge [bend left] 	node	{a}				(q3);
+	\path [->]  (q4) edge 				node	{b}				(q5);
+	\path [->] 	(q5) edge [loop below]	node	{a,b}			(q5);
+	
+	\end{tikzpicture} \\
+\end{center}
+
+\noindent
+R1 = \{w$|$ w contains an even number of a$\textsc{\char13}$s\} \\
+R1 = (aa)* \\
+
+\noindent
+R2 =  \{w$|$ w contains an odd number of b$\textsc{\char13}$s and does not contain the \\
+substring ab \} \\
+R2 = b(bb)* \\
+
+\noindent
+R = b(bb)*(aa)* \\
+
 %*********************************************************************************
 % 1.13 here
-% FINISH 1.13
 
 \noindent
 1.13 \\
+\noindent
+Let F be the language of all strings over {0,1} that do not contain a pair of 1s that
+are separated by an odd number of symbols. Give the state diagram of a DFA with
+five states that recognizes F.
+\begin{center}
+	\begin{tikzpicture}[>=stealth',shorten >=2pt, auto, node distance=3cm]
+	% Nodes {q1, q2, q3, q4, q5, etc}
+	\node [state, initial, accepting] 		(q1) 				 {q1};
+	\node [state, accepting] 				(q2)  [right of=q1]  {q2};
+	\node [state, accepting]   	        	(q3)  [right of=q2]  {q3};
+	\node [state, accepting]				(q4)  [below of=q2]  {q4};
+	\node [state]							(q5)  [below of=q3]  {q5};
+	
+	% Paths
+	\path [->] 	(q1) edge 				node	{1}				(q2);
+	\path [->] 	(q1) edge [loop above]	node	{0}				(q1);
+	\path [->] 	(q2) edge 				node	{1}				(q3);
+	\path [->] 	(q2) edge [bend left]	node	{0}				(q4);
+	\path [->] 	(q3) edge				node	{1}				(q5);
+	\path [->] 	(q3) edge [loop above]	node	{0}				(q3);
+	\path [->] 	(q4) edge [bend left]	node	{0}				(q2);
+	\path [->] 	(q4) edge				node	{1}				(q5);
+	\path [->] 	(q5) edge [loop right]	node	{0,1}			(q5);
+	
+	\end{tikzpicture} \\
+\end{center}
 
 %*********************************************************************************
 % 1.16 here
@@ -1278,6 +1643,7 @@ a.
     \end{tikzpicture} \\
 \end{center}
 
+\noindent
 b.
 \begin{center}
     \begin{tikzpicture}[>=stealth',shorten >=2pt, auto, node distance=2cm]
@@ -1301,14 +1667,100 @@ b.
 
 %*********************************************************************************
 % 1.17 here
-% FINISH 1.17
+
+\clearpage
+\noindent
+1.17: a, b
 
 \noindent
-1.17: a, b \\
+a. Give an NFA recognizing the language  $(01 \bigcup 001 \bigcup 010)\textsuperscript{*}$.
+\begin{center}
+	\begin{tikzpicture}[>=stealth',shorten >=2pt, auto, node distance=2cm]
+	% Row 1
+	\node [state, initial, accepting] 		(q0) 				 	{q0};
+	\node [state] 							(q1)  [right of=q0]	 	{q1};
+	\node [state] 							(q2)  [right of=q1]  	{q2};
+	\node [state]   						(q3)  [right of=q2]  	{q3};
+	\node [state]   						(q4)  [right of=q3]  	{q4};
+	\node [state, accepting]   				(q5)  [right of=q4]  	{q5};
+	
+	% Row 2
+	\node [state] 	            (q7)   [below of=q2]  	{q7};
+	\node [state]   			(q8)   [right of=q7]  	{q8};
+	\node [state]   			(q9)   [right of=q8]  	{q9};
+	\node [state]   			(q10)  [right of=q9]  	{q10};
+	\node [state] 				(q15)  [right of=q10] 	{q15};
+	\node [state, accepting] 	(q16)  [right of=q15] 	{q16};
+	
+	% Row 3
+	\node [state] 	            (q11)  [below of=q7]   	{q11};
+	\node [state]   			(q12)  [right of=q11]  	{q12};
+	\node [state]   			(q13)  [right of=q12]  	{q13};
+	\node [state]   			(q14)  [right of=q13]  	{q14};
+	\node [state] 				(q17)  [right of=q14] 	{q17};
+	\node [state, accepting] 	(q18)  [right of=q17] 	{q18};
+	
+	% First Column
+	\path [->] 	(q0) edge	            	node	{$\epsilon$}		(q1);
+	
+	% 2nd Column
+	\path [->] 	(q1) edge	            	node	{$\epsilon$}		(q2);
+	\path [->] 	(q1) edge	            	node	{$\epsilon$}		(q7);
+	\path [->] 	(q1) edge	            	node	{$\epsilon$}		(q11);
+	
+	% 3rd Column
+	\path [->] 	(q2)  edge	           	 	node	{0}					(q3);
+	\path [->] 	(q7)  edge	            	node	{0}					(q8);
+	\path [->] 	(q11) edge	            	node	{0}					(q12);
+	
+	% 4th Column
+	\path [->] 	(q3)  edge	           	 	node	{$\epsilon$}		(q4);
+	\path [->] 	(q8)  edge	            	node	{$\epsilon$}		(q9);
+	\path [->] 	(q12) edge	            	node	{$\epsilon$}		(q13);
+	
+	% 5th Column
+	\path [->] 	(q4)  edge	           	 	node	{1}					(q5);
+	\path [->] 	(q9)  edge	            	node	{0}					(q10);
+	\path [->] 	(q13) edge	            	node	{1}					(q14);
+	\path [->] 	(q5)  edge	[bend right, out=-90, in=-90, looseness=.5]	node	{$\epsilon$}		(q1);
+	
+	% 6th Column
+	\path [->] 	(q10)  edge	           	 	node	{$\epsilon$}		(q15);
+	\path [->] 	(q14)  edge	            	node	{$\epsilon$}		(q17);
+	
+	% 7th Column
+	\path [->] 	(q15)  edge	           	 	node	{1}					(q16);
+	\path [->] 	(q17)  edge	            	node	{0}					(q18);
+	\path [->] 	(q16)  edge	[bend right, out=-90, in=-90, looseness=1]	node	{$\epsilon$}		(q1);
+	\path [->] 	(q18)  edge	[bend left, out=90, in=90, looseness=1.1] 	node	{$\epsilon$}		(q1);
+	
+	\end{tikzpicture} \\
+\end{center}
 
-a. \\
-
-b. \\
+\noindent
+b. Convert this NFA to an equivalent DFA. Give only the portion of the \\
+DFA that is reachable from the start state.
+\begin{center}
+	\begin{tikzpicture}[>=stealth',shorten >=2pt, auto, node distance=3cm]
+	% Nodes {q1, q2, q3, q4, q5, etc}
+	\node [state,  initial, accepting] 	(q1) 				 {q1};
+	\node [state] 						(q2)  [right of=q1]  {q2};
+	\node [state, accepting]   			(q3)  [right of=q2]  {q3};
+	\node [state, accepting]   			(q4)  [right of=q3]  {q4};
+	\node [state] 						(q5)  [below of=q2]  {q5};
+	
+	% Paths
+	\path [->] 	(q1) edge 				node			{0}		(q2);
+	\path [->] 	(q1) edge [loop below] 	node			{1}		(q1);
+	\path [->] 	(q2) edge 				node			{0}		(q5);
+	\path [->] 	(q3) edge [bend right] 	node [above]	{0,1}	(q1);
+	\path [->] 	(q2) edge 				node			{1}		(q3);
+	\path [->] 	(q3) edge 				node			{0}		(q4);
+	\path [->] 	(q4) edge [bend right, out=-90, in=-90, looseness=.5] 	node [above]	{0,1}	(q1);
+	\path [->] 	(q5) edge 				node			{1}		(q4);
+	
+	\end{tikzpicture} \\
+\end{center}
 
 %*********************************************************************************
 % 1.18 here
@@ -1411,39 +1863,234 @@ Not members: b, $\epsilon$
 
 %*********************************************************************************
 % 1.21 here
-% FINISH 1.21
 
 \noindent
 1.21 \\
 
 a.
 \begin{center}
-    \begin{tikzpicture}[>=stealth',shorten >=2pt, auto, node distance=2cm]
+    \begin{tikzpicture}[>=stealth',shorten >=2pt, auto, node distance=3cm]
     % Nodes {q1, q2, q3, q4, q5, etc}
-    \node [state, initial, accepting] 		(q1) 				 {q1};
-    \node [state, accepting] 				(q2)  [right of=q1]  {q2};
-    \node [state, accepting]   	            (q3)  [right of=q2]  {q3};
-    \node [state]	                        (q4)  [right of=q3]  {q4};
+    \node [state, initial] 		(q1) 				 {q1};
+    \node [state] 				(q2)  [right of=q1]  {q2};
+    \node [state]   	        (q3)  [right of=q2]  {q3};
+    \node [state, accepting]	(q4)  [right of=q3]  {q4};
     
     % Paths
-    \path [->] 	(q1) edge [bend left]	node	{1}		(q2);
-    \path [->] 	(q1) edge [loop above] 	node	{0}		(q1);
-    \path [->] 	(q2) edge [bend left]	node	{0}		(q1);
-    \path [->] 	(q2) edge 				node	{1}		(q3);
-    \path [->] 	(q3) edge 				node	{0}		(q4);
-    \path [->] 	(q3) edge [loop above] 	node	{1}		(q3);
-    \path [->] 	(q4) edge [loop above] 	node	{0,1}	(q4);
+    \path [->] 	(q1) edge 				node	{$\epsilon$}	(q2);
+    \path [->] 	(q2) edge [bend left]	node	{b}				(q3);
+    \path [->] 	(q2) edge [loop above] 	node	{a}				(q2);
+    \path [->] 	(q3) edge [bend left] 	node	{b}				(q2);
+    \path [->] 	(q3) edge [loop above] 	node	{a}				(q3);
+    \path [->] 	(q3) edge 				node	{$\epsilon$}	(q4);
     
     \end{tikzpicture} \\
 \end{center}
 
+\begin{center}
+	\begin{tikzpicture}[>=stealth',shorten >=2pt, auto, node distance=3cm]
+	% Nodes {q1, q2, q3, q4, q5, etc}
+	\node [state, initial] 		(q1) 				 {q1};
+	\node [state] 				(q2)  [right of=q1]  {q2};
+	\node [state, accepting]	(q3)  [right of=q2]  {q3};
+	
+	% Paths
+	\path [->] 	(q1) edge 				node	{$\epsilon$}	(q2);
+	\path [->] 	(q2) edge				node	{ba*}			(q3);
+	\path [->] 	(q2) edge [loop above] 	node	{a $\bigcup$ ba*b}				(q2);
+	
+	\end{tikzpicture} \\
+\end{center}
+
+\begin{center}
+	\begin{tikzpicture}[>=stealth',shorten >=2pt, auto, node distance=4cm]
+	% Nodes {q1, q2, q3, q4, q5, etc}
+	\node [state, initial] 		(q1) 				 {q1};
+	\node [state, accepting]	(q2)  [right of=q1]  {q2};
+	
+	% Paths
+	\path [->] 	(q1) edge 	[bend left]	node	{(a $\bigcup$ ba*b)*ba*}	(q2);
+	
+	\end{tikzpicture} \\
+\end{center}
+
 b.
+\begin{center}
+	\begin{tikzpicture}[>=stealth',shorten >=2pt, auto, node distance=3cm]
+	% Nodes {q1, q2, q3, q4, q5, etc}
+	\node [state, initial] 		(q1) 				 {q1};
+	\node [state] 				(q2)  [right of=q1]  {q2};
+	\node [state]   	        (q3)  [right of=q2]  {q3};
+	\node [state, accepting]	(q4)  [below of=q2]  {q4};
+	\node [state]   	        (q5)  [right of=q4]  {q5};	
+	
+	% Paths
+	\path [->] 	(q1) edge 					node	{$\epsilon$}		(q2);
+	\path [->] 	(q2) edge 	[bend left]		node	{a $\bigcup$ b}		(q3);
+	\path [->] 	(q2) edge 					node	{$\epsilon$}		(q4);
+	\path [->] 	(q3) edge 	[loop right]	node	{a}					(q3);
+	\path [->] 	(q3) edge 	[bend left]		node	{b}					(q5);
+	\path [->] 	(q5) edge 					node	{$\epsilon$}		(q4);
+	\path [->] 	(q5) edge 	[bend left]		node	{a}					(q2);
+	\path [->] 	(q5) edge 	[bend left]		node	{b}					(q3);
+	
+	\end{tikzpicture} \\
+\end{center}
+
+\begin{center}
+	\begin{tikzpicture}[>=stealth',shorten >=2pt, auto, node distance=3cm]
+	% Nodes {q1, q2, q3, q4, q5, etc}
+	\node [state, initial] 		(q1) 				 {q1};
+	\node [state] 				(q2)  [right of=q1]  {q2};
+	\node [state]   	        (q3)  [right of=q2]  {q3};
+	\node [state, accepting]	(q4)  [below of=q2]  {q4};
+	
+	% Paths
+	\path [->] 	(q1) edge 					node	{$\epsilon$}			(q2);
+	\path [->] 	(q2) edge 	[bend left]		node	{(a $\bigcup$ b) a*b}	(q3);
+	\path [->] 	(q2) edge 					node	{$\epsilon$}			(q4);
+	\path [->] 	(q3) edge 	[loop right]	node	{a}						(q3);
+	\path [->] 	(q3) edge 					node	{$\epsilon$}			(q4);
+	\path [->] 	(q3) edge 	[bend left]		node	{a}						(q2);
+	
+	\end{tikzpicture} \\
+\end{center}
+
+\begin{center}
+	\begin{tikzpicture}[>=stealth',shorten >=2pt, auto, node distance=3cm]
+	% Nodes {q1, q2, q3, q4, q5, etc}
+	\node [state, initial] 		(q1) 				 {q1};
+	\node [state] 				(q2)  [right of=q1]  {q2};
+	\node [state]   	        (q3)  [right of=q2]  {q3};
+	
+	% Paths
+	\path [->] 	(q1) edge 				node	{$\epsilon$}			(q2);
+	\path [->] 	(q2) edge [bend left]	node	{$\epsilon \bigcup$ (a $\bigcup$ b) a*b (ba*b)* }	(q3);
+	\path [->] 	(q2) edge [loop below]	node	{(a $\bigcup$ b) a*b (ba*b)*a} (q2);
+	
+	\end{tikzpicture} \\
+\end{center}
+
+\begin{center}
+	\begin{tikzpicture}[>=stealth',shorten >=2pt, auto, node distance=11cm]
+	% Nodes {q1, q2, q3, q4, q5, etc}
+	\node [state, initial] 		(q1) 				 {q1};
+	\node [state] 				(q2)  [right of=q1]  {q2};
+	
+	% Paths
+	\path [->] 	(q1) edge node	{((a $\bigcup$ b) a*b (ba*b)* a)* $\epsilon \bigcup$ (a $\bigcup$ b) a*b (ba*b)* }			(q2);
+	%\path [->] 	(q2) edge [loop below]	node	{(a $\bigcup$ b) a*b (ba*b)*a} (q2);
+	
+	\end{tikzpicture} \\
+\end{center}
 
 %*********************************************************************************
 % 1.22 here
-% FINISH 1.22
 
 \noindent
 1.22 \\
+
+\noindent
+In certain programming languages, comments appear between delimiters such			\\
+as /\# and \#/. Let C be the language of all valid delimited comment strings. 		\\
+A member of C must begin with /\# and end with \#/ but have no intervening  		\\
+\#/. For simplicity, assume that the alphabet for C is $\sum$ = \{a, b, /, \#\}.	\\
+
+a. Give a DFA that recognizes C.
+\begin{center}
+	\begin{tikzpicture}[>=stealth',shorten >=2pt, auto, node distance=3cm]
+	% Nodes {q1, q2, q3, q4, q5, etc}
+	\node [state, initial] 	    (q1) 				 {q1};
+	\node [state] 			    (q2)  [right of=q1]  {q2};
+	\node [state]   	        (q3)  [right of=q2]  {q3};
+	\node [state]	            (q4)  [right of=q3]  {q4};
+	\node [state, accepting] 	(q5)  [right of=q4]  {q5};
+	\node [state] 				(q7)  [below of=q3]  {q7};
+	
+	% Paths
+	\path [->] 	(q1) edge	            node			{/}		(q2);
+	\path [->] 	(q2) edge 				node			{\#}	(q3);
+	\path [->] 	(q3) edge 				node			{\#}	(q4);
+	\path [->] 	(q4) edge               node        	{/}		(q5);
+	
+	\path [->] 	(q3) edge [loop above]	node			{a,b}	(q3);
+	
+	\path [->] 	(q1) edge [bend right]  node  [left]	{a,b,\#}		(q7);
+	\path [->] 	(q2) edge [bend right]  node  [left]	{a,b, /}		(q7);
+	\path [->] 	(q3) edge	            node  [left]	{/}				(q7);
+	\path [->] 	(q4) edge [bend left]	node  [right]	{a,b,\#}		(q7);
+	\path [->] 	(q5) edge [bend left]   node  [right]	{a,b,\#, /}		(q7);
+	
+	\end{tikzpicture} \\
+\end{center}
+
+b. Give a regular expression that generates C.
+\begin{center}
+	\begin{tikzpicture}[>=stealth',shorten >=2pt, auto, node distance=3cm]
+	% Nodes {q1, q2, q3, q4, q5, etc}
+	\node [state, initial] 		(q1) 				 {q1};
+	\node [state] 				(q2)  [right of=q1]  {q2};
+	\node [state]   	        (q3)  [right of=q2]  {q3};
+	\node [state]   	        (q4)  [right of=q3]  {q4};
+	\node [state, accepting]	(q5)  [right of=q4]  {q5};	
+	
+	% Paths
+	\path [->] 	(q1) edge 					node	{/}			(q2);
+	\path [->] 	(q2) edge 					node	{\#}		(q3);
+	\path [->] 	(q3) edge 	[loop above]	node	{a,b}		(q3);
+	\path [->] 	(q3) edge 					node	{\#}		(q4);
+	\path [->] 	(q4) edge 					node	{/}			(q5);
+	
+	\end{tikzpicture} \\
+\end{center}
+
+\begin{center}
+	\begin{tikzpicture}[>=stealth',shorten >=2pt, auto, node distance=3cm]
+	% Nodes {q1, q2, q3, q4, q5, etc}
+	\node [state, initial] 		(q1) 				 {q1};
+	\node [state] 				(q2)  [right of=q1]  {q2};
+	\node [state]   	        (q3)  [right of=q2]  {q3};
+	\node [state]   	        (q4)  [right of=q3]  {q4};
+	\node [state, accepting]	(q5)  [right of=q4]  {q5};	
+	
+	% Paths
+	\path [->] 	(q1) edge 					node	{/}					(q2);
+	\path [->] 	(q2) edge 					node	{\#}				(q3);
+	\path [->] 	(q3) edge 	[loop above]	node	{$a \bigcup b$}		(q3);
+	\path [->] 	(q3) edge 					node	{\#}				(q4);
+	\path [->] 	(q4) edge 					node	{/}					(q5);
+	
+	\end{tikzpicture} \\
+\end{center}
+
+\begin{center}
+	\begin{tikzpicture}[>=stealth',shorten >=2pt, auto, node distance=4cm]
+	% Nodes {q1, q2, q3, q4, q5, etc}
+	\node [state, initial] 		(q1) 				 {q1};
+	\node [state] 				(q2)  [right of=q1]  {q2};
+	\node [state]   	        (q3)  [right of=q2]  {q3};
+	\node [state, accepting]   	(q4)  [right of=q3]  {q4};
+	
+	% Paths
+	\path [->] 	(q1) edge 					node	{/}					(q2);
+	\path [->] 	(q2) edge 					node	{\# ($a \bigcup b$)* \#}		(q3);
+	\path [->] 	(q3) edge 					node	{/}				(q4);
+	
+	\end{tikzpicture} \\
+\end{center}
+
+\begin{center}
+	\begin{tikzpicture}[>=stealth',shorten >=2pt, auto, node distance=9cm]
+	% Nodes {q1, q2, q3, q4, q5, etc}
+	\node [state, initial] 		(q1) 				 {q1};
+	\node [state, accepting]   	(q2)  [right of=q1]  {q2};
+	
+	% Paths
+	\path [->] 	(q1) edge 			node	{/ \# ($a \bigcup b$)* \# /}	(q2);
+	
+	\end{tikzpicture} \\
+\end{center}
+
+The regular expression is: / \# ($a \bigcup b$)* \# /
 
 \end{document}
