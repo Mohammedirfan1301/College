@@ -905,6 +905,7 @@ j. \{w$|$ w contains at least two 0s and at most one 1\}
     \path [->] 	(q5) edge [loop right]	node	{0}		(q5);
     \path [->] 	(q6) edge	            node	{0}		(q4);
     \path [->] 	(q6) edge	            node	{1}		(q7);
+    \path [->] 	(q7) edge [loop right]	node	{0,1}	(q7);
     
     \end{tikzpicture} \\
 \end{center}
@@ -2018,7 +2019,7 @@ a. Give a DFA that recognizes C.
 	\node [state]   	        (q3)  [right of=q2]  {q3};
 	\node [state]	            (q4)  [right of=q3]  {q4};
 	\node [state, accepting] 	(q5)  [right of=q4]  {q5};
-	\node [state] 				(q7)  [below of=q3]  {q7};
+	\node [state] 				(q6)  [below of=q3]  {q6};
 	
 	% Paths
 	\path [->] 	(q1) edge	            node			{/}		(q2);
@@ -2028,11 +2029,11 @@ a. Give a DFA that recognizes C.
 	
 	\path [->] 	(q3) edge [loop above]	node			{a,b}	(q3);
 	
-	\path [->] 	(q1) edge [bend right]  node  [left]	{a,b,\#}		(q7);
-	\path [->] 	(q2) edge [bend right]  node  [left]	{a,b, /}		(q7);
-	\path [->] 	(q3) edge	            node  [left]	{/}				(q7);
-	\path [->] 	(q4) edge [bend left]	node  [right]	{a,b,\#}		(q7);
-	\path [->] 	(q5) edge [bend left]   node  [right]	{a,b,\#, /}		(q7);
+	\path [->] 	(q1) edge [bend right]  node  [left]	{a,b,\#}		(q6);
+	\path [->] 	(q2) edge [bend right]  node  [left]	{a,b, /}		(q6);
+	\path [->] 	(q3) edge	            node  [left]	{/}				(q6);
+	\path [->] 	(q4) edge [bend left]	node  [right]	{a,b,\#}		(q6);
+	\path [->] 	(q5) edge [bend left]   node  [right]	{a,b,\#, /}		(q6);
 	
 	\end{tikzpicture} \\
 \end{center}
