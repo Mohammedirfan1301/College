@@ -2,6 +2,7 @@
     This is the producer C file for A3
 */
 
+#include "donuts.h"
 
 int   shmid, semid[3];
 void  sig_handler (int);
