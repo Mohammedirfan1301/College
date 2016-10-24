@@ -1,5 +1,15 @@
 /*
+    Jason Downing
+    Assignment 3
+    Operating Systems - COMP.3080
+    10/24/2016
+
     This is a header file for A3
+    Parts of this file are originally from this helpfile:
+    http://www.cs.uml.edu/~bill/cs308/call_help_assign3.txt
+
+    I have added several includes such as stdio, stdlib, time.h, and unistd.h to
+    avoid getting a ton of errors and warnings.
 */
 
 #include <stdio.h>
@@ -10,6 +20,8 @@
 #include <sys/sem.h>
 #include <sys/shm.h>
 #include <sys/signal.h>
+#include <sys/time.h>
+#include <unistd.h>
 
 #define   SEMKEY      (key_t)549351763
 #define   MEMKEY      (key_t)549351763

@@ -1,3 +1,8 @@
+# Jason Downing
+# Assignment 3
+# Operating Systems - COMP.3080
+# 10/24/2016
+#
 # Makefile for Assignment 3
 # File given by Prof. Moloney at the following URL:
 # http://www.cs.uml.edu/~bill/cs308/assignment_3_makefile.txt
