@@ -1,14 +1,19 @@
-# Jason Downing
-# Makefile for Assignment #3
-# 10/6/2016
-CC = gcc
-FLAGS = -O -Werror -Wall -Wextra -Wundef -Winit-self
+# Makefile for Assignment 3
+# File given by Prof. Moloney at the following URL:
+# http://www.cs.uml.edu/~bill/cs308/assignment_3_makefile.txt
 
-all: a3
+proddonuts consdonuts: donuts.h proddonuts.o consdonuts.o utilities.o
+	gcc -o proddonuts proddonuts.o utilities.o
+	gcc -o consdonuts consdonuts.o utilities.o
 
-a3:	a3.c
-	$(CC) a3.c $(FLAGS) -o a3
+consdonuts.o: donuts.h consdonuts.c
+	gcc -c consdonuts.c
+
+proddonuts.o: donuts.h proddonuts.c
+	gcc -c proddonuts.c
+
+utilities.o:  utilities.c
+	gcc -c utilities.c
 
 clean:
-	# Remove the executable / output file.
-	rm a3
+	rm *.o proddonuts consdonuts
