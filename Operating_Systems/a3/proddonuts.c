@@ -90,6 +90,31 @@ int main(int argc, char *argv[] ) {
   /*  including the producer signal handler below       */
 
   // Put while loop here?
+  /* Loop forever */
+  while (1) {
+    // Seed random number generator
+    gettimeofday(&randtime, (struct timezone *) 0);
+
+    // use microsecond component for uniqueness
+    unsigned short xsub1[3];
+    xsub1[0] = (ushort) randtime.tv_usec;
+    xsub1[1] = (ushort)(randtime.tv_usec >> 16);
+    xsub1[2] = (ushort)(getpid());
+
+    // use nrand48 with xsub1 to get 32 bit random number
+    j = nrand48(xsub1) & 3;
+
+    // lock the semophore
+    p(semid[PROD], j);
+
+    // Produce
+    serial[j] = serial[j] + 1; /* ID */
+    shared_ring->flavor[j][in_ptr[j]] = serial[j];
+    in_ptr[j] = (in_ptr[j] + 1) % NUMSLOTS;
+
+    // Finished
+    v(semid[CONSUMER], j);
+  }
 
   return 0;
 }

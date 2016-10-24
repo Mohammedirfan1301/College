@@ -3,6 +3,7 @@
 */
 #include "donuts.h"
 
+// Producer
 int p (int semidgroup, int donut_type) {
   struct sembuf semopbuf;         /*** struct in <sys/sem.h> ***/
 
@@ -17,11 +18,12 @@ int p (int semidgroup, int donut_type) {
   return (0);
 }
 
+// Consumer
 int v (int semidgroup, int donut_type) {
   struct sembuf semopbuf;
 
   semopbuf.sem_num = donut_type;
-  semopbuf.sem_op = (+1);     /*** +1 is a V operation ***/
+  semopbuf.sem_op = (+1);         /*** +1 is a V operation ***/
   semopbuf.sem_flg = 0;
 
   if(semop(semidgroup, &semopbuf,1) == -1) {
@@ -31,9 +33,9 @@ int v (int semidgroup, int donut_type) {
   return (0);
 }
 
-int semsetall (int semgroup, int number_in_group, int set_all_value)
-{
+int semsetall (int semgroup, int number_in_group, int set_all_value) {
   int i, j, k;
+
   union semun     /*** need this union ***/
   {
     int val;

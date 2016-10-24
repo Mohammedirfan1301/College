@@ -17,3 +17,4 @@ utilities.o:  utilities.c
 
 clean:
 	rm *.o proddonuts consdonuts
+	rm c1 c2 c3 c4 c5
