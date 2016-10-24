@@ -25,12 +25,12 @@
 
 #define   SEMKEY      (key_t)549351763
 #define   MEMKEY      (key_t)549351763
-#define   NUMFLAVORS  4
-#define   NUMSLOTS    50
-#define   NUMSEMIDS   3
-#define   PROD        0
-#define   CONSUMER    1
-#define   OUTPTR      2
+#define   NUMFLAVORS  4         // Number of flavors?
+#define   NUMSLOTS    50        // Queue size?
+#define   NUMSEMIDS   3         // Number of SEMIDs?
+#define   PROD        0         // Producer
+#define   CONSUMER    1         // Consumer
+#define   OUTPTR      2         // Out pointer?
 
 struct  donut_ring {
   int flavor  [NUMFLAVORS]  [NUMSLOTS];

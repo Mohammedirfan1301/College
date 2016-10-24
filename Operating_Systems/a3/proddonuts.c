@@ -17,8 +17,8 @@ int main(int argc, char *argv[]) {
   int i, j, k;
   int in_ptr [NUMFLAVORS];
   int serial [NUMFLAVORS];
-  struct donut_ring *shared_ring;
-  struct timeval randtime;
+  struct donut_ring *shared_ring;   // Donuts
+  struct timeval randtime;          // Random number seed
 
   // Producer initializes serial counters and in-pointers
   for(i = 0; i < NUMFLAVORS; i++) {
@@ -66,6 +66,7 @@ int main(int argc, char *argv[]) {
     sig_handler(-1);
   }
 
+  // Get semophores
   for(i = 0; i < NUMSEMIDS; i++) {
     if ((semid[i] = semget (SEMKEY+i, NUMFLAVORS, IPC_CREAT | 0600)) == -1) {
       perror("semaphore allocation failed: ");
