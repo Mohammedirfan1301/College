@@ -31,7 +31,7 @@ int main() {
   // for some reason Prof. Moloney was comparing a void *shmat with -1. But the man
   // page actually says the function returns (void *) -1 on error. So I updated this code.
   // Man Page: http://man7.org/linux/man-pages/man2/shmat.2.html
-  if ((shared_ring = (struct donut_ring *) shmat(shmid, NULL, 0) ) == (void *) -1) {
+  if ((shared_ring = (struct donut_ring *) shmat(shmid, NULL, 0) ) == -1) {
     perror("shared attach failed: ");
     exit(1);
   }
@@ -90,13 +90,6 @@ int main() {
         case 3: {
           flavors[rand_num][type4] = donut_type;
           type4++;
-          break;
-        }
-
-        // Shouldn't get here since we're making a random number from 0 to 3...
-        default: {
-          printf("\n\nERROR! Base case in donut type switch in consumer code!\n\n");
-          exit(2);
           break;
         }
       }

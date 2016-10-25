@@ -9,7 +9,32 @@ provided by Professor Moloney on his cs308 website:
 http://www.cs.uml.edu/~bill/cs308/
 
 As a result, I spent most of my time trying to figure out how to run to generate
-graphs for the required test cases.
+graphs for the required test cases. The Makefile I have provided has everything
+need to run and clean the project. The shell script included is setup to default
+to 5 consumers but I left commented out code for running from 1 to 10 consumers.
+
+I have also attached an excel file and graphs in PDF format.
+
+Step 7:
+For step 7, I ran the included shell script with loops set to 5. I also set the
+script to run with 5 consumers and 1 producer. I ran each queue size twice and
+took the average of the two using an Excel formula. This gave me a pretty good
+idea of what queue size causes what level of deadlock. It turns out that for my
+code and PC, it is around a queue size of 40. I ran the code for queue size 10
+to 80 to test different sizes.
+
+From the results graph, it seems clear that the distribution is linear. There is
+clearly a linear step in the graph and it goes from 100% at queue size 10 to
+0% at queue sizes 60, 70 and 80.
+
+Step 8:
+From Step 7, I knew that a queue size of 40 would produce a 50% chance of
+deadlocking. As a result, I ran the shell script with loops set to 5, and queue
+size set to 50. I did this for 1 to 10 consumers. I left my old consumer code
+commented out in the shell script for testing purposes.
+
+From the graph, it seems pretty straightforward that the higher the number of
+consumers, the higher the chance of deadlock occurs.
 
 Example output for 1 consumer & 1 loop:
 
