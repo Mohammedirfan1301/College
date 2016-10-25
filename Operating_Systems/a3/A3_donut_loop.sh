@@ -56,7 +56,7 @@ sleep 1
 #./consdonuts 1 > c1 & ./consdonuts 2 > c2 & ./consdonuts 3 > c3 & ./consdonuts 4 > c4 &
 
 # Five Consumers
-#./consdonuts 1 > c1 & ./consdonuts 2 > c2 & ./consdonuts 3 > c3 & ./consdonuts 4 > c4 & ./consdonuts 5 > c5 &
+./consdonuts 1 > c1 & ./consdonuts 2 > c2 & ./consdonuts 3 > c3 & ./consdonuts 4 > c4 & ./consdonuts 5 > c5 &
 
 # Six Consumers
 #./consdonuts 1 > c1 & ./consdonuts 2 > c2 & ./consdonuts 3 > c3 & ./consdonuts 4 > c4 & ./consdonuts 5 > c5 & ./consdonuts 6 > c6 &
@@ -71,7 +71,7 @@ sleep 1
 #./consdonuts 1 > c1 & ./consdonuts 2 > c2 & ./consdonuts 3 > c3 & ./consdonuts 4 > c4 & ./consdonuts 5 > c5 & ./consdonuts 6 > c6 & ./consdonuts 7 > c7 & ./consdonuts 8 > c8 & ./consdonuts 9 > c9 &
 
 # Ten Consumers
-./consdonuts 1 > c1 & ./consdonuts 2 > c2 & ./consdonuts 3 > c3 & ./consdonuts 4 > c4 & ./consdonuts 5 > c5 & ./consdonuts 6 > c6 & ./consdonuts 7 > c7 & ./consdonuts 8 > c8 & ./consdonuts 9 > c9 & ./consdonuts 10 > c10 &
+#./consdonuts 1 > c1 & ./consdonuts 2 > c2 & ./consdonuts 3 > c3 & ./consdonuts 4 > c4 & ./consdonuts 5 > c5 & ./consdonuts 6 > c6 & ./consdonuts 7 > c7 & ./consdonuts 8 > c8 & ./consdonuts 9 > c9 & ./consdonuts 10 > c10 &
 
 sleep 15
 pid=`ps | grep -v 'grep' | grep 'proddonuts' | cut -c1-6`

@@ -27,7 +27,7 @@
 #define   MEMKEY      (key_t)549351763
 
 #define   NUMFLAVORS  4         // Number of flavors of Donuts
-#define   NUMSLOTS    40        // Queue Size
+#define   NUMSLOTS    50        // Queue Size
 #define   NUMSEMIDS   3         // Number of SEMIDs
 #define   PROD        0         // Producer
 #define   CONSUMER    1         // Consumer
