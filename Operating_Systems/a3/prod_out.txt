@@ -1,0 +1,1 @@
+In signal handler with signal # 15
