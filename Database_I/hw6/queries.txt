@@ -1,0 +1,78 @@
+Chapter 6:
+Exercises: 6.3.1 (a, b, c, d), 6.4.6 (b, c, e, h)
+
+Product (maker, model, type)
+PC (model, speed, ram, hd, price)
+Laptop (model, speed, ram, hd, screen, price)
+Printer (model, color, type, price)
+
+6.3.1 (a, b, c, d)
+a)
+
+- Find the makers of PC's with a speed of at least 3.0
+
+SELECT maker
+FROM Product, PC
+WHERE speed > 3.0
+
+b)
+
+- Find the printers with the highest price
+
+SELECT model
+FROM Printer
+WHERE price = highest
+
+c)
+
+- Find the laptops whose speed is slower than that of any PC.
+
+SELECT DISTINCT model
+FROM Laptop, PC
+WHERE Laptop.speed < PC.speed
+
+d)
+
+- Find the model number of the item (PC, laptop, or printer) with the highest
+price.
+
+SELECT model
+FROM PC, Laptop, Printer
+WHERE price = highest
+
+
+6.4.6 (b, c, e, h)
+
+Same database schema as 6.3.1
+
+b)
+
+- Find the average speed of laptops costing over $1,000
+
+SELECT
+FROM
+WHERE
+
+c)
+
+- Find the average price of PC's made by manufacturer "A".
+
+SELECT
+FROM
+WHERE
+
+e)
+
+- Find, for each different speed, the average price of a PC.
+
+SELECT
+FROM
+WHERE
+
+h)
+
+- Find for each manufacturer who sells PC's, the maximum price of a PC.
+
+SELECT
+FROM
+WHERE
