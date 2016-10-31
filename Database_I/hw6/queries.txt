@@ -11,24 +11,32 @@ a)
 
 - Find the makers of PC's with a speed of at least 3.0
 
-SELECT maker
-FROM Product, PC
-WHERE speed > 3.0
+SELECT DISTINCT maker
+FROM Product CROSS JOIN PC
+WHERE Product.model = PC.model AND PC.speed > 3.0
+
+Example output from SQLLite Query:
+maker
+B
+E
 
 b)
 
 - Find the printers with the highest price
 
-SELECT model
-FROM Printer
-WHERE price = highest
+SELECT model, MAX(price)
+FROM printer
+
+Example output:
+ model  | Price
+"3003"    "899"
 
 c)
 
 - Find the laptops whose speed is slower than that of any PC.
 
-SELECT DISTINCT model
-FROM Laptop, PC
+SELECT DISTINCT Laptop.model
+FROM Laptop CROSS JOIN PC
 WHERE Laptop.speed < PC.speed
 
 d)
@@ -36,12 +44,16 @@ d)
 - Find the model number of the item (PC, laptop, or printer) with the highest
 price.
 
-SELECT model
-FROM PC, Laptop, Printer
+SELECT DISTINCT model, MAX(price)
+FROM PC CROSS JOIN Laptop CROSS JOIN Printer
 WHERE price = highest
 
+SELECT *
+FROM Laptop a JOIN PC b ON a.model = b.model JOIN Printer c ON a.model = c.model
+WHERE
 
-6.4.6 (b, c, e, h)
+
+6.4.6 (b, c, e, h)S
 
 Same database schema as 6.3.1
 
