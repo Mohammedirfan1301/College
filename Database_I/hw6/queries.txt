@@ -61,30 +61,57 @@ b)
 
 - Find the average speed of laptops costing over $1,000
 
-SELECT
-FROM
-WHERE
+SELECT AVG(speed)
+FROM Laptop
+WHERE price > 1000
+
+Example Output:
+AVG(speed)
+1.99833333333333
 
 c)
 
 - Find the average price of PC's made by manufacturer "A".
 
-SELECT
-FROM
-WHERE
+SELECT AVG(price)
+FROM Product JOIN PC
+WHERE maker = "A"
+
+Example Output:
+AVG(price)
+827.076923076923
 
 e)
 
 - Find, for each different speed, the average price of a PC.
 
-SELECT
-FROM
-WHERE
+SELECT DISTINCT speed, AVG(price)
+FROM PC
+GROUP BY speed
+
+Example output:
+Speed   |   AVG(price)
+"1.42"      "478.0"
+"1.86"      "959.0"
+"2.0"       "650.0"
+"2.1"       "995.0"
+"2.2"       "640.0"
+"2.66"      "2114.0"
+"2.8"       "689.333333333333"
+"3.06"      "529.0"
+"3.2"       "839.5"
 
 h)
 
 - Find for each manufacturer who sells PC's, the maximum price of a PC.
 
-SELECT
-FROM
-WHERE
+SELECT maker, MAX(price)
+FROM Product CROSS JOIN PC
+GROUP BY maker
+
+Get all maker / PC prices
+SELECT Product.maker, PC.model, PC.price
+FROM Product
+JOIN PC
+ON Product.model = PC.model
+GROUP BY PC.model
