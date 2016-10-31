@@ -6,7 +6,25 @@ import sqlite3
 # name,class,launched
 # California,Tennessee,1921
 
+# DB here
 conn = sqlite3.connect('hw.db')
-table_name = "Product"  # name table here
-df = pandas.read_csv('table.csv')
-df.to_sql(table_name, conn, if_exists='append', index=False)
+
+# Table "Product"
+table = "Product"  # name table here
+df = pandas.read_csv('product.csv')
+df.to_sql(table, conn, if_exists='append', index=False)
+
+# Table "PC"
+table = "PC"  # name table here
+df = pandas.read_csv('pc.csv')
+df.to_sql(table, conn, if_exists='append', index=False)
+
+# Table "Laptop"
+table = "Laptop"  # name table here
+df = pandas.read_csv('laptop.csv')
+df.to_sql(table, conn, if_exists='append', index=False)
+
+# Table "Printer"
+table = "Printer"  # name table here
+df = pandas.read_csv('printer.csv')
+df.to_sql(table, conn, if_exists='append', index=False)
