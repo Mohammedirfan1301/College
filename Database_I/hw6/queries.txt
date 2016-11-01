@@ -59,14 +59,20 @@ d)
 - Find the model number of the item (PC, laptop, or printer) with the highest
 price.
 
-SELECT DISTINCT model, MAX(price)
-FROM PC CROSS JOIN Laptop CROSS JOIN Printer
-WHERE price = highest
+SELECT model_prices.model, MAX(model_prices.price)
+FROM (Select model, price from PC
+	UNION ALL
+	Select model, price from Laptop
+	UNION All
+	SELECT model, price from PC
+)  model_prices
 
-SELECT *
-FROM Laptop a JOIN PC b ON a.model = b.model JOIN Printer c ON a.model = c.model
-WHERE
+Example output:
+model   |  MAX(model_prices.price)
+----------------------------------
+"2001"		 "3673"
 
+--------------------------------------------------------------------------------
 
 6.4.6 (b, c, e, h)
 
