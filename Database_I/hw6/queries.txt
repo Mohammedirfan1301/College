@@ -29,6 +29,7 @@ FROM printer
 
 Example output:
  model  | Price
+---------------
 "3003"    "899"
 
 c)
@@ -38,6 +39,20 @@ c)
 SELECT DISTINCT Laptop.model
 FROM Laptop CROSS JOIN PC
 WHERE Laptop.speed < PC.speed
+
+Example output:
+model
+-----
+"2001"
+"2002"
+"2003"
+"2004"
+"2005"
+"2006"
+"2007"
+"2008"
+"2009"
+"2010"
 
 d)
 
@@ -53,7 +68,7 @@ FROM Laptop a JOIN PC b ON a.model = b.model JOIN Printer c ON a.model = c.model
 WHERE
 
 
-6.4.6 (b, c, e, h)S
+6.4.6 (b, c, e, h)
 
 Same database schema as 6.3.1
 
@@ -105,13 +120,17 @@ h)
 
 - Find for each manufacturer who sells PC's, the maximum price of a PC.
 
-SELECT maker, MAX(price)
-FROM Product CROSS JOIN PC
-GROUP BY maker
+SELECT DISTINCT Product.maker, MAX(PC.price)
+FROM Product JOIN PC
+WHERE Product.model = PC.model
+GROUP BY Product.maker
 
-Get all maker / PC prices
-SELECT Product.maker, PC.model, PC.price
-FROM Product
-JOIN PC
-ON Product.model = PC.model
-GROUP BY PC.model
+Example output:
+
+maker | MAX(PC.price)
+"A"			"2114"
+"B"			"1049"
+"C"			"510"
+"D"			"770"
+"E"			"959"
+
