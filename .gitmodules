@@ -1,3 +1,6 @@
 [submodule "GUI"]
 	path = GUI
 	url = https://github.com/JasonD94/GUI
+[submodule "UML-Alerts"]
+	path = UML-Alerts
+	url = https://github.com/JasonD94/UML-Alerts
