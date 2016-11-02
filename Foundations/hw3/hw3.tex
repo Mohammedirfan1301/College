@@ -17,14 +17,12 @@ Homework \#3 - Chapter 2\\
 % 2.1 here
 
 \noindent
-2.1 \\
-Recall the CFC G4 that we gave in Example 2.4. \\
+2.1 Recall the CFC G4 that we gave in Example 2.4. \\
 
 \noindent
-a. \\
-Parse tree for $a$: \\
+a. Parse tree for $a$: \\
 \begin{center}
-	\begin{tikzpicture}[scale=0.2]
+	\begin{tikzpicture}[scale=0.1]
 	\tikzstyle{every node}+=[inner sep=0pt]
 	\draw (31.3,-11.1) node {$E$};
 	\draw (31.3,-23.1) node {$T$};
@@ -39,13 +37,13 @@ Parse tree for $a$: \\
 	\end{tikzpicture}
 \end{center}
 
+\noindent
 Derivation for $a$: $E \rightarrow T \rightarrow F \rightarrow a$ \\
 
 \noindent
-b. \\
-Parse tree for $a + a$: \\
+b. Parse tree for $a + a$: \\
 \begin{center}
-	\begin{tikzpicture}[scale=0.2]
+	\begin{tikzpicture}[scale=0.1]
 	\tikzstyle{every node}+=[inner sep=0pt]
 	\draw (42.4,-7.5) node {$E$};
 	\draw (31.3,-18.5) node {$E$};
@@ -78,9 +76,9 @@ Parse tree for $a + a$: \\
 \noindent
 Derivation for $a + a$: $E \rightarrow E + T \rightarrow T + T \rightarrow T + F \rightarrow F + a \rightarrow a + a$ \\
 
+\pagebreak
 \noindent
-c. \\
-Parse tree for $a + a + a$: \\
+c. Parse tree for $a + a + a$: \\
 \begin{center}
 	\begin{tikzpicture}[scale=0.2]
 	\tikzstyle{every node}+=[inner sep=0pt]
@@ -128,10 +126,9 @@ Parse tree for $a + a + a$: \\
 Derivation for $a + a + a$: $E \rightarrow E + T \rightarrow T + T + T \rightarrow F + T + F \rightarrow$ \\
 $F + F + T \rightarrow F + F + F \rightarrow a + F + F \rightarrow a + a + F \rightarrow a + a + a$ \\
 
+\pagebreak
 \noindent
-d. \\
-\noindent
-Parse tree for $((a))$: \\
+d. Parse tree for $((a))$: \\
 \begin{center}
 	\begin{forest}
 		[E [T [F [(E) [(T) [(F) [((E)) [((T)) [((F)) [a]]]]]]]]]]]
@@ -145,6 +142,7 @@ $ \rightarrow ((T)) \rightarrow ((F)) \rightarrow ((a)) $ \\
 %*********************************************************************************
 % 2.4 b, c, e, f here
 
+\pagebreak
 \noindent
 2.4 \\
 Give context-free grammars that generate the following languages. \\
@@ -170,6 +168,7 @@ $ S \rightarrow \epsilon $ \\
 %*********************************************************************************
 % 2.5 here
 
+\pagebreak
 \noindent
 2.5 \\
 Give informal descriptions and state diagrams of pushdown automata for \\
@@ -179,9 +178,9 @@ the languages in Exercise 2.4. \\
 a. \{w| w contains at least three 1s\}\\
 
 \noindent
-Informal: In this grammar, there is no need of a stack (as seen in the diagram). In the grammar only the input is read, and the input is only accepted when there is at least three 1's. The only time the machine will accept a string in this case is when at least three 1's are present; otherwise it is rejected. \\\\
+\textbf{Informal:} In this grammar, there is no need of a stack (as seen in the diagram). In the grammar only the input is read, and the input is only accepted when there is at least three 1's. The only time the machine will accept a string in this case is when at least three 1's are present; otherwise it is rejected. \\\\
 \noindent
-Pushdown Automata:\\
+\textbf{Pushdown Automata:} \\
 \begin{center}
 	\begin{tikzpicture}[scale=0.2]
 	\tikzstyle{every node}+=[inner sep=0pt]
@@ -215,17 +214,18 @@ Pushdown Automata:\\
 \end{center}
 
 \noindent
-b. \{w| w starts and ends with the same symbol\} \\
+b. \{w| w starts and ends with the same symbol\} \\\\
 \noindent
-Informal: In this grammar, there is an assumption that there is only one symbol in the string
+\textbf{Informal:} In this grammar, there is an assumption that there is only one symbol in the string
 that can be accepted without the use of a stack. If there is more than one symbol in the string,
 then all of the symbols are put into the stack in order. We also check to see whether the last
 symbol is the one being read. If it is, and this symbol matches with the symbol on the stack,
 and if all the input has been checked with no input left, then we accept that state. Otherwise
-we reject the input.
+we reject the input. \\\\
+\pagebreak
 
 \noindent
-Pushdown Automata:\\
+\textbf{Pushdown Automata:} \\
 \begin{center}
 	\begin{tikzpicture}[>=stealth',shorten >=2pt, auto, node distance=4cm]
 	% Nodes {q1, q2, q3, q4, q5, etc}
@@ -250,13 +250,13 @@ Pushdown Automata:\\
 \end{center}
 
 \noindent
-c. \{w| the length of w is odd\} \\
+c. \{w| the length of w is odd\} \\\\
 \noindent
-Informal: In this grammar, there is no need of a stack. In this grammar, we only read
-the input and this input is also only accepted when there is an odd length.
+\textbf{Informal:} In this grammar, there is no need of a stack. In this grammar, we only read
+the input and this input is also only accepted when there is an odd length. \\
 
 \noindent
-Pushdown Automata:\\
+\textbf{Pushdown Automata:} \\
 \begin{center}
 	\begin{tikzpicture}[>=stealth',shorten >=2pt, auto, node distance=4cm]
 	% Nodes {q1, q2, q3, q4, q5, etc}
@@ -273,20 +273,20 @@ Pushdown Automata:\\
 	\end{tikzpicture}
 \end{center}
 
+\pagebreak
 \noindent
-d. \{w| the length of w is odd and its middle symbol is a 0\}\\
+d. \{w| the length of w is odd and its middle symbol is a 0\} \\\\
 \noindent
-Informal: In this grammar, the input is read by the pushdown automata and each symbol is
+\textbf{Informal:} In this grammar, the input is read by the pushdown automata and each symbol is
 placed onto the stack. At each point, the pushdown automata guesses if the input in the middle
 or if the next symbol read is in the middle of the string. If the next symbol read is the middle
 of the string then it does not get read onto the stack. After this, we pop symbols off the stack
 if they match the input symbols that were read. If the symbols that are popped match the symbols
 that were pushed earlier, and the stack is empty as the input is finished, we accept the state.
-Otherwise we reject the state.
-
+Otherwise we reject the state. \\
 
 \noindent
-Pushdown Automata:\\
+\textbf{Pushdown Automata:} \\
 \begin{center}
 	\begin{tikzpicture}[>=stealth',shorten >=2pt, auto, node distance=3cm]
 	% Nodes {q1, q2, q3, q4, q5, etc}
@@ -315,9 +315,9 @@ Pushdown Automata:\\
 \end{center}
 
 \noindent
-e. \{w| w = $w\textsuperscript{R}$, that is, w is a palindrome\} \\
+e. \{w| w = $w\textsuperscript{R}$, that is, w is a palindrome\} \\\\
 \noindent
-Informal: In this grammar, the input is read by the pushdown automata and each symbol is
+\textbf{Informal:} In this grammar, the input is read by the pushdown automata and each symbol is
 placed onto the stack. At each point, the pushdown automata guesses if the input in the middle
 or if the next symbol read is in the middle of the string. If the next symbol read is the middle
 of the string then it does not get read onto the stack. After this, we pop symbols off the stack
@@ -325,8 +325,9 @@ if they match the input symbols that were read. If the symbols that are popped m
 that were pushed earlier, and the stack is empty as the input is finished, we accept the state.
 Otherwise we reject the state.
 
+\pagebreak
 \noindent
-Pushdown Automata: \\
+\textbf{Pushdown Automata:} \\
 \begin{center}
 	\begin{tikzpicture}[>=stealth',shorten >=2pt, auto, node distance=3cm]
 	% Nodes {q1, q2, q3, q4, q5, etc}
@@ -357,12 +358,12 @@ Pushdown Automata: \\
 \noindent
 f. The empty set \\
 \noindent
-Informal: In this grammar, the language only accepts an empty set so it implies that
+\textbf{Informal:} In this grammar, the language only accepts an empty set so it implies that
 it does not terminate any derivation. And if none of the derivations are terminated,
-that means that no string is accepted by the CFG, including the empty string.
+that means that no string is accepted by the CFG, including the empty string. \\
 
 \noindent
-Pushdown Automata:\\
+\textbf{Pushdown Automata:} \\
 \begin{center}
 	\begin{tikzpicture}[>=stealth',shorten >=2pt, auto, node distance=2cm]
 	% Nodes {q1, q2, q3, q4, q5, etc}
@@ -373,11 +374,12 @@ Pushdown Automata:\\
 
 %*********************************************************************************
 % 2.6 here
+
+\pagebreak
 \noindent
 2.6 \\
 \noindent
-b. \\
-% The complement of the language {a^nb^n| n >= 0}
+b. The complement of the language $\{a^nb^n \; | \; n >= 0\}$
 The language is: \\
 $S \rightarrow S_1 \quad | \quad S_2$ \\
 $S_1 \rightarrow a S_1 b \quad | \quad T \quad | \quad U$   \\
@@ -387,8 +389,7 @@ $U \rightarrow Ub \quad | \quad a$ \\
 $R \rightarrow RR \quad | \quad a \quad | \quad b \quad | \quad \epsilon$ \\
 
 \noindent
-d. \\
-% {x1#x2# · · · #xk| k  1, each xi 2 {a, b}*, and for some i and j, xi = xRj}
+d. $\{x_1\#x_2\# \; ... \; \#x_k \; | \; k \geq 1, each \; x_i \epsilon \{a, b\}^*, and \; for \; some \; i \; and \; j, \; x_i = x^R_j\}$
 The language is: \\
 $R \rightarrow S \quad | \quad J\#S\#J \quad | \quad J\#S \quad | \quad S\#J$ \\
 $S \rightarrow aSa \quad | \quad bSb \quad | \quad \# \quad | \quad \#J\#$ \\
@@ -396,8 +397,9 @@ $J \rightarrow aJ \quad | \quad bJ \quad | \quad \#J \quad | \quad \epsilon$ \\
 
 %*********************************************************************************
 % 2.9 here
+\pagebreak
 \noindent
-2.9 \\
+2.9 $A = \{ a^i b^j c^k \; \; | \; i = j \; or \; j = k, \; where \; i, j, k \geq 0\}$ \\
 The context free grammar that generates the language is: \\
 
 \noindent
@@ -433,8 +435,9 @@ $S_2$ can be used. Thus, the context free grammar for the language A is ambiguou
 
 %*********************************************************************************
 % 2.10 here
+\pagebreak
 \noindent
-2.10 \\
+2.10 Give an informal description of a pushdown automaton that recognizes the language A in Exercise 2.9. \\
 
 At the beginning, we break into two branches. In the first branch, for each a that is read,
 we push an a onto the stack. Then, we guess when the first b is read, and begin popping
@@ -453,38 +456,61 @@ reject the state. \\
 
 %*********************************************************************************
 % 2.11 here
+\pagebreak
 \noindent
-2.11 \\
+2.11 Convert the CFG $G_4$ given in Exercise 2.1 to an equivalent PDA, using the procedure given in Theorem 2.20. \\
 
-This one will end up being super annoying. \\
+\noindent
+Given CFG: \\
+$E \rightarrow E + T \; | \; T $ \\
+$E \rightarrow T \times F \; | \; F $ \\
+$F \rightarrow (E) \; | \; a $ \\
+
+\noindent
+\textbf{PDA for $G_4$:} \\
 
 %*********************************************************************************
 % 2.12 here
+\pagebreak
 \noindent
-2.12 \\
+2.12 Convert the CFG G 4 given in Exercise 2.1 to an equivalent PDA, using the procedure given in Theorem 2.20. \\
 
-This one might be annoying, we will have to figure it out later. \\
+\noindent
+\textbf{PDA for $G$:} \\
 
 %*********************************************************************************
 % 2.13 here
+\pagebreak
 \noindent
-2.13 \\
+2.13 Let G = (V, $\sum$, R, S) be the following grammar. V = \{S, T, U\}; Σ = \{0, \#\}; and
+R is the set of rules: \\
 
-I hope this one isn't annoying... \\
+\noindent
+$S \rightarrow TT \; | \; U$ \\
+$T \rightarrow 0T \; | \; T 0 \; | \; \#$ \\
+$U \rightarrow 0U 00 \; | \; \#$ \\
+
+\noindent
+a. Describe L(G) in English. \\
+b. Prove that L(G) is not regular. \\
 
 %*********************************************************************************
 % 2.14 here
 \noindent
-2.14 \\
+2.14 Convert the following CFG into an equivalent CFG in Chomsky normal form,
+using the procedure given in Theorem 2.9. \\
 
-I hope this one isn't annoying... \\
+\noindent
+$A \rightarrow BAB \; | \; B \; | \; \epsilon $ \\
+$B \rightarrow 00 \; | \; \epsilon $ \\
 
 %*********************************************************************************
 % 2.26 here
 \noindent
 2.26 \\
-
-I hope this one isn't annoying... \\
+Show that if $G$ is a CFG in Chomsky normal form, then for any string $w \; \epsilon \; L(G)$ \\
+of length $n \geq 1$, exactly $2n - 1$ steps are required 
+for any derivation of $w$. \\
 
 %*********************************************************************************
 % 2.30 here
