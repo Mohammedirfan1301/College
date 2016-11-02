@@ -38,4 +38,4 @@ This repository includes the following:
 WARNING
 ========
 
-This code is published under the MIT Open Source License. As a result, you are free to view the code, copy it, modify it, etc. However, __I am not responsible for anything that happens after you access this code.__ As a result, view at your own risk. If you fail a class because you copied this code, that is not my problem. I have posted this here for personal reference and for job related coolness.
+This code is published under the MIT Open Source License. As a result, you are free to view the code, copy it, modify it, etc. However, **I am not responsible for anything that happens after you access this code.** As a result, view at your own risk. If you fail a class because you copied this code, that is not my problem. I have posted this here for personal reference and for job related coolness.
