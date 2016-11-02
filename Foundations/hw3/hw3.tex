@@ -10,7 +10,7 @@
 Jason Downing \\
 Email: jason\_downing@student.uml.edu \\
 Foundations of Computer Science \\
-Homework \#3 - Chapter 1: DFA, NFA\\
+Homework \#3 - Chapter 2\\
 10/31/2016 \\
 
 %*********************************************************************************
@@ -130,7 +130,6 @@ $F + F + T \rightarrow F + F + F \rightarrow a + F + F \rightarrow a + a + F \ri
 
 \noindent
 d. \\
-
 \noindent
 Parse tree for $((a))$: \\
 \begin{center}
@@ -152,16 +151,16 @@ Give context-free grammars that generate the following languages. \\
 In all parts, the alphabet $\sum$ is $\{0,1\}$. \\
 
 \noindent
-b. {w| w starts and ends with the same symbol} \\
+b. \{w| w starts and ends with the same symbol\} \\
 $ S \rightarrow 0P0|1P1| \epsilon $ \\
 $ P \rightarrow 0P|1P| \epsilon $ \\
 
 \noindent
-c. {w| the length of w is odd} \\
+c. \{w| the length of w is odd\} \\
 $ S \rightarrow 0|1|00S|01S|10S|11S $ \\
 
 \noindent
-e. {w| w = $w\textsuperscript{R}$, that is, w is a palindrome} \\
+e. \{w| w = $w\textsuperscript{R}$, that is, w is a palindrome\} \\
 $ S \rightarrow 0|1|0S0|1S1| \epsilon $ \\
 
 \noindent
@@ -176,41 +175,146 @@ $ S \rightarrow \epsilon $ \\
 Give informal descriptions and state diagrams of pushdown automata for \\
 the languages in Exercise 2.4. \\
 
-a.
+\noindent
+a. \{w| w contains at least three 1s\}\\
+
+\noindent
+Informal: In this grammar, there is no need of a stack (as seen in the diagram). In the grammar only the input is read, and the input is only accepted when there is at least three 1's. The only time the machine will accept a string in this case is when at least three 1's are present; otherwise it is rejected. \\\\
+\noindent
+Pushdown Automata:\\
 \begin{center}
 	\begin{tikzpicture}[scale=0.2]
 	\tikzstyle{every node}+=[inner sep=0pt]
-	\draw [black] (16,-30.8) circle (3);
-	\draw (16,-30.8) node {$q0$};
-	\draw [black] (31.3,-30.8) circle (3);
-	\draw (31.3,-30.8) node {$q1$};
-	\draw [black] (46,-30.8) circle (3);
-	\draw (46,-30.8) node {$q2$};
-	\draw [black] (59.5,-30.8) circle (3);
-	\draw (59.5,-30.8) node {$q3$};
-	\draw [black] (14.677,-28.12) arc (234:-54:2.25);
-	\draw (16,-23.55) node [above] {$0$};
-	\fill [black] (17.32,-28.12) -- (18.2,-27.77) -- (17.39,-27.18);
-	\draw [black] (29.977,-28.12) arc (234:-54:2.25);
-	\draw (31.3,-23.55) node [above] {$0$};
-	\fill [black] (32.62,-28.12) -- (33.5,-27.77) -- (32.69,-27.18);
-	\draw [black] (44.677,-28.12) arc (234:-54:2.25);
-	\draw (46,-23.55) node [above] {$0,\mbox{ }e\mbox{ }->\mbox{ }R$};
-	\fill [black] (47.32,-28.12) -- (48.2,-27.77) -- (47.39,-27.18);
-	\draw [black] (49.2,-30.8) -- (56.5,-30.8);
-	\fill [black] (56.5,-30.8) -- (55.7,-30.3) -- (55.7,-31.3);
-	\draw [black] (19.3,-30.8) -- (28.3,-30.8);
-	\draw (18.8,-30.8) node [left] {$1,e$};
-	\fill [black] (28.3,-30.8) -- (27.5,-30.3) -- (27.5,-31.3);
-	\draw [black] (34.5,-30.8) -- (43,-30.8);
-	\draw (34,-30.8) node [left] {$1,e$};
-	\fill [black] (43,-30.8) -- (42.2,-30.3) -- (42.2,-31.3);
+	\draw [black] (12.4,-29.9) circle (3);
+	\draw (12.4,-29.9) node {$q0$};
+	\draw [black] (30.1,-29.9) circle (3);
+	\draw (30.1,-29.9) node {$q1$};
+	\draw [black] (47.1,-29.9) circle (3);
+	\draw (47.1,-29.9) node {$q2$};
+	\draw [black] (65.9,-29.9) circle (3);
+	\draw (65.9,-29.9) node {$q3$};
+	\draw [black] (65.9,-29.9) circle (2.4);
+	\draw [black] (15.4,-29.9) -- (27.1,-29.9);
+	\fill [black] (27.1,-29.9) -- (26.3,-29.4) -- (26.3,-30.4);
+	\draw (21.25,-30.4) node [below] [text width=2cm,align=center] {$1,\epsilon\mbox{ }\rightarrow\mbox{ }0$\\$\epsilon\mbox{ } \rightarrow\mbox{ }1$};
+	\draw [black] (33.1,-29.9) -- (44.1,-29.9);
+	\fill [black] (44.1,-29.9) -- (43.3,-29.4) -- (43.3,-30.4);
+	\draw (38.6,-30.4) node [below] [text width=2cm,align=center] {$1,\epsilon\mbox{ }\rightarrow\mbox{ }0$\\$\epsilon\mbox{ } \rightarrow\mbox{ } 1$};
+	\draw [black] (50.1,-29.9) -- (62.9,-29.9);
+	\fill [black] (62.9,-29.9) -- (62.1,-29.4) -- (62.1,-30.4);
+	\draw [black] (11.077,-27.22) arc (234:-54:2.25);
+	\draw (12.4,-22.65) node [above] {$0$};
+	\fill [black] (13.72,-27.22) -- (14.6,-26.87) -- (13.79,-26.28);
+	\draw [black] (28.777,-27.22) arc (234:-54:2.25);
+	\draw (30.1,-22.65) node [above] {$0$};
+	\fill [black] (31.42,-27.22) -- (32.3,-26.87) -- (31.49,-26.28);
+	\draw [black] (45.777,-27.22) arc (234:-54:2.25);
+	\draw (47.1,-22.65) node [above] {$0,\mbox{ }\epsilon\mbox{ }\rightarrow\mbox{ }R$};
+	\fill [black] (48.42,-27.22) -- (49.3,-26.87) -- (48.49,-26.28);
 	\end{tikzpicture}
 \end{center}
 
+\noindent
+b. \{w| w starts and ends with the same symbol\} \\
+\noindent
+Informal: In this grammar,
+
+\noindent
+Pushdown Automata:\\
+\begin{center}
+	\begin{tikzpicture}[scale=0.2]
+	\tikzstyle{every node}+=[inner sep=0pt]
+	\draw [black] (12.4,-29.9) circle (3);
+	\draw (12.4,-29.9) node {$q0$};
+	\draw [black] (30.1,-29.9) circle (3);
+	\draw (30.1,-29.9) node {$q1$};
+	\draw [black] (47.1,-29.9) circle (3);
+	\draw (47.1,-29.9) node {$q2$};
+	\draw [black] (47.1,-29.9) circle (2.4);
+	\draw [black] (15.4,-29.9) -- (27.1,-29.9);
+	\fill [black] (27.1,-29.9) -- (26.3,-29.4) -- (26.3,-30.4);
+	\draw (21.25,-30.4) node [below] 
+	\draw [black] (33.1,-29.9) -- (44.1,-29.9);
+	\fill [black] (44.1,-29.9) -- (43.3,-29.4) -- (43.3,-30.4);
+	\draw (38.6,-30.4) node [below] [text width=2cm,align=center] {$0, 0\mbox{ }\rightarrow\mbox{ }\epsilon$\\$1, 1\mbox{ } \rightarrow\mbox{ } \epsilon$};
+	\draw [black] (28.777,-27.22) arc (234:-54:2.25);
+	\draw (30.1,-22.65) node [above] [text width=2cm,align=center] {$0, \epsilon \rightarrow \epsilon$\\
+	$1, \epsilon \rightarrow \epsilon$};
+	\fill [black] (31.42,-27.22) -- (32.3,-26.87) -- (31.49,-26.28);
+	\draw [black] (3.9,-29.9) -- (9.4,-29.9);
+	\fill [black] (9.4,-29.9) -- (8.6,-29.4) -- (8.6,-30.4);
+	
+	\draw [black] (15.4,-29.9) [bend right] (44.1,-29.9);
+	\fill [black] (44.1,-29.9) [bend right] (43.3,-29.4) [bend right](43.3,-30.4);
+	\draw (29.75,-30.4) node [bend right] {$hi$};
+	
+	\draw (21.25,-30.4) node [below] [text width=2cm,align=center] {$1,\epsilon\mbox{ }\rightarrow\mbox{ }1$\\$0\epsilon\mbox{ } \rightarrow\mbox{ }0$};
+	\end{tikzpicture}
+\end{center}
+
+\begin{center}
+    \begin{tikzpicture}[>=stealth',shorten >=2pt, auto, node distance=2.5cm]
+    % Nodes {q1, q2, q3, q4, q5, etc}
+    \node [state, initial, accepting] 		(q1) 				 {q1};
+    \node [state, accepting] 				(q2)  [right of=q1]  {q2};
+    \node [state]   	                    (q3)  [right of=q2]  {q3};
+    
+    % Paths
+    \path [->] 	(q1) edge 	node	[text width=2cm,align=center] {$1,\epsilon \rightarrow 1$ \\ $0 \epsilon \rightarrow 0$};	(q2);
+    \path [->] 	(q2) edge 				node	{a,b}		(q3);
+    \path [->] 	(q2) edge [loop above] 	node	{a,b}		(q2);
+    
+    \end{tikzpicture} \\
+\end{center}
+
+\noindent
+c. \{w| the length of w is odd\} \\
+\noindent
+Informal: In this grammar,
+
+\noindent
+Pushdown Automata:\\
+
+\noindent
+d. \{w| the length of w is odd and its middle symbol is a 0\}\\
+\noindent
+Informal: In this grammar,
+
+\noindent
+Pushdown Automata:\\
+
+\noindent
+e. \{w| w = $w\textsuperscript{R}$, that is, w is a palindrome\} \\
+\noindent
+Informal: In this grammar,
+
+\noindent
+Pushdown Automata:\\
+
+\noindent
+f. The empty set \\
+\noindent
+Informal: In this grammar, the language only accepts an empty set so it implies that
+it does not terminate any derivation. And if none of the derivations are terminated,
+that means no string is accepted by the CFG including the empty string.
+
+\noindent
+Pushdown Automata:\\
+\begin{center}
+    \begin{tikzpicture}[>=stealth',shorten >=2pt, auto, node distance=2cm]
+    % Nodes {q1, q2, q3, q4, q5, etc}
+    \node [state, initial] 		(q1) 				{q1};
+    
+    \end{tikzpicture} \\
+\end{center}
 
 %*********************************************************************************
 % 2.6 here
+\noindent
+b. \\
+
+\noindent
+d. \\
 
 %*********************************************************************************
 % 2.10 here
