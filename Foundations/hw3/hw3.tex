@@ -375,61 +375,143 @@ Pushdown Automata:\\
 % 2.6 here
 \noindent
 2.6 \\
-
 \noindent
 b. \\
+% The complement of the language {a^nb^n| n >= 0}
+The language is: \\
+$S \rightarrow S_1 \quad | \quad S_2$ \\
+$S_1 \rightarrow a S_1 b \quad | \quad T \quad | \quad U$   \\
+$S_2 \rightarrow RbaR$ \\
+$T \rightarrow aT \quad | \quad a$ \\
+$U \rightarrow Ub \quad | \quad a$ \\
+$R \rightarrow RR \quad | \quad a \quad | \quad b \quad | \quad \epsilon$ \\
 
 \noindent
 d. \\
+% {x1#x2# · · · #xk| k  1, each xi 2 {a, b}*, and for some i and j, xi = xRj}
+The language is: \\
+$R \rightarrow S \quad | \quad J\#S\#J \quad | \quad J\#S \quad | \quad S\#J$ \\
+$S \rightarrow aSa \quad | \quad bSb \quad | \quad \# \quad | \quad \#J\#$ \\
+$J \rightarrow aJ \quad | \quad bJ \quad | \quad \#J \quad | \quad \epsilon$ \\
+
+%*********************************************************************************
+% 2.9 here
+\noindent
+2.9 \\
+The context free grammar that generates the language is: \\
+
+\noindent
+First, split the languages into two parts: \\
+$A_1 = \{ a^i b^j c^k \; \; | \; \; i,j,k \geq 0, \; i = j \}$ \\
+$A_2 = \{ a^i b^j c^k \; \; | \; \; i,j,k \geq 0, \; j= k \}$ \\
+
+\noindent
+Now we can define the grammar for the language A: \\
+$S \rightarrow S_1 \; | \; S_2$ \\
+
+\noindent
+In $A_1$, the values of i and j are equal. So, there must be an equal number
+of A's and B's in this language. \\
+
+\noindent
+CGF for language $A_1$ is: \\
+$S_1 \rightarrow S_1 c \; | \; E \; | \; \epsilon $ \\
+$E \rightarrow aEb \; | \; \epsilon  $ \\
+
+\noindent
+In $A_2$, j and k are equal, so there are an equal number of B'c and C's. \\
+
+\noindent
+CGF for language $A_2$ is: \\
+$S_2 \rightarrow a S_2 \; | \; F \; | \; \epsilon $ \\
+$F \rightarrow bFc \; | \; \epsilon  $ \\
+
+\noindent
+Since we can use either $A_1$ or $A_2$ to generate the string, either $S_1$ or
+$S_2$ can be used. Thus, the context free grammar for the language A is ambiguous. \\
+
 
 %*********************************************************************************
 % 2.10 here
 \noindent
 2.10 \\
 
+At the beginning, we break into two branches. In the first branch, for each a that is read,
+we push an a onto the stack. Then, we guess when the first b is read, and begin popping
+symbols from the stack for every b that we read. When the stack is empty, the only input
+that is remaining should be C, and then we read the input without adjusting the stack.
+If we read the symbols in the proper order, that is a followed by b followed by c,
+and the stack is empty by the time the B's are done reading, then we accept the state.
+Otherwise, we reject the state. \\
+
+In the second branch, for a that we read, we do not adjust the stack. We then guess
+when the first b is read and we begin pushing symbols onto the stack for every b that
+we read. We then guess when the first c is read - and we begin popping symbols from the
+stack for every c that is read. If the stack becomes empty right when the input string
+is finished, and the symbols were read in the right order, we accept. Otherwise, we
+reject the state. \\
+
 %*********************************************************************************
 % 2.11 here
 \noindent
 2.11 \\
+
+This one will end up being super annoying. \\
 
 %*********************************************************************************
 % 2.12 here
 \noindent
 2.12 \\
 
+This one might be annoying, we will have to figure it out later. \\
+
 %*********************************************************************************
 % 2.13 here
 \noindent
 2.13 \\
+
+I hope this one isn't annoying... \\
 
 %*********************************************************************************
 % 2.14 here
 \noindent
 2.14 \\
 
+I hope this one isn't annoying... \\
+
 %*********************************************************************************
 % 2.26 here
 \noindent
 2.26 \\
+
+I hope this one isn't annoying... \\
 
 %*********************************************************************************
 % 2.30 here
 \noindent
 2.30 \\
 
+I hope this one isn't annoying... \\
+
 %*********************************************************************************
 % 2.31 here
 \noindent
 2.31 \\
+
+I hope this one isn't annoying... \\
 
 %*********************************************************************************
 % 2.32 here
 \noindent
 2.32 \\
 
+I hope this one isn't annoying... \\
+
 %*********************************************************************************
 % 2.47 here
 \noindent
 2.47 \\
+
+I hope this one isn't annoying... \\
 
 \end{document}
