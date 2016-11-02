@@ -469,6 +469,115 @@ $F \rightarrow (E) \; | \; a $ \\
 \noindent
 \textbf{PDA for $G_4$:} \\
 
+\begin{center}
+	\begin{tikzpicture}[>=stealth',shorten >=2pt, auto, node distance=4cm]
+	% Nodes {q1, q2, q3, q4, q5, etc}
+	\node [state, initial]		(q0)  				 	{q0};
+	\node [state] 				(q01)  [below of=q0] 	{q01};
+	\node [state] 				(q1)   [below of=q01]	{q1};
+	\node [state] 				(q2)   [right of=q1]  	{q2};
+	\node [state]    			(q3)   [right of=q2]  	{q3};
+	\node [state]				(q4)   [below of=q2]  	{q4};
+	\node [state]				(q5)   [below of=q3]  	{q5};
+	
+	% Paths
+	\path [->] 	(q1) edge 				node	{b}		(q2);
+	\path [->] 	(q1) edge 				node	{a}		(q4);
+	\path [->] 	(q2) edge 				node	{b}		(q3);
+	\path [->] 	(q4) edge 				node	{b}		(q5);
+	
+	\end{tikzpicture} \\
+\end{center}
+
+\begin{center}
+\begin{tikzpicture}[scale=0.2]
+\tikzstyle{every node}+=[inner sep=0pt]
+\draw [black] (17.1,-5.2) circle (3);
+\draw (17.1,-5.2) node {$q0$};
+\draw [black] (17.1,-17.6) circle (3);
+\draw (17.1,-17.6) node {$q1$};
+\draw [black] (17.1,-29.5) circle (3);
+\draw (17.1,-29.5) node {$q2$};
+\draw [black] (17.1,-41.6) circle (3);
+\draw (17.1,-41.6) node {$q3$};
+\draw [black] (38.2,-17.6) circle (3);
+\draw (38.2,-17.6) node {$q4$};
+\draw [black] (55.7,-17.6) circle (3);
+\draw (55.7,-17.6) node {$q5$};
+\draw [black] (38.2,-29.5) circle (3);
+\draw (38.2,-29.5) node {$q6$};
+\draw [black] (55.7,-29.5) circle (3);
+\draw (55.7,-29.5) node {$q7$};
+\draw [black] (38.2,-41.6) circle (3);
+\draw (38.2,-41.6) node {$q8$};
+\draw [black] (55.7,-41.6) circle (3);
+\draw (55.7,-41.6) node {$q9$};
+\draw [black] (17.1,-8.2) -- (17.1,-14.6);
+\fill [black] (17.1,-14.6) -- (17.6,-13.8) -- (16.6,-13.8);
+
+% Right nodes here
+\draw (16.6,-11.4) node [left] {$\epsilon, \epsilon \rightarrow \$$};
+\draw [black] (17.1,-20.6) -- (17.1,-26.5);
+\fill [black] (17.1,-26.5) -- (17.6,-25.7) -- (16.6,-25.7);
+\draw (16.6,-23.55) node [left] {$\epsilon, \epsilon \rightarrow E$};
+\draw [black] (17.1,-32.5) -- (17.1,-38.6);
+\fill [black] (17.1,-38.6) -- (17.6,-37.8) -- (16.6,-37.8);
+\draw (16.6,-35.55) node [left] {$\epsilon, \$ \rightarrow \epsilon$};
+
+% A nodes
+\draw [black] (19.71,-28.03) -- (35.59,-19.07);
+\fill [black] (35.59,-19.07) -- (34.64,-19.03) -- (35.14,-19.9);
+\draw (26.71,-23.05) node [above] {$\epsilon, E \rightarrow T$};
+\draw [black] (41.2,-17.6) -- (52.7,-17.6);
+\fill [black] (52.7,-17.6) -- (51.9,-17.1) -- (51.9,-18.1);
+\draw (46.95,-18.1) node [below] {$\epsilon, \epsilon \rightarrow +$};
+
+%\draw (65.3,-18.1) node [below] {$\epsilon, \epsilon \rightarrow E$};
+
+% B nodes
+\draw [black] (20.1,-29.5) -- (35.2,-29.5);
+\fill [black] (35.2,-29.5) -- (34.4,-29) -- (34.4,-30);
+\draw (27.65,-30) node [below] {$\epsilon, T \rightarrow F$};
+\draw [black] (41.2,-29.5) -- (52.7,-29.5);
+\fill [black] (52.7,-29.5) -- (51.9,-29) -- (51.9,-30);
+\draw (46.95,-30) node [below] {$\epsilon, \epsilon \rightarrow \times$};
+
+%\draw (65.3,-30) node [below] {$\epsilon, \epsilon \rightarrow T$};
+
+% C nodes
+\draw [black] (19.7,-30.99) -- (35.6,-40.11);
+\fill [black] (35.6,-40.11) -- (35.15,-39.28) -- (34.65,-40.14);
+\draw (26.71,-36.05) node [below] {$\epsilon, F \rightarrow )$};
+\draw [black] (41.2,-41.6) -- (52.7,-41.6);
+\fill [black] (52.7,-41.6) -- (51.9,-41.1) -- (51.9,-42.1);
+\draw (46.95,-42.1) node [below] {$\epsilon, \epsilon \rightarrow E$};
+
+%\draw (65.3,-42.1) node [below] {$\epsilon, \epsilon \rightarrow ($};
+
+% Bends
+% A bend
+\fill [black] (14.28,-28.51) -- (13.83,-27.68) -- (13.34,-28.55);
+\draw [black] (17.911,-26.614) arc (160.58185:53.68618:23.118);
+\fill [black] (17.91,-26.61) -- (18.65,-26.03) -- (17.71,-25.69);
+\draw (30.82,-11.6) node [above] {$\epsilon, \epsilon \rightarrow E$};
+
+% B bend
+\draw [black] (54.972,-32.407) arc (-18.45344:-161.54656:19.578);
+\fill [black] (17.83,-32.41) -- (17.61,-33.32) -- (18.56,-33.01);
+\draw (36.4,-46.29) node [below] {$\epsilon, \epsilon \rightarrow T$};
+
+% C bend
+\draw [black] (53.708,-43.84) arc (-45.63394:-169.1755:21.559);
+\fill [black] (17.46,-32.48) -- (17.12,-33.36) -- (18.1,-33.17);
+\draw (30.08,-49.61) node [below] {$\epsilon, \epsilon \rightarrow ($};
+
+% Loop
+\draw [black] (14.597,-31.132) arc (-29.16862:-317.16862:2.25);
+\draw (9.73,-30.43) node [left] {$loop$};
+\fill [black] (14.28,-28.51) -- (13.83,-27.68) -- (13.34,-28.55);
+\end{tikzpicture}
+\end{center}
+
 %*********************************************************************************
 % 2.12 here
 \pagebreak
