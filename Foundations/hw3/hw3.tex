@@ -1,4 +1,5 @@
 \documentclass[12pt]{article}
+\setlength\parindent{0pt}
 \usepackage{amsfonts}
 \usepackage{comment}
 \usepackage{tikz}
@@ -170,8 +171,7 @@ $ S \rightarrow \epsilon $ \\
 
 \pagebreak
 \noindent
-2.5 \\
-Give informal descriptions and state diagrams of pushdown automata for \\
+2.5 Give informal descriptions and state diagrams of pushdown automata for \\
 the languages in Exercise 2.4. \\
 
 \noindent
@@ -356,7 +356,8 @@ Otherwise we reject the state.
 \end{center}
 
 \noindent
-f. The empty set \\
+f. The empty set \\ \\
+
 \noindent
 \textbf{Informal:} In this grammar, the language only accepts an empty set so it implies that
 it does not terminate any derivation. And if none of the derivations are terminated,
@@ -504,7 +505,7 @@ $F \rightarrow (E) \; | \; a $ \\
 \fill [black] (17.1,-38.6) -- (17.6,-37.8) -- (16.6,-37.8);
 \draw (16.6,-35.55) node [left] {$\epsilon, \$ \rightarrow \epsilon$};
 
-% A nodes
+% q4 + q5 nodes
 \draw [black] (19.71,-28.03) -- (35.59,-19.07);
 \fill [black] (35.59,-19.07) -- (34.64,-19.03) -- (35.14,-19.9);
 \draw (26.71,-23.05) node [above] {$\epsilon, E \rightarrow T$};
@@ -514,7 +515,7 @@ $F \rightarrow (E) \; | \; a $ \\
 
 %\draw (65.3,-18.1) node [below] {$\epsilon, \epsilon \rightarrow E$};
 
-% B nodes
+% q6 + q7 nodes
 \draw [black] (20.1,-29.5) -- (35.2,-29.5);
 \fill [black] (35.2,-29.5) -- (34.4,-29) -- (34.4,-30);
 \draw (27.65,-30) node [below] {$\epsilon, T \rightarrow F$};
@@ -524,7 +525,7 @@ $F \rightarrow (E) \; | \; a $ \\
 
 %\draw (65.3,-30) node [below] {$\epsilon, \epsilon \rightarrow T$};
 
-% C nodes
+% q8 + q9 nodes
 \draw [black] (19.7,-30.99) -- (35.6,-40.11);
 \fill [black] (35.6,-40.11) -- (35.15,-39.28) -- (34.65,-40.14);
 \draw (26.71,-36.05) node [below] {$\epsilon, F \rightarrow )$};
@@ -535,18 +536,18 @@ $F \rightarrow (E) \; | \; a $ \\
 %\draw (65.3,-42.1) node [below] {$\epsilon, \epsilon \rightarrow ($};
 
 % Bends
-% A bend
+% q5 bend
 \fill [black] (14.28,-28.51) -- (13.83,-27.68) -- (13.34,-28.55);
 \draw [black] (17.911,-26.614) arc (160.58185:53.68618:23.118);
 \fill [black] (17.91,-26.61) -- (18.65,-26.03) -- (17.71,-25.69);
 \draw (30.82,-11.6) node [above] {$\epsilon, \epsilon \rightarrow E$};
 
-% B bend
+% q7 bend
 \draw [black] (54.972,-32.407) arc (-18.45344:-161.54656:19.578);
 \fill [black] (17.83,-32.41) -- (17.61,-33.32) -- (18.56,-33.01);
 \draw (36.4,-46.29) node [below] {$\epsilon, \epsilon \rightarrow T$};
 
-% C bend
+% q9 bend
 \draw [black] (53.708,-43.84) arc (-45.63394:-169.1755:21.559);
 \fill [black] (17.46,-32.48) -- (17.12,-33.36) -- (18.1,-33.17);
 \draw (30.08,-49.61) node [below] {$\epsilon, \epsilon \rightarrow ($};
@@ -568,9 +569,10 @@ $F \rightarrow (E) \; | \; a $ \\
 % 2.12 here
 \pagebreak
 \noindent
-2.12 Convert the CFG G 4 given in Exercise 2.1 to an equivalent PDA, using the procedure given in Theorem 2.20. \\
+2.12 Convert the CFG G given in Exercise 2.1 to an equivalent PDA, using the procedure given in Theorem 2.20. \\
 
 \noindent
+CFG $G$ given in 2.3: \\
 $R \rightarrow XRX \; | S\; $ \\
 $S \rightarrow aTb \; | \; bTa $ \\
 $T \rightarrow XTX \; | \; X \; | \; \epsilon $ \\
@@ -619,31 +621,144 @@ $X \rightarrow a \; | \; b $ \\
 %*********************************************************************************
 % 2.13 here
 \pagebreak
-\noindent
-2.13 Let G = (V, $\sum$, R, S) be the following grammar. V = \{S, T, U\}; Σ = \{0, \#\}; and
-R is the set of rules: \\
+2.13 Let G = (V, $\sum$, R, S) be the following grammar, \\
+V = \{S, T, U\}; Σ = \{0, \#\}; \\
 
-\noindent
+and R is the set of rules: \\
 $S \rightarrow TT \; | \; U$ \\
 $T \rightarrow 0T \; | \; T 0 \; | \; \#$ \\
 $U \rightarrow 0U 00 \; | \; \#$ \\
 
-\noindent
-a. Describe L(G) in English. \\
-b. Prove that L(G) is not regular. \\
+\underline{\textbf{a)}} Describe L(G) in English. \\
+
+$L(G)$ is the set of all strings that contain a string of 0's, and all \#'s of the
+following forms: \\
+
+\textbf{1.} Strings which contain exactly two \#'s. \\
+\textbf{2.} Strings that contain two \#'s in the middle of the string, and any number of 0's 
+on either sides of the string. \\
+\textbf{3.} Strings that contain exactly one \#, and the number of 0's to the left of the \#
+are half the number of 0's that are to the right. \\
+
+\underline{\textbf{b)}} Prove that L(G) is not regular. \\
+
+To prove that $L(G)$ is not regular, we will need to do a proof by contradiction that
+states that $L(G)$ is regular. Let us define A: \\
+
+$A = L(G) \bigcup 0^* \# 0^*$
+
+We assume that $L(G)$ is regular, so A is regular too. Since A is regular, we can use
+pumping lemma to let $p$ be the pumping length fo the regular language. \\
+
+We can now consider the string $w = 0^p \# 0^{2p} $ \\
+It seems clear that the length of $w \; \in \; A$ is greater than $p$. This means
+that $|w| > p$. By pumping lemma, we now have $w = xyz$ such that:
+
+$|xy| \le p, y \neq \epsilon $ and $xy^iz \in L(G)$ for all $i \geq 0$ \\
+
+\pagebreak
+Since A is a regular language, we can now consider all the possible ways of cutting
+the string $w$: \\
+
+\textbf{1.} If $x$ contains the character \#, then $y$ will be on the right side of the \#.
+As we pump $y$ down, it increases the number of 0's on the left so that the number of
+0's on the left of the \# is not equal to half of the number of 0's to the right of the \#.
+
+\textbf{2.} If $y$ contains a \#, then as we pump $y$ down, it increases the number of \#'s in the string.
+
+\textbf{3.} If $z$ contains a \#, then $y$ should be on the left side of the \#. As we pump $y$ down in this
+case, it decreases the number of 0's to the right, such that the number of 0's to the left of the \#
+are not equal to half the number of 0's to the right of the \#. \\
+
+The string that results from the above cases does not belong to $A$. As a result, we can say that
+$A$ does not satisfy the pumping lemma. Basically, $A$ is not a regular language. This is a
+contradiction to the statement that we assumed at the beginning of this proof: 
+$L(G)$ is a regular language. Thus, \underline{\textbf{$L(G)$ is not a regular language.}}
 
 %*********************************************************************************
 % 2.14 here
-\noindent
+\pagebreak
 2.14 Convert the following CFG into an equivalent CFG in Chomsky normal form,
 using the procedure given in Theorem 2.9. \\
 
-\noindent
 $A \rightarrow BAB \; | \; B \; | \; \epsilon $ \\
 $B \rightarrow 00 \; | \; \epsilon $ \\
 
+Let's use the \textbf{Chomsky Normal Form} to solve this problem. For a CFG to be in
+the \textbf{Chomsky Normal Form}, it must follow the following rules:
+
+$A \rightarrow BC$ \\
+$A \rightarrow a$  \\
+
+Where: $a$ is any terminal, $A$, $B$, and $C$ are any variables, except that B and C may not be the starting variable.
+We also have the rule $S \rightarrow \epsilon$, which is where $S$ is the starting variable. \\
+
+With this in mind, we can now convert the given CFG to an equivalent CFG in CNF form.
+We will have the above rules, as well as another starting variable and rule. The grammar
+would therefore start out as: \\
+$S_0 \rightarrow A$ \\
+$A \rightarrow BAB \; | \; B \; | \; \epsilon $ \\
+$B \rightarrow 00 \; | \; \epsilon $ \\
+
+We now need to start removing all rules that contain $\epsilon$. We will remove the rule
+$A \rightarrow \epsilon$ and the rule $B \rightarrow \epsilon$. This gives us the following
+grammar:
+
+$S_0 \rightarrow A \; | \; \epsilon$ \\
+$A \rightarrow BAB \; | \; BA \; | \; AB \; | \; A \; | \; B \; | \; BB $ \\
+$B \rightarrow 00 $ \\
+
+$S_0 \rightarrow A \; | \; \epsilon$ is acceptable since $S_0$ is the starting variable,
+and this is allowed in \textbf{Chomsky Normal Form}. We can now rule the unit rules: \\
+
+Removing $A \rightarrow A$ will give us: \\
+$S_0 \rightarrow A \; | \; \epsilon$ \\
+$A \rightarrow BAB \; | \; BA \; | \; AB \; | \; B \; | \; BB $ \\
+$B \rightarrow 00 $ \\
+
+\pagebreak
+
+Removing $S \rightarrow B$ will give us: \\
+$S_0 \rightarrow A \; | \; \epsilon$ \\
+$A \rightarrow BAB \; | \; BA \; | \; AB \; | \; 00 \; | \; BB $ \\
+$B \rightarrow 00 $ \\
+
+Removing $S_0 \rightarrow S$ will give us: \\
+$S_0 \rightarrow BAB \; | \; BA \; | \; AB \; | \; 00 \; | \; BB \; | \; \epsilon$ \\
+$A \rightarrow BAB \; | \; BA \; | \; AB \; | \; 00 \; | \; BB $ \\
+$B \rightarrow 00 $ \\
+
+We can also replace all of the terminal 0's with a new variable, $U$, as such:
+$S_0 \rightarrow BAB \; | \; BA \; | \; AB \; | \; 00 \; | \; BB \; | \; \epsilon$ \\
+$A \rightarrow BAB \; | \; BA \; | \; AB \; | \; 00 \; | \; BB $ \\
+$B \rightarrow UU $ \\
+$U \rightarrow 0$ \\
+
+We can now shorten the right hand side of the rules by using only 2 variables each.
+To shortern these rules we will replace $S_0 \rightarrow BAB$ with two new rules: \\
+$S_0 \rightarrow BA_1$ and \\
+$A_1 \rightarrow AB$ \\
+
+We can also replace the rule $A \rightarrow BAB$ with two new rules: \\
+$A \rightarrow BA_2$ and \\
+$A_2 \rightarrow AB$ \\
+
+After we replace these rules, the final CFG in \textbf{Chomsky Normal Form} is: \\
+$G = (V, \sum, R, S_0$ \\
+set of rules $V = \{S_0, S, B, U, A_1, A_2 \}$ \\
+starting variable: $S_0$ \\
+The set of terminals: $\sum = \{ 0 \}$ \\
+Rules $R$ given by: \\
+$S_0 \rightarrow BA_1 \; | \; BA \; | \; SB \; | \; UU \; | \; BB \; | \; \epsilon$ \\
+$A \rightarrow BA_2 \; | \; BA \; | \; SB \; | \; UU \; | \; BB $ \\
+$B \rightarrow UU $ \\
+$U \rightarrow 0$ \\
+$A_1 \rightarrow AB$ \\
+$A_2 \rightarrow AB$ \\
+
 %*********************************************************************************
 % 2.26 here
+\pagebreak
 \noindent
 2.26 \\
 Show that if $G$ is a CFG in Chomsky normal form, then for any string $w \; \epsilon \; L(G)$ \\
@@ -652,6 +767,7 @@ for any derivation of $w$. \\
 
 %*********************************************************************************
 % 2.30 here
+\pagebreak
 \noindent
 2.30 \\
 
