@@ -571,7 +571,50 @@ $F \rightarrow (E) \; | \; a $ \\
 2.12 Convert the CFG G 4 given in Exercise 2.1 to an equivalent PDA, using the procedure given in Theorem 2.20. \\
 
 \noindent
+$R \rightarrow XRX \; | S\; $ \\
+$S \rightarrow aTb \; | \; bTa $ \\
+$T \rightarrow XTX \; | \; X \; | \; \epsilon $ \\
+$X \rightarrow a \; | \; b $ \\
+
+\noindent
 \textbf{PDA for $G$:} \\
+
+\begin{center}
+	\begin{tikzpicture}[>=stealth',shorten >=2pt, auto, node distance=3cm]
+	% Nodes {q1, q2, q3, q4, q5, etc}
+	\node [state, initial] 		(q1) 				 {q1};
+	\node [state] 				(q2)  [below of=q1]  {q2};
+	\node [state, accepting]	(q3)  [below of=q2]  {q3};
+	
+	% Top path
+	\path [->] 	(q1) edge 	[left]			node	
+	{$\epsilon, \epsilon \rightarrow R\$$}		(q2);
+	
+	% Bottom path
+	\path [->] 	(q2) edge 	[left]			node	
+	{$\epsilon,\$ \rightarrow \epsilon$}		(q3);
+	
+	% Super long loop
+	\path [->] 	(q2) edge [loop right] 	node	[text width=3cm,align=center] 
+	{$\epsilon, R \rightarrow XRX$ \\ $\epsilon, R \rightarrow S$ \\
+	 $\epsilon, S \rightarrow aTb$ \\ $\epsilon, S \rightarrow bTa$ \\
+	 $ \; \; \; \epsilon, T \rightarrow XTX$ \\ $\epsilon, T \rightarrow X$ \\
+	 $\epsilon, T \rightarrow \epsilon$ \\ $\epsilon, X \rightarrow a$ \\
+	 $\epsilon, X \rightarrow b$ \\ $a, a \rightarrow \epsilon$ \\
+	 $b, b \rightarrow \epsilon$}		(q2);
+	
+	\end{tikzpicture} \\
+\end{center}
+
+%ε,R→XRX
+%ε,R→S
+%ε, S→aTb
+%ε,S→bTa
+%ε,T→XTX
+%ε,$→ε 
+
+%ε,ε→R$
+%ε, T→ X
 
 %*********************************************************************************
 % 2.13 here
