@@ -276,25 +276,90 @@ Pushdown Automata:\\
 \noindent
 d. \{w| the length of w is odd and its middle symbol is a 0\}\\
 \noindent
-Informal: In this grammar,
+Informal: In this grammar, the input is read by the pushdown automata and each symbol is
+placed onto the stack. At each point, the pushdown automata guesses if the input in the middle
+or if the next symbol read is in the middle of the string. If the next symbol read is the middle
+of the string then it does not get read onto the stack. After this, we pop symbols off the stack
+if they match the input symbols that were read. If the symbols that are popped match the symbols
+that were pushed earlier, and the stack is empty as the input is finished, we accept the state.
+Otherwise we reject the state.
+
 
 \noindent
 Pushdown Automata:\\
+\begin{center}
+	\begin{tikzpicture}[>=stealth',shorten >=2pt, auto, node distance=3cm]
+	% Nodes {q1, q2, q3, q4, q5, etc}
+	\node [state, initial] 		(q1) 				 {q1};
+	\node [state] 				(q2)  [right of=q1]  {q2};
+	\node [state]    			(q3)  [right of=q2]  {q3};
+	\node [state, accepting]	(q4)  [right of=q3]  {q4};
+	
+	% Paths
+	\path [->] 	(q1) edge 				node	[text width=2cm,align=center]	
+	{$\epsilon, \epsilon \rightarrow \$$}	(q2);
+	
+	\path [->] 	(q2) edge 				node	[text width=2cm,align=center]	
+	{$0, \epsilon \rightarrow \epsilon$}	(q3);
+	
+	\path [->] 	(q2) edge [loop above] 	node	[text width=2cm,align=center]	
+	{$1, \epsilon \rightarrow 1$ \\ $0, \epsilon \rightarrow 0$}		(q2);
+	
+	\path [->] 	(q3) edge 				node	[text width=2cm,align=center]	
+	{$\epsilon, \$ \rightarrow \epsilon$}		(q4);
+	
+	\path [->] 	(q3) edge [loop above] 	node	[text width=2cm,align=center]	
+	{$0, 0 \rightarrow \epsilon$ \\ $0, 1 \rightarrow \epsilon$ \\ $1, 0 \rightarrow \epsilon$ \\ $1, 1 \rightarrow \epsilon$}	(q3);
+	
+	\end{tikzpicture} \\
+\end{center}
 
 \noindent
 e. \{w| w = $w\textsuperscript{R}$, that is, w is a palindrome\} \\
 \noindent
-Informal: In this grammar,
+Informal: In this grammar, the input is read by the pushdown automata and each symbol is
+placed onto the stack. At each point, the pushdown automata guesses if the input in the middle
+or if the next symbol read is in the middle of the string. If the next symbol read is the middle
+of the string then it does not get read onto the stack. After this, we pop symbols off the stack
+if they match the input symbols that were read. If the symbols that are popped match the symbols
+that were pushed earlier, and the stack is empty as the input is finished, we accept the state.
+Otherwise we reject the state.
 
 \noindent
-Pushdown Automata:\\
+Pushdown Automata: \\
+\begin{center}
+	\begin{tikzpicture}[>=stealth',shorten >=2pt, auto, node distance=3cm]
+	% Nodes {q1, q2, q3, q4, q5, etc}
+	\node [state, initial, accepting] 		(q1) 				 {q1};
+	\node [state] 				(q2)  [right of=q1]  {q2};
+	\node [state]    			(q3)  [right of=q2]  {q3};
+	\node [state, accepting]	(q4)  [right of=q3]  {q4};
+	
+	% Paths
+	\path [->] 	(q1) edge 				node	[text width=2cm,align=center]	
+	{$\epsilon, \epsilon \rightarrow \$$}	(q2);
+	
+	\path [->] 	(q2) edge 	[below]	node	[text width=2cm,align=center]	
+	{$\epsilon, \epsilon \rightarrow \epsilon$ \\ $0, \epsilon \rightarrow \epsilon$ \\ $1, \epsilon \rightarrow \epsilon$}	(q3);
+	
+	\path [->] 	(q2) edge [loop above] 	node	[text width=2cm,align=center]	
+	{$0, \epsilon \rightarrow 0$ \\ $1, \epsilon \rightarrow 1$}		(q2);
+	
+	\path [->] 	(q3) edge 				node	[text width=2cm,align=center]	
+	{$\epsilon, \$ \rightarrow \epsilon$}		(q4);
+	
+	\path [->] 	(q3) edge [loop above] 	node	[text width=2cm,align=center]	
+	{$0, 0 \rightarrow \epsilon$ \\ $1, 1 \rightarrow \epsilon$}	(q3);
+	
+	\end{tikzpicture} \\
+\end{center}
 
 \noindent
 f. The empty set \\
 \noindent
 Informal: In this grammar, the language only accepts an empty set so it implies that
 it does not terminate any derivation. And if none of the derivations are terminated,
-that means no string is accepted by the CFG including the empty string.
+that means that no string is accepted by the CFG, including the empty string.
 
 \noindent
 Pushdown Automata:\\
@@ -309,6 +374,9 @@ Pushdown Automata:\\
 %*********************************************************************************
 % 2.6 here
 \noindent
+2.6 \\
+
+\noindent
 b. \\
 
 \noindent
@@ -316,32 +384,52 @@ d. \\
 
 %*********************************************************************************
 % 2.10 here
+\noindent
+2.10 \\
 
 %*********************************************************************************
 % 2.11 here
+\noindent
+2.11 \\
 
 %*********************************************************************************
 % 2.12 here
+\noindent
+2.12 \\
 
 %*********************************************************************************
 % 2.13 here
+\noindent
+2.13 \\
 
 %*********************************************************************************
 % 2.14 here
+\noindent
+2.14 \\
 
 %*********************************************************************************
 % 2.26 here
+\noindent
+2.26 \\
 
 %*********************************************************************************
 % 2.30 here
+\noindent
+2.30 \\
 
 %*********************************************************************************
 % 2.31 here
+\noindent
+2.31 \\
 
 %*********************************************************************************
 % 2.32 here
+\noindent
+2.32 \\
 
 %*********************************************************************************
 % 2.47 here
+\noindent
+2.47 \\
 
 \end{document}
