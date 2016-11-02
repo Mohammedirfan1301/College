@@ -4,3 +4,6 @@
 [submodule "UML-Alerts"]
 	path = UML-Alerts
 	url = https://github.com/JasonD94/UML-Alerts
+[submodule "Ski-Maps"]
+	path = Ski-Maps
+	url = https://github.com/JasonD94/Ski-Maps
