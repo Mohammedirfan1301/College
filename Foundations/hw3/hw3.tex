@@ -217,63 +217,61 @@ Pushdown Automata:\\
 \noindent
 b. \{w| w starts and ends with the same symbol\} \\
 \noindent
-Informal: In this grammar,
+Informal: In this grammar, there is an assumption that there is only one symbol in the string
+that can be accepted without the use of a stack. If there is more than one symbol in the string,
+then all of the symbols are put into the stack in order. We also check to see whether the last
+symbol is the one being read. If it is, and this symbol matches with the symbol on the stack,
+and if all the input has been checked with no input left, then we accept that state. Otherwise
+we reject the input.
 
 \noindent
 Pushdown Automata:\\
 \begin{center}
-	\begin{tikzpicture}[scale=0.2]
-	\tikzstyle{every node}+=[inner sep=0pt]
-	\draw [black] (12.4,-29.9) circle (3);
-	\draw (12.4,-29.9) node {$q0$};
-	\draw [black] (30.1,-29.9) circle (3);
-	\draw (30.1,-29.9) node {$q1$};
-	\draw [black] (47.1,-29.9) circle (3);
-	\draw (47.1,-29.9) node {$q2$};
-	\draw [black] (47.1,-29.9) circle (2.4);
-	\draw [black] (15.4,-29.9) -- (27.1,-29.9);
-	\fill [black] (27.1,-29.9) -- (26.3,-29.4) -- (26.3,-30.4);
-	\draw (21.25,-30.4) node [below] 
-	\draw [black] (33.1,-29.9) -- (44.1,-29.9);
-	\fill [black] (44.1,-29.9) -- (43.3,-29.4) -- (43.3,-30.4);
-	\draw (38.6,-30.4) node [below] [text width=2cm,align=center] {$0, 0\mbox{ }\rightarrow\mbox{ }\epsilon$\\$1, 1\mbox{ } \rightarrow\mbox{ } \epsilon$};
-	\draw [black] (28.777,-27.22) arc (234:-54:2.25);
-	\draw (30.1,-22.65) node [above] [text width=2cm,align=center] {$0, \epsilon \rightarrow \epsilon$\\
-	$1, \epsilon \rightarrow \epsilon$};
-	\fill [black] (31.42,-27.22) -- (32.3,-26.87) -- (31.49,-26.28);
-	\draw [black] (3.9,-29.9) -- (9.4,-29.9);
-	\fill [black] (9.4,-29.9) -- (8.6,-29.4) -- (8.6,-30.4);
+	\begin{tikzpicture}[>=stealth',shorten >=2pt, auto, node distance=4cm]
+	% Nodes {q1, q2, q3, q4, q5, etc}
+	\node [state, initial, accepting] 		(q1) 				 {q1};
+	\node [state, accepting] 				(q2)  [right of=q1]  {q2};
+	\node [state]   	                    (q3)  [right of=q2]  {q3};
 	
-	\draw [black] (15.4,-29.9) [bend right] (44.1,-29.9);
-	\fill [black] (44.1,-29.9) [bend right] (43.3,-29.4) [bend right](43.3,-30.4);
-	\draw (29.75,-30.4) node [bend right] {$hi$};
+	% Paths
+	\path [->] 	(q1) edge 	node	[text width=2cm,align=center] 
+	{$0, \epsilon \rightarrow 0$ \\ $1, \epsilon \rightarrow 1$}	(q2);
 	
-	\draw (21.25,-30.4) node [below] [text width=2cm,align=center] {$1,\epsilon\mbox{ }\rightarrow\mbox{ }1$\\$0\epsilon\mbox{ } \rightarrow\mbox{ }0$};
-	\end{tikzpicture}
-\end{center}
-
-\begin{center}
-    \begin{tikzpicture}[>=stealth',shorten >=2pt, auto, node distance=2.5cm]
-    % Nodes {q1, q2, q3, q4, q5, etc}
-    \node [state, initial, accepting] 		(q1) 				 {q1};
-    \node [state, accepting] 				(q2)  [right of=q1]  {q2};
-    \node [state]   	                    (q3)  [right of=q2]  {q3};
-    
-    % Paths
-    \path [->] 	(q1) edge 	node	[text width=2cm,align=center] {$1,\epsilon \rightarrow 1$ \\ $0 \epsilon \rightarrow 0$};	(q2);
-    \path [->] 	(q2) edge 				node	{a,b}		(q3);
-    \path [->] 	(q2) edge [loop above] 	node	{a,b}		(q2);
-    
-    \end{tikzpicture} \\
+	\path [->] 	(q2) edge 	node	[text width=2cm,align=center] 
+	{$0, 0 \rightarrow \epsilon$ \\ $1, 1 \rightarrow \epsilon$}	(q3);
+	
+	\path [->] 	(q2) edge [loop above] 	node	[text width=2cm,align=center] 
+	{$0, \epsilon \rightarrow \epsilon$ \\ $1, \epsilon \rightarrow \epsilon$}		(q2);
+	
+	\path [->] 	(q1) edge [bend right=50] node [text width=2cm,align=center]	
+	{$0, \epsilon \rightarrow \epsilon$ \\ $1, \epsilon \rightarrow \epsilon$}	(q3);
+	
+	\end{tikzpicture} \\
 \end{center}
 
 \noindent
 c. \{w| the length of w is odd\} \\
 \noindent
-Informal: In this grammar,
+Informal: In this grammar, there is no need of a stack. In this grammar, we only read
+the input and this input is also only accepted when there is an odd length.
 
 \noindent
 Pushdown Automata:\\
+\begin{center}
+	\begin{tikzpicture}[>=stealth',shorten >=2pt, auto, node distance=4cm]
+	% Nodes {q1, q2, q3, q4, q5, etc}
+	\node [state, initial] 			(q1) 				 {q1};
+	\node [state, accepting]        (q2)  [right of=q1]  {q2};
+	
+	% Paths
+	\path [->] 	(q1) edge [bend left]   node	[text width=2cm,align=center]	
+	{$0, \epsilon \rightarrow \epsilon$ \\ $1, \epsilon \rightarrow \epsilon$}		(q2);
+	
+	\path [->] 	(q2) edge [bend left] 	node	[text width=2cm,align=center]	
+	{$0, \epsilon \rightarrow \epsilon$ \\ $1, \epsilon \rightarrow \epsilon$}		(q1);
+	
+	\end{tikzpicture}
+\end{center}
 
 \noindent
 d. \{w| the length of w is odd and its middle symbol is a 0\}\\
@@ -301,11 +299,11 @@ that means no string is accepted by the CFG including the empty string.
 \noindent
 Pushdown Automata:\\
 \begin{center}
-    \begin{tikzpicture}[>=stealth',shorten >=2pt, auto, node distance=2cm]
-    % Nodes {q1, q2, q3, q4, q5, etc}
-    \node [state, initial] 		(q1) 				{q1};
-    
-    \end{tikzpicture} \\
+	\begin{tikzpicture}[>=stealth',shorten >=2pt, auto, node distance=2cm]
+	% Nodes {q1, q2, q3, q4, q5, etc}
+	\node [state, initial] 		(q1) 				{q1};
+	
+	\end{tikzpicture}
 \end{center}
 
 %*********************************************************************************
