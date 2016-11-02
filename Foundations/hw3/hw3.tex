@@ -761,37 +761,97 @@ $A_2 \rightarrow AB$ \\
 \pagebreak
 \noindent
 2.26 \\
-Show that if $G$ is a CFG in Chomsky normal form, then for any string $w \; \epsilon \; L(G)$ \\
-of length $n \geq 1$, exactly $2n - 1$ steps are required 
-for any derivation of $w$. \\
+Show that if $G$ is a CFG in \textbf{Chomsky Normal Form} form, then for any string $w \; \in \; L(G)$
+of length $n \geq 1$, exactly $2n - 1$ steps are required for any derivation of $w$. \\
+
+We can prove that $G$ is in CNF form by using the induction method on the string $w$ of length $n$. \\
+
+Let's do this as follows: \\
+$N = 1$, a string "a" is of length 1 in CNF form, so derivation that is valid for this is
+$S \rightarrow a$ where $a \in \sum$ and $S$ is the starting symbol. \\
+
+The number of steps required can be found by doing: \\
+$2n - 1 = 2(1) - 1$ \\
+$ \quad = 2 - 1 $ \\
+$       = 1 $ \\
+Thus it is true that for $n = 1$ that $2n - 1$ steps are required to derive a string a. \\
+
+Now we can find the steps required for the case $n = k$. This would be a string of length
+$k \geq n$ in CNF form, so a valid derivation for this should take $2k - 1$ steps. \\
+
+The number of steps required can be found by doing: \\
+$2n - 1 = 2(k) - 1$ \\
+$       = 2k - 1 $ \\
+
+We will assume a string length of at most $k \geq n$ terminal symbols, and that it has a string
+length of $n = k + 1$ in CNF form. \\
+
+Since we know that $n > 1$, we can consider a language that follows CNF:
+$S \rightarrow BC$ \\
+$B \rightarrow *x$ \\
+$C \rightarrow *y$ \\
+
+Where the derivation starts with the given symbol $S$. The length of the string with
+this starting symbol $S$ is $|w| = xy$ where $|x| > 0$ and $|y| > 0$. \\
+
+We can use the inductive hypothesis now: \\
+
+$1 + (2 |x| - 1) + (2 |y| - 1) = 2|x| + 2|y| + 1 - 1 - 1 = 2 (|x| + |y|) - 1 $ \\
+
+Which shows that $n = |x| + |y|$. \\
+
+We've found that $B \rightarrow *x$ has a length of $|x|$ and that $C \rightarrow *y$
+has a length $|y|$. Thus, it is proven that it requires $2n - 1$ steps to get the
+derivation of the string $w \in L(G)$ in \textbf{CNF} form.
 
 %*********************************************************************************
 % 2.30 here
 \pagebreak
-\noindent
-2.30 \\
+2.30 Use the pumping lemma to show that the following languages are not context free. \\
 
-I hope this one isn't annoying... \\
+a. $ \{0^n 1^n 0^n 1^n \; | \; n \geq 0 \} $ \\
+
+
+
+b. $\{0^n \# 0^{2n} \# 0^{3n} \; | \; n \geq 0 \} $ \\
+
+
+
+c. $\{ w \# t \; | \; w$ is a substring of $t$, where $w$, $t \in \{a, b\}^* \} $ \\
+
+
+
+d. $\{t_1 \# t_2 \# ... \# t_k \; | \; k \geq 2$, each $t_i \in \{a, b\}^*$, and $t_i = t_j$ for some $i \ne j \} $ \\
+
+
+
 
 %*********************************************************************************
 % 2.31 here
-\noindent
-2.31 \\
+\pagebreak
+2.31 Let B be the language of all palindromes over \{0, 1\} containing equal numbers of
+0s and 1s. Show that B is not context free. \\
 
-I hope this one isn't annoying... \\
+B is not context free because X Y Z.
 
 %*********************************************************************************
 % 2.32 here
-\noindent
-2.32 \\
+\pagebreak
+2.32 Let $\sum = \{1, 2, 3, 4\}$ and $C = \{w \in \sum^* \; | $ in $w$, the number of 1s 
+equals the number of 2s, and the number of 3s equals the number of 4s\}. \\
+Show that C is not context free. \\
 
-I hope this one isn't annoying... \\
+C is not context free because X Y Z.
 
 %*********************************************************************************
 % 2.47 here
-\noindent
-2.47 \\
+\pagebreak
+2.47 Let $\sum = \{0, 1\}$ and let B be the collection of strings that contain at least one 1 in
+their second half. \\
+In other words, $B = \{uv \; | \; u \; \in \; \sum^*, v \in \sum^*1\sum^*$ and $|u| \geq |v|\} $. \\
 
-I hope this one isn't annoying... \\
+\textbf{a.} Give a PDA that recognizes B. \\
+
+\textbf{b.} Give a CFG that generates B. \\
 
 \end{document}
