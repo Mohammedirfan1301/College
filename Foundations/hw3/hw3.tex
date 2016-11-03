@@ -2,6 +2,7 @@
 \setlength\parindent{0pt}
 \usepackage{amsfonts}
 \usepackage{comment}
+\usepackage{tabularx}
 \usepackage{tikz}
 \usepackage{forest}
 \usetikzlibrary{arrows,automata}
@@ -946,35 +947,35 @@ the following ways: \\
 
 If we pump $v$ and $y$, then the string that is created is no
 longer a valid palindrome, and the number of $0s$ will be greater
-than the number of $1s$. This is a contradiction. \\
+than the number of $1s$. This is a contradiction.
 	
 \textbf{2.} $vxy$ fails between $0^p$ and $1^p$.
 
 If $v$ only contains $0s$ while $y$ only contains $1s$, then
 if we pump string $s$, the new string that is created is no
-longer a palin drome. This is a contradiction. \\
+longer a palin drome. This is a contradiction.
 	
 \textbf{3.} $vxy$ fails completely in the first $1^p$.
 
 This case is similar to \textbf{1}, after we pump string $s$,
 the number of $1s$ will be greater than the number of $0s$,
-which is a contradiction. \\
+which is a contradiction.
 
 \textbf{4.} $vxy$ falls between $1^p$ and $1^p$
 
 After pumping the string $s$, the number of $1s$ will be greater
-than the number of $0s$, which is a contradiction. \\
+than the number of $0s$, which is a contradiction.
 
 \textbf{5.} $vxy$ falls completely within the second $1^p$
 
-This is the same case as \textbf{3}. \\
+This is the same case as \textbf{3}.
 
 \textbf{6.} $vxy$ falls between $1^p$ and $0^p$
 
 This is similar to case \textbf{2}, $v$ will only contain
 $1s$ while $y$ will only contain $0s$. If we pump the string
 $s$ then the new string will no longer be a palindrome.
-This is a contradiction. \\
+This is a contradiction.
 
 \textbf{7.} $vxy$ falls completely within the second $0^p$
 
@@ -1036,10 +1037,81 @@ In other words, $B = \{uv \; | \; u \; \in \; \sum^*, v \in \sum^*1\sum^*$ and $
 
 \textbf{a.} Give a PDA that recognizes B. \\
 
+To construct the PDA, which I will call $M$, we need to define the formal
+description and determine how we will create the PDA. To start out,
+we will need to make sure that this PDA reads the string in, and pushes
+the string $u$ onto the stack. The string $u$ will need to contain $0's$
+and $1's$. After the machine has finished pushing all of the $u$'s onto
+the stack, it will need to compare them with that is in $v$. In this case,
+we should note that $u \geq v$. If we find that the amount of $1's$ in
+the input is at least one in the second half, then we can accept the string
+entirely. We can do this using a non deterministic PDA (push down automata). \\
 
+We can define the formal description of a PDA $M$ as: 
+$Q, \; \sum, \; \frac{1}{2}, \; \Gamma, \; \delta, \; q_0, F $, where: \\
 
-\textbf{b.} Give a CFG that generates B. \\
+$Q = \{q_0, q_1, q_2, q_3\}$ \\
+$\sum = \{0, 1 \}$ \\
+$\Gamma = \{ x \}$ \\
+$F = \{ q_3 \}$ \\
 
+where the transition function, $\delta$,  is given by the following table: \\
 
+\begin{tabularx}{\textwidth}{ c | c c | c c | c c }
+Input: & 0 & & 1 & & $\epsilon$ \\
+\hline
+stack & x & $\epsilon$ & x & $\epsilon$ & x & $\epsilon$ \\
+\hline
+$q_0$ & \{($q_0, xx$)\} & \{($q_0, x$)\} & \{($q_0, xx$)\} & \{($q_0, x$)\} 
+& \{($q_1, x$)\} \\
+\hline
+$q_1$ & \{($q_1$, $\epsilon$)\} & & \{($q_2$, $\epsilon$)\} \\
+\hline
+$q_2$ & \{($q_2$, $\epsilon$)\} & & \{($q_2$, $\epsilon$)\} \\ 
+\end{tabularx} \\
+
+\pagebreak
+Now we can create the PDA $M$:
+
+\begin{center}
+\begin{tikzpicture}[>=stealth',shorten >=2pt, auto, node distance=4cm]
+	% Nodes {q1, q2, q3, q4, q5}
+	\node [initial, state] 							(q1) 				{q1};
+	\node [state] 									(q2) [right of=q1]  {q2};
+	\node [state, accepting]  						(q3) [right of=q2]  {q3};
+
+	% Paths
+	\path [->] 	
+	% Loop above paths
+	(q1) edge [loop above] node	[text width=2cm, align=center]	
+	{$0, \epsilon \rightarrow x$ \\ $1, \epsilon \rightarrow x$ \\
+	 $0, x \rightarrow xx$ \\ $1, x \rightarrow xx$}	(q1)
+	(q2) edge [loop above] node	[text width=2cm, align=center]	
+	{$0, x \rightarrow \epsilon$}	(q2)
+	(q3) edge [loop above] node	[text width=2cm, align=center]	
+	{$0, x \rightarrow \epsilon$ \\ $1, x \rightarrow \epsilon$}	(q3)
+	
+	% The paths between q1 and q2, as well as between q2 and q3
+	(q1) edge [below]  node {$\epsilon, x \rightarrow x$} (q2)
+	(q2) edge [below]  node {$1, x \rightarrow \epsilon$} (q3);
+				
+\end{tikzpicture} \\
+\end{center}
+
+\textbf{b.} Give a \textbf{CFG} that generates B. \\
+
+We can give the \textbf{CFG} as follows:
+$S \rightarrow UV$ \\
+$U \rightarrow AB$ \\
+$V \rightarrow A1A \; | \; A1B \; | \; A1U \; | \; B1U \; | \; U1U$ \\
+$A \rightarrow 00^* \; | \; \in$ \\
+$B \rightarrow 11^* \; | \; \in$ \\
+
+This is because: \\
+\textbf{1.} The string $s$ is a concatenation of $U$ and $V$. \\
+\textbf{2.} The string $U$ can consist of any number of $0's$ and $1's$. \\
+\textbf{3.} The string $V$ can consist of at least one $1$ or only $1$.\\
+\textbf{4.} The string $A$ can consist of at least one $0$ or more than one $0's$. \\
+\textbf{5.} The string $B$ can consist of at least one $1$ or more than one $1's$. \\
 
 \end{document}
