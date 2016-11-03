@@ -927,11 +927,60 @@ pumping lemma, $D$ is not a \textbf{CFL}. \\
 %*********************************************************************************
 % 2.31 here
 \pagebreak
-2.31 Let B be the language of all palindromes over \{0, 1\} containing equal numbers of
-0s and 1s. Show that B is not context free. \\
+2.31 Let B be the language of all palindromes over $\{0, 1\}$ containing equal numbers of
+$0s$ and $1s$. Show that $B$ is not context free. \\
 
+To solve this problem, we will assume that $B$ is a \textbf{Context-Free Language (CFL)},
+and prove that it is not by contradiction. \\ 
 
-B is not context free because X Y Z.
+$p$ will be there pumping length of $B$ given by pumping lemma. \\
+We will consider a string $s = 0^p 1^p 1^p 0^p$ \\
+
+We will assume that string $s$ is a member of $B$, and that it has
+a length of $p$. We can show that anyway you divide the string into
+a form of $uvxyz$, one of the conditions of pumping lemma is violated.
+Pumping lemma is where $|xyz| \le p$, and we can only place $xyz$ into
+the following ways: \\
+
+\textbf{1.} $vxy$ fails completely in the first $0^p$.
+
+If we pump $v$ and $y$, then the string that is created is no
+longer a valid palindrome, and the number of $0s$ will be greater
+than the number of $1s$. This is a contradiction. \\
+	
+\textbf{2.} $vxy$ fails between $0^p$ and $1^p$.
+
+If $v$ only contains $0s$ while $y$ only contains $1s$, then
+if we pump string $s$, the new string that is created is no
+longer a palin drome. This is a contradiction. \\
+	
+\textbf{3.} $vxy$ fails completely in the first $1^p$.
+
+This case is similar to \textbf{1}, after we pump string $s$,
+the number of $1s$ will be greater than the number of $0s$,
+which is a contradiction. \\
+
+\textbf{4.} $vxy$ falls between $1^p$ and $1^p$
+
+After pumping the string $s$, the number of $1s$ will be greater
+than the number of $0s$, which is a contradiction. \\
+
+\textbf{5.} $vxy$ falls completely within the second $1^p$
+
+This is the same case as \textbf{3}. \\
+
+\textbf{6.} $vxy$ falls between $1^p$ and $0^p$
+
+This is similar to case \textbf{2}, $v$ will only contain
+$1s$ while $y$ will only contain $0s$. If we pump the string
+$s$ then the new string will no longer be a palindrome.
+This is a contradiction. \\
+
+\textbf{7.} $vxy$ falls completely within the second $0^p$
+
+This is the same case as \textbf{1}. \\
+
+As shown above, $B$ is not a \textbf{CFL}.
 
 %*********************************************************************************
 % 2.32 here
@@ -987,6 +1036,10 @@ In other words, $B = \{uv \; | \; u \; \in \; \sum^*, v \in \sum^*1\sum^*$ and $
 
 \textbf{a.} Give a PDA that recognizes B. \\
 
+
+
 \textbf{b.} Give a CFG that generates B. \\
+
+
 
 \end{document}
