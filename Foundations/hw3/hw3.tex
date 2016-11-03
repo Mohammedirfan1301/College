@@ -1,5 +1,5 @@
 \documentclass[12pt]{article}
-\setlength\parindent{0pt}
+\setlength\parindent{0pt}	%OMG THIS MAGIC SAUCE, IT MAKES IT SO YOU DON'T NEED TO USE \NOINDENT EVERYWHERE!!!
 \usepackage{amsfonts}
 \usepackage{comment}
 \usepackage{tabularx}
@@ -8,21 +8,17 @@
 \usetikzlibrary{arrows,automata}
 \begin{document}
 
-\noindent
 Jason Downing \\
 Email: jason\_downing@student.uml.edu \\
 Foundations of Computer Science \\
 Homework \#3 - Chapter 2\\
-10/31/2016 \\
+11/3/2016 \\
 
 %*********************************************************************************
 % 2.1 here
-
-\noindent
 2.1 Recall the CFC G4 that we gave in Example 2.4. \\
 
-\noindent
-a. Parse tree for $a$: \\
+\textbf{a.} Parse tree for $a$: \\
 \begin{center}
 	\begin{tikzpicture}[scale=0.1]
 	\tikzstyle{every node}+=[inner sep=0pt]
@@ -39,11 +35,9 @@ a. Parse tree for $a$: \\
 	\end{tikzpicture}
 \end{center}
 
-\noindent
-Derivation for $a$: $E \rightarrow T \rightarrow F \rightarrow a$ \\
+\textbf{Derivation} for $a$: $E \rightarrow T \rightarrow F \rightarrow a$ \\
 
-\noindent
-b. Parse tree for $a + a$: \\
+\textbf{b.} Parse tree for $a + a$: \\
 \begin{center}
 	\begin{tikzpicture}[scale=0.1]
 	\tikzstyle{every node}+=[inner sep=0pt]
@@ -75,12 +69,11 @@ b. Parse tree for $a + a$: \\
 	\end{tikzpicture}
 \end{center}
 
-\noindent
-Derivation for $a + a$: $E \rightarrow E + T \rightarrow T + T \rightarrow T + F \rightarrow F + a \rightarrow a + a$ \\
+\textbf{Derivation} for $a + a$: $E \rightarrow E + T \rightarrow T + T 
+\rightarrow T + F \rightarrow F + a \rightarrow a + a$ \\
 
 \pagebreak
-\noindent
-c. Parse tree for $a + a + a$: \\
+\textbf{c.} Parse tree for $a + a + a$: \\
 \begin{center}
 	\begin{tikzpicture}[scale=0.2]
 	\tikzstyle{every node}+=[inner sep=0pt]
@@ -124,63 +117,54 @@ c. Parse tree for $a + a + a$: \\
 	\end{tikzpicture}
 \end{center}
 
-\noindent
-Derivation for $a + a + a$: $E \rightarrow E + T \rightarrow T + T + T \rightarrow F + T + F \rightarrow$ \\
-$F + F + T \rightarrow F + F + F \rightarrow a + F + F \rightarrow a + a + F \rightarrow a + a + a$ \\
+\textbf{Derivation} for $a + a + a$: $E \rightarrow E + T 
+\rightarrow T + T + T \rightarrow F + T + F \rightarrow$ \\
+$F + F + T \rightarrow F + F + F \rightarrow a + F + F 
+\rightarrow a + a + F \rightarrow a + a + a$ \\
 
 \pagebreak
-\noindent
-d. Parse tree for $((a))$: \\
+\textbf{d.} Parse tree for $((a))$: \\
 \begin{center}
 	\begin{forest}
 		[E [T [F [(E) [(T) [(F) [((E)) [((T)) [((F)) [a]]]]]]]]]]]
 	\end{forest}
 \end{center}
 
-\noindent
-Derivation for $((a))$:  $E \rightarrow T \rightarrow F \rightarrow (E) \rightarrow (T) \rightarrow (F) \rightarrow ((E)) $  \\
+\textbf{Derivation} for $((a))$:  $E \rightarrow T \rightarrow F \rightarrow (E) \rightarrow (T) \rightarrow (F) \rightarrow ((E)) $  \\
 $ \rightarrow ((T)) \rightarrow ((F)) \rightarrow ((a)) $ \\
 
 %*********************************************************************************
 % 2.4 b, c, e, f here
 
 \pagebreak
-\noindent
 2.4 \\
 Give context-free grammars that generate the following languages. \\
 In all parts, the alphabet $\sum$ is $\{0,1\}$. \\
 
-\noindent
-b. \{w| w starts and ends with the same symbol\} \\
+\textbf{b.} \{w| w starts and ends with the same symbol\} \\
 $ S \rightarrow 0P0|1P1| \epsilon $ \\
 $ P \rightarrow 0P|1P| \epsilon $ \\
 
-\noindent
-c. \{w| the length of w is odd\} \\
+\textbf{c.} \{w| the length of w is odd\} \\
 $ S \rightarrow 0|1|00S|01S|10S|11S $ \\
 
-\noindent
-e. \{w| w = $w\textsuperscript{R}$, that is, w is a palindrome\} \\
+\textbf{e.} \{w| w = $w\textsuperscript{R}$, that is, w is a palindrome\} \\
 $ S \rightarrow 0|1|0S0|1S1| \epsilon $ \\
 
-\noindent
-f. The empty set \\
+\textbf{f.} The empty set \\
 $ S \rightarrow \epsilon $ \\
 
 %*********************************************************************************
 % 2.5 here
 
 \pagebreak
-\noindent
 2.5 Give informal descriptions and state diagrams of pushdown automata for \\
 the languages in Exercise 2.4. \\
 
-\noindent
-a. \{w| w contains at least three 1s\}\\
+\textbf{a.} \{w| w contains at least three 1s\}
 
-\noindent
-\textbf{Informal:} In this grammar, there is no need of a stack (as seen in the diagram). In the grammar only the input is read, and the input is only accepted when there is at least three 1's. The only time the machine will accept a string in this case is when at least three 1's are present; otherwise it is rejected. \\\\
-\noindent
+\textbf{Informal:} In this grammar, there is no need of a stack (as seen in the diagram). In the grammar only the input is read, and the input is only accepted when there is at least three 1's. The only time the machine will accept a string in this case is when at least three 1's are present; otherwise it is rejected.
+
 \textbf{Pushdown Automata:} \\
 \begin{center}
 	\begin{tikzpicture}[scale=0.2]
@@ -211,21 +195,18 @@ a. \{w| w contains at least three 1s\}\\
 	\draw [black] (45.777,-27.22) arc (234:-54:2.25);
 	\draw (47.1,-22.65) node [above] {$0,\mbox{ }\epsilon\mbox{ }\rightarrow\mbox{ }R$};
 	\fill [black] (48.42,-27.22) -- (49.3,-26.87) -- (48.49,-26.28);
-	\end{tikzpicture}
+	\end{tikzpicture} \\
 \end{center}
 
-\noindent
-b. \{w| w starts and ends with the same symbol\} \\\\
-\noindent
+\textbf{b.} \{w| w starts and ends with the same symbol\}
+
 \textbf{Informal:} In this grammar, there is an assumption that there is only one symbol in the string
 that can be accepted without the use of a stack. If there is more than one symbol in the string,
 then all of the symbols are put into the stack in order. We also check to see whether the last
 symbol is the one being read. If it is, and this symbol matches with the symbol on the stack,
 and if all the input has been checked with no input left, then we accept that state. Otherwise
-we reject the input. \\\\
-\pagebreak
+we reject the input. 
 
-\noindent
 \textbf{Pushdown Automata:} \\
 \begin{center}
 	\begin{tikzpicture}[>=stealth',shorten >=2pt, auto, node distance=4cm]
@@ -233,91 +214,48 @@ we reject the input. \\\\
 	\node [state, initial, accepting] 		(q1) 				 {q1};
 	\node [state, accepting] 				(q2)  [right of=q1]  {q2};
 	\node [state]   	                    (q3)  [right of=q2]  {q3};
-	
+
 	% Paths
-	\path [->] 	(q1) edge 	node	[text width=2cm,align=center] 
+	\path [->] 	(q1) edge 	node	[text width=2cm,align=center]
 	{$0, \epsilon \rightarrow 0$ \\ $1, \epsilon \rightarrow 1$}	(q2);
-	
-	\path [->] 	(q2) edge 	node	[text width=2cm,align=center] 
+
+	\path [->] 	(q2) edge 	node	[text width=2cm,align=center]
 	{$0, 0 \rightarrow \epsilon$ \\ $1, 1 \rightarrow \epsilon$}	(q3);
-	
-	\path [->] 	(q2) edge [loop above] 	node	[text width=2cm,align=center] 
+
+	\path [->] 	(q2) edge [loop above] 	node	[text width=2cm,align=center]
 	{$0, \epsilon \rightarrow \epsilon$ \\ $1, \epsilon \rightarrow \epsilon$}		(q2);
-	
-	\path [->] 	(q1) edge [bend right=50] node [text width=2cm,align=center]	
+
+	\path [->] 	(q1) edge [bend right=50] node [text width=2cm,align=center]
 	{$0, \epsilon \rightarrow \epsilon$ \\ $1, \epsilon \rightarrow \epsilon$}	(q3);
-	
-	\end{tikzpicture} \\
+
+	\end{tikzpicture}
 \end{center}
 
-\noindent
-c. \{w| the length of w is odd\} \\\\
-\noindent
-\textbf{Informal:} In this grammar, there is no need of a stack. In this grammar, we only read
-the input and this input is also only accepted when there is an odd length. \\
+\textbf{c.} \{w| the length of w is odd\} 
 
-\noindent
+\textbf{Informal:} In this grammar, there is no need of a stack. 
+In this grammar, we only read the input and this input is also 
+only accepted when there is an odd length. 
+
 \textbf{Pushdown Automata:} \\
 \begin{center}
 	\begin{tikzpicture}[>=stealth',shorten >=2pt, auto, node distance=4cm]
 	% Nodes {q1, q2, q3, q4, q5, etc}
 	\node [state, initial] 			(q1) 				 {q1};
 	\node [state, accepting]        (q2)  [right of=q1]  {q2};
-	
+
 	% Paths
-	\path [->] 	(q1) edge [bend left]   node	[text width=2cm,align=center]	
+	\path [->] 	(q1) edge [bend left]   node	[text width=2cm,align=center]
 	{$0, \epsilon \rightarrow \epsilon$ \\ $1, \epsilon \rightarrow \epsilon$}		(q2);
-	
-	\path [->] 	(q2) edge [bend left] 	node	[text width=2cm,align=center]	
+
+	\path [->] 	(q2) edge [bend left] 	node	[text width=2cm,align=center]
 	{$0, \epsilon \rightarrow \epsilon$ \\ $1, \epsilon \rightarrow \epsilon$}		(q1);
-	
+
 	\end{tikzpicture}
 \end{center}
 
-\pagebreak
-\noindent
-d. \{w| the length of w is odd and its middle symbol is a 0\} \\\\
-\noindent
-\textbf{Informal:} In this grammar, the input is read by the pushdown automata and each symbol is
-placed onto the stack. At each point, the pushdown automata guesses if the input in the middle
-or if the next symbol read is in the middle of the string. If the next symbol read is the middle
-of the string then it does not get read onto the stack. After this, we pop symbols off the stack
-if they match the input symbols that were read. If the symbols that are popped match the symbols
-that were pushed earlier, and the stack is empty as the input is finished, we accept the state.
-Otherwise we reject the state. \\
+\textbf{d.} \{w| the length of w is odd and its middle symbol is a 0\}
 
-\noindent
-\textbf{Pushdown Automata:} \\
-\begin{center}
-	\begin{tikzpicture}[>=stealth',shorten >=2pt, auto, node distance=3cm]
-	% Nodes {q1, q2, q3, q4, q5, etc}
-	\node [state, initial] 		(q1) 				 {q1};
-	\node [state] 				(q2)  [right of=q1]  {q2};
-	\node [state]    			(q3)  [right of=q2]  {q3};
-	\node [state, accepting]	(q4)  [right of=q3]  {q4};
-	
-	% Paths
-	\path [->] 	(q1) edge 				node	[text width=2cm,align=center]	
-	{$\epsilon, \epsilon \rightarrow \$$}	(q2);
-	
-	\path [->] 	(q2) edge 				node	[text width=2cm,align=center]	
-	{$0, \epsilon \rightarrow \epsilon$}	(q3);
-	
-	\path [->] 	(q2) edge [loop above] 	node	[text width=2cm,align=center]	
-	{$1, \epsilon \rightarrow 1$ \\ $0, \epsilon \rightarrow 0$}		(q2);
-	
-	\path [->] 	(q3) edge 				node	[text width=2cm,align=center]	
-	{$\epsilon, \$ \rightarrow \epsilon$}		(q4);
-	
-	\path [->] 	(q3) edge [loop above] 	node	[text width=2cm,align=center]	
-	{$0, 0 \rightarrow \epsilon$ \\ $0, 1 \rightarrow \epsilon$ \\ $1, 0 \rightarrow \epsilon$ \\ $1, 1 \rightarrow \epsilon$}	(q3);
-	
-	\end{tikzpicture} \\
-\end{center}
-
-\noindent
-e. \{w| w = $w\textsuperscript{R}$, that is, w is a palindrome\} \\\\
-\noindent
 \textbf{Informal:} In this grammar, the input is read by the pushdown automata and each symbol is
 placed onto the stack. At each point, the pushdown automata guesses if the input in the middle
 or if the next symbol read is in the middle of the string. If the next symbol read is the middle
@@ -326,8 +264,45 @@ if they match the input symbols that were read. If the symbols that are popped m
 that were pushed earlier, and the stack is empty as the input is finished, we accept the state.
 Otherwise we reject the state.
 
+\textbf{Pushdown Automata:} \\
+\begin{center}
+	\begin{tikzpicture}[>=stealth',shorten >=2pt, auto, node distance=3cm]
+	% Nodes {q1, q2, q3, q4, q5, etc}
+	\node [state, initial] 		(q1) 				 {q1};
+	\node [state] 				(q2)  [right of=q1]  {q2};
+	\node [state]    			(q3)  [right of=q2]  {q3};
+	\node [state, accepting]	(q4)  [right of=q3]  {q4};
+
+	% Paths
+	\path [->] 	(q1) edge 				node	[text width=2cm,align=center]
+	{$\epsilon, \epsilon \rightarrow \$$}	(q2);
+
+	\path [->] 	(q2) edge 				node	[text width=2cm,align=center]
+	{$0, \epsilon \rightarrow \epsilon$}	(q3);
+
+	\path [->] 	(q2) edge [loop above] 	node	[text width=2cm,align=center]
+	{$1, \epsilon \rightarrow 1$ \\ $0, \epsilon \rightarrow 0$}		(q2);
+
+	\path [->] 	(q3) edge 				node	[text width=2cm,align=center]
+	{$\epsilon, \$ \rightarrow \epsilon$}		(q4);
+
+	\path [->] 	(q3) edge [loop above] 	node	[text width=2cm,align=center]
+	{$0, 0 \rightarrow \epsilon$ \\ $0, 1 \rightarrow \epsilon$ \\ $1, 0 \rightarrow \epsilon$ \\ $1, 1 \rightarrow \epsilon$}	(q3);
+
+	\end{tikzpicture} \\
+\end{center}
+
 \pagebreak
-\noindent
+\textbf{e.} \{w| w = $w\textsuperscript{R}$, that is, w is a palindrome\}
+
+\textbf{Informal:} In this grammar, the input is read by the pushdown automata and each symbol is
+placed onto the stack. At each point, the pushdown automata guesses if the input in the middle
+or if the next symbol read is in the middle of the string. If the next symbol read is the middle
+of the string then it does not get read onto the stack. After this, we pop symbols off the stack
+if they match the input symbols that were read. If the symbols that are popped match the symbols
+that were pushed earlier, and the stack is empty as the input is finished, we accept the state.
+Otherwise we reject the state.
+
 \textbf{Pushdown Automata:} \\
 \begin{center}
 	\begin{tikzpicture}[>=stealth',shorten >=2pt, auto, node distance=3cm]
@@ -336,41 +311,38 @@ Otherwise we reject the state.
 	\node [state] 				(q2)  [right of=q1]  {q2};
 	\node [state]    			(q3)  [right of=q2]  {q3};
 	\node [state, accepting]	(q4)  [right of=q3]  {q4};
-	
+
 	% Paths
-	\path [->] 	(q1) edge 				node	[text width=2cm,align=center]	
+	\path [->] 	(q1) edge 				node	[text width=2cm,align=center]
 	{$\epsilon, \epsilon \rightarrow \$$}	(q2);
-	
-	\path [->] 	(q2) edge 	[below]	node	[text width=2cm,align=center]	
+
+	\path [->] 	(q2) edge 	[below]	node	[text width=2cm,align=center]
 	{$\epsilon, \epsilon \rightarrow \epsilon$ \\ $0, \epsilon \rightarrow \epsilon$ \\ $1, \epsilon \rightarrow \epsilon$}	(q3);
-	
-	\path [->] 	(q2) edge [loop above] 	node	[text width=2cm,align=center]	
+
+	\path [->] 	(q2) edge [loop above] 	node	[text width=2cm,align=center]
 	{$0, \epsilon \rightarrow 0$ \\ $1, \epsilon \rightarrow 1$}		(q2);
-	
-	\path [->] 	(q3) edge 				node	[text width=2cm,align=center]	
+
+	\path [->] 	(q3) edge 				node	[text width=2cm,align=center]
 	{$\epsilon, \$ \rightarrow \epsilon$}		(q4);
-	
-	\path [->] 	(q3) edge [loop above] 	node	[text width=2cm,align=center]	
+
+	\path [->] 	(q3) edge [loop above] 	node	[text width=2cm,align=center]
 	{$0, 0 \rightarrow \epsilon$ \\ $1, 1 \rightarrow \epsilon$}	(q3);
-	
+
 	\end{tikzpicture} \\
 \end{center}
 
-\noindent
-f. The empty set \\ \\
+\textbf{f.} The empty set
 
-\noindent
 \textbf{Informal:} In this grammar, the language only accepts an empty set so it implies that
 it does not terminate any derivation. And if none of the derivations are terminated,
-that means that no string is accepted by the CFG, including the empty string. \\
+that means that no string is accepted by the CFG, including the empty string.
 
-\noindent
 \textbf{Pushdown Automata:} \\
 \begin{center}
 	\begin{tikzpicture}[>=stealth',shorten >=2pt, auto, node distance=2cm]
 	% Nodes {q1, q2, q3, q4, q5, etc}
 	\node [state, initial] 		(q1) 				{q1};
-	
+
 	\end{tikzpicture}
 \end{center}
 
@@ -378,10 +350,9 @@ that means that no string is accepted by the CFG, including the empty string. \\
 % 2.6 here
 
 \pagebreak
-\noindent
 2.6 \\
-\noindent
-b. The complement of the language $\{a^nb^n \; | \; n >= 0\}$
+
+\textbf{b.} The complement of the language $\{a^nb^n \; | \; n >= 0\}$
 The language is: \\
 $S \rightarrow S_1 \quad | \quad S_2$ \\
 $S_1 \rightarrow a S_1 b \quad | \quad T \quad | \quad U$   \\
@@ -390,8 +361,7 @@ $T \rightarrow aT \quad | \quad a$ \\
 $U \rightarrow Ub \quad | \quad a$ \\
 $R \rightarrow RR \quad | \quad a \quad | \quad b \quad | \quad \epsilon$ \\
 
-\noindent
-d. $\{x_1\#x_2\# \; ... \; \#x_k \; | \; k \geq 1, each \; x_i \epsilon \{a, b\}^*, and \; for \; some \; i \; and \; j, \; x_i = x^R_j\}$
+\textbf{d.} $\{x_1\#x_2\# \; ... \; \#x_k \; | \; k \geq 1, each \; x_i \epsilon \{a, b\}^*, and \; for \; some \; i \; and \; j, \; x_i = x^R_j\}$
 The language is: \\
 $R \rightarrow S \quad | \quad J\#S\#J \quad | \quad J\#S \quad | \quad S\#J$ \\
 $S \rightarrow aSa \quad | \quad bSb \quad | \quad \# \quad | \quad \#J\#$ \\
@@ -400,45 +370,37 @@ $J \rightarrow aJ \quad | \quad bJ \quad | \quad \#J \quad | \quad \epsilon$ \\
 %*********************************************************************************
 % 2.9 here
 \pagebreak
-\noindent
+
 2.9 $A = \{ a^i b^j c^k \; \; | \; i = j \; or \; j = k, \; where \; i, j, k \geq 0\}$ \\
 The context free grammar that generates the language is: \\
 
-\noindent
 First, split the languages into two parts: \\
 $A_1 = \{ a^i b^j c^k \; \; | \; \; i,j,k \geq 0, \; i = j \}$ \\
 $A_2 = \{ a^i b^j c^k \; \; | \; \; i,j,k \geq 0, \; j= k \}$ \\
 
-\noindent
 Now we can define the grammar for the language A: \\
 $S \rightarrow S_1 \; | \; S_2$ \\
 
-\noindent
 In $A_1$, the values of i and j are equal. So, there must be an equal number
 of A's and B's in this language. \\
 
-\noindent
 CGF for language $A_1$ is: \\
 $S_1 \rightarrow S_1 c \; | \; E \; | \; \epsilon $ \\
 $E \rightarrow aEb \; | \; \epsilon  $ \\
 
-\noindent
 In $A_2$, j and k are equal, so there are an equal number of B'c and C's. \\
 
-\noindent
 CGF for language $A_2$ is: \\
 $S_2 \rightarrow a S_2 \; | \; F \; | \; \epsilon $ \\
 $F \rightarrow bFc \; | \; \epsilon  $ \\
 
-\noindent
 Since we can use either $A_1$ or $A_2$ to generate the string, either $S_1$ or
 $S_2$ can be used. Thus, the context free grammar for the language A is ambiguous. \\
-
 
 %*********************************************************************************
 % 2.10 here
 \pagebreak
-\noindent
+
 2.10 Give an informal description of a pushdown automaton that recognizes the language A in Exercise 2.9. \\
 
 At the beginning, we break into two branches. In the first branch, for each a that is read,
@@ -459,16 +421,15 @@ reject the state. \\
 %*********************************************************************************
 % 2.11 here
 \pagebreak
-\noindent
-2.11 Convert the CFG $G_4$ given in Exercise 2.1 to an equivalent PDA, using the procedure given in Theorem 2.20. \\
 
-\noindent
+2.11 Convert the CFG $G_4$ given in Exercise 2.1 to an equivalent PDA, 
+using the procedure given in Theorem 2.20. \\
+
 Given CFG: \\
 $E \rightarrow E + T \; | \; T $ \\
 $E \rightarrow T \times F \; | \; F $ \\
 $F \rightarrow (E) \; | \; a $ \\
 
-\noindent
 \textbf{PDA for $G_4$:} \\
 
 \begin{center}
@@ -555,7 +516,7 @@ $F \rightarrow (E) \; | \; a $ \\
 
 % Loop
 \draw [black] (14.597,-31.132) arc (-29.16862:-317.16862:2.25);
-\draw (7.73,-30.43) node [left] [text width=2cm,align=center] 
+\draw (7.73,-30.43) node [left] [text width=2cm,align=center]
 {$\epsilon, E \rightarrow T$ \\ $\epsilon, T \rightarrow F$ \\
  $\epsilon, F \rightarrow a$ \\ $+,+ \rightarrow \epsilon$ \\
  $\times, \times \rightarrow \epsilon$ \\ $(, ( \rightarrow \epsilon$ \\
@@ -569,17 +530,15 @@ $F \rightarrow (E) \; | \; a $ \\
 %*********************************************************************************
 % 2.12 here
 \pagebreak
-\noindent
+
 2.12 Convert the CFG G given in Exercise 2.1 to an equivalent PDA, using the procedure given in Theorem 2.20. \\
 
-\noindent
-CFG $G$ given in 2.3: \\
+\textbf{CFG} $G$ given in 2.3: \\
 $R \rightarrow XRX \; | S\; $ \\
 $S \rightarrow aTb \; | \; bTa $ \\
 $T \rightarrow XTX \; | \; X \; | \; \epsilon $ \\
 $X \rightarrow a \; | \; b $ \\
 
-\noindent
 \textbf{PDA for $G$:} \\
 
 \begin{center}
@@ -588,44 +547,34 @@ $X \rightarrow a \; | \; b $ \\
 	\node [state, initial] 		(q1) 				 {q1};
 	\node [state] 				(q2)  [below of=q1]  {q2};
 	\node [state, accepting]	(q3)  [below of=q2]  {q3};
-	
+
 	% Top path
-	\path [->] 	(q1) edge 	[left]			node	
+	\path [->] 	(q1) edge 	[left]			node
 	{$\epsilon, \epsilon \rightarrow R\$$}		(q2);
-	
+
 	% Bottom path
-	\path [->] 	(q2) edge 	[left]			node	
+	\path [->] 	(q2) edge 	[left]			node
 	{$\epsilon,\$ \rightarrow \epsilon$}		(q3);
-	
+
 	% Super long loop
-	\path [->] 	(q2) edge [loop right] 	node	[text width=3cm,align=center] 
+	\path [->] 	(q2) edge [loop right] 	node	[text width=3cm,align=center]
 	{$\epsilon, R \rightarrow XRX$ \\ $\epsilon, R \rightarrow S$ \\
 	 $\epsilon, S \rightarrow aTb$ \\ $\epsilon, S \rightarrow bTa$ \\
 	 $ \; \; \; \epsilon, T \rightarrow XTX$ \\ $\epsilon, T \rightarrow X$ \\
 	 $\epsilon, T \rightarrow \epsilon$ \\ $\epsilon, X \rightarrow a$ \\
 	 $\epsilon, X \rightarrow b$ \\ $a, a \rightarrow \epsilon$ \\
 	 $b, b \rightarrow \epsilon$}		(q2);
-	
+
 	\end{tikzpicture} \\
 \end{center}
-
-%ε,R→XRX
-%ε,R→S
-%ε, S→aTb
-%ε,S→bTa
-%ε,T→XTX
-%ε,$→ε 
-
-%ε,ε→R$
-%ε, T→ X
 
 %*********************************************************************************
 % 2.13 here
 \pagebreak
-2.13 Let G = (V, $\sum$, R, S) be the following grammar, \\
-V = \{S, T, U\}; Σ = \{0, \#\}; \\
+2.13 Let $G = (V, \sum, R, S)$ be the following grammar, \\
+$V = \{S, T, U\}; Σ = \{0, \#\};$ \\
 
-and R is the set of rules: \\
+and $R$ is the set of rules: \\
 $S \rightarrow TT \; | \; U$ \\
 $T \rightarrow 0T \; | \; T 0 \; | \; \#$ \\
 $U \rightarrow 0U 00 \; | \; \#$ \\
@@ -636,7 +585,7 @@ $L(G)$ is the set of all strings that contain a string of 0's, and all \#'s of t
 following forms: \\
 
 \textbf{1.} Strings which contain exactly two \#'s. \\
-\textbf{2.} Strings that contain two \#'s in the middle of the string, and any number of 0's 
+\textbf{2.} Strings that contain two \#'s in the middle of the string, and any number of 0's
 on either sides of the string. \\
 \textbf{3.} Strings that contain exactly one \#, and the number of 0's to the left of the \#
 are half the number of 0's that are to the right. \\
@@ -673,7 +622,7 @@ are not equal to half the number of 0's to the right of the \#. \\
 
 The string that results from the above cases does not belong to $A$. As a result, we can say that
 $A$ does not satisfy the pumping lemma. Basically, $A$ is not a regular language. This is a
-contradiction to the statement that we assumed at the beginning of this proof: 
+contradiction to the statement that we assumed at the beginning of this proof:
 $L(G)$ is a regular language. Thus, \underline{\textbf{$L(G)$ is not a regular language.}}
 
 %*********************************************************************************
@@ -760,7 +709,7 @@ $A_2 \rightarrow AB$ \\
 %*********************************************************************************
 % 2.26 here
 \pagebreak
-\noindent
+
 2.26 \\
 Show that if $G$ is a CFG in \textbf{Chomsky Normal Form} form, then for any string $w \; \in \; L(G)$
 of length $n \geq 1$, exactly $2n - 1$ steps are required for any derivation of $w$. \\
@@ -820,7 +769,7 @@ In order to prove this, we will need to show that a string $s = 1^p 0^p 1^p 0^p$
 cannot be pumped. We will consider $s$ in the form of $s = uvxyz$. \\
 
 1. If both $v$ and $y$ contain at most one alphabet symbol type, the string
-will be in the form of $u v^2 x y^2 z$, which is a string of $0's$ and $1's$ 
+will be in the form of $u v^2 x y^2 z$, which is a string of $0's$ and $1's$
 of unequal length. In this case, the string $s$ cannot be a member of $A$. \\
 
 2. If either $v$ or $y$ contain more than one alphabet symbol type, the string
@@ -874,18 +823,18 @@ $\#$ symbol. In this case, string $s$ cannot be a member of $C$. \\
 
 3. We can also consider when both $v$ and $y$ are not empty, and they both occur
 on the right side of the $\#$ symbol. In this case, the string $u v^0 x y^0 z$
-is no longer on the right side of the $\#$ symbol. In this case, string $s$ 
+is no longer on the right side of the $\#$ symbol. In this case, string $s$
 cannot be a member of $C$. \\
 
 4. If just one of either $v$ and $y$ is not empty, then we can assume that they
-both occurred on the same side of the $\#$ symbol. In this case, string $s$ 
+both occurred on the same side of the $\#$ symbol. In this case, string $s$
 cannot be a member of $C$. \\
 
 5. The final case is that if both $v$ and $y$ are not empty and they both
 include the $\#$ symbol. Then in this case, by the third pumping lemma
 condition of $|vxy| \; \le \; p$, we will end up with $v$ consisting of
 $b's$ and $y$ will consist of $a's$. This means that $u v^2 x y^2 z$ contains
-more $b's$ on the left side of the $\#$ symbol. In this case, string $s$ 
+more $b's$ on the left side of the $\#$ symbol. In this case, string $s$
 cannot be a member of $C$. \\
 
 Since we cannot pump the string $s$ without violating the conditions of
@@ -932,7 +881,7 @@ pumping lemma, $D$ is not a \textbf{CFL}. \\
 $0s$ and $1s$. Show that $B$ is not context free. \\
 
 To solve this problem, we will assume that $B$ is a \textbf{Context-Free Language (CFL)},
-and prove that it is not by contradiction. \\ 
+and prove that it is not by contradiction. \\
 
 $p$ will be there pumping length of $B$ given by pumping lemma. \\
 We will consider a string $s = 0^p 1^p 1^p 0^p$ \\
@@ -948,13 +897,13 @@ the following ways: \\
 If we pump $v$ and $y$, then the string that is created is no
 longer a valid palindrome, and the number of $0s$ will be greater
 than the number of $1s$. This is a contradiction.
-	
+
 \textbf{2.} $vxy$ fails between $0^p$ and $1^p$.
 
 If $v$ only contains $0s$ while $y$ only contains $1s$, then
 if we pump string $s$, the new string that is created is no
 longer a palin drome. This is a contradiction.
-	
+
 \textbf{3.} $vxy$ fails completely in the first $1^p$.
 
 This case is similar to \textbf{1}, after we pump string $s$,
@@ -986,7 +935,7 @@ As shown above, $B$ is not a \textbf{CFL}.
 %*********************************************************************************
 % 2.32 here
 \pagebreak
-2.32 Let $\sum = \{1, 2, 3, 4\}$ and $C = \{w \in \sum^* \; | $ in $w$, the number of 1s 
+2.32 Let $\sum = \{1, 2, 3, 4\}$ and $C = \{w \in \sum^* \; | $ in $w$, the number of 1s
 equals the number of 2s, and the number of 3s equals the number of 4s\}. \\
 Show that C is not a \textbf{context free language (CFL).} \\
 
@@ -1025,7 +974,7 @@ contain any $4's$. \\
 have the same number of $3's$ and $4's$. Due to condition \textbf{3}, $vxy$ cannot
 contain any $3's$. \\
 
-As we can see from condition \textbf{2}, this contradicts condition \textbf{1} 
+As we can see from condition \textbf{2}, this contradicts condition \textbf{1}
 in every case shown which proves that $C$ is not a \textbf{CFL}.
 
 %*********************************************************************************
@@ -1047,7 +996,7 @@ we should note that $u \geq v$. If we find that the amount of $1's$ in
 the input is at least one in the second half, then we can accept the string
 entirely. We can do this using a non deterministic PDA (push down automata). \\
 
-We can define the formal description of a PDA $M$ as: 
+We can define the formal description of a PDA $M$ as:
 $Q, \; \sum, \; \frac{1}{2}, \; \Gamma, \; \delta, \; q_0, F $, where: \\
 
 $Q = \{q_0, q_1, q_2, q_3\}$ \\
@@ -1062,12 +1011,12 @@ Input: & 0 & & 1 & & $\epsilon$ \\
 \hline
 stack & x & $\epsilon$ & x & $\epsilon$ & x & $\epsilon$ \\
 \hline
-$q_0$ & \{($q_0, xx$)\} & \{($q_0, x$)\} & \{($q_0, xx$)\} & \{($q_0, x$)\} 
+$q_0$ & \{($q_0, xx$)\} & \{($q_0, x$)\} & \{($q_0, xx$)\} & \{($q_0, x$)\}
 & \{($q_1, x$)\} & \\
 \hline
 $q_1$ & \{($q_1$, $\epsilon$)\} & & \{($q_2$, $\epsilon$)\} & & & \\
 \hline
-$q_2$ & \{($q_2$, $\epsilon$)\} & & \{($q_2$, $\epsilon$)\} & & & \\ 
+$q_2$ & \{($q_2$, $\epsilon$)\} & & \{($q_2$, $\epsilon$)\} & & & \\
 \end{tabularx} \\
 
 \pagebreak
@@ -1081,20 +1030,20 @@ Now we can create the PDA $M$:
 	\node [state, accepting]  						(q3) [right of=q2]  {q3};
 
 	% Paths
-	\path [->] 	
+	\path [->]
 	% Loop above paths
-	(q1) edge [loop above] node	[text width=2cm, align=center]	
+	(q1) edge [loop above] node	[text width=2cm, align=center]
 	{$0, \epsilon \rightarrow x$ \\ $1, \epsilon \rightarrow x$ \\
 	 $0, x \rightarrow xx$ \\ $1, x \rightarrow xx$}	(q1)
-	(q2) edge [loop above] node	[text width=2cm, align=center]	
+	(q2) edge [loop above] node	[text width=2cm, align=center]
 	{$0, x \rightarrow \epsilon$}	(q2)
-	(q3) edge [loop above] node	[text width=2cm, align=center]	
+	(q3) edge [loop above] node	[text width=2cm, align=center]
 	{$0, x \rightarrow \epsilon$ \\ $1, x \rightarrow \epsilon$}	(q3)
-	
+
 	% The paths between q1 and q2, as well as between q2 and q3
 	(q1) edge [below]  node {$\epsilon, x \rightarrow x$} (q2)
 	(q2) edge [below]  node {$1, x \rightarrow \epsilon$} (q3);
-				
+
 \end{tikzpicture} \\
 \end{center}
 
