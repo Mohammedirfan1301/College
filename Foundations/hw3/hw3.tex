@@ -809,28 +809,127 @@ derivation of the string $w \in L(G)$ in \textbf{CNF} form.
 \pagebreak
 2.30 Use the pumping lemma to show that the following languages are not context free. \\
 
-a. $ \{0^n 1^n 0^n 1^n \; | \; n \geq 0 \} $ \\
+\textbf{a.} Given language is: $ \{0^n 1^n 0^n 1^n \; | \; n \geq 0 \} $ \\
+
+Let $A = \{0^n 1^n 0^n 1^n \; | \; n \geq 0 \} $ \\
+$p$ will be there pumping length of $A$ given by pumping lemma. \\
+
+We can now prove that $A$ is not a \textbf{Context-Free Language (CFL)}.
+In order to prove this, we will need to show that a string $s = 1^p 0^p 1^p 0^p$
+cannot be pumped. We will consider $s$ in the form of $s = uvxyz$. \\
+
+1. If both $v$ and $y$ contain at most one alphabet symbol type, the string
+will be in the form of $u v^2 x y^2 z$, which is a string of $0's$ and $1's$ 
+of unequal length. In this case, the string $s$ cannot be a member of $A$. \\
+
+2. If either $v$ or $y$ contain more than one alphabet symbol type, the string
+will end up in the form of $u v^2 x y^2 z$ which does not contain the
+symbols in the required order. In this case, the string $s$ cannot be a
+member of $A$. \\
+
+Since we cannot pump the string $s$ without violating the conditions of
+pumping lemma, $A$ is not a \textbf{CFL}. \\
 
 
+\textbf{b.} $\{0^n \# 0^{2n} \# 0^{3n} \; | \; n \geq 0 \} $ \\
 
-b. $\{0^n \# 0^{2n} \# 0^{3n} \; | \; n \geq 0 \} $ \\
+Let $B = \{0^n \# 0^{2n} \# 0^{3n} \; | \; n \geq 0 \} $ \\
+$p$ will be there pumping length of $B$ given by pumping lemma. \\
+
+We can now prove that $B$ is not a \textbf{Context-Free Language (CFL)}.
+In order to show this, we will consider the string $s = 0^p \# 0^{2p} \# 0^{3p}$,
+and we will show that string $s$ cannot be pumped by pumping lemma. We will
+consider $s$ in the form of $s = uvxyz$. \\
+
+1. Neither $v$ nor $y$ can contain the symbol $\#$, otherwise $x v^2 w y^2 z$
+will contain more than two "\#" symbols. If this string is divided into
+three segments of $\#$s, then at least one of the segments $0^p$,
+$0^{2p}$, and $0^{3p}$ cannot be contained within either $v$ or $y$. \\
+
+2. Because the ratio of length between the segments is not maintained in
+a $1:2:3$ ratio, $x v^2 w y^2 z$ cannot be contained within $B$.
+Which means that string $s$ cannot be a member of $B$. \\
+
+Since we cannot pump the string $s$ without violating the conditions of
+pumping lemma, $B$ is not a \textbf{CFL}. \\
 
 
+\textbf{c.} $\{ w \# t \; | \; w$ is a substring of $t$, where $w$, $t \in \{a, b\}^* \} $ \\
 
-c. $\{ w \# t \; | \; w$ is a substring of $t$, where $w$, $t \in \{a, b\}^* \} $ \\
+Let $C = \{ w \# t \; | \; w$ is a substring of $t$, where $w$, $t \in \{a, b\}^* \}$ \\
+$p$ will be there pumping length of $C$ given by pumping lemma. \\
+
+We can now prove that $C$ is not a \textbf{Context-Free Language (CFL)}.
+In order to show this, we will consider the string $s = a^p b^p \# a^p b^p $,
+and we will show that string $s$ cannot be pumped by pumping lemma. We will
+consider $s$ in the form of $s = uvxyz$. \\
+
+1. Neither $v$ nor $y$ can contain a symbol $\#$, otherwise $u v^0 x y^0 z$
+will not contain a $\#$. In this case, string $s$ cannot be a member of $C$. \\
+
+2. If both $v$ and $y$ are not empty, and they both occur on the left side of the
+$\#$, then the string $u v^2 x y^2 z$ is no longer on the left side of the
+$\#$ symbol. In this case, string $s$ cannot be a member of $C$. \\
+
+3. We can also consider when both $v$ and $y$ are not empty, and they both occur
+on the right side of the $\#$ symbol. In this case, the string $u v^0 x y^0 z$
+is no longer on the right side of the $\#$ symbol. In this case, string $s$ 
+cannot be a member of $C$. \\
+
+4. If just one of either $v$ and $y$ is not empty, then we can assume that they
+both occurred on the same side of the $\#$ symbol. In this case, string $s$ 
+cannot be a member of $C$. \\
+
+5. The final case is that if both $v$ and $y$ are not empty and they both
+include the $\#$ symbol. Then in this case, by the third pumping lemma
+condition of $|vxy| \; \le \; p$, we will end up with $v$ consisting of
+$b's$ and $y$ will consist of $a's$. This means that $u v^2 x y^2 z$ contains
+more $b's$ on the left side of the $\#$ symbol. In this case, string $s$ 
+cannot be a member of $C$. \\
+
+Since we cannot pump the string $s$ without violating the conditions of
+pumping lemma, $C$ is not a \textbf{CFL}. \\
 
 
+\textbf{d.} $\{t_1 \# t_2 \# ... \# t_k \; | \; k \geq 2$, each $t_i \in \{a, b\}^*$, and $t_i = t_j$ for some $i \ne j \} $ \\
 
-d. $\{t_1 \# t_2 \# ... \# t_k \; | \; k \geq 2$, each $t_i \in \{a, b\}^*$, and $t_i = t_j$ for some $i \ne j \} $ \\
+Let $D = \{t_1 \# t_2 \# ... \# t_k \; | \; k \geq 2$, each $t_i \in \{a, b\}^*$, and $t_i = t_j$ for some $i \ne j \} $ \\
+$p$ will be there pumping length of $D$ given by pumping lemma. \\
 
+We can now prove that $D$ is not a \textbf{Context-Free Language (CFL)}.
+In order to show this, we will consider the string $s = a^p b^p \# a^p b^p $,
+and we will show that string $s$ cannot be pumped by pumping lemma. We will
+consider $s$ in the form of $s = uvxyz$. \\
 
+1. Neither $v$ nor $y$ can contain a symbol $\#$, otherwise $u v^0 x y^0 z$
+will not contain a $\#$. In this case, string $s$ cannot be a member of $C$. \\
 
+2. If just either $v$ or $y$ is not empty, than we can assume that they both occured
+on the same side of the $\#$ symbol. In this case, string $s$ cannot be a member of $C$. \\
+
+3. If both $v$ and $y$ are not empty, and they both occur on the left hand side
+of the $\#$ symbol, then the string $u v^2 x y^2 z$ is not on the left hand
+side of the $\#$. In this case, string $s$ cannot be a member of $C$. \\
+
+4. If both $v$ and $y$ are not empty, and they both occur on the right hand side
+of the $\#$ symbol, then the string $u v^0 x y^0 z$ is no longer on the
+right hand side of the $\#$. In this case, string $s$ cannot be a member of $C$. \\
+
+5. In the final case, if both $v$ and $y$ are not empty and they both include
+the $\#$ symbol, then by the third pumping lemma condition $|vxy| \; \le \; p$,
+we have $v$ that consists of $b's$ and $y$ that consists of $a's$. This will
+lead to $u v^2 x y^2 z$ containing more $b's$ on the left hand side of the $\#$.
+In this case, string $s$ cannot be a member of $C$. \\
+
+Since we cannot pump the string $s$ without violating the conditions of
+pumping lemma, $D$ is not a \textbf{CFL}. \\
 
 %*********************************************************************************
 % 2.31 here
 \pagebreak
 2.31 Let B be the language of all palindromes over \{0, 1\} containing equal numbers of
 0s and 1s. Show that B is not context free. \\
+
 
 B is not context free because X Y Z.
 
@@ -839,9 +938,45 @@ B is not context free because X Y Z.
 \pagebreak
 2.32 Let $\sum = \{1, 2, 3, 4\}$ and $C = \{w \in \sum^* \; | $ in $w$, the number of 1s 
 equals the number of 2s, and the number of 3s equals the number of 4s\}. \\
-Show that C is not context free. \\
+Show that C is not a \textbf{context free language (CFL).} \\
 
-C is not context free because X Y Z.
+We can consider the following language:
+
+$C = \{ w \in \{0, 1, 2, 3, 4 \}^* | $ in $w$ the number of $1's$ and the number of
+$2's$ are equal, and the number of $3's$ and the number of $4's$ are equal. $\}$ \\
+
+Let us consider that $C$ is context free. Which means that $C$ would have a pumping
+length of $p$. \\
+
+Let's use the string $s = 1^p 3^p 2^p 4^p \in C$ with $|s| > p$ as an example.
+There should be a string such as $uvxyz$ such that the following are true:
+
+\textbf{1.} $u v^i x y^i z \in C$ for all $i \neg 0$.
+
+\textbf{2.} $vy > 0$
+
+\textbf{3.} $vxy \le p$ \\
+
+Now let's prove all of these cases y contradiction, disregarding the value of $uvxyz$.
+
+\textbf{Case 1.} If $vxy$ contains a 1, then $u v^2 x y^2 z \notin C$, as it cannot
+be the same number of $1's$ and $2's$. Due to condition \textbf{3}, $vxy$ cannot
+contain any $2's$. \\
+
+\textbf{Case 2.} If $vxy$ contains a 2, then $u v^2 x y^2 z \notin C$, as it cannot
+have the same number of $1's$ and $2's$. Due to condition \textbf{3}, $vxy$ cannot
+contain any $1's$. \\
+
+\textbf{Case 3.} If $vxy$ contains a 3, then $u v^2 x y^2 z \notin C$, as it cannot
+have the same number of $3's$ and $4's$. Due to condition \textbf{3}, $vxy$ cannot
+contain any $4's$. \\
+
+\textbf{Case 4.} If $vxy$ contains a 4, then $u v^2 x y^2 z \notin C$, as it cannot
+have the same number of $3's$ and $4's$. Due to condition \textbf{3}, $vxy$ cannot
+contain any $3's$. \\
+
+As we can see from condition \textbf{2}, this contradicts condition \textbf{1} 
+in every case shown which proves that $C$ is not a \textbf{CFL}.
 
 %*********************************************************************************
 % 2.47 here
