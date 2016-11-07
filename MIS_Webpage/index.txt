@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+  <meta charset="utf-8">
+  <!--
+    Jason Downing - student at UMass Lowell
+    Contact: jason@downing.io or jason_downing@student.uml.edu
+    Created: March 31st, 2016.
+    MIT Licensed - see http://opensource.org/licenses/MIT for details.
+    Anyone may freely use this code. Just don't sue me if it breaks stuff.
+  -->
+
+  <!-- Google fonts. -->
+   <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Ubuntu|Advent+Pro">
+
+  <!-- Custom Title Bar -->
+  <title>Jason Downing - Home Page</title>
+
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+
+  <!-- jQuery library -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+
+  <!-- Latest compiled JavaScript -->
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+  <!-- CSS file to override stuff -->
+  <link rel="stylesheet" href="index.css">
+</head>
+
+<body>
+
+  <!-- The main container - required for Bootstrap. -->
+  <div class="container">
+    <div class="row">     <!--  First row - Large title, plus photo / About paragraph   -->
+
+      <!-- Background image is in the body -->
+      <h1 class="name">
+        <span class="highlight">Jason Downing</span>
+      </h1>
+
+      <!-- These columns have been optimized for mobile, tablet and desktop views.  -->
+      <div class="col-xs-12 col-md-3 col-lg-2">
+        <div class="center_text_images">
+          <img class="img-square" src="http://downing.io/img/profile.jpg" style="height: 200px" alt="Jason Downing"/>
+        </div>
+      </div>
+
+      <!-- About info -->
+      <div class="col-xs-12 col-md-9 col-lg-10">
+        <div class="left_align">
+
+          <!-- Start of the about paragraph. -->
+          <div class="highlight">
+            Jason Downing is a Junior at the University of Massachusetts, Lowell,
+            where he studies Computer Science.
+
+            Jason's hobbies include
+            <!-- I decided to link to pages / images in this part for fun. -->
+            <a href="http://downing.io/img/bike.jpg">mountain biking,</a>
+            <a href="http://downing.io/img/ski.jpg">skiing,</a>
+            <a href="http://downing.io/img/steam.jpg">PC gaming,</a>
+            and
+            <a href="http://downing.io/img/code.jpg">coding.</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!--  Class schedule in table format.  -->
+    <div class="row">
+      <div class="col-md-12">
+        <br>
+        <div class="highlight_centered">
+          Here is a list of classes Jason is currently taking:
+        </div>
+        <br>
+        <table class="center-table center_text_images highlight_centered">
+          <tr>
+            <td>Computer Architecture</td>
+            <td>Graphics User Interface design II (GUI II)</td>
+          </tr>
+          <tr>
+            <td>Management Information Systems (MIS)</td>
+            <td>Financial Management</td>
+          </tr>
+          <tr>
+            <td>Organization of Programming Languages (OPL)</td>
+            <td>Life Science II</td>
+          </tr>
+          <tr>
+            <td>Life Science II Lab</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <br>               <!-- Adding line breaks to make the display nicer. -->
+
+    <!-- Contact info -->
+    <div class="row">
+      <div class="col-md-12">
+        <div class="highlight_centered">
+          You may contact Jason at either: <a href = "mailto:jason@downing.io">jason@downing.io</a>
+          or <a href = "mailto:jason_downing@student.uml.edu">jason_downing@student.uml.edu</a>.
+        </div>
+        <div class="highlight_centered ">
+          Either email is fine and will redirect to an inbox that Jason checks daily.
+        </div>
+      </div>
+    </div>
+
+    <br><br>                <!-- Adding line breaks to make the display nicer. -->
+
+    <!-- THIS IS THE FOOTER - displays a copyright notice and that Bootstrap powers this webpage. -->
+    <div class="center_text_small">
+      <p class="text-muted">
+        <span class = "highlight">
+          Jason Downing &copy; 2015. All rights reserved.
+          Powered by <a href="http://www.getbootstrap.com/">Bootstrap</a>.
+        </span>
+      </p>
+    </div>
+  </div>          <!-- This should be the end div of the main container. -->
+</body>
+</html>
