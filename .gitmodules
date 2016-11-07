@@ -10,3 +10,6 @@
 [submodule "Racket-Weather"]
 	path = Racket-Weather
 	url = https://github.com/oplS16projects/Racket-Weather
+[submodule "Scrabble"]
+	path = Scrabble
+	url = git@github.com:JasonD94/scrabble.git
