@@ -1,8 +1,9 @@
-#GUI I
-GUI-I taken at UMass Lowell.
+# GUI
 
-There's a link to my GUI repository at  the base of this College repository.
+Source code for GUI website.
 
-But in case you didn't see that you  can find the code here: [GUI I](https://github.com/JasonD94/GUI)
+Built using HTML5 and Bootstrap.
 
-I've also got the final assignment for this class hosted here: [Scrabble!](https://github.com/JasonD94/scrabble)
+[View it at the following address: https://jasond94.github.io/GUI](https://jasond94.github.io/GUI)
+
+Note: you can also view the page at [http://downing.io/GUI/](http://downing.io/GUI/) since I applied a custom domain to my jasond94.github.io repository / personal website. This apparently applies to other GitHub Pages that I host on GitHub.

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+  <meta charset="utf-8">
+  <!--
+    File: /~jason/assignment4.html
+    91.461 Assignment 4: Posting a Page to GitHub
+    Jason Downing - student at UMass Lowell in 91.461 GUI Programming I
+    Contact: jdowning@cs.uml.edu or jason_downing@student.uml.edu
+    MIT Licensed - see http://opensource.org/licenses/MIT for details.
+    Anyone may freely use this code. Just don't sue me if it breaks stuff.
+    Created: Oct 1, 2015.
+    Last Updated: Oct 1, at 9PM.
+
+    This is just a page for the 4th assignment, Posting a Page to GitHub.
+  -->
+  <!--
+      Google fonts. Included here at the very top for performance gains and to avoid the use of @import
+      like Google recommends here:
+      http://googlewebfonts.blogspot.com/2010/09/optimizing-use-of-google-font-api.html
+
+      Fix for the validator comes from this page (| is encoded as %7C):
+      https://stackoverflow.com/questions/22466913/google-fonts-url-break-html5-validation-on-w3-org
+  -->
+  <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Ubuntu%7CAdvent+Pro">
+
+  <!-- Configuration -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+  <!-- Custom Title Bar -->
+  <title>Jason Downing</title>
+
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+
+  <!-- Optional theme -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+
+  <!-- CSS file to override stuff -->
+  <link rel="stylesheet" href="css/index.css">
+
+  <!-- Custom favicon -->
+  <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
+</head>
+<body>
+
+  <!--  Navbar div. See html/navbar.html for that code. It gets loaded into this
+        div by the JS at the bottom of this page. -->
+  <div id="NavBarHeader"></div>
+
+  <!-- The main container -->
+  <div class="container">
+
+    <!-- First row -->
+    <div class = "row">
+
+      <h1 class="name">
+        <span class="highlight">Assignment #4</span>
+      </h1>
+    </div>
+
+    <!-- Contact info -->
+    <div class = "row">
+      <div class="col-md-12">
+        <div class="highlight_left_aligned">
+          This assignment was to post our websites onto GitHub.
+        </div>
+        <div class="highlight_left_aligned">
+          You can find the URL to my page on GitHub Pages at:
+          <a href="https://jasond94.github.io/GUI">jasond94.github.io/GUI</a>
+        </div>
+        <div class="highlight_left_aligned">
+          NOTE: I have a custom domain on my personal website,
+          <a href="https://jasond94.github.io">jason.github.io</a>,
+          which is
+          <a href="http://downing.io">downing.io</a>.
+        </div>
+        <div class="highlight_left_aligned">
+          As a result, all of my jasond94.github.io URLs redirect to
+          downing.io, so the actual URL of my GitHub Pages site is:
+          <a href="http://downing.io/GUI">downing.io/GUI</a>.
+        </div>
+      </div>
+    </div>
+
+    <br><br>                <!-- Adding line breaks to make the display nicer. -->
+
+    <!--  This div will have the footer (html/footer.html) loaded into it
+          by the JS at the bottom of the page. -->
+    <div id="TheFooter"></div>
+
+  </div>          <!-- This should be the end div of the main container. -->
+
+  <!--
+      These are moved to the bottom of the <body> tag to decrease website load time.
+      This stackoverflow post is helpful for this issue:
+      https://stackoverflow.com/questions/6625773/where-should-i-put-the-css-and-javascript-code-in-an-html-webpage
+
+      See Yahoo's best practice rules as well:
+      https://developer.yahoo.com/performance/rules.html#css_top=
+   -->
+
+  <!-- jQuery (necessary for Bootstrap's JavaScript plugins). -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+  <!-- Latest compiled and minified JavaScript -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
+  <!-- Email function - powered by Mandrill -->
+  <script src="js/email.js"></script>
+
+  <!-- Load the header/footer when the page is ready. -->
+  <script>
+    /* From the following URLs:
+        https://learn.jquery.com/using-jquery-core/document-ready/
+        https://stackoverflow.com/questions/8988855/include-another-html-file-in-a-html-file
+    */
+    $( document ).ready(function() {
+        console.log( "ready!" );
+        $("#NavBarHeader").load("html/navbar.html");
+        $("#TheFooter").load("html/footer.html");
+    });
+  </script>
+
+</body>
+</html>

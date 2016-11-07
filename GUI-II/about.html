@@ -1,0 +1,129 @@
+<!--
+       Date Created: 1/26/2016
+      Last Modified: 4/25/2016 2PM EST
+         Created by: Jason Downing
+
+      About Page HTML File
+
+      MIT Licensed - do whatever you want with this code.
+-->
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+
+  <!-- Optional theme -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+
+  <!-- jQuery minified version. -->
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+
+  <!--
+    Google fonts. Included here at the top for performance gains and to avoid the use of @import
+    like Google recommends here:
+    http://googlewebfonts.blogspot.com/2010/09/optimizing-use-of-google-font-api.html
+
+    Fix for the validator comes from this page (| is encoded as %7C):
+    https://stackoverflow.com/questions/22466913/google-fonts-url-break-html5-validation-on-w3-org
+  -->
+  <!-- Trying to speed up page load, by limiting the number of Google of fonts we include. -->
+  <link rel="stylesheet" type="text/css"href="http://fonts.googleapis.com/css?family=Ubuntu%7CChivo%7CWork+Sans">
+
+  <!-- CSS file, used by all the web pages for consistency. -->
+  <link rel="stylesheet" type="text/css" href="css/index.css"/>
+
+  <!-- jQuery (necessary for Bootstrap's JavaScript plugins). -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+  <!-- Latest compiled and minified JavaScript -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
+  <!--  Configuration -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+  <!-- Custom favicon -->
+  <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
+
+  <title>About</title>
+</head>
+
+<body>
+  <!--  Navbar div. See html/navbar.html for that code. -->
+  <div id="NavBarHeader"></div>
+
+  <!-- SPEED UP NAVBAR LOADING
+  https://stackoverflow.com/questions/26635111/make-jquery-load-happen-before-html-load
+   -->
+  <script>
+    $("#NavBarHeader").load("html/navbar.html");
+  </script>
+
+  <!-- About page. -->
+  <div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+
+      <!-- Ski Maps Logo -->
+      <div class="center_text_images">
+        <img src="img/logo.png" height="136px" width="530px">
+      </div>
+
+      <p class="highlight_centered">Ski Maps is a semester long group project for the
+      GUI II class at
+      <a class="color_links_logo" href="http://www.uml.edu/">UMass Lowell.</a>
+      The project aims to make it easier for skiers and snow boarders to find out
+      what the current conditions are like at a given mountain. The project sources
+      data for six different ski resorts, and plots the current trail conditions
+      on a trail map. Sourcing this data is accomplished via a Python script that
+      scapes each ski resorts snow report page and saves the data in JSON format.
+      </p>
+    </div>
+    <div class="col-md-2"></div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+
+      <p class="about_ski center_text_images">Developers</p>
+
+      <p class="highlight_centered">
+        <a class="color_links_logo" href="http://downing.io/">Jason Downing,</a>
+
+        <a class="color_links_logo" href="https://github.com/HuyH0114">Huy Huynh,</a>
+
+        <a class="color_links_logo" href="https://github.com/BrendanBousquet">Brendan Bousquet,</a>
+
+        <a class="color_links_logo" href="https://github.com/JohnShep">JT Shepple</a>
+      </p>
+    </div>
+    <div class="col-md-2"></div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+
+      <p class="about_ski center_text_images">Contact</p>
+      <p class="highlight_centered">Please direct any questions, concerns, complaints,
+      or complements to <a class="color_links_logo" href="mailto:hello@downing.io">hello@downing.io</a></p>
+
+    </div>
+    <div class="col-md-2"></div>
+  </div>
+
+  <br><br><br>
+
+  <!--  This div will have the footer (html/footer.html) -->
+  <div id="TheFooter"></div>
+
+  <!-- Load Footer -->
+  <script>
+    $("#TheFooter").load("html/footer.html");
+  </script>
+
+</body>
+</html>

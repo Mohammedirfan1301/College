@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+  <meta charset="utf-8">
+  <!--
+    File: /~jason/assignment2.html
+    91.461 Assignment: Creating Your First Web Page
+    Jason Downing - student at UMass Lowell in 91.461 GUI Programming I
+    Contact: jdowning@cs.uml.edu or jason_downing@student.uml.edu
+    MIT Licensed - see http://opensource.org/licenses/MIT for details.
+    Anyone may freely use this code. Just don't sue me if it breaks stuff.
+    Created: September 3rd, 2015.
+    Last Updated: September 15th, at 9PM.
+
+    Note: this is just a simple document to put as a place holder for Assignment 2.
+    Really index.html was the file for assignment 2.
+  -->
+  <!--
+    Google fonts. Included here at the very top for performance gains and to avoid the use of @import
+    like Google recommends here:
+    http://googlewebfonts.blogspot.com/2010/09/optimizing-use-of-google-font-api.html
+
+    Fix for the validator comes from this page (| is encoded as %7C):
+    https://stackoverflow.com/questions/22466913/google-fonts-url-break-html5-validation-on-w3-org
+  -->
+  <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Ubuntu%7CAdvent+Pro">
+
+  <!-- Configuration -->
+  <meta name="viewport" content="width = device-width, initial-scale = 1, maximum-scale = 1, user-scalable = no">
+
+  <!-- Custom Title Bar -->
+  <title>Jason Downing</title>
+
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+
+  <!-- Optional theme -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+
+  <!-- CSS file to override stuff -->
+  <link rel="stylesheet" href="css/index.css">
+
+  <!-- Custom favicon -->
+  <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
+</head>
+<body>
+
+  <!--  Navbar div. See html/navbar.html for that code. It gets loaded into this
+        div by the JS at the bottom of this page. -->
+  <div id="NavBarHeader"></div>
+
+  <!-- The main container -->
+  <div class="container">
+
+    <!-- 1st row, for displaying the a basic "this is assignment 2" text. -->
+    <div class = "row">
+
+      <!-- Background image is in the body -->
+      <h1 class="name">
+        <span class="highlight">Assignment #2</span>
+      </h1>
+
+      <!-- Add some spacing -->
+      <br/><br/>
+
+      <!-- These columns have been optimized for mobile, tablet and desktop views.
+
+      Note: the XS columns are set to 12 in order to prevent the contact image from overlapping the text.
+      This bug made it hard to read the text on mobile and looked bad.   -->
+      <div class="col-xs-12 col-md-12 col-lg-12">
+        <div class = "center_text_images">
+          <!-- Added a different image here. Link to this image:
+           http://pre12.deviantart.net/adc8/th/pre/i/2013/245/4/4/matrix_ubuntu_by_crniorao-d6kqm82.jpg   -->
+          <img class="img-square" src="img/matrix.png" alt="Ubuntu Matrix Image"/>
+        </div>
+      </div>
+
+      <!-- About info -->
+      <div class="col-xs-12 col-md-12 col-lg-12">
+
+          <!-- Add some spacing -->
+          <br/><br/>
+
+          <!-- Reminder: put <p> tags outside of the <span> tags for the highlighting to work. -->
+          <div class="highlight_centered">
+            Assignment #2 was to create a basic HTML file.
+          </div>
+
+          <div class="highlight_centered">
+          (That's what index.html, index.css and the other random HTML/fonts/images are.)
+          </div>
+      </div>
+    </div>
+
+    <!-- Adding line breaks to make the display nicer. -->
+    <br><br>
+
+    <!--  This div will have the footer (html/footer.html) loaded into it
+          by the JS at the bottom of the page. -->
+    <div id="TheFooter"></div>
+
+  </div>          <!-- This should be the end div of the main container. -->
+
+  <!--
+      These are moved to the bottom of the <body> tag to decrease website load time.
+      This stackoverflow post is helpful for this issue:
+      https://stackoverflow.com/questions/6625773/where-should-i-put-the-css-and-javascript-code-in-an-html-webpage
+
+      See Yahoo's best practice rules as well:
+      https://developer.yahoo.com/performance/rules.html#css_top=
+   -->
+
+  <!-- jQuery (necessary for Bootstrap's JavaScript plugins). -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+  <!-- Latest compiled and minified JavaScript -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
+  <!-- Load the header/footer when the page is ready. -->
+  <script>
+    /* From the following URLs:
+        https://learn.jquery.com/using-jquery-core/document-ready/
+        https://stackoverflow.com/questions/8988855/include-another-html-file-in-a-html-file
+    */
+    $( document ).ready(function() {
+        console.log( "ready!" );
+        $("#NavBarHeader").load("html/navbar.html");
+        $("#TheFooter").load("html/footer.html");
+    });
+  </script>
+
+</body>
+</html>

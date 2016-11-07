@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+  <meta charset="utf-8">
+  <!--
+    File: /~jason/assignment1.html
+    91.461 Assignment: Creating Your First Web Page
+    Jason Downing - student at UMass Lowell in 91.461 GUI Programming I
+    Contact: jdowning@cs.uml.edu or jason_downing@student.uml.edu
+    MIT Licensed - see http://opensource.org/licenses/MIT for details.
+    Anyone may freely use this code. Just don't sue me if it breaks stuff.
+    Created: September 3rd, 2015.
+    Last Updated: September 15th, at 9PM.
+
+    Note: this file is somewhat a copy of index.html, with the body changed to reflect what I did for assignment 1.
+    I did this to keep the same look and Nav bar as my index.html file, but still be able to change text  and add stuff.
+    I left all the comments in tact as well for future reference.
+  -->
+  <!--
+      Google fonts. Included here at the very top for performance gains and to avoid the use of @import
+      like Google recommends here:
+      http://googlewebfonts.blogspot.com/2010/09/optimizing-use-of-google-font-api.html
+
+      Fix for the validator comes from this page (| is encoded as %7C):
+      https://stackoverflow.com/questions/22466913/google-fonts-url-break-html5-validation-on-w3-org
+   -->
+   <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Ubuntu%7CAdvent+Pro">
+
+  <!-- Configuration -->
+  <meta name="viewport" content="width = device-width, initial-scale = 1, maximum-scale = 1, user-scalable = no">
+
+  <!-- Custom Title Bar -->
+  <title>Jason Downing</title>
+
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+
+  <!-- Optional theme -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+
+  <!-- CSS file to override stuff -->
+  <link rel="stylesheet" href="css/index.css">
+
+  <!-- Custom favicon -->
+  <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
+</head>
+<body>
+
+  <!--  Navbar div. See html/navbar.html for that code. It gets loaded into this
+        div by the JS at the bottom of this page. -->
+  <div id="NavBarHeader"></div>
+
+  <!-- The main container -->
+  <div class="container">
+
+    <!-- First row - Large title, plus photo / About paragraph
+    Note: the id "About" is just for linking on the page using the Nav Bar.
+    I found out how to do this correctly at this Stackoverflow page:
+    https://stackoverflow.com/questions/20605009/linking-within-a-page-with-bootstrap -->
+    <div class = "row">
+
+    <!-- I found this on Stackoverflow. I'm using this trick to make the "About" link actually go all the way to the top of the
+    page. It offsets by 50px which is enough.
+    See this page:  https://stackoverflow.com/questions/10732690/offsetting-an-html-anchor-to-adjust-for-fixed-header
+    -->
+    <a class="anchor" id="About"></a>
+
+      <!-- Background image is in the body -->
+      <h1 class="name">
+        <span class="highlight">Assignment #1</span>
+      </h1>
+
+      <!-- Add some spacing -->
+      <br/><br/>
+
+      <!--  I made this 12 so that it fills up the whole grid on its own line. -->
+      <div class="col-xs-12 col-md-12 col-lg-12">
+        <div class = "center_text_images">
+          <!-- I changed this to a somewhat relevant comic. -->
+          <img class="img-square" src="https://imgs.xkcd.com/comics/hard_reboot.png" alt="XKCD Comic - Hard Reboot">
+        </div>
+      </div>
+
+      <!-- This describes what I did for Assignment 1. -->
+      <div class="col-xs-12 col-md-12 col-lg-12">
+        <div class = "left_align">
+
+          <!-- Add some spacing -->
+          <br/>
+
+          <!-- Start of Assignment #1 description. -->
+          <div class="highlight">
+            Assignment #1 was to setup our work environment.
+          </div>
+
+          <div class="highlight">
+            I completed the following tasks:
+
+            <!-- Ordered list of what I did.
+                Highlighting didn't show up for some reason, so I added it here as well.
+                w3schools yet again was really helpful for figuring this out.
+                I used both of the following sites for help:
+                http://www.w3schools.com/tags/tag_ol.asp
+                http://www.w3schools.com/tags/tag_ul.asp -->
+            <ol class="highlight">
+              <li> Complete Course Registration
+
+                <!-- It made sense to explain what exactly I did and didn't do with bullets, since
+                    technically this assignment is optional. Also, why not mess around with them?
+                    And I added random helpful links in case people check out this page.
+
+                    Also, side note, I had to include the <ul> tags inside of the <li> tag for the <ol>.
+                    Otherwise, w3 validator complained.
+                    Stackoverflow was once again helpful with explaining this:
+                    https://stackoverflow.com/questions/15870444/can-i-not-have-have-a-ul-inside-a-ol-in-html   -->
+                <ul>
+                  <li>First I completed the registration Google form</li>
+                  <li>Then I joined the
+                  <a href="https://piazza.com/">Piazza</a>
+                  forum and checked it out over the next few days.</li>
+                  <li>Finally I did the pre-course survey.</li>
+                </ul>
+              </li>
+              <li> Get a web server up and running
+                <ul>
+                  <li> I didn't bother with
+                  <a href = "https://www.apachefriends.org/index.html">XAMP.</a>
+                  I just ran "sudo apt-get install apache2" on my Linux machine </li>
+                  <li> Then I spent a while configuring Apache.
+                      I made a public_html folder and got stuff to display on local host. </li>
+                  <li> Then I saw a link on Piazza about Python's simple server. And it was way easier to use. </li>
+
+                  <!-- Linking to an awesome resource on how to use Python's simple HTTP server. -->
+                  <li> So now I just run
+                  <a href = "http://www.linuxjournal.com/content/tech-tip-really-simple-http-server-python">
+                  "python -m SimpleHTTPServer"</a>
+                  in a second terminal. </li>
+                </ul>
+              </li>
+              <li> Install Netbeans
+                <ul>
+                  <li> I personally dislike IDEs. </li>
+                  <li> Since they aren't required for this class, I just didn't install any. </li>
+                  <li> I typically use either
+                  <!-- Not sure if people know what gedit is, since its mostly a Gnome / Ubuntu thing. -->
+                  <a href="https://en.wikipedia.org/wiki/Gedit">gedit</a>
+                   with code highlighting on, and some other things like line numbers. </li>
+                  <li> After I configured
+
+                  <!-- Figured people might not of heard of Sublime, so I linked to the text editor's website. -->
+                  <a href = "https://www.sublimetext.com/3">Sublime 3</a>
+                   though I began to really like it. So I now use that for the most part. </li>
+                </ul>
+              </li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Adding line breaks to make the site display nicer. -->
+    <br><br>
+
+    <!--  This div will have the footer (html/footer.html) loaded into it
+          by the JS at the bottom of the page. -->
+    <div id="TheFooter"></div>
+
+  </div>          <!-- This should be the end div of the main container. -->
+
+  <!--
+      These are moved to the bottom of the <body> tag to decrease website load time.
+      This stackoverflow post is helpful for this issue:
+      https://stackoverflow.com/questions/6625773/where-should-i-put-the-css-and-javascript-code-in-an-html-webpage
+
+      See Yahoo's best practice rules as well:
+      https://developer.yahoo.com/performance/rules.html#css_top=
+   -->
+
+  <!-- jQuery (necessary for Bootstrap's JavaScript plugins). -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+  <!-- Latest compiled and minified JavaScript -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
+  <!-- Load the header/footer when the page is ready. -->
+  <script>
+    /* From the following URLs:
+        https://learn.jquery.com/using-jquery-core/document-ready/
+        https://stackoverflow.com/questions/8988855/include-another-html-file-in-a-html-file
+    */
+    $( document ).ready(function() {
+        console.log( "ready!" );
+        $("#NavBarHeader").load("html/navbar.html");
+        $("#TheFooter").load("html/footer.html");
+    });
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,72 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin" tools:context=".MainActivity"
+    android:textAlignment="center">
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/editText"
+        android:text="ABOUT"
+        android:password="false"
+        android:phoneNumber="false"
+        android:gravity="center_horizontal"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:textIsSelectable="true"
+        android:textAlignment="center"
+        android:textSize="35dp"
+        android:background="#00000000"
+        android:editable="false" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/editText2"
+        android:text="This app was created by two UMass Lowell\n Students for an Android Dev class."
+        android:background="#00000000"
+        android:gravity="center"
+        android:textStyle="italic"
+        android:layout_marginTop="44dp"
+        android:layout_below="@+id/editText"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:editable="false"/>
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/editText3"
+        android:text="CREATED BY:"
+        android:background="#00000000"
+        android:gravity="left"
+        android:textStyle="italic"
+        android:layout_marginTop="38dp"
+        android:layout_below="@+id/editText2"
+        android:layout_centerHorizontal="true"
+        android:editable="false"/>
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/editText4"
+        android:text="Jason Downing - Lead Android Dev"
+        android:background="#00000000"
+        android:editable="false"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/editText5"
+        android:text="Udit Bhansali - Android Dev"
+        android:background="#00000000"
+        android:editable="false"
+        android:layout_below="@+id/editText4"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="46dp" />
+</RelativeLayout>

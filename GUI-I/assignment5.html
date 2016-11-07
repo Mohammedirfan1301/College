@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+  <meta charset="utf-8">
+  <!--
+    File: ~/assignment5.html
+    91.461 Assignment 5: Formatting Dynamic Text
+    Jason Downing - student at UMass Lowell in 91.461 GUI Programming I
+    Contact: jdowning@cs.uml.edu or jason_downing@student.uml.edu
+    MIT Licensed - see http://opensource.org/licenses/MIT for details.
+    Anyone may freely use this code. Just don't sue me if it breaks stuff.
+    Created: Oct 3, 2015.
+    Last Updated: Oct 5th, 10PM.
+
+    This is a page for the 5th assignment. It mainly consists of a div with the id "place_json_here", and a
+    YouTube iframe. The YouTube video is the music video for the song "Sleep Now In The Fire" by
+    Rage Against The Machine. I load a JSON file called lyrics.json into the "place_json_here" div,
+    and I then style the text dynamically using CSS. The JSON file contains the title, artist and song lyrics
+    to the song in the YouTube video displayed on this page (Sleep Now In The Fire).
+  -->
+  <!--
+      Google fonts. Included here at the very top for performance gains and to avoid the use of @import
+      like Google recommends here:
+      http://googlewebfonts.blogspot.com/2010/09/optimizing-use-of-google-font-api.html
+
+      Fix for the validator comes from this page (| is encoded as %7C):
+      https://stackoverflow.com/questions/22466913/google-fonts-url-break-html5-validation-on-w3-org
+   -->
+   <link rel="stylesheet" type="text/css"
+   href="http://fonts.googleapis.com/css?family=Advent+Pro%7CBangers%7CSlackey%7CSigmar+One%7CRighteous%7CUbuntu">
+
+  <!-- Configuration -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+  <!-- Custom Title Bar -->
+  <title>Jason Downing</title>
+
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+
+  <!-- Optional theme -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+
+  <!-- CSS file to override stuff -->
+  <link rel="stylesheet" href="css/index.css">
+
+  <!-- CSS file for the text that is loaded dynamically from JSON. -->
+  <link rel="stylesheet" href="css/json.css">
+
+  <!-- Custom favicon -->
+  <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
+</head>
+<body>
+
+  <!--  Navbar div. See html/navbar.html for that code. It gets loaded into this
+        div by the JS at the bottom of this page. -->
+  <div id="NavBarHeader"></div>
+
+  <!-- The main container -->
+  <div class="container">
+
+    <!-- First row - Assignment description -->
+    <div class="row">
+      <div class="col-md-12">
+        <h1 class="name">
+          <span class="highlight_red">Assignment #5</span>
+        </h1>
+      </div>
+
+      <div class="col-md-12">
+        <div class="highlight_centered_margins">
+        For assignment 5, we formatted dynamic text that was loaded onto the
+        page by using JavaScript. This text was also stored in JSON
+        format, and I wrote a JavaScript file named "json.js" to parse the JSON file
+        and add classes, which could be styled in a CSS file. </div>
+      </div>
+    </div>
+
+    <!-- YouTube video / JSON lyrics loaded here. -->
+    <div class="row">
+      <div class="col-md-12">
+        <!-- YouTube video for the lyrics that will appear below it.
+             Found how to make this responsive on the following page:
+             http://getbootstrap.com/components/#responsive-embed -->
+        <div class="embed-responsive embed-responsive-16by9">
+          <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/w211KOQ5BMI"></iframe>
+        </div>
+
+        <!--
+        This div will have JSON placed inside of it.
+        The json.js file will place it here, and the json.css file will style
+        this text.
+
+        The song lyrics in this JSON file come off of Rage Against The Machines
+        website: http://www.ratm.net/lyrics/sle.html
+
+        I used the JSON editor website to double check this JSON file as well:
+        http://www.jsoneditoronline.org/
+
+        Also, the lyrics are inside of an object, which is slightly different then
+        how Prof. Heines did it. I probably should have put them inside of arrays
+        since that would have been easier to access when using for loops, but I
+        figured out how to use objects anyway so it works the same.  -->
+        <div id="place_json_here">
+          Testing 1 2 3.
+          This text won't appear once I load up the JSON in the json.js file.
+          In fact, the song lyrics will magically appear instead.
+          How cool.
+        </div>
+      </div>
+    </div>
+
+    <br><br>                <!-- Adding line breaks to make the display nicer. -->
+
+    <!--  This div will have the footer (html/footer.html) loaded into it
+          by the JS at the bottom of the page. -->
+    <div id="TheFooter"></div>
+
+  </div>          <!-- This should be the end div of the main container. -->
+
+  <!--
+      These are moved to the bottom of the <body> tag to decrease website load time.
+      This stackoverflow post is helpful for this issue:
+      https://stackoverflow.com/questions/6625773/where-should-i-put-the-css-and-javascript-code-in-an-html-webpage
+
+      See Yahoo's best practice rules as well:
+      https://developer.yahoo.com/performance/rules.html#css_top=
+   -->
+
+  <!-- jQuery (necessary for Bootstrap's JavaScript plugins). -->
+  <script type='text/javascript' src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+  <!-- Latest compiled and minified JavaScript -->
+  <script type='text/javascript' src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
+  <!-- JS file that loads up the JSON data into the HTML document. -->
+  <script type='text/javascript' src="js/json.js"></script>
+
+  <!-- Small script to run the json.js functions when the document has finished loading.
+       Technically the site is loaded by this point, but might as well use .ready() to be safe. -->
+  <script type='text/javascript'>
+    // This is from the following site:
+    // https://learn.jquery.com/using-jquery-core/document-ready/
+    $(document).ready(function() {
+      get_json();
+    });
+  </script>
+
+  <!-- Load the header/footer when the page is ready. -->
+  <script>
+    /* From the following URLs:
+        https://learn.jquery.com/using-jquery-core/document-ready/
+        https://stackoverflow.com/questions/8988855/include-another-html-file-in-a-html-file
+    */
+    $( document ).ready(function() {
+        console.log( "ready!" );
+        $("#NavBarHeader").load("html/navbar.html");
+        $("#TheFooter").load("html/footer.html");
+    });
+  </script>
+
+</body>
+</html>

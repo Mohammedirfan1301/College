@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+  <meta charset="utf-8">
+  <!--
+    File: ~/scrabble.html
+    91.461 Assignment 9: Implementing a Bit of Scrabble with Drag-and-Drop
+    Jason Downing - student at UMass Lowell in 91.461 GUI Programming I
+    Contact: jdowning@cs.uml.edu or jason_downing@student.uml.edu
+    MIT Licensed - see http://opensource.org/licenses/MIT for details.
+    Anyone may freely use this code. Just don't sue me if it breaks stuff.
+    Created: Nov 24, 2015.
+    Last Updated: Nov 24, 1:30PM.
+
+    This page is for assignment #9, "Scrabble".
+
+    It will contain a full feature Scrabble game that will do tons of fun stuff
+    like connect to external APIs, make use of the jQuery UI library, and even
+    score / check for valid words / etc.
+  -->
+
+
+  <!--
+    Google fonts. Included here at the top for performance gains and to avoid the use of @import
+    like Google recommends here:
+    http://googlewebfonts.blogspot.com/2010/09/optimizing-use-of-google-font-api.html
+
+    Fix for the validator comes from this page (| is encoded as %7C):
+    https://stackoverflow.com/questions/22466913/google-fonts-url-break-html5-validation-on-w3-org
+   -->
+   <link rel="stylesheet" type="text/css"
+   href="http://fonts.googleapis.com/css?family=Advent+Pro%7CBangers%7CSlackey%7CSigmar+One%7CRighteous%7CUbuntu">
+
+  <!--  Configuration -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+  <!--  Custom Title Bar -->
+  <title>Jason Downing</title>
+
+  <!--  Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+
+  <!--  Optional theme -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+
+  <!--  jQuery UI Theme -->
+  <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/dark-hive/jquery-ui.min.css">
+
+  <!--  CSS file to override stuff, different file so I can modify stuff and rewrite the CSS. -->
+  <link rel="stylesheet" href="css/scrabble.css">
+
+  <!--  Custom favicon - not mine, from this
+        URL: http://orig10.deviantart.net/7bc3/f/2013/338/8/8/flat_scrabble_icon_by_awesomestwinner-d6wpolw.png -->
+  <link rel="shortcut icon" href="img/scrabble.ico" type="image/x-icon">
+</head>
+<body>
+
+  <!--  Navbar div. See html/navbar.html for that code. It gets loaded into this
+        div by the JS at the bottom of this page. -->
+  <div id="NavBarHeader"></div>
+
+    <!-- First row - Scrabble -->
+    <div class="row">
+      <div class="col-md-12">
+        <h1 class="name">
+          <span class="highlight_fun">SCRABBLE v1</span>
+        </h1>
+      </div>
+      <div class="col-md-4"></div>
+      <div class="col-md-4">
+        <div class="highlight_centered">OLD VERSION. SEE
+        <a href="http://downing.io/GUI/assignment9_v2.html"> THIS URL FOR NEW VERSION.</a></div>
+      </div>
+      <div class="col-md-4"></div>
+    </div>
+
+    <!-- Adding spaces -->
+    <br>
+
+    <!-- Second row - the Scrabble game board -->
+    <div class="row">
+      <div class="col-md-12">
+      <!--
+        Scrabble originally image from:
+        https://farm1.static.flickr.com/23/30997788_a595e9e158_o.jpg
+
+        I edited this in GIMP, and added line brackets.
+      -->
+        <div class="center_text_images">
+          <img class="resize_board" id="the_board" src="img/scrabble/Scrabble_Board_OneLine.png">
+          <div id="board"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Adding spaces to keep the board / rack separate -->
+
+    <!-- Third row - Scoring -->
+    <div class="row">
+      <div class="col-md-4"></div>
+      <div class="col-md-4">
+        <div class="highlight_centered">Word: <span id="word">____</span> </div>
+        <div class="highlight_centered">Score: <span id="score">0</span> </div>
+      </div>
+      <div class="col-md-4"></div>
+    </div>
+
+    <!-- TODO, add buttons for stuff. -->
+    <div class="row">
+      <div class="col-md-4"></div>
+      <div class="col-md-4">
+        <div class="center_text_images">
+
+        <!--
+                Submit word: should verify that the entered word is real through some
+                dictionary or API.
+
+                Reset tiles: should wipe the board for a new game.
+
+                possibly think about adding more rows for Scrabble. (non-trivial)
+
+        -->
+
+          <button onclick="javascript: alert('NOT IMPLEMENTED');">Submit Word</button>
+          <button onclick="javascript: alert('NOT IMPLEMENTED');">Reset Tiles</button>
+        </div>
+      </div>
+      <div class="col-md-4"></div>
+    </div>
+
+    <!-- Adding spaces to keep the board / rack separate -->
+    <br><br>
+
+    <!-- Fourth row - the Scrabble pieces -->
+    <div class="row">
+      <div class="col-md-12">
+      <!--
+        Scrabble rack from:
+        https://pixabay.com/static/uploads/photo/2014/07/31/20/48/scrabble-tile-holder-406774_640.png
+      -->
+        <div class="center_text_images">
+          <img class="resize_rack" id="the_rack" src="img/scrabble/Scrabble_Rack_flat.png">
+          <div id="rack"></div>
+        </div>
+      </div>
+    </div>
+
+  </div>          <!-- This should be the end div of the main container. -->
+
+  <!--
+      These are moved to the bottom of the <body> tag to decrease website load time.
+      This stackoverflow post is helpful for this issue:
+      https://stackoverflow.com/questions/6625773/where-should-i-put-the-css-and-javascript-code-in-an-html-webpage
+
+      See Yahoo's best practice rules as well:
+      https://developer.yahoo.com/performance/rules.html#css_top=
+   -->
+
+  <!-- jQuery (necessary for Bootstrap's JavaScript plugins). -->
+  <script type='text/javascript' src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+  <!-- Latest compiled and minified JavaScript -->
+  <script type='text/javascript' src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
+  <!-- jQuery Validation plugin -->
+  <script type='text/javascript' src="http://cdn.jsdelivr.net/jquery.validation/1.14.0/jquery.validate.js"></script>
+  <script type='text/javascript' src="http://cdn.jsdelivr.net/jquery.validation/1.14.0/additional-methods.js"></script>
+
+  <!-- jQuery UI Slider and Tab Wigets -->
+  <script type='text/javascript' src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+
+  <!-- JS file to handle the scrabble game. -->
+  <script type='text/javascript' src="js/scrabble.js"></script>
+
+  <!-- Load the header/footer when the page is ready. Also load the validate() function -->
+  <script>
+    /*  This code is from a Stackoverflow post about how to load a HTML document
+        into div in another HTML document.
+        I run this on every page I make so I can change 1 HTML file when I add assignments
+        vs changing 7+ HTML files.
+        From the following URLs:
+        https://learn.jquery.com/using-jquery-core/document-ready/
+        https://stackoverflow.com/questions/8988855/include-another-html-file-in-a-html-file
+    */
+    $( document ).ready(function() {
+        $("#NavBarHeader").load("html/navbar.html");
+        $("#TheFooter").load("html/footer.html");
+
+        load_scrabble_pieces();     // Load up the 7 random Scrabble pieces.
+        load_droppable_targets();   // Load up the 15 targets for the Scrabble pieces.
+    });
+  </script>
+
+</body>
+</html>

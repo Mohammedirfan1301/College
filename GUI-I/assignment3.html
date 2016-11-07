@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+  <meta charset="utf-8">
+  <!--
+    File: /~jason/assignment3.html
+    91.461 Assignment: Creating Your First Web Page
+    Jason Downing - student at UMass Lowell in 91.461 GUI Programming I
+    Contact: jdowning@cs.uml.edu or jason_downing@student.uml.edu
+    MIT Licensed - see http://opensource.org/licenses/MIT for details.
+    Anyone may freely use this code. Just don't sue me if it breaks stuff.
+    Created: September 3rd, 2015.
+    Last Updated: September 15th, at 9PM.
+
+    This is a page specifically for the 3rd assignment. Since I already did CSS in the first assignment, I decided to
+    build a simple form that can email me when someone fills it out. It uses a JavaScript file to do this, which makes a
+    AJAX call to an API called Mandrill which allows me to POST data to their servers, which they will then email for me.
+  -->
+  <!--
+      Google fonts. Included here at the very top for performance gains and to avoid the use of @import
+      like Google recommends here:
+      http://googlewebfonts.blogspot.com/2010/09/optimizing-use-of-google-font-api.html
+
+      Fix for the validator comes from this page (| is encoded as %7C):
+      https://stackoverflow.com/questions/22466913/google-fonts-url-break-html5-validation-on-w3-org
+   -->
+   <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Ubuntu%7CAdvent+Pro">
+
+  <!-- Configuration -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+  <!-- Custom Title Bar -->
+  <title>Jason Downing</title>
+
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+
+  <!-- Optional theme -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+
+  <!-- CSS file to override stuff -->
+  <link rel="stylesheet" href="css/index.css">
+
+  <!-- Custom favicon -->
+  <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
+</head>
+<body>
+
+  <!--  Navbar div. See html/navbar.html for that code. It gets loaded into this
+        div by the JS at the bottom of this page. -->
+  <div id="NavBarHeader"></div>
+
+  <!-- The main container -->
+  <div class="container">
+
+    <!-- First row -->
+    <div class = "row">
+
+      <h1 class="name">
+        <span class="highlight">Assignment #3</span>
+      </h1>
+    </div>
+
+    <!-- Contact info -->
+    <div class = "row">
+      <div class="col-md-12">
+        <div class="highlight_left_aligned">
+          This is a form I built using some JavaScript and the
+          <a href="https://www.mandrill.com/">Mandrill RESTful API.</a>
+          It allows me to accept emails from people who visit my webpage without
+          giving out my email address for spammers / what not to get a hold of it.
+          Mandrill lets me make a POST request to their API, and using some JSON I can send an email
+          in JavaScript, as Mandril actually sends the email, and I don't need to deal with having my own email
+          server. Mandril is also free up to some crazy amount of emails so its worth playing with for such a simple site.
+        </div>
+      </div>
+    </div>
+
+    <br><br>                <!-- Adding line breaks to make the display nicer. -->
+
+    <!--  Contact Form.
+          Powered by Mandrill, a JavaScript API
+          I used the following site as a reference:
+          http://codepen.io/riyadhalnur/pen/gbApi/?editors=101
+
+          I also wrote a similar form here:
+          https://github.com/JohnShep/repair/blob/master/contact.html
+
+          I simplified this one by just using inputs though, and Bootstrap's grid system.      -->
+    <div class = "row">
+      <div class="col-md-3"></div>
+
+      <div class="col-md-6">
+        <div class="highlight_centered">
+        Contact me using the form below!
+        </div>
+      </div>
+
+      <div class="col-md-3"></div>
+    </div>
+
+    <!-- Name section -->
+    <div class = "row">
+      <div class="col-md-3"></div>
+
+      <div class="col-md-2">
+        <div class="highlight_right_aligned">
+        Name:&nbsp;&nbsp;
+        </div>
+      </div>
+      <div class="col-md-4">
+        <input id="name" name="name" type="text" placeholder="Enter your name here"
+        class="form-control input-md" required="">
+      </div>
+
+      <div class="col-md-1"></div>
+    </div>
+
+    <!-- Email section -->
+    <div class = "row">
+      <div class="col-md-3"></div>
+
+      <div class="col-md-2">
+        <div class="highlight_right_aligned">
+        Email:&nbsp;&nbsp;
+        </div>
+      </div>
+      <div class="col-md-4">
+        <input id="email" name="name" type="text" placeholder="Enter your email here"
+        class="form-control input-md" required="">
+      </div>
+
+      <div class="col-md-1"></div>
+    </div>
+
+    <!-- Message section -->
+    <div class = "row">
+      <div class="col-md-3"></div>
+
+      <div class="col-md-2">
+        <div class="highlight_right_aligned">
+        Message:&nbsp;&nbsp;
+        </div>
+      </div>
+      <div class="col-md-4">
+        <textarea class="form-control" id="msg" name="msg" cols="6" rows="6"></textarea>
+      </div>
+
+      <div class="col-md-1"></div>
+    </div>
+
+    <br>                <!-- Adding line breaks to make the display nicer. -->
+
+    <!-- Submit Button -->
+    <div class = "row">
+      <div class="col-md-5"></div>
+
+      <div class="col-md-2">
+        <!--
+            this button calls the JavaScript function "sendEmail". See email.js in the JS folder for more info.
+            Also - this Stackoverflow post was pretty helpful:
+            https://stackoverflow.com/questions/1947263/using-an-html-button-to-call-a-javascript-function
+        -->
+        <button id="submit" name="submit" class="btn btn-primary" onclick="sendEmail();">Send Message</button>
+      </div>
+
+      <div class="col-md-5"></div>
+    </div>
+
+    <br><br>                <!-- Adding line breaks to make the display nicer. -->
+
+    <!--  This div will have the footer (html/footer.html) loaded into it
+          by the JS at the bottom of the page. -->
+    <div id="TheFooter"></div>
+
+  </div>          <!-- This should be the end div of the main container. -->
+
+  <!--
+      These are moved to the bottom of the <body> tag to decrease website load time.
+      This stackoverflow post is helpful for this issue:
+      https://stackoverflow.com/questions/6625773/where-should-i-put-the-css-and-javascript-code-in-an-html-webpage
+
+      See Yahoo's best practice rules as well:
+      https://developer.yahoo.com/performance/rules.html#css_top=
+   -->
+
+  <!-- jQuery (necessary for Bootstrap's JavaScript plugins). -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+  <!-- Latest compiled and minified JavaScript -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
+  <!-- Email function - powered by Mandrill -->
+  <script src="js/email.js"></script>
+
+  <!-- Load the header/footer when the page is ready. -->
+  <script>
+    /* From the following URLs:
+        https://learn.jquery.com/using-jquery-core/document-ready/
+        https://stackoverflow.com/questions/8988855/include-another-html-file-in-a-html-file
+    */
+    $( document ).ready(function() {
+        console.log( "ready!" );
+        $("#NavBarHeader").load("html/navbar.html");
+        $("#TheFooter").load("html/footer.html");
+    });
+  </script>
+
+</body>
+</html>

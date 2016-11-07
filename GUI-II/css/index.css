@@ -1,0 +1,551 @@
+/*
+      Created By: Jason Downing
+         Created: 1/28/2016 1:30PM EST
+    Last Updated: 4/25/2016 1:30PM EST
+
+    MIT Licensed - see http://opensource.org/licenses/MIT for details.
+    Anyone may freely use this code. Just don't sue me if it breaks stuff.
+
+    This is the primary CSS file for the Dynamic Ski Map Project for GUI II.
+*/
+
+/* CSS Reset */
+* {
+  margin: 0;
+  padding: 0;
+}
+
+/*
+    I found this one this stackoverflow page;  it is used to make the "#About" link in the Nav Bar go all
+    the way to the top. I changed it to offset to 70px since that seems to be just enough for this fix to work.
+    https://stackoverflow.com/questions/10732690/offsetting-an-html-anchor-to-adjust-for-fixed-header
+*/
+a.anchor {
+  display: block;
+  position: relative;
+  top: -70px;
+  visibility: hidden;
+}
+
+body {
+  /*
+      Background image was found at the following URL (I did not create nor own this image):
+      http://desktop.freewallpaper4.me/view/original/2109/snowy-mountain-night.jpg
+
+      The color was found with a Google search for "black color code", and this site was helpful for confirming:
+      http://www.rapidtables.com/web/color/RGB_Color.htm
+
+      Tint the background using this Stackoverflow post:
+      https://stackoverflow.com/questions/903659/why-cant-i-use-background-image-and-color-together
+  */
+/*  background-color: #1a1a1a;*/
+  background-image: linear-gradient(0deg, rgba(69, 69, 69, 0.75), rgba(69, 69, 69, 0.75)), url('../img/background.jpg');
+  background-position: center;
+  background-repeat: no-repeat;
+
+  /*
+      Quick hack to fix scrollbar on home page - wtf, why is this showing up?
+      https://stackoverflow.com/questions/3296644/hiding-the-scrollbar-on-an-html-page
+  */
+  /* TO DO: figure out why i had this hidden in the first place. */
+  overflow-x:hidden;
+
+  /*
+        This line came off of Stackoverflow. It works very well. See the first answer from Vashishtha Jogi.
+        https://stackoverflow.com/questions/1150163/stretch-and-scale-a-css-image-in-the-background-with-css-only
+   */
+  background-size: cover;
+  margin: 0px;
+  padding: 0px;
+  height: 100%;
+  width: 100%;
+  font-family: "Ubuntu";
+}
+
+/*
+      Added padding / margin for better display.
+*/
+body > .container {
+  padding: 65px 10px 0;
+}
+
+body > .row {
+  margin: 10px;
+}
+
+html {
+  min-height: 100%;
+  position: relative;
+  width: 100%;
+}
+
+td {
+  border: red 10px;
+  margin: auto;
+  text-align: center;
+
+  height: 250px;
+  width: 250px;
+}
+
+/* from:  https://stackoverflow.com/questions/5347833/centering-bullets-on-a-centered-list */
+ul {
+    list-style-position: inside;
+}
+
+/*
+  This is to replace <center> tags so the site will validate. I was using <center> tags to make images and
+  text appear centered on mobile devices, since the bootstrap grids I setup for mobile make things
+  appear on separate lines.
+  This post explained how to do so:
+  https://stackoverflow.com/questions/7226056/equivalent-to-center-tag-in-css
+*/
+.center_text_images {
+  margin: auto;
+  text-align: center;
+}
+
+/*
+    Center table in Bootstrap
+    URL: https://stackoverflow.com/questions/9596475/center-table-with-twitter-bootstrap-2
+*/
+.center-table {
+  margin: 0 auto !important;
+  float: none !important;
+}
+
+/*
+  This chunk contains all the highlight / text related CSS.
+  Mostly center / left / right alignment and changing the color / font of text.
+*/
+.about {
+  color: white;
+  text-align: center;
+}
+
+.center_text {
+  color: white;
+  font-family: "Ubuntu";
+  font-size: 200%;
+  font-weight: 900;
+  text-align: center;
+}
+
+.center_text_nohighlight {
+  color: black;
+  font-size: 200%;
+  text-align: center;
+}
+
+.center_text_small {
+  color: white;
+  font-family: "Ubuntu";
+  font-size: 120%;
+  font-weight: 900;
+  text-align: center;
+}
+
+h1.name {
+  color: blue;
+  font-family: "Ubuntu";
+  font-size: 500%;
+  font-weight: 700;
+  text-align: center;
+}
+
+.highlight {
+/*  background-color: black;*/
+}
+
+.highlight_box {
+/*  background-color: black;*/
+  color: white;
+}
+
+/* Assignment 5 title */
+.highlight_red {
+  background-color: black;
+  color: red;
+  font-family: "Ubuntu";
+}
+
+/* Assignment 7 title */
+.highlight_gold {
+  background-color: #e5c100;    /* Gold color */
+  color: #990000;               /* Dark red color */
+  font-family: "Ubuntu";
+  font-size: 50%;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+.highlight_centered {
+/*  background-color: black;*/
+  color: white;
+  font-family: "Ubuntu";
+  font-size: 150%;
+  font-weight: 600;
+  text-align: center;
+}
+
+/* Trail Keys */
+.trail_green {
+  color: green;
+  font-family: "Ubuntu";
+  font-size: 150%;
+  font-weight: 600;
+  text-align: center;
+}
+
+.trail_red {
+  color: red;
+  font-family: "Ubuntu";
+  font-size: 150%;
+  font-weight: 600;
+  text-align: center;
+}
+
+.color_links {
+  color: #3366BB;
+  font-family: "Ubuntu";
+  font-size: 100%;
+  font-weight: 600;
+  text-decoration: underline;
+}
+
+.color_links_logo {
+  color: #3366BB;
+  font-family: "Ubuntu";
+  font-size: 100%;
+  font-weight: 600;
+  text-decoration: underline;
+}
+
+/* Adding black outline to text.
+https://stackoverflow.com/questions/4772906/css-is-it-possible-to-add-a-black-outline-around-each-character-in-text/4772914#4772914 */
+p {
+  color: #fff;
+  text-shadow: 1px 0 0 #000, 0 -1px 0 #000, 0 1px 0 #000, -1px 0 0 #000;
+}
+
+h1 {
+  color: #fff;
+  text-shadow: 1px 0 0 #000, 0 -1px 0 #000, 0 1px 0 #000, -1px 0 0 #000;
+}
+
+.highlight_centered_small {
+  background-color: black;
+  color: white;
+  font-family: "Ubuntu";
+  font-size: 100%;
+  font-weight: 100;
+  text-align: center;
+}
+
+.highlight_centered_margins {
+  background-color: black;
+  color: white;
+  font-family: "Ubuntu";
+  font-size: 200%;
+  font-weight: 900;
+  margin: 10px;
+  text-align: center;
+}
+
+.highlight_left_aligned {
+  background-color: black;
+  color: white;
+  font-family: "Ubuntu";
+  font-size: 200%;
+  font-weight: 900;
+  text-align: left;
+}
+
+.highlight_right_aligned {
+  background-color: black;
+  color: white;
+  font-family: "Ubuntu";
+  font-size: 200%;
+  font-weight: 900;
+  margin-right: -20px;
+  text-align: right;
+}
+
+.highlight_text_underline {
+  background: black;
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+.highlight_text_underline_centered {
+  background-color: black;
+  color: white;
+  font-family: "Ubuntu";
+  font-size: 200%;
+  font-weight: 900;
+  text-align: center;
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+.left_align {
+  color: white;
+  text-align: left;
+  font-family: "Ubuntu";
+  font-size: 200%;
+}
+
+.right_align {
+  color: white;
+  text-align: left;
+  font-family: "Ubuntu";
+  font-size: 200%;
+}
+
+.white_text {
+  background-color: black;
+  color: white;
+  font-family: "Ubuntu";
+  font-size: 200%;
+}
+
+/* This is to style the "Ski Maps" logo text. */
+.ski_logo {
+  color: white;
+  font-family: "Ubuntu";
+  font-size: 300%;
+  font-weight: 300;
+}
+
+/* For the "About" on the About Page. */
+.about_ski {
+  color: #0297ec;
+  font-family: "Ubuntu";
+  font-size: 300%;
+  font-weight: 300;
+}
+
+/* WARNING RED */
+.red {
+  color: #F9651F;
+  font-weight: bold;
+}
+
+.text_centered {
+  color: white;
+  font-family: "Ubuntu";
+  font-size: 150%;
+  font-weight: 100;
+  text-align: center;
+}
+
+.underline_text {
+  text-decoration: underline;
+}
+
+/******************************************************************************************************/
+
+/*
+
+    This is from the following URL:
+    http://presscustomizr.com/snippet/change-navbar-colorsfontsize/
+
+*/
+
+/* Adjust Menu (red) text color, (Garamond) font-family, (1.5em) font-size  */
+.navbar .nav > li > a, .navbar .nav > li > a:first-letter,
+.navbar .nav > li.current-menu-item > a,
+.navbar .nav > li.current-menu-ancestor > a {
+  /*color:          red;*/
+  /*font-family:    Garamond;*/
+  /*padding:        5px 20px;*/
+  font-size:      1.2em;
+}
+
+/* Adjust Menu colors - Normal */
+.navbar .nav > li > a, .navbar .nav > li > a:first-letter {
+  color:          white;
+  text-shadow:    none;
+}
+
+/* Adjust Menu colors - Active */
+.navbar .nav > li > a:active, .navbar .nav > li > a:active:first-letter,
+.navbar .nav > li.current-menu-item > a,
+.navbar .nav > li.current-menu-ancestor > a,
+.navbar .nav > li.current-menu-item > a:first-letter,
+.navbar .nav > li.current-menu-ancestor > a:first-letter {
+  color:          blue;
+  text-shadow:    none;
+}
+
+
+/*
+    Center the Navbar links.
+    From StackOverFlow.
+    URL: https://stackoverflow.com/questions/18777235/center-content-in-responsive-bootstrap-navbar
+*/
+@media (min-width: 768px) {
+    .navbar .navbar-nav {
+        display: inline-block;
+        float: none;
+        vertical-align: top;
+    }
+
+    .navbar .navbar-collapse {
+        text-align: center;
+    }
+}
+
+
+/*  Tweak Nav Bar collapse level
+    URL: https://stackoverflow.com/questions/19827605/change-bootstrap-navbar-collapse-breakpoint-without-using-less
+*/
+@media (max-width: 1010px) {
+  .navbar-header {
+      float: none;
+  }
+  .navbar-left,.navbar-right {
+      float: none !important;
+  }
+  .navbar-toggle {
+      display: block;
+  }
+  .navbar-collapse {
+      border-top: 1px solid transparent;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.1);
+  }
+  .navbar-fixed-top {
+      top: 0;
+      border-width: 0 0 1px;
+  }
+  .navbar-collapse.collapse {
+      display: none!important;
+  }
+  .navbar-nav {
+      float: none!important;
+      margin-top: 7.5px;
+  }
+  .navbar-nav>li {
+      float: none;
+  }
+  .navbar-nav>li>a {
+      padding-top: 10px;
+      padding-bottom: 10px;
+  }
+  .collapse.in{
+      display:block !important;
+  }
+}
+
+/*
+    Transparent Navbar.
+    From StackOverFlow.
+    URL: https://stackoverflow.com/questions/16453537/bootstrap-transparent-navbar
+
+    Modified to match Telsa Motor's navbar theme, which can be found on their website:
+    https://www.teslamotors.com/
+
+    ( I basically took their RGB color and used it since it looks EPIC. Credit to
+      Telsa Motors for the colors and stuff. )
+*/
+.navbar {
+  background: rgba(69, 69, 69, 0.75);
+  font-weight: 600;
+}
+
+.background_dark {
+  background: rgba(69, 69, 69, 0.75);
+}
+
+/*
+    Footer coloring.
+*/
+.footer {
+  background: rgba(69, 69, 69, 0.75);
+  color: white;
+  font-family: "Ubuntu";
+  font-size: 120%;
+  font-weight: 400;
+  text-align: center;
+  text-decoration-color: white;
+}
+
+/*
+    Center jquery maphilight map
+    This one is for Waterville Valley
+*/
+.center-map {
+  margin: 0 auto;
+  margin-top: -11em;      /* Using em to fix the map on different resolutions. */
+  margin-bottom: -7.5em;
+}
+
+/*
+    Center map for Bretton Woods
+*/
+.center-map_bw {
+  margin: 0 auto;
+  margin-top: .25em;
+  margin-bottom: 0px;
+}
+
+/*
+    Center map for Cannon Mt
+*/
+.center-map_cmt {
+  margin: 0 auto;
+  margin-top: 1em;      /* using em for responsive design. */
+  margin-bottom: 0px;
+}
+
+/*
+    Center map for Cranmore Mountain
+*/
+.center-map_cran {
+  margin: 0 auto;
+  margin-top: .25em;      /* using em for responsive design. */
+  margin-bottom: 0px;
+}
+
+/*
+    Center map for Loon
+*/
+.center-map_loon {
+  margin: 0 auto;
+  margin-top: .25em;      /* using em for responsive design. */
+  margin-bottom: 0px;
+}
+
+/*
+    Center map for Pats Peak
+*/
+.center-map_pats {
+  margin: 0 auto;
+  margin-top: .25em;      /* using em for responsive design. */
+  margin-bottom: 0px;
+}
+
+/*
+    Horizonatally left align and vertically center the navbar image
+    Idea from: https://stackoverflow.com/questions/23400234/centering-brand-logo-in-bootstrap-3-navbar
+*/
+.align_navbar_img {
+    position: absolute;
+    left: 10px;             /* Center vertically */
+    top: 10px;
+    text-align: left;       /* Left align horizontally */
+    margin: auto;
+}
+
+/* TESTING */
+img[usemap] {
+  border: none;
+  height: auto;
+  max-width: 100%;
+  width: auto;
+}
+
+/*
+Center Navbar Brand.
+https://stackoverflow.com/questions/20024463/bootstrap-3-how-do-i-place-the-brand-in-the-center-of-the-navbar
+*/

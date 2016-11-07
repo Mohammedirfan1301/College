@@ -1,0 +1,181 @@
+<!--
+       Date Created: 1/26/2016
+      Last Modified: 4/25/2016 2PM EST
+         Created by: Jason Downing
+
+      This page is the index for the Dynamic Ski Map Project.
+      Currently it hosts links to a Waterville Valley map, and in the future
+      a Bretton Woods map as well.
+
+      MIT Licensed - do whatever you want with this code. Just don't sue me plz.
+-->
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+
+  <!-- Optional theme -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+
+  <!-- jQuery minified version. -->
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+
+  <!--
+    Google fonts. Included here at the top for performance gains and to avoid the use of @import
+    like Google recommends here:
+    http://googlewebfonts.blogspot.com/2010/09/optimizing-use-of-google-font-api.html
+
+    Fix for the validator comes from this page (| is encoded as %7C):
+    https://stackoverflow.com/questions/22466913/google-fonts-url-break-html5-validation-on-w3-org
+  -->
+  <!-- Trying to speed up page load, by limiting the number of Google of fonts we include. -->
+  <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Ubuntu%7CChivo%7CWork+Sans">
+
+  <!-- CSS file, used by all the web pages for consistency. -->
+  <link rel="stylesheet" type="text/css" href="css/index.css"/>
+
+  <!-- jQuery (necessary for Bootstrap's JavaScript plugins). -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+  <!-- Latest compiled and minified JavaScript -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
+  <!--  Configuration -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+  <!-- Custom favicon -->
+  <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
+
+  <title>Ski Maps</title>
+</head>
+
+<body>
+  <!--  Navbar div. See html/navbar.html for that code. -->
+  <div id="NavBarHeader"></div>
+
+  <!-- SPEED UP NAVBAR LOADING
+  https://stackoverflow.com/questions/26635111/make-jquery-load-happen-before-html-load
+   -->
+  <script>
+    $("#NavBarHeader").load("html/navbar.html");
+  </script>
+
+  <!-- Title -->
+  <div class="row">
+    <div class="col-md-3"></div>
+    <div class="col-md-6">
+
+      <!-- Ski Maps Logo -->
+      <div class="center_text_images">
+        <img src="img/logo.png" alt="Ski Maps Logo" height="136" width="530">
+      </div>
+
+      <p class="highlight_centered">
+      Ski Maps makes it easy find the current ski conditions at several NH ski resorts.</p>
+      <p class="highlight_centered">
+      To use the site, click on a Ski Resort to view the current & historic
+      trail conditions. You may also use the Navigation bar at the top to switch
+      between mountains.</p>
+    </div>
+    <div class="col-md-3"></div>
+  </div>
+
+  <!-- Description -->
+  <div class="row">
+    <div class="col-md-3"></div>
+    <div class="col-md-6">
+
+      <!--  This table is responsive (using Bootstrap)
+            It currently exists as a 3x2 grid of mountains with links
+            to different HTML pages. -->
+      <div class="table-responsive">
+        <table class="highlight center-table">
+          <tr>
+            <td>
+              <p class="highlight_centered">
+                <a class="color_links" href="bretton_woods.html">
+                <!--  Image found at the following URL:
+                      http://brettonwoods.com/images/washington-mount-resort-logo.png
+                -->
+                <img  class="center_text_images" alt="Bretton Woods Logo"
+                      src="img/logos/BrettonWoods.png" height="150" width="150"><br/>
+                Bretton Woods</a>
+              </p>
+            </td>
+            <td>
+              <p class="highlight_centered">
+                <a class="color_links" href="cannon.html">
+                <!--  Image found at the following URL:
+                      http://www.skinh.com/uploads/Members/member/19/logo/Cannon.JPG
+                -->
+                <img  class="center_text_images" alt="Cannon Mountain Logo"
+                      src="img/logos/Cannon.png" height="150" width="150"><br/>
+                Cannon Mountain</a>
+              </p>
+            </td>
+            <td>
+              <p class="highlight_centered">
+                <a class="color_links" href="cranmore.html">
+                <!--  Image found at the following URL:
+                      https://pbs.twimg.com/profile_images/656547211350773760/UTtWpaR6.png
+                -->
+                <img  class="center_text_images" alt="Cranmore Mountain Logo"
+                      src="img/logos/Cranmore.png" height="150" width="150"><br/>
+                Cranmore Mountain</a>
+              </p>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <p class="highlight_centered">
+                <a class="color_links" href="loon.html">
+                <!--  Image found at the following URL:
+                      https://rootsrated.com/a/ski-new-england/img/category/loon-mountain--logo.png
+                -->
+                <img  class="center_text_images" alt="Loon Mountain Logo"
+                      src="img/logos/Loon.png" height="150" width="150"><br/>
+                Loon Mountain</a>
+              </p>
+            </td>
+            <td>
+              <p class="highlight_centered">
+                <a class="color_links" href="pats_peak.html">
+                <!--  Image found at the following URL:
+                      http://www.patspeak.com/data/uploads/press_photos/PatsPeak_Logo2.jpg
+                -->
+                <img  class="center_text_images" alt="Pats Peak Logo"
+                      src="img/logos/PatsPeak.png" height="150" width="150"><br/>
+                Pats Peak</a>
+              </p>
+            </td>
+            <td>
+              <p class="highlight_centered">
+                <a class="color_links" href="waterville.html">
+                <!--  Image found at the following URL:
+                      https://d13fo19pohlmh8.cloudfront.net/media/assets/eab645bdc38e218f722310d4172672c9.jpeg
+                -->
+                <img  class="center_text_images" alt="Waterville Valley Logo"
+                      src="img/logos/Waterville.png" height="150" width="150"><br/>
+                Waterville Valley</a>
+              </p>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <div class="col-md-3"></div>
+  </div>
+
+  <!--  This div will have the footer (html/footer.html) -->
+  <div id="TheFooter"></div>
+
+  <!-- Load Footer -->
+  <script>
+    $("#TheFooter").load("html/footer.html");
+  </script>
+
+</body>
+</html>

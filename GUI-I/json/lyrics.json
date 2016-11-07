@@ -1,0 +1,57 @@
+{
+  "title": "Sleep Now In The Fire",
+  "artist": "Rage Against The Machine",
+  "lyrics": {
+    "yeah": "YEAAAH!",
+    "first": {
+      "line1": "The world is my expense",
+      "line2": "The cost of my desire",
+      "line3": "Jesus blessed me with its future",
+      "line4": "And I protect it with fire",
+      "line5": "So raise your fists and march around",
+      "line6": "Don't dare take what you need",
+      "line7": "I'll jail and bury those committed",
+      "line8": "And smother the rest in greed",
+      "line9": "Crawl with me into tomorrow",
+      "line10": "Or I'll drag you to your grave",
+      "line11": "I'm deep inside your children",
+      "line12": "They'll betray you in my name"
+    },
+    "second": {
+      "line1": "The lie is my expense",
+      "line2": "The scope with my desire",
+      "line3": "The party blessed me with its future",
+      "line4": "And I protect it with fire",
+      "line5": "I am the Nina, the Pinta, the Santa Maria",
+      "line6": "The noose and the rapist, the fields overseer",
+      "line7": "The agents of orange",
+      "line8": "The priests of Hiroshima",
+      "line9": "The cost of my desire",
+      "line10": "Sleep now in the fire"
+    },
+    "third": {
+      "line1": "For it's the end of history",
+      "line2": "It's caged and frozen still",
+      "line3": "There is no other pill to take",
+      "line4": "So swallow the one",
+      "line5": "That makes you ill",
+      "line6": "The Nina, the Pinta, the Santa Maria",
+      "line7": "The noose and the rapist, the fields' overseer",
+      "line8": "The agents of orange",
+      "line9": "The priests of Hiroshima",
+      "line10": "The cost of my desire",
+      "line11": "Sleep now in the fire"
+    },
+    "hey": {
+      "line1": "HEY!",
+      "line2": "HEY!",
+      "line3": "Sleep now in the fire!"
+    },
+    "sleep": {
+      "line1": "Sleep now in the fire!",
+      "line2": "Sleep now in the fire!",
+      "line3": "Sleep now in the fire!",
+      "line4": "Sleep now in the fire!"
+    }
+  }
+}

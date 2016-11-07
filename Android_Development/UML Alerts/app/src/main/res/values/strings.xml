@@ -1,0 +1,29 @@
+<resources>
+    <string name="app_name">UML-Alerts</string>
+
+    <!-- Strings for the sidebar / other fragment stuff -->
+    <string name="title_activity_alerts">Alerts</string>
+    <string name="title_activity_contacts">Contacts</string>
+    <string name="title_activity_maps">Map of Previous Alerts</string>
+    <string name="title_activity_about">About</string>
+    <string name="title_activity_side_menu">SideMenu</string>
+
+    <string name="title_section1">Alerts</string>
+    <string name="title_section2">Contacts</string>
+    <string name="title_section3">List of Previous Alerts</string>
+    <string name="title_section4">Map of Previous Alerts</string>
+    <string name="title_section5">About</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_example">-</string>
+    <string name="action_settings">-</string>
+
+    <string name="title_activity_navigation_drawer">NavigationDrawerActivity</string>
+    <string name="title_activity_main">MainActivity</string>
+
+    <!-- Constant strings here. -->
+    <string name="APP_TAG">UML ALERTS</string>
+
+</resources>

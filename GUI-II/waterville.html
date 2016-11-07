@@ -1,0 +1,215 @@
+<!--
+       Date Created: 1/26/2016
+      Last Modified: 4/25/2016 2PM EST
+         Created by: Jason Downing
+
+      Waterville Valley Demo Map
+
+      MIT Licensed - do whatever you want with this code.
+-->
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+
+  <!-- Optional theme -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+
+  <!-- jQuery minified version. -->
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+
+  <!--
+    Google fonts. Included here at the top for performance gains and to avoid the use of @import
+    like Google recommends here:
+    http://googlewebfonts.blogspot.com/2010/09/optimizing-use-of-google-font-api.html
+
+    Fix for the validator comes from this page (| is encoded as %7C):
+    https://stackoverflow.com/questions/22466913/google-fonts-url-break-html5-validation-on-w3-org
+  -->
+  <!-- Trying to speed up page load, by limiting the number of Google of fonts we include. -->
+  <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Ubuntu%7CChivo%7CWork+Sans">
+
+  <!-- CSS file, used by all the web pages for consistency. -->
+  <link rel="stylesheet" type="text/css" href="css/index.css"/>
+
+  <!-- jQuery (necessary for Bootstrap's JavaScript plugins). -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+  <!-- Latest compiled and minified JavaScript -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
+  <!--  Configuration -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+  <!-- Custom favicon -->
+  <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
+
+  <title>Waterville Valley</title>
+</head>
+
+<body>
+  <!--  Navbar div. See html/navbar.html for that code. -->
+  <div id="NavBarHeader"></div>
+
+  <!-- SPEED UP NAVBAR LOADING
+  https://stackoverflow.com/questions/26635111/make-jquery-load-happen-before-html-load
+   -->
+  <script>
+    $("#NavBarHeader").load("html/navbar.html");
+  </script>
+
+  <div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-10">
+
+      <!--
+        Image found at this URL:
+        (I claim no ownership of this image)
+        https://d13fo19pohlmh8.cloudfront.net/media/assets/ac0736961b5b728cdb1a4f5fb63c6352.jpeg
+      -->
+      <div class="center_text_images">
+        <img class="map center-map" alt="Waterville Valley Map" src="img/maps_imgs/waterville_valley.png" width="800" height="1037" border="0" usemap="#map"/>
+      </div>
+
+      <!--
+      Generated this image map from GIMP. See this link for info on how to do this:
+      http://www.makeuseof.com/tag/create-image-map-gimp/
+
+      I got some help from this handy Stackoverflow post which included a JS Fiddle
+      to mess around with.
+      https://stackoverflow.com/questions/17613729/using-maphilight-for-total-beginners
+      https://jsfiddle.net/k67gq/6/
+      -->
+      <map name="map">
+      <area shape="poly" coords="391,391,410,380,434,369,503,357,508,366,461,376,432,387,403,402,396,430,375,421,368,398,378,392" alt="Sun Run" href="#sunrun" />
+      <area shape="poly" coords="320,427,270,460,238,499,215,531,230,558,249,540,273,505,298,465,331,446,373,417,367,398" alt="Ciao" href="#ciao" />
+      <area shape="poly" coords="655,195,644,200,644,218,651,218,618,280,610,274,629,239,624,225,630,200,646,189,650,190" alt="Tree Line" href="#treeline" />
+      <area shape="poly" coords="650,190,666,178,684,178,672,183,654,218,645,217,645,216" alt="Ruthies Run" href="#ruthiesrun" />
+      <area shape="poly" coords="676,184,683,179,699,201,699,210,691,222,679,235,666,257,662,269,653,287,637,301,632,302,610,331,597,332,617,303,628,299,657,248,669,239,670,222,662,215,679,180" alt="Scramble" href="#scramble" />
+      <area shape="poly" coords="621,229,589,246,581,272,596,277,605,300,613,284,607,275,618,244,628,238,623,227" alt="Tree Line" href="#treeline" />
+      <area shape="poly" coords="582,273,561,315,535,344,546,353,569,344,589,338,598,307,603,300,597,279" alt="Main Street" href="#mainstreet" />
+      <area shape="poly" coords="463,379,483,373,253,601,241,580,260,565,322,504,341,489,359,469,400,426,433,394" alt="True Grit" href="#truegrit" />
+      <area shape="poly" coords="394,429,378,421,349,455,318,468,267,522,231,557,242,580,275,536,347,477,382,445" alt="Gema" href="#gema" />
+      <area shape="poly" coords="497,353,512,346,461,335,365,351,327,370,329,397,313,411,250,438,234,460,170,498,159,506,173,521,193,513,231,484,255,461,263,448,302,430,332,412,349,398,351,376,355,367,424,352,450,346,468,345" alt="Oblivion" href="#oblivion" />
+      <area shape="poly" coords="413,332,414,332,485,333,489,316,405,314,405,332" alt="Palmers Way" href="#palmersway" />
+      <area shape="poly" coords="471,398,455,412,441,432,449,448,465,448,480,404" alt="Bail Out" href="#bailout" />
+      <area shape="poly" coords="507,366,510,368,491,425,481,451,481,469,460,470,446,460,466,444,478,401,491,380" alt="Upper Bobbys" href="#upperbobbys" />
+      <area shape="poly" coords="438,491,458,471,447,459,418,484,374,519,320,567,261,598,274,616,351,575,404,536,409,516" alt="Lower Bobby&apos;s Run" href="#lowerbobbysrun" />
+      <area shape="poly" coords="448,483,434,494,421,505,410,514,404,536,421,569,430,550,442,540,448,526,451,509,456,492" alt="Psyched Out" href="#psychedout" />
+      <area shape="poly" coords="520,370,519,370,541,370,534,399,518,442,500,442" alt="White Caps" href="#whitecaps" />
+      <area shape="poly" coords="518,442,507,448,510,459,536,479,560,484,576,477,563,467,545,467" alt="Terrys Trail" href="#terrystrail" />
+      <area shape="poly" coords="567,420,543,385,540,393,544,430,553,451,571,474,596,494,639,530,650,536,643,501,604,468,590,464,566,422,567,423,567,424" alt="And Tyler Too" href="#andtylertoo" />
+      <area shape="poly" coords="545,373,543,386,568,420,573,417,593,446,626,471,648,497,693,517,656,464,624,447,589,408,573,388,574,388" alt="Tippecanoe" href="#tippecanoe" />
+      <area shape="poly" coords="592,338,620,370,632,392,631,406,647,417,647,378,610,332" alt="Tangent" href="#tangent" />
+      <area shape="poly" coords="572,340,553,352,580,383,630,427,652,440,641,425,628,418,614,401,592,379,578,364,586,341" alt="Sidewinder" href="#sidewinder" />
+      <area shape="poly" coords="585,348,595,345,604,351,595,358,591,365,622,385,631,405,635,411,629,418,614,401,612,389,603,380,591,375,580,364" alt="Grimes Way" href="#grimesway" />
+      <area shape="poly" coords="638,410,635,420,694,472,697,486,712,512,695,522,700,547,730,532,730,532,739,518,727,500,724,481,701,454" alt="Periphery" href="#periphery" />
+      <area shape="poly" coords="640,495,646,513,652,541,670,562,671,613,661,652,646,661,653,667,688,648,693,634,699,571,702,553,695,519" alt="Lower Tippecanoe" href="#lowertippecanoe" />
+      <area shape="poly" coords="726,531,717,538,700,547,702,559,722,582,721,608,707,624,693,631,684,651,707,640,740,616,757,597,748,577,734,553" alt="Boneyard" href="#boneyard" />
+      <area shape="poly" coords="653,538,636,526,628,549,611,561,569,595,572,605,608,587,629,563" alt="Siegel Street" href="#siegelstreet" />
+      <area shape="poly" coords="622,609,617,636,635,661,612,665,596,688,584,680,596,639,593,574,588,546,543,479,564,483,589,524,607,540,612,540,611,540" alt="Old Tecumseh" href="#oldtecumseh" />
+      <area shape="poly" coords="615,671,612,667,638,662,647,661,653,667,647,698,634,731,607,753,558,771,529,784,494,797,500,757,536,752,574,747,593,742,616,724,620,704" alt="Lower Periphery - FT" href="#lowerperiphery" />
+      <area shape="poly" coords="515,464,505,499,509,515,504,540,518,581,520,610,545,606,544,589,542,567,541,538,544,526,530,506" alt="Sel&apos;s Choice" href="#selschoice" />
+      <area shape="poly" coords="543,568,542,570,544,591,551,591,555,602,554,609,548,611,551,628,556,633,560,654,553,665,545,682,544,751,577,746,596,691,585,679,575,672,584,635,576,606,562,587,563,586" alt="Lower Sel&apos;s Choice" href="#lowerselschoice" />
+      <area shape="poly" coords="522,609,546,607,557,632,557,654,547,678,541,723,540,754,516,754,524,689,527,647" alt="Tommy&apos;s World Cup Run - FT" href="#tommysworldcuprun" />
+      <area shape="poly" coords="500,440,507,448,512,464,505,536,494,557,483,600,475,623,464,668,438,664,462,582" alt="The Chute" href="thechute" />
+      <area shape="poly" coords="477,470,460,471,455,497,451,509,444,542,430,550,421,578,429,600,433,610,445,578,444,560,459,546,478,492" alt="Psyched " href="#psyched " />
+      <area shape="poly" coords="506,538,499,548,494,589,486,601,484,614,484,625,477,638,476,647,479,662,468,666,463,690,472,697,462,706,462,718,466,725,458,734,457,743,457,751,457,758,448,774,484,775,493,767,485,749,496,730,500,715,498,690,495,674,492,668,502,656,497,650,497,639,502,634,506,618,510,601,516,592,516,579" alt="Utter Abandon - FT" href="#utterabandon" />
+      <area shape="poly" coords="467,668,438,664,427,710,410,761,405,785,386,817,424,822,434,784,456,723,464,691" alt="Lower White Caps - FT" href="#lowerwhitecaps" />
+      <area shape="poly" coords="448,774,435,784,427,814,453,810,480,804,496,798,496,776,497,770,491,770,484,775" alt="Mini Pipe" href="#minipipe" />
+      <area shape="poly" coords="432,618,391,663,378,683,354,687,339,698,331,716,322,744,337,771,352,787,371,817,371,772,381,741,391,742,401,684,408,668" alt="Exhibition - FT" href="#exhibition" />
+      <area shape="poly" coords="528,786,493,798,448,818,422,828,371,817,349,838,347,851,360,861,404,857,463,829,511,813,537,804,543,802,542,802" alt="The Pasture" href="#thepasture" />
+      <area shape="poly" coords="465,842,402,872,403,886,438,871,474,857" alt="Kinderpark Lift**For lessons only, closed to the public.\n" href="#kinderpark" />
+      <area shape="poly" coords="198,513,192,514,173,521,183,539,192,556,201,579,210,606,223,632,233,657,283,626,265,600,252,598,244,588,216,535,203,517" alt="Upper Valley Run" href="#uppervalleyrun" />
+      <area shape="poly" coords="283,627,258,641,274,683,281,696,292,686,321,764,311,767,343,842,371,819,353,788,338,774,323,748,314,706,317,681,310,665,302,647" alt="Rock Island" href="#rockisland" />
+      <area shape="poly" coords="242,650,229,659,239,695,260,752,276,798,292,827,332,845,337,843,304,770,289,729,268,683,255,644" alt="Valley Run" href="#valleyrun" />
+      <area shape="poly" coords="174,522,160,508,154,515,153,524,161,545,172,574,180,602,198,604,202,592,199,577,192,558,186,564,170,526,171,526" alt="South Street" href="#southstreet" />
+      <area shape="poly" coords="197,604,183,602,187,640,192,667,191,686,191,712,195,716,213,706,209,691,207,650,203,625" alt="Stillness - FT" href="#stillness" />
+      <area shape="poly" coords="210,708,194,716,200,730,217,751,232,775,238,800,233,807,258,813,264,796,252,755,240,729,222,717,222,716,223,716" alt="Lower Stillness" href="#lowerstillness" />
+      <area shape="poly" coords="353,387,350,376,353,375,361,370,405,359,417,366,420,374,408,380,407,371,369,382" alt="No Grit" href="#nogrit" />
+      <area shape="poly" coords="105,834,111,857,129,883,150,911,160,924,174,915,178,903,158,883,135,859,129,846,141,833,154,814,177,803,169,785,141,801" alt="Leroy&apos;s Loop" href="#leroysloop" />
+      <area shape="poly" coords="170,787,175,800,184,815,190,815,213,839,219,855,225,865,241,869,255,862,251,843,236,836,222,819,190,796,191,796" alt="Revelation" href="#revelation" />
+      <area shape="poly" coords="172,804,165,808,154,814,158,826,149,839,140,846,149,859,155,856,163,859,162,871,167,885,178,892,187,896,197,888,177,822,177,823" alt="Stemtation - FT" href="#stemtation" />
+      <area shape="poly" coords="233,808,226,812,227,823,232,831,246,838,265,840,268,856,279,865,348,850,296,828,285,824,260,814,261,814" alt="Baseway" href="#baseway" />
+      <area shape="poly" coords="392,860,449,835,458,848,395,876,395,875" alt="Kinderpark Lift**For lessons only, closed to the public.\n" href="#kinderparklift" />
+      <area shape="poly" coords="381,742,370,793,388,798,396,744" alt="Exhibition" href="#exhibition" />
+      </map>
+    </div>
+    <div class="col-md-1"></div>
+  </div>
+
+  <!-- Demo buttons -->
+  <div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-10">
+      <div class="center_text_images">
+        <button class="btn btn-default" type="button" onclick="change_day('nov15')">
+          November 2015
+        </button>
+
+        <button class="btn btn-default" type="button" onclick="change_day('dec15')">
+          December 2015
+        </button>
+
+        <button class="btn btn-default" type="button" onclick="change_day('jan15')">
+          January 2016
+        </button>
+
+        <button class="btn btn-default" type="button" onclick="change_day('feb15')">
+          Febuary 2016
+        </button>
+
+        <button class="btn btn-default" type="button" onclick="change_day('mar15')">
+          March 2016
+        </button>
+
+        <button class="btn btn-default" type="button" onclick="change_day('apr15')">
+          April 2016
+        </button>
+
+        <button class="btn btn-default" type="button" onclick="change_day('may15')">
+          May 2016
+        </button>
+      </div>
+    </div>
+    <div class="col-md-1"></div>
+  </div>
+
+  <!--  This div will have the footer (html/footer.html) loaded into it
+        by the JS at the bottom of the page. -->
+  <div id="TheFooter"></div>
+
+  <!-- Load Footer -->
+  <script>
+    $("#TheFooter").load("html/footer.html");
+  </script>
+
+  <!-- maphilight, used to overlay the map using a GIMP generated Image Map
+       This JS file was found at this URL:
+       http://davidlynch.org/projects/maphilight/jquery.maphilight.min.js
+
+       I did not create this file, nor do I claim ownership of it.
+
+       It can also be found on GitHub and is MIT Licensed, like my own code.
+       GitHub link: https://github.com/kemayo/maphilight
+   -->
+  <script type="text/javascript" src="js/jquery.maphilight.min.js"></script>
+
+  <!--  jQuery RWD Image Maps
+        URL: https://github.com/stowball/jQuery-rwdImageMaps
+  -->
+  <script type="text/javascript" src="js/jquery.rwdImageMaps.min.js"></script>
+
+  <!-- Waterville Valley JS File -->
+  <script type="text/javascript" src="js/waterville.js"></script>
+
+  <!--  Make the maps resizable, using Image Map Resize.  -->
+  <script>
+    $('img[usemap]').rwdImageMaps();
+  </script>
+
+</body>
+</html>

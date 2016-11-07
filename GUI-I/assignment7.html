@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+  <meta charset="utf-8">
+  <!--
+    File: ~/assignment7.html
+    91.461 Assignment 7: Using the jQuery Validation Plugin with Your Dynamic Table
+    Jason Downing - student at UMass Lowell in 91.461 GUI Programming I
+    Contact: jdowning@cs.uml.edu or jason_downing@student.uml.edu
+    MIT Licensed - see http://opensource.org/licenses/MIT for details.
+    Anyone may freely use this code. Just don't sue me if it breaks stuff.
+    Created: Nov 1, 2015.
+    Last Updated: Nov 4, 1:30PM.
+
+    This page is for the 6th assignment, "Creating an Interactive Dynamic Table".
+    It contains a form for user input, and a JavaScript program to calculate what
+    the user inputs.
+  -->
+  <!--
+      Google fonts. Included here at the top for performance gains and to avoid the use of @import
+      like Google recommends here:
+      http://googlewebfonts.blogspot.com/2010/09/optimizing-use-of-google-font-api.html
+
+      Fix for the validator comes from this page (| is encoded as %7C):
+      https://stackoverflow.com/questions/22466913/google-fonts-url-break-html5-validation-on-w3-org
+   -->
+   <link rel="stylesheet" type="text/css"
+   href="http://fonts.googleapis.com/css?family=Advent+Pro%7CBangers%7CSlackey%7CSigmar+One%7CRighteous%7CUbuntu">
+
+  <!-- Configuration -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+  <!-- Custom Title Bar -->
+  <title>Jason Downing</title>
+
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+
+  <!-- Optional theme -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+
+  <!-- CSS file to override stuff -->
+  <link rel="stylesheet" href="css/index.css">
+
+  <!-- Custom favicon -->
+  <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
+</head>
+<body>
+
+  <!--  Navbar div. See html/navbar.html for that code. It gets loaded into this
+        div by the JS at the bottom of this page. -->
+  <div id="NavBarHeader"></div>
+
+  <!-- The main container
+       Making the container fluid to use up all the screen real estate -->
+  <div class="container-fluid">
+
+    <!-- First row - Assignment description -->
+    <div class="row">
+      <div class="col-md-12">
+        <h1 class="name">
+          <span class="highlight_gold">Assignment #7</span>
+        </h1>
+      </div>
+      <div class="col-md-3"></div>
+      <div class="col-md-6">
+        <div class="highlight_centered">Enter four numbers (range -12 to 12) to generate a dynamic multiplication table.</div>
+      </div>
+      <div class="col-md-3"></div>
+    </div>
+
+    <br>
+
+    <!-- Title / form goes here -->
+    <div class="row">
+      <div class="col-md-1"></div>
+      <div class="col-md-4">
+        <!-- Form to take user input.
+        I used the following site for help with the form:
+        http://www.w3schools.com/html/html_forms.asp
+
+        I also used this stackoverflow post for the onsubmit:
+        https://stackoverflow.com/questions/13143932/submit-html-form-perform-javascript-function-alert-then-redirect
+
+        This link was helpful for centering the form using CSS:
+        https://stackoverflow.com/questions/9737394/html-how-to-center-align-a-form -->
+        <div class="highlight_centered_margins">
+          <form id="mult_form" name="mult_form" method="GET">
+            <div>
+              <label>Starting horizontal number: </label>
+              <input type="number" id="horiz_start" name="horiz_start" value="" required>
+            </div>
+
+            <div>
+              <label>Ending horizontal number: </label>
+              <input type="number" id="horiz_end" name="horiz_end" value="" required>
+            </div>
+
+            <div>
+              <label>Starting vertical number: </label>
+              <input type="number" id="vert_start" name="vert_start" value="" required>
+            </div>
+
+            <div>
+              <label>Ending vertical number: </label>
+              <input type="number" id="vert_end" name="vert_end" value="" required>
+            </div>
+
+            <!-- Note: using onclick so that when debugging the form, user input isn't lost
+                 and console.logs are also kept. Using onsubmit made it very difficult to
+                 spot errors, while onclick doesn't force the page to refresh because
+                 of the return false in the onsubmit form attribute. -->
+            <input id="button_submit" class="submit_button" type="submit" value="Generate Table">
+          </form>
+
+          <!-- Error messages will appear here instead of in a popup. -->
+          <div id="warning_msg"></div>
+
+        </div>
+      </div>
+
+      <div class="col-md-7">
+        <!-- The multiplication table will appear in this div -->
+        <div id="multiplication_table"></div>
+      </div>
+
+    </div>
+
+    <br><br><br>               <!-- Adding line breaks to make the display nicer. -->
+
+    <!--  This div will have the footer (html/footer.html) loaded into it
+          by the JS at the bottom of the page. -->
+    <div id="TheFooter"></div>
+
+  </div>          <!-- This should be the end div of the main container. -->
+
+  <!--
+      These are moved to the bottom of the <body> tag to decrease website load time.
+      This stackoverflow post is helpful for this issue:
+      https://stackoverflow.com/questions/6625773/where-should-i-put-the-css-and-javascript-code-in-an-html-webpage
+
+      See Yahoo's best practice rules as well:
+      https://developer.yahoo.com/performance/rules.html#css_top=
+   -->
+
+  <!-- jQuery (necessary for Bootstrap's JavaScript plugins). -->
+  <script type='text/javascript' src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+  <!-- Latest compiled and minified JavaScript -->
+  <script type='text/javascript' src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
+  <!-- jQuery Validation plugin -->
+  <script type='text/javascript' src="http://cdn.jsdelivr.net/jquery.validation/1.14.0/jquery.validate.js"></script>
+  <script type='text/javascript' src="http://cdn.jsdelivr.net/jquery.validation/1.14.0/additional-methods.js"></script>
+
+  <!-- JS file that handles the multiplication table and validate code -->
+  <script type='text/javascript' src="js/table_v2.js"></script>
+
+  <!-- Load the header/footer when the page is ready. Also load the validate() function -->
+  <script>
+    /*  This code is from a Stackoverflow post about how to load a HTML document
+        into div in another HTML document.
+        I run this on every page I make so I can change 1 HTML file when I add assignments
+        vs changing 7+ HTML files.
+        From the following URLs:
+        https://learn.jquery.com/using-jquery-core/document-ready/
+        https://stackoverflow.com/questions/8988855/include-another-html-file-in-a-html-file
+    */
+    $( document ).ready(function() {
+        $("#NavBarHeader").load("html/navbar.html");
+        $("#TheFooter").load("html/footer.html");
+
+        validate();         // Runs the validate code as soon as the body is ready.
+    });
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+  <meta charset="utf-8">
+  <!--
+    File: ~/assignment6.html
+    91.461 Assignment 6: Creating an Interactive Dynamic Table
+    Jason Downing - student at UMass Lowell in 91.461 GUI Programming I
+    Contact: jdowning@cs.uml.edu or jason_downing@student.uml.edu
+    MIT Licensed - see http://opensource.org/licenses/MIT for details.
+    Anyone may freely use this code. Just don't sue me if it breaks stuff.
+    Created: Oct 13, 2015.
+    Last Updated: Oct 13, 9PM.
+
+    This page is for the 6th assignment, "Creating an Interactive Dynamic Table".
+    It contains a form for user input, and a JavaScript program to calculate what
+    the user inputs.
+  -->
+  <!--
+      Google fonts. Included here at the very top for performance gains and to avoid the use of @import
+      like Google recommends here:
+      http://googlewebfonts.blogspot.com/2010/09/optimizing-use-of-google-font-api.html
+
+      Fix for the validator comes from this page (| is encoded as %7C):
+      https://stackoverflow.com/questions/22466913/google-fonts-url-break-html5-validation-on-w3-org
+   -->
+   <link rel="stylesheet" type="text/css"
+   href="http://fonts.googleapis.com/css?family=Advent+Pro%7CBangers%7CSlackey%7CSigmar+One%7CRighteous%7CUbuntu">
+
+  <!-- Configuration -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+  <!-- Custom Title Bar -->
+  <title>Jason Downing</title>
+
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+
+  <!-- Optional theme -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+
+  <!-- Fix this page by using old CSS -->
+  <link rel="stylesheet" href="css/assignment6.css">
+
+  <!-- Custom favicon -->
+  <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
+</head>
+<body>
+
+  <!--  Navbar div. See html/navbar.html for that code. It gets loaded into this
+        div by the JS at the bottom of this page. -->
+  <div id="NavBarHeader"></div>
+
+  <!-- The main container -->
+  <div class="container">
+
+    <!-- First row - Assignment description -->
+    <div class="row">
+      <div class="col-md-12">
+        <h1 class="name">
+          <span class="highlight_gold">Assignment #6</span>
+        </h1>
+      </div>
+    </div>
+
+    <br>
+
+    <div class="row">
+      <div class="col-md-12">
+        <div class="highlight_centered_margins">
+          This assignment generates a dynamic multiplication table based on
+          user input.
+          <br/>
+          Users should enter a starting and ending horizontal multiplier,<br/>
+          as well as a vertical starting and ending multiplier.
+          <br/>
+          Example input would be "1, 5" for horizontal, and "1, 5" for vertical.
+        </div>
+      </div>
+    </div>
+
+    <!-- Title / form goes here -->
+    <div class="row">
+      <div class="col-md-12">
+        <!-- Form to take user input.
+        I used the following site for help with the form:
+        http://www.w3schools.com/html/html_forms.asp
+
+        I also used this stackoverflow post for the onsubmit:
+        https://stackoverflow.com/questions/13143932/submit-html-form-perform-javascript-function-alert-then-redirect
+
+        This link was helpful for centering the form using CSS:
+        https://stackoverflow.com/questions/9737394/html-how-to-center-align-a-form -->
+        <div class="highlight_centered_margins">
+          <form onsubmit="return false">
+            <label>Starting horizontal multiplier: </label>
+            <input type="number" name="horz start" id="horiz_start" value="1"><br/>
+
+            <label>Ending horizontal multiplier: </label>
+            <input type="number" name="horz end" id="horiz_end" value="5"><br/>
+
+            <label>Starting vertical multiplier: </label>
+            <input type="number" name="vert start" id="vert_start" value="1"><br/>
+
+            <label>Ending vertical multiplier: </label>
+            <input type="number" name="vert end" id="vert_end" value="5"><br/><br/>
+
+            <!-- Note: using onclick so that when debugging the form, user input isn't lost
+                 and console.logs are also kept. Using onsubmit made it very difficult to
+                 spot errors, while onclick doesn't force the page to refresh because
+                 of the return false in the onsubmit form attribute. -->
+            <input type="submit" value="Submit " onclick="return table_calc()">
+          </form>
+        </div>
+
+        <br/>
+      </div>
+    </div>
+
+    <!-- The multiplication table will appear in this div -->
+    <div id="multiplication_table"></div>
+
+    <br><br>                <!-- Adding line breaks to make the display nicer. -->
+
+    <!--  This div will have the footer (html/footer.html) loaded into it
+          by the JS at the bottom of the page. -->
+    <div id="TheFooter"></div>
+
+  </div>          <!-- This should be the end div of the main container. -->
+
+  <!--
+      These are moved to the bottom of the <body> tag to decrease website load time.
+      This stackoverflow post is helpful for this issue:
+      https://stackoverflow.com/questions/6625773/where-should-i-put-the-css-and-javascript-code-in-an-html-webpage
+
+      See Yahoo's best practice rules as well:
+      https://developer.yahoo.com/performance/rules.html#css_top=
+   -->
+
+  <!-- jQuery (necessary for Bootstrap's JavaScript plugins). -->
+  <script type='text/javascript' src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+  <!-- Latest compiled and minified JavaScript -->
+  <script type='text/javascript' src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
+  <!-- JS file that loads up the JSON data into the HTML document. -->
+  <script type='text/javascript' src="js/table.js"></script>
+
+  <!-- Load the header/footer when the page is ready. -->
+  <script>
+    /* From the following URLs:
+        https://learn.jquery.com/using-jquery-core/document-ready/
+        https://stackoverflow.com/questions/8988855/include-another-html-file-in-a-html-file
+    */
+    $( document ).ready(function() {
+        console.log( "ready!" );
+        $("#NavBarHeader").load("html/navbar.html");
+        $("#TheFooter").load("html/footer.html");
+    });
+  </script>
+
+</body>
+</html>
