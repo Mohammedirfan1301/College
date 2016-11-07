@@ -7,3 +7,6 @@
 [submodule "Ski-Maps"]
 	path = Ski-Maps
 	url = https://github.com/JasonD94/Ski-Maps
+[submodule "Racket-Weather"]
+	path = Racket-Weather
+	url = https://github.com/oplS16projects/Racket-Weather
