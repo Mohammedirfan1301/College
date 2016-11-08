@@ -16,7 +16,7 @@
 #include <unistd.h>
 
 #define   NUMFLAVORS      4
-#define   NUMSLOTS       50
+#define   NUMSLOTS       26500
 #define   NUMCONSUMERS    5
 #define   NUMPRODUCERS    5
 

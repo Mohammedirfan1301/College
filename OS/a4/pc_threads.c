@@ -207,7 +207,7 @@ void    *consumer ( void *arg ) {
   // Time variables
   struct timeval randtime;
   struct tm *ptm;
-  char szTime[40];
+  char sTime[40];
   long ms;
 
   // Get a 9 letter file name
@@ -299,10 +299,10 @@ void    *consumer ( void *arg ) {
       long ms = randtime.tv_usec / 1000;                  // Get milliseconds for the time format.
 
       // Entry in local file
-      printf(fp, "\nthread #: %d", threadNum);
-      printf(fp, "\ntime: %s", szTime);
-      printf(fp, "\ndozen #: %d\n", i + 1);
-      printf("Plain\tJelly\tCoconut\tHoney-dip\n");
+      fprintf(fp, "\nthread #: %d", threadNum);
+      fprintf(fp, "\ntime: %s", sTime);
+      fprintf(fp, "\ndozen #: %d\n", i + 1);
+      fprintf(fp, "Plain\tJelly\tCoconut\tHoney-dip\n");
 
       // Print donuts
       for (y = 0; y < 12; y++) {

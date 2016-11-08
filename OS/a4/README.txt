@@ -1,4 +1,4 @@
-Assignment 4 - ???
+Assignment 4 - Producer-Consumer Problem
 ============================================
  Name: Jason Downing
  Date: 11/8/2016
@@ -14,3 +14,7 @@ need to run and clean the project. The shell script included is setup to default
 to 5 consumers but I left commented out code for running from 1 to 10 consumers.
 
 I have also attached an excel file and graphs in PDF format.
+
+For graph 1...
+
+For graph 2...
