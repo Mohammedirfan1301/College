@@ -15,23 +15,20 @@ pthread_mutex_t   prod [NUMFLAVORS];
 pthread_mutex_t   cons [NUMFLAVORS];
 pthread_cond_t    prod_cond [NUMFLAVORS];
 pthread_cond_t    cons_cond [NUMFLAVORS];
-pthread_t         thread_id [NUMCONSUMERS+1], sig_wait_id;
+pthread_t         thread_id [NUMCONSUMERS + 1], sig_wait_id;
 
-// Thread counter
-int threadNum = 0;
+int threadNum = 0;    // Thread counter
 
 // Main
 int  main ( int argc, char *argv[] ) {
   int               i, j, k, nsigs;
+  int               arg_array[NUMCONSUMERS];
+  int sigs[]  = { SIGBUS, SIGSEGV, SIGFPE };
   struct timeval    randtime, first_time, last_time;
   struct sigaction  new_act;
-  int               arg_array[NUMCONSUMERS];
   sigset_t          all_signals;
-  int sigs[]  = { SIGBUS, SIGSEGV, SIGFPE };
-
   pthread_attr_t      thread_attr;
   struct sched_param  sched_struct;
-
 
   /**********************************************************************/
   /* INITIAL TIMESTAMP VALUE FOR PERFORMANCE MEASURE                    */
@@ -88,7 +85,7 @@ int  main ( int argc, char *argv[] ) {
   /*********************************************************************/
   if ( pthread_create (&sig_wait_id, NULL, sig_waiter, NULL) != 0 ) {
     printf ( "pthread_create failed " );
-    exit ( 3 );
+    exit (3);
   }
 
   pthread_attr_init ( &thread_attr );
@@ -104,13 +101,14 @@ int  main ( int argc, char *argv[] ) {
 
   if ( pthread_create (&thread_id[0], &thread_attr, producer, NULL ) != 0 ) {
     printf ( "pthread_create failed " );
-    exit ( 3 );
+    exit (3);
   }
 
   for ( i = 1; i < NUMCONSUMERS + 1; i++ ) {
-    if ( pthread_create ( &thread_id [i], &thread_attr, consumer, ( void * )&arg_array [i]) != 0 ) {
+    if ( pthread_create ( &thread_id [i], &thread_attr, consumer,
+                                          ( void * ) &arg_array [i]) != 0 ) {
       printf ( "pthread_create failed" );
-      exit ( 3 );
+      exit (3);
     }
   }
 
@@ -146,45 +144,50 @@ int  main ( int argc, char *argv[] ) {
 
   printf ( "Elapsed consumer time is %d sec and %d usec\n", i, j );
   printf ( "\n\n ALL CONSUMERS FINISHED, KILLING  PROCESS\n\n" );
-  exit ( 0 );
+  exit (0);
 }
 
 /*********************************************/
-/* PRODUCER                                  */
+/* PRODUCER CODE GOES HERE                   */
 /*********************************************/
 void  *producer ( void *arg ) {
-  int     i, j, k;
+  int     i, num, k;
   unsigned short  xsub [3];
   struct timeval  randtime;
 
+  // Random numbers
   gettimeofday ( &randtime, ( struct timezone * ) 0 );
   xsub [0] = ( ushort ) randtime.tv_usec;
   xsub [1] = ( ushort ) ( randtime.tv_usec >> 16 );
   xsub [2] = ( ushort ) ( pthread_self() );
 
-    while (1) {
-      j = nrand48(xsub) & 3;
-      pthread_mutex_lock(&prod[j]);
+  // Infinite loop!
+  while (1) {
+    num = nrand48(xsub) & 3;            // Get donut
+    pthread_mutex_lock(&cons[num]);     // Lock consumer for this flavor
 
-      while (shared_ring.spaces[j] == 0) {
-        pthread_cond_wait(&prod_cond[j], &prod[j]);
-      }
-
-      shared_ring.serial[j] = shared_ring.serial[j] + 1;
-      shared_ring.flavor[j][shared_ring.in_ptr[j]] = shared_ring.serial[j];
-      shared_ring.in_ptr[j] = (shared_ring.in_ptr[j]) + 1 % NUMSLOTS;
-      shared_ring.spaces[j] = shared_ring.spaces[j] - 1;
-
-      // unlock producer
-      pthread_mutex_unlock(&prod[j]);
-
-      // Lock consumer
-      pthread_mutex_lock(&cons[j]);
-
-      shared_ring.donuts[j] = shared_ring.donuts[j] + 1;
-      pthread_mutex_unlock(&cons[j]);
-      pthread_cond_signal(&cons_cond[j]);
+    // Wait for more donuts
+    while (shared_ring.spaces[num] == 0) {
+      pthread_cond_wait(&prod_cond[num], &prod[num]);
     }
+
+    // Donuts!
+    shared_ring.serial[num] = shared_ring.serial[num] + 1;
+    shared_ring.flavor[num][shared_ring.in_ptr[num]] = shared_ring.serial[num];
+    shared_ring.in_ptr[num] = (shared_ring.in_ptr[num]) + 1 % NUMSLOTS;
+    shared_ring.spaces[num] = shared_ring.spaces[num] - 1;
+
+    // Unlock producer & lock consumer
+    pthread_mutex_unlock(&prod[num]);
+    pthread_mutex_lock(&cons[num]);
+
+    // Next donut
+    shared_ring.donuts[num] = shared_ring.donuts[num] + 1;
+
+    // Unlock consumer & signal to consumer that we are complete
+    pthread_mutex_unlock(&cons[num]);
+    pthread_cond_signal(&cons_cond[num]);
+  }
 
   return NULL;
 }
@@ -196,11 +199,13 @@ void  *producer ( void *arg ) {
 void    *consumer ( void *arg ) {
   int i, k, m, y, z, rand_num, id;
   unsigned short xsub[3];
-  struct timeval randtime;
 
-  int type;
+  // Donuts, and donut types
   int donuts[4][12];
-  int type1, type2, type3, type4;
+  int type, type1, type2, type3, type4;
+
+  // Time variables
+  struct timeval randtime;
   struct tm *ptm;
   char szTime[40];
   long ms;
@@ -220,8 +225,8 @@ void    *consumer ( void *arg ) {
 
   for (i = 0; i < 150; i++) {
     type1 = 0;
-    type2 = 0;
-    type3 = 0;
+    type2 = 0;    // FOUR DIFFERENT TYPES OF DONUTS!
+    type3 = 0;    // PLAIN! JELLY! COCONUT! AND HONEY-DIP!
     type4 = 0;
 
     // One dozen donuts
@@ -264,7 +269,7 @@ void    *consumer ( void *arg ) {
         }
       }
 
-      // Reset outptr it we need to
+      // Reset the outptr if we need to
       if (shared_ring.outptr[rand_num] >= NUMSLOTS) {
           shared_ring.outptr[rand_num] = 0;
       } else {
@@ -274,35 +279,38 @@ void    *consumer ( void *arg ) {
       // Decrement count
       shared_ring.donuts[rand_num] = shared_ring.donuts[rand_num] - 1;
 
-      // Lock and unlock
+      // Lock consumer and unlock producer
       pthread_mutex_unlock(&cons[rand_num]);
       pthread_mutex_lock(&prod[rand_num]);
 
-      // Took a space so make sure it is not taken again
+      // Next space
       shared_ring.spaces[rand_num] = shared_ring.spaces[rand_num] + 1;
 
-      // Unlock producer since we are all done
+      // Unlock producer & signal to producer that we are complete
       pthread_mutex_unlock(&prod[rand_num]);
-
-      // Signal to producer we are complete
       pthread_cond_signal(&prod_cond[rand_num]);
     }
 
-    // Only write to file the first 10 dozen
+    // Only write the first 10 dozen to the file
     if (i < 10) {
-      ptm = localtime(&randtime.tv_sec);
-      strftime(szTime, sizeof(szTime), "%H:%M:%S", ptm);
-      long ms = randtime.tv_usec / 1000;
+      // Time stuff
+      ptm = localtime(&randtime.tv_sec);                  // Get time
+      strftime(sTime, sizeof(sTime), "%H:%M:%S", ptm);    // Format time as hour:minute:seconds
+      long ms = randtime.tv_usec / 1000;                  // Get milliseconds for the time format.
 
-      fprintf(fp, "\nthread #: %d", threadNum);
-      fprintf(fp, "\ntime: %s", szTime);
-      fprintf(fp, "\ndozen #: %d\n", i + 1);
-      fprintf(fp, "glaze\tstraw\tvanil\tchoc\n");
+      // Entry in local file
+      printf(fp, "\nthread #: %d", threadNum);
+      printf(fp, "\ntime: %s", szTime);
+      printf(fp, "\ndozen #: %d\n", i + 1);
+      printf("Plain\tJelly\tCoconut\tHoney-dip\n");
 
+      // Print donuts
       for (y = 0; y < 12; y++) {
-        fprintf(fp, "%d\t%d\t%d\t%d\n", donuts[0][y], donuts[1][y], donuts[2][y], donuts[3][y]);
+        fprintf(fp, "%d\t%d\t%d\t%d\n", donuts[0][y], donuts[1][y],
+                                        donuts[2][y], donuts[3][y]);
       }
 
+      // Reset donut flavors
       for (y = 0; y < NUMFLAVORS; y++) {
         for (z = 0; z < 12; z++) {
           donuts[y][z] = 0;
@@ -335,11 +343,11 @@ void    *sig_waiter ( void *arg ) {
 
   if ( sigwait ( &sigterm_signal, & signo)  != 0 ) {
     printf ( "\n  sigwait ( ) failed, exiting \n");
-    exit(2);
+    exit (2);
   }
 
   printf ( "process going down on SIGNAL (number %d)\n\n", signo );
-  exit ( 1 );
+  exit (1);
   return NULL;
 }
 
@@ -348,8 +356,8 @@ void    *sig_waiter ( void *arg ) {
 /* PTHREAD SYNCH SIGNAL HANDLER ROUTINE...                */
 /**********************************************************/
 void  sig_handler ( int sig ) {
-  pthread_t signaled_thread_id;
   int   i, thread_index;
+  pthread_t signaled_thread_id;
 
   signaled_thread_id = pthread_self ( );
 
@@ -361,5 +369,5 @@ void  sig_handler ( int sig ) {
   }
 
   printf ( "\nThread %d took signal # %d, PROCESS HALT\n", thread_index, sig );
-  exit ( 1 );
+  exit (1);
 }
