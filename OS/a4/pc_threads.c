@@ -294,10 +294,10 @@ void    *consumer ( void *arg ) {
 
     // Only write the first 10 dozen to the file
     if (i < 10) {
-      // Time stuff
-      ptm = localtime(&randtime.tv_sec);                  // Get time
-      strftime(sTime, sizeof(sTime), "%H:%M:%S", ptm);    // Format time as hour:minute:seconds
-      long ms = randtime.tv_usec / 1000;                  // Get milliseconds for the time format.
+      // Time stuff - Format time as hour:minute:seconds
+      ptm = localtime(&randtime.tv_sec);
+      strftime(sTime, sizeof(sTime), "%H:%M:%S", ptm);    // HH:MM:SS
+      long ms = randtime.tv_usec / 1000;
 
       // Entry in local file
       fprintf(fp, "\nthread #: %d", threadNum);
@@ -307,8 +307,8 @@ void    *consumer ( void *arg ) {
 
       // Print donuts
       for (y = 0; y < 12; y++) {
-        fprintf(fp, "%d\t%d\t%d\t%d\n", donuts[0][y], donuts[1][y],
-                                        donuts[2][y], donuts[3][y]);
+        fprintf(fp, "%d\t%d\t%d\t%d\n",
+                donuts[0][y], donuts[1][y], donuts[2][y], donuts[3][y]);
       }
 
       // Reset donut flavors
@@ -343,7 +343,7 @@ void    *sig_waiter ( void *arg ) {
 
 
   if ( sigwait ( &sigterm_signal, & signo)  != 0 ) {
-    printf ( "\n  sigwait ( ) failed, exiting \n");
+    printf ( "\n  sigwait() failed, exiting \n");
     exit (2);
   }
 
