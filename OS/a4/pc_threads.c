@@ -158,7 +158,7 @@ void  *producer ( void *arg ) {
   struct timeval  randtime;
 
   gettimeofday ( &randtime, ( struct timezone * ) 0 );
-  xsub [0] = ( ushort )randtime.tv_usec;
+  xsub [0] = ( ushort ) randtime.tv_usec;
   xsub [1] = ( ushort ) ( randtime.tv_usec >> 16 );
   xsub [2] = ( ushort ) ( pthread_self() );
 
@@ -194,13 +194,13 @@ void  *producer ( void *arg ) {
 /* CONSUMER                                  */
 /*********************************************/
 void    *consumer ( void *arg ) {
-  int i, j, k, m, y, id;
+  int i, k, m, y, z, rand_num, id;
   unsigned short xsub[3];
   struct timeval randtime;
 
   int type;
   int donuts[4][12];
-  int c1, c2, c3, c4;
+  int type1, type2, type3, type4;
   struct tm *ptm;
   char szTime[40];
   long ms;
@@ -219,71 +219,73 @@ void    *consumer ( void *arg ) {
   xsub[2] = (ushort) (pthread_self() );
 
   for (i = 0; i < 150; i++) {
-    c1 = 0;
-    c2 = 0;
-    c3 = 0;
-    c4 = 0;
+    type1 = 0;
+    type2 = 0;
+    type3 = 0;
+    type4 = 0;
 
     // One dozen donuts
     for (m = 0; m < 12; m++) {
-      j = nrand48(xsub) & 3;            // Get donut
-      pthread_mutex_lock(&cons[j]);     // Lock consumer for this flavor
+      rand_num = nrand48(xsub) & 3;            // Get donut
+      pthread_mutex_lock(&cons[rand_num]);     // Lock consumer for this flavor
 
       // Wait for more donuts
-      while (shared_ring.donuts[j] == 0) {
-        pthread_cond_wait(&cons_cond[j], &cons[j]);
+      while (shared_ring.donuts[rand_num] == 0) {
+        pthread_cond_wait(&cons_cond[rand_num], &cons[rand_num]);
       }
 
-      type = shared_ring.flavor[j][shared_ring.outptr[j]];
+      // Collect a random type of donut
+      type = shared_ring.flavor[rand_num][shared_ring.outptr[rand_num]];
 
-      switch (j) {
+      // Four types of donuts to pick from
+      switch (rand_num) {
         case 0: {
-          donuts[j][c1] = type;
-          c1++;
+          donuts[rand_num][type1] = type;
+          type1++;
           break;
         }
 
         case 1: {
-          donuts[j][c2] = type;
-          c2++;
+          donuts[rand_num][type2] = type;
+          type2++;
           break;
         }
 
         case 2: {
-          donuts[j][c3] = type;
-          c3++;
+          donuts[rand_num][type3] = type;
+          type3++;
           break;
         }
 
         case 3: {
-          donuts[j][c4] = type;
-          c4++;
+          donuts[rand_num][type4] = type;
+          type4++;
           break;
         }
       }
 
       // Reset outptr it we need to
-      if (shared_ring.outptr[j] >= NUMSLOTS) {
-          shared_ring.outptr[j] = 0;
+      if (shared_ring.outptr[rand_num] >= NUMSLOTS) {
+          shared_ring.outptr[rand_num] = 0;
       } else {
-          shared_ring.outptr[j] = shared_ring.outptr[j] + 1;
+          shared_ring.outptr[rand_num] = shared_ring.outptr[rand_num] + 1;
       }
 
       // Decrement count
-      shared_ring.donuts[j] = shared_ring.donuts[j] - 1;
+      shared_ring.donuts[rand_num] = shared_ring.donuts[rand_num] - 1;
 
       // Lock and unlock
-      pthread_mutex_unlock(&cons[j]);
-      pthread_mutex_lock(&prod[j]);
+      pthread_mutex_unlock(&cons[rand_num]);
+      pthread_mutex_lock(&prod[rand_num]);
 
       // Took a space so make sure it is not taken again
-      shared_ring.spaces[j] = shared_ring.spaces[j] + 1;
+      shared_ring.spaces[rand_num] = shared_ring.spaces[rand_num] + 1;
 
       // Unlock producer since we are all done
-      pthread_mutex_unlock(&prod[j]);
+      pthread_mutex_unlock(&prod[rand_num]);
 
       // Signal to producer we are complete
-      pthread_cond_signal(&prod_cond[j]);
+      pthread_cond_signal(&prod_cond[rand_num]);
     }
 
     // Only write to file the first 10 dozen
@@ -302,8 +304,8 @@ void    *consumer ( void *arg ) {
       }
 
       for (y = 0; y < NUMFLAVORS; y++) {
-        for (j = 0; j < 12; j++) {
-          donuts[y][j] = 0;
+        for (z = 0; z < 12; z++) {
+          donuts[y][z] = 0;
         }
       }
     }
