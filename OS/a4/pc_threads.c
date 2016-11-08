@@ -1,4 +1,13 @@
-#include "a4.h"
+/*
+ *  Jason Downing
+ *  A4 C File
+ *  11/8/2016
+ *
+ *  This is from Prof. Moloney's help file at the following URL:
+ *  http://www.cs.uml.edu/~bill/cs308/call_help_assign4.txt
+ *
+ */
+#include "pc_threads.h"
 
 // Global Variables
 struct donut_ring   shared_ring;
@@ -6,37 +15,40 @@ pthread_mutex_t   prod [NUMFLAVORS];
 pthread_mutex_t   cons [NUMFLAVORS];
 pthread_cond_t    prod_cond [NUMFLAVORS];
 pthread_cond_t    cons_cond [NUMFLAVORS];
-pthread_t   thread_id [NUMCONSUMERS+1], sig_wait_id;
+pthread_t         thread_id [NUMCONSUMERS+1], sig_wait_id;
 
+// Thread counter
+int threadNum = 0;
 
+// Main
 int  main ( int argc, char *argv[] ) {
-  int     i, j, k, nsigs;
+  int               i, j, k, nsigs;
   struct timeval    randtime, first_time, last_time;
   struct sigaction  new_act;
-  int     arg_array[NUMCONSUMERS];
-  sigset_t      all_signals;
-  int sigs[]    = { SIGBUS, SIGSEGV, SIGFPE };
+  int               arg_array[NUMCONSUMERS];
+  sigset_t          all_signals;
+  int sigs[]  = { SIGBUS, SIGSEGV, SIGFPE };
 
-  pthread_attr_t    thread_attr;
-  struct sched_param    sched_struct;
+  pthread_attr_t      thread_attr;
+  struct sched_param  sched_struct;
 
 
-/**********************************************************************/
-/* INITIAL TIMESTAMP VALUE FOR PERFORMANCE MEASURE                    */
-/**********************************************************************/
+  /**********************************************************************/
+  /* INITIAL TIMESTAMP VALUE FOR PERFORMANCE MEASURE                    */
+  /**********************************************************************/
   gettimeofday (&first_time, (struct timezone *) 0 );
 
   for ( i = 0; i < NUMCONSUMERS + 1; i++ ) {
     arg_array [i] = i;  /** SET ARRAY OF ARGUMENT VALUES **/
   }
 
-/**********************************************************************/
-/* GENERAL PTHREAD MUTEX AND CONDITION INIT AND GLOBAL INIT           */
-/**********************************************************************/
+  /**********************************************************************/
+  /* GENERAL PTHREAD MUTEX AND CONDITION INIT AND GLOBAL INIT           */
+  /**********************************************************************/
   for ( i = 0; i < NUMFLAVORS; i++ ) {
     pthread_mutex_init ( &prod [i], NULL );
     pthread_mutex_init ( &cons [i], NULL );
-    thread_cond_init ( &prod_cond [i],  NULL );
+    pthread_cond_init ( &prod_cond [i],  NULL );
     pthread_cond_init ( &cons_cond [i],  NULL );
     shared_ring.outptr [i]    = 0;
     shared_ring.in_ptr [i]    = 0;
@@ -45,9 +57,9 @@ int  main ( int argc, char *argv[] ) {
     shared_ring.donuts [i]    = 0;
   }
 
-/**********************************************************************/
-/* SETUP FOR MANAGING THE SIGTERM SIGNAL, BLOCK ALL SIGNALS           */
-/**********************************************************************/
+  /**********************************************************************/
+  /* SETUP FOR MANAGING THE SIGTERM SIGNAL, BLOCK ALL SIGNALS           */
+  /**********************************************************************/
   sigfillset (&all_signals );
   nsigs = sizeof ( sigs ) / sizeof ( int );
 
@@ -71,9 +83,9 @@ int  main ( int argc, char *argv[] ) {
 
   printf ( "just before threads created\n" );
 
-/*********************************************************************/
-/* CREATE SIGNAL HANDLER THREAD, PRODUCER AND CONSUMERS              */
-/*********************************************************************/
+  /*********************************************************************/
+  /* CREATE SIGNAL HANDLER THREAD, PRODUCER AND CONSUMERS              */
+  /*********************************************************************/
   if ( pthread_create (&sig_wait_id, NULL, sig_waiter, NULL) != 0 ) {
     printf ( "pthread_create failed " );
     exit ( 3 );
@@ -150,14 +162,29 @@ void  *producer ( void *arg ) {
   xsub [1] = ( ushort ) ( randtime.tv_usec >> 16 );
   xsub [2] = ( ushort ) ( pthread_self() );
 
-  while ( 1 ) {
-    j = nrand48 ( xsub ) & 3;
-    pthread_mutex_lock ( &prod [j] );
+    while (1) {
+      j = nrand48(xsub) & 3;
+      pthread_mutex_lock(&prod[j]);
 
-    while ( shared_ring.spaces [j] == 0 ) {
-      pthread_cond_wait ( &prod_cond [j], &prod [j] );
+      while (shared_ring.spaces[j] == 0) {
+        pthread_cond_wait(&prod_cond[j], &prod[j]);
+      }
+
+      shared_ring.serial[j] = shared_ring.serial[j] + 1;
+      shared_ring.flavor[j][shared_ring.in_ptr[j]] = shared_ring.serial[j];
+      shared_ring.in_ptr[j] = (shared_ring.in_ptr[j]) + 1 % NUMSLOTS;
+      shared_ring.spaces[j] = shared_ring.spaces[j] - 1;
+
+      // unlock producer
+      pthread_mutex_unlock(&prod[j]);
+
+      // Lock consumer
+      pthread_mutex_lock(&cons[j]);
+
+      shared_ring.donuts[j] = shared_ring.donuts[j] + 1;
+      pthread_mutex_unlock(&cons[j]);
+      pthread_cond_signal(&cons_cond[j]);
     }
-  }
 
   return NULL;
 }
@@ -167,39 +194,141 @@ void  *producer ( void *arg ) {
 /* CONSUMER                                  */
 /*********************************************/
 void    *consumer ( void *arg ) {
-  int         i, j, k, m, id;
-  unsigned short  xsub [3];
-  struct timeval  randtime;
-  id = *( int * ) arg;
-  gettimeofday ( &randtime, ( struct timezone * ) 0 );
-  xsub [0] = ( ushort )randtime.tv_usec;
-  xsub [1] = ( ushort ) ( randtime.tv_usec >> 16 );
-  xsub [2] = ( ushort ) ( pthread_self() );
+  int i, j, k, m, y, id;
+  unsigned short xsub[3];
+  struct timeval randtime;
 
-  for( i = 0; i < 10; i++ ) {
-    for( m = 0; m < 12; m++ ) {
-      j = nrand48( xsub ) & 3;
+  int type;
+  int donuts[4][12];
+  int c1, c2, c3, c4;
+  struct tm *ptm;
+  char szTime[40];
+  long ms;
+
+  // Get a 9 letter file name
+  char *fName = (char *) malloc(sizeof(char) * 10);
+  threadNum++;
+  sprintf(fName, "c%d", threadNum);
+  FILE *fp = fopen(fName, "w");
+
+  // Random numbers
+  id = *(int *) arg;
+  gettimeofday(&randtime, (struct timezone *) 0);
+  xsub[0] = (ushort) (randtime.tv_usec);
+  xsub[1] = (ushort) (randtime.tv_usec >> 16);
+  xsub[2] = (ushort) (pthread_self() );
+
+  for (i = 0; i < 150; i++) {
+    c1 = 0;
+    c2 = 0;
+    c3 = 0;
+    c4 = 0;
+
+    // One dozen donuts
+    for (m = 0; m < 12; m++) {
+      j = nrand48(xsub) & 3;            // Get donut
+      pthread_mutex_lock(&cons[j]);     // Lock consumer for this flavor
+
+      // Wait for more donuts
+      while (shared_ring.donuts[j] == 0) {
+        pthread_cond_wait(&cons_cond[j], &cons[j]);
+      }
+
+      type = shared_ring.flavor[j][shared_ring.outptr[j]];
+
+      switch (j) {
+        case 0: {
+          donuts[j][c1] = type;
+          c1++;
+          break;
+        }
+
+        case 1: {
+          donuts[j][c2] = type;
+          c2++;
+          break;
+        }
+
+        case 2: {
+          donuts[j][c3] = type;
+          c3++;
+          break;
+        }
+
+        case 3: {
+          donuts[j][c4] = type;
+          c4++;
+          break;
+        }
+      }
+
+      // Reset outptr it we need to
+      if (shared_ring.outptr[j] >= NUMSLOTS) {
+          shared_ring.outptr[j] = 0;
+      } else {
+          shared_ring.outptr[j] = shared_ring.outptr[j] + 1;
+      }
+
+      // Decrement count
+      shared_ring.donuts[j] = shared_ring.donuts[j] - 1;
+
+      // Lock and unlock
+      pthread_mutex_unlock(&cons[j]);
+      pthread_mutex_lock(&prod[j]);
+
+      // Took a space so make sure it is not taken again
+      shared_ring.spaces[j] = shared_ring.spaces[j] + 1;
+
+      // Unlock producer since we are all done
+      pthread_mutex_unlock(&prod[j]);
+
+      // Signal to producer we are complete
+      pthread_cond_signal(&prod_cond[j]);
     }
 
-/*****************************************************************/
-/* USING A MICRO-SLEEP AFTER EACH DOZEN WILL ALLOW ANOTHER       */
-/* CONSUMER TO START RUNNING, PROVIDING DESIRED RANDOM BEHVIOR   */
-/*****************************************************************/
+    // Only write to file the first 10 dozen
+    if (i < 10) {
+      ptm = localtime(&randtime.tv_sec);
+      strftime(szTime, sizeof(szTime), "%H:%M:%S", ptm);
+      long ms = randtime.tv_usec / 1000;
+
+      fprintf(fp, "\nthread #: %d", threadNum);
+      fprintf(fp, "\ntime: %s", szTime);
+      fprintf(fp, "\ndozen #: %d\n", i + 1);
+      fprintf(fp, "glaze\tstraw\tvanil\tchoc\n");
+
+      for (y = 0; y < 12; y++) {
+        fprintf(fp, "%d\t%d\t%d\t%d\n", donuts[0][y], donuts[1][y], donuts[2][y], donuts[3][y]);
+      }
+
+      for (y = 0; y < NUMFLAVORS; y++) {
+        for (j = 0; j < 12; j++) {
+          donuts[y][j] = 0;
+        }
+      }
+    }
+
+    /*****************************************************************/
+    /* USING A MICRO-SLEEP AFTER EACH DOZEN WILL ALLOW ANOTHER       */
+    /* CONSUMER TO START RUNNING, PROVIDING DESIRED RANDOM BEHVIOR   */
+    /*****************************************************************/
     usleep(1000); /* sleep 1 ms */
   }
-  return NULL:
+
+  return NULL;
 }
+
 
 /***********************************************************/
 /* PTHREAD ASYNCH SIGNAL HANDLER ROUTINE...                */
 /***********************************************************/
 void    *sig_waiter ( void *arg ) {
+  int       signo;
   sigset_t  sigterm_signal;
-  int   signo;
 
   sigemptyset ( &sigterm_signal );
-  sigaddset ( &sigterm_signal, SIGTERM );
-  sigaddset ( &sigterm_signal, SIGINT );
+  sigaddset   ( &sigterm_signal, SIGTERM );
+  sigaddset   ( &sigterm_signal, SIGINT );
 
 
   if ( sigwait ( &sigterm_signal, & signo)  != 0 ) {
