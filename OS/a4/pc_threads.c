@@ -19,14 +19,13 @@ pthread_t         thread_id [NUMCONSUMERS + 1], sig_wait_id;
 
 int threadNum = 0;    // Thread counter
 
-// Main
 int  main ( int argc, char *argv[] ) {
-  int               i, j, k, nsigs;
-  int               arg_array[NUMCONSUMERS];
-  int sigs[]  = { SIGBUS, SIGSEGV, SIGFPE };
-  struct timeval    randtime, first_time, last_time;
-  struct sigaction  new_act;
-  sigset_t          all_signals;
+  int                 i, j, k, nsigs;
+  int                 arg_array[NUMCONSUMERS];
+  int sigs[]        = { SIGBUS, SIGSEGV, SIGFPE };
+  struct timeval      randtime, first_time, last_time;
+  struct sigaction    new_act;
+  sigset_t            all_signals;
   pthread_attr_t      thread_attr;
   struct sched_param  sched_struct;
 
@@ -341,7 +340,6 @@ void    *sig_waiter ( void *arg ) {
   sigaddset   ( &sigterm_signal, SIGTERM );
   sigaddset   ( &sigterm_signal, SIGINT );
 
-
   if ( sigwait ( &sigterm_signal, & signo)  != 0 ) {
     printf ( "\n  sigwait() failed, exiting \n");
     exit (2);
@@ -358,9 +356,7 @@ void    *sig_waiter ( void *arg ) {
 /**********************************************************/
 void  sig_handler ( int sig ) {
   int   i, thread_index;
-  pthread_t signaled_thread_id;
-
-  signaled_thread_id = pthread_self ( );
+  pthread_t signaled_thread_id = pthread_self ( );
 
   for ( i = 0; i < (NUMCONSUMERS + 1 ); i++) {
     if ( signaled_thread_id == thread_id [i] )  {
