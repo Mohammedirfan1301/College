@@ -15,10 +15,11 @@
 #include <time.h>
 #include <unistd.h>
 
-#define   NUMFLAVORS      4
-#define   NUMSLOTS       26500
-#define   NUMCONSUMERS    5
-#define   NUMPRODUCERS    5
+#define   NUMFLAVORS         4    // Four flavors of donuts!
+#define   NUMSLOTS       26500    // Queue size
+#define   NUMCONSUMERS      50    // Number of consumers
+#define   NUMPRODUCERS      30    // Number of producers
+#define   NUM_DONUTS       200    // How many donuts we collect
 
 struct  donut_ring {
   int   flavor [NUMFLAVORS] [NUMSLOTS];

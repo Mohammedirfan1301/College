@@ -223,7 +223,8 @@ void    *consumer ( void *arg ) {
   xsub[1] = (ushort) (randtime.tv_usec >> 16);
   xsub[2] = (ushort) (pthread_self() );
 
-  for (i = 0; i < 150; i++) {
+  // Number of donuts we want to collect.
+  for (i = 0; i < NUM_DONUTS; i++) {
     type1 = 0;
     type2 = 0;    // FOUR DIFFERENT TYPES OF DONUTS!
     type3 = 0;    // PLAIN! JELLY! COCONUT! AND HONEY-DIP!
