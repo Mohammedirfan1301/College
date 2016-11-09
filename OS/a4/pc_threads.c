@@ -163,11 +163,11 @@ void  *producer ( void *arg ) {
   // Infinite loop!
   while (1) {
     num = nrand48(xsub) & 3;            // Get donut
-    pthread_mutex_lock(&cons[num]);     // Lock consumer for this flavor
+    pthread_mutex_lock( &cons[num] );     // Lock consumer for this flavor
 
     // Wait for more donuts
     while (shared_ring.spaces[num] == 0) {
-      pthread_cond_wait(&prod_cond[num], &prod[num]);
+      pthread_cond_wait( &prod_cond[num], &prod[num] );
     }
 
     // Donuts!
@@ -177,15 +177,15 @@ void  *producer ( void *arg ) {
     shared_ring.spaces[num] = shared_ring.spaces[num] - 1;
 
     // Unlock producer & lock consumer
-    pthread_mutex_unlock(&cons[num]);
-    pthread_mutex_lock(&prod[num]);
+    pthread_mutex_unlock( &cons[num] );
+    pthread_mutex_lock( &prod[num] );
 
     // Next donut
     shared_ring.donuts[num] = shared_ring.donuts[num] + 1;
 
     // Unlock consumer & signal to consumer that we are complete
-    pthread_mutex_unlock(&prod[num]);
-    pthread_cond_signal(&cons_cond[num]);
+    pthread_mutex_unlock( &prod[num] );
+    pthread_cond_signal( &cons_cond[num] );
   }
 
   return NULL;
@@ -223,7 +223,7 @@ void    *consumer ( void *arg ) {
   xsub[2] = (ushort) (pthread_self() );
 
   // Number of donuts we want to collect.
-  for (i = 0; i < NUM_DONUTS; i++) {
+  for (i = 0; i < 200; i++) {
     type1 = 0;
     type2 = 0;    // FOUR DIFFERENT TYPES OF DONUTS!
     type3 = 0;    // PLAIN! JELLY! COCONUT! AND HONEY-DIP!
@@ -356,7 +356,9 @@ void    *sig_waiter ( void *arg ) {
 /**********************************************************/
 void  sig_handler ( int sig ) {
   int   i, thread_index;
-  pthread_t signaled_thread_id = pthread_self ( );
+  pthread_t signaled_thread_id;
+
+  signaled_thread_id = pthread_self ( );
 
   for ( i = 0; i < (NUMCONSUMERS + 1 ); i++) {
     if ( signaled_thread_id == thread_id [i] )  {
