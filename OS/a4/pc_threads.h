@@ -16,7 +16,7 @@
 #include <unistd.h>
 
 #define   NUMFLAVORS         4    // Four flavors of donuts!
-#define   NUMSLOTS       26500    // Queue size
+#define   NUMSLOTS       35000    // Queue size
 #define   NUMCONSUMERS      50    // Number of consumers
 #define   NUMPRODUCERS      30    // Number of producers
 #define   NUM_DONUTS       200    // How many donuts we collect

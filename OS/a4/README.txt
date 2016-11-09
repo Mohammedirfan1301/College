@@ -15,6 +15,19 @@ to 5 consumers but I left commented out code for running from 1 to 10 consumers.
 
 I have also attached an excel file and graphs in PDF format.
 
-For graph 1...
+I used the following command to run each test:
+./A4_donut_loop.sh 5
 
-For graph 2...
+This ran the shell script (provided by Prof. Moloney) through 5 loops, and I
+varied the settings in the header file according to each test.
+
+TEST 1: Queue Size vs % Deadlock
+For the first round of tests and for graph 1, I ran the shell script with the
+header file set to 50 consumers and 30 consumers, and with a hard coded value
+of 200 donuts. I then varied the Queue Size (NUMSLOTS) setting for testing.
+I started with a Queue Size of 26,500 and I incremented it up to 28,500. I
+figured that somewhere in between I would find the 50% Queue size and not
+suprisingly I did when the queue size was set to XX.
+
+TEST 2: Dozens of Donuts vs % Deadlock
+For the second round of tests and for graph 2, I ran the shell script with..

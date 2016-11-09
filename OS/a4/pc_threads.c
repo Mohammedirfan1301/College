@@ -177,14 +177,14 @@ void  *producer ( void *arg ) {
     shared_ring.spaces[num] = shared_ring.spaces[num] - 1;
 
     // Unlock producer & lock consumer
-    pthread_mutex_unlock(&prod[num]);
-    pthread_mutex_lock(&cons[num]);
+    pthread_mutex_unlock(&cons[num]);
+    pthread_mutex_lock(&prod[num]);
 
     // Next donut
     shared_ring.donuts[num] = shared_ring.donuts[num] + 1;
 
     // Unlock consumer & signal to consumer that we are complete
-    pthread_mutex_unlock(&cons[num]);
+    pthread_mutex_unlock(&prod[num]);
     pthread_cond_signal(&cons_cond[num]);
   }
 
