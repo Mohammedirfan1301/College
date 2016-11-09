@@ -163,7 +163,7 @@ void  *producer ( void *arg ) {
   // Infinite loop!
   while (1) {
     num = nrand48(xsub) & 3;              // Get donut
-    pthread_mutex_lock( &prod[num] );     // Lock consumer for this flavor
+    pthread_mutex_lock( &cons[num] );     // Lock consumer for this flavor
 
     // Wait for more donuts
     while (shared_ring.spaces[num] == 0) {
@@ -177,8 +177,8 @@ void  *producer ( void *arg ) {
     shared_ring.spaces[num] = shared_ring.spaces[num] - 1;
 
     // Unlock producer & lock consumer
-    pthread_mutex_unlock( &prod[num] );
-    pthread_mutex_lock( &cons[num] );
+    pthread_mutex_unlock( &cons[num] );
+    pthread_mutex_lock( &prod[num] );
 
     // Next donut
     shared_ring.donuts[num] = shared_ring.donuts[num] + 1;
