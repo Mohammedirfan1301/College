@@ -151,7 +151,7 @@ $M_2$ enters into the $q_{accept}$ state, and as a result the input is accepted.
 % 3.2 b, c, d, e + 01100#01100, 01101#01100
 \pagebreak
 
-This exercise concerns $TM M_1$, whose description and state diagram appear in 
+3.2 This exercise concerns $TM M_1$, whose description and state diagram appear in 
 Example 3.9. In each of the parts, give the sequence of configurations that $M_1$ 
 enters when started on the indicated input string. \\
 
@@ -272,9 +272,9 @@ Left shift (0,1) until we hit a x.        \\
 $xxx                  q_7    00 \# xxx00$ \\
 $xxx0                 q_1     0 \# xxx00$ \\
 $xxxx0                q_2       \# xxx00$ \\
-$xxxx0 \#             q_2          xxx00$ \\
+$xxxx0 \#             q_4          xxx00$ \\
 $xxxx0 \# x           q_4           xx00$ \\
-Right shift (x) until we hit a 0.
+Right shift (x) until we hit a 0.         \\
 $xxxx0 \# xxx         q_4             00$ \\
 $xxxx0 \# xx          q_6            xx0$ \\
 Left shift (0,1,x) until we hit a $\#$.  \\
@@ -295,27 +295,113 @@ $xxxxx \# x           q_8             xxxx$ \\
 Right shift all the x's. \\
 $xxxxx \# xxxxx       q_8  \Vtextvisiblespace    $ \\
 $xxxxx \# xxxxx  \Vtextvisiblespace  q_{accept} \Vtextvisiblespace $ \\
+$M_1$ enters into the $q_{accept}$ state, and as a result the input is accepted. \\
 
+\pagebreak
 And this one: $01101\#01100$ \\
 
 Input is $01101\#01100$. Starting state is $q_1 01101\#01100$. \\
 Running $01101\#01100$ on the machine $M_1$ results in the following config: \\
 
-$q_1 01101\#01100$ \\
+$                   q_1 01101 \# 01100$ \\
+$x                  q_2  1101 \# 01100$ \\
+Right shift (0,1) until we hit a $\#$   \\
+$x1101              q_2       \# 01100$ \\
+$x1101 \#           q_4          01100$ \\
+$x1101              q_6       \# x1100$ \\
+$x110               q_7     1 \# x1100$ \\
+Left shift (0,1) until we hit a x       \\
+$x                  q_7  1101 \# x1100$ \\
+$x1                 q_1   101 \# x1100$ \\
+$xx1                q_3    01 \# x1100$ \\
+Right shift (0,1) until we hit a $\#$   \\
+$xx101              q_3       \# x1100$ \\
+$xx101 \#           q_5          x1100$ \\
+$xx101 \# x         q_5           1100$ \\
+$xx101 \#           q_6          xx100$ \\
+$xx101              q_7       \# xx100$ \\
+Left shift (0,1) until we hit a x       \\
+$xx                 q_7   101 \# xx100$ \\
+$xx1                q_1    01 \# xx100$ \\
+$xxx0               q_3     1 \# xx100$ \\
+$xxx01              q_3       \# xx100$ \\
+$xxx01 \#           q_5          xx100$ \\
+Right shift (x) until we hit a 1.       \\
+$xxx01 \# xx        q_5            100$ \\
+$xxx01 \# x         q_6           xx00$ \\
+$xxx01 \#           q_6          xxx00$ \\
+$xxx01              q_7       \# xxx00$ \\
+Left shift (0,1) until we hit a x       \\
+$xxx                q_7    01 \# xxx00$ \\
+$xxx0               q_1     1 \# xxx00$ \\
+$xxxx1              q_2       \# xxx00$ \\
+$xxxx1 \#           q_4          xxx00$ \\
+Right shift (x) until we hit a 0.       \\
+$xxxx1 \# xxx       q_4             00$ \\
+$xxxx1 \# xxxx      q_6              0$ \\
+Left shift (0, 1, x) until we hit  $\#$ \\
+$xxxx1 \#           q_6          xxxx0$ \\
+$xxxx1              q_7      \#  xxxx0$ \\
+$xxxx               q_7    1 \#  xxxx0$ \\
+$xxxx1              q_1      \#  xxxx0$ \\
+$xxxxx  \#          q_3          xxxx0$ \\
+$xxxxx              q_5      \#  xxxx0$ \\
+Right shift (x) until we hit a 1.
+$xxxxx \#  xxxx     q_5              0$ \\
+At this point the machine will go into the reject state. \\
+The reason for this is that it cannot read a 1, or an x. \\
+$xxxxx \#  xxxx0    q_{reject}        $ \\
+$M_1$ enters into the $q_{reject}$ state, and as a result the input is rejected. \\
 
-
+The reason for this failure is that at $q_5$, the machine expects a 1 but it gets \\
+a 0. There are no paths for 0 at $q_5$, and as a result the machine will go into \\
+the reject state as it is unable to continue. \\
 
 
 %*********************************************************************************
 % 3.8  b, c + other stuff
 \pagebreak
 
-Give implementation-level descriptions of Turing machines that decide the following
+3.8 Give implementation-level descriptions of Turing machines that decide the following
 languages over the alphabet $\{0,1\}$. \\
 
 b. $\{$w $\mid$ w contains twice as many 0s as 1s$\}$ \\
 
+For input string $w$, we would do the following implementation: \\
+\textbf{1.} We first scan the tape and mark the first 0 that has not been marked yet.
+If we find no unmarked 0's, we then continue to $\#4$. \\
+
+\textbf{2.} We move onto mark the next unmarked 0. If we do not find any on the tape,
+we enter the reject state. Otherwise, we move back to the front of the tape. \\
+
+\textbf{3.} We scan the tape and mark the first 1 which has not been marked yet. If there
+is no unmarked 1, we enter the reject state. \\
+
+\textbf{4.} We now move the head back to the front of the tape, and repeat $\#1$. \\
+
+\textbf{5.} We move the head of the tape back to the front of the tape, and we then scan
+the tape to see if we can find any unmarked 1's. If there are none, we enter the
+accept state. Otherwise we enter the reject state. \\
+
 c. $\{$w $\mid$ w does not contain twice as many 0s as 1s$\}$ \\
+
+For input string $w$, we would do the following implementation: \\
+
+\textbf{1.} We first scan the tape and mark the first 0 which has not yet been marked.
+If we find no unmarked 0, we go to $\#4$. \\
+
+\textbf{2.} We continue moving and mark the next unmarked 0. If we do not find any on
+the tape, then we enter the accept state. Otherwise, we move the head of the tape back
+to the front and we continue. \\
+
+\textbf{3.} We scan the tape and mark the first 1 which has not yet been marked. If 
+there are no unmarked 1's, we enter the accept state. \\
+
+\textbf{4.} We move the head back to the front of the tape, and we repeat $#1$. \\
+
+\textbf{5.} We move the head back to the front of the tape, and we scan the tape
+to see if there are any unmarked 1's. If there are no unmarked 1's, we enter the 
+reject state. Otherwise, we enter the accept state. \\
 
 Plus: Draw the state diagram for Turning Machines 3.8b and 3.8c \\
 3.8b \\
