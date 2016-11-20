@@ -39,7 +39,7 @@ Running the input 0 on the machine $M_2$, we get the following configuration: \\
 $q_1 0$ \\
 $\Vtextvisiblespace q_2 \Vtextvisiblespace$ \\
 $\Vtextvisiblespace  \Vtextvisiblespace q_{accept}$  \\
-$M_2$ enters into the $q_{accept}$ state, and as a result the input of 0 is accepted. \\
+$M_2$ enters into the $q_{accept}$ state, and as a result the input is accepted. \\
 
 c. 000. \\
 
@@ -145,6 +145,7 @@ $\Vtextvisiblespace xxxxx     q_2 xx      \Vtextvisiblespace  $  \\
 $\Vtextvisiblespace xxxxxx    q_2 x       \Vtextvisiblespace  $  \\
 $\Vtextvisiblespace xxxxxxx   q_2         \Vtextvisiblespace  $  \\
 $\Vtextvisiblespace xxxxxxx   q_{accept}  \Vtextvisiblespace  $  \\
+$M_2$ enters into the $q_{accept}$ state, and as a result the input is accepted. \\
 
 %*********************************************************************************
 % 3.2 b, c, d, e + 01100#01100, 01101#01100
@@ -154,19 +155,156 @@ This exercise concerns $TM M_1$, whose description and state diagram appear in
 Example 3.9. In each of the parts, give the sequence of configurations that $M_1$ 
 enters when started on the indicated input string. \\
 
-b. $1\#1.$ \\
+b. $1\#1$. \\
+
+Input is $1\#1$. Starting state is $q_1 1\#1$. \\
+Running $1\#1$ on the machine $M_1$ results in the following configuration: \\
+
+$       q_1 1 \# 1  $ \\
+$x      q_3 \# 1    $ \\
+$x \#   q_5 1       $ \\
+$x \#   q_6 x       $ \\
+$       q_7 x \# x  $ \\
+$x      q_1 \# x    $ \\
+$x \#   q_8 x       $ \\
+$x \# x q_9 \Vtextvisiblespace $ \\
+$x \# x \Vtextvisiblespace q_{accept} $ \\
+$M_1$ enters into the $q_{accept}$ state, and as a result the input is accepted. \\
+
+c. $1\#\#1$ \\
+
+Input is $1\#\#1$. Starting state is $q_1 1\#\#1$. \\
+Running $1\#\#1$ on the machine $M_1$ results in the following configuration: \\
+
+$q_1 1 \# \# 1$ \\
+$x q_3 \# \# 1$ \\
+$x \# q_5 \# 1$ \textit{(At this point $q_5$ does not read the $\#$, so it enters the reject state)} \\
+$x \# \# q_{reject} 1 $ \\
+$M_1$ enters into the $q_{reject}$ state, and as a result the input is rejected. \\
+
+\pagebreak
+d. $10\#11$. \\
+
+Input is $10\#11$. Starting state is $q_1 10\#11$. \\
+Running $10\#11$ on the machine $M_1$ results in the following configuration: \\
+
+$        q_1 10 \# 11  $ \\
+$x       q_3 0 \# 11   $ \\
+$x0      q_3 \# 11     $ \\
+$x0 \#   q_5 11        $ \\
+$x0      q_6 \# x 1    $ \\
+$x       q_7 0 \# x 1    $ \\
+$        q_7 x 0 \# x 1  $ \\
+$x       q_1 0 \# x 1    $ \\
+$xx      q_2 \# x 1      $ \\
+$xx \#   q_4 x 1         $ \\
+$xx \# x q_4 1 $ \textit{(At this point $q_4$ does not read the $1$, so it enters the reject state)} \\
+$xx \# x 1 q_{reject}    $ \\
+$M_1$ enters into the $q_{reject}$ state, and as a result the input is rejected. \\
+
+\pagebreak
+e. $10\#10$. \\
+
+Input is $10\#10$. Starting state is $q_1 10\#10$. \\
+Running $10\#10$ on the machine $M_1$ results in the following configuration: \\
+
+$            q_1 10 \# 10   $ \\
+$x           q_3 0  \# 10   $ \\
+$x0          q_3    \# 10   $ \\
+$x0 \#       q_5       10   $ \\
+$x0          q_6    \# x0   $ \\
+$x           q_7  0 \# x0   $ \\
+$            q_7 x0 \# x0   $ \\
+$x           q_1  0 \# x0   $ \\
+$xx          q_2    \# x0   $ \\
+$xx \#       q_4       x0   $ \\
+$xx \# x     q_4        0   $ \\
+$xx \#       q_6       xx   $ \\
+$xx          q_6    \# xx   $ \\
+$x           q_7  x \# xx   $ \\
+$xx          q_1    \# xx   $ \\
+$xx \#       q_8       xx   $ \\
+Now right shift $q_8$ until all x's have been read \\
+$xx \# xx    q_8  \Vtextvisiblespace   $ \\
+$xx \# xx         \Vtextvisiblespace q_{accept} \Vtextvisiblespace $ \\
+$M_1$ enters into the $q_{accept}$ state, and as a result the input is accepted. \\
+
+% Plus stuff here!
+\pagebreak
+Also do this one: $01100\#01100$ \\
+
+Input is $01100\#01100$. Starting state is $q_1 01100\#0110$. \\
+Running $01100\#01100$ on the machine $M_1$ results in the following config: \\
+
+$                     q_1 01100 \# 01100$ \\
+$x                    q_2  1100 \# 01100$ \\
+Right shift (0,1) until we hit a $\#$.  \\
+$x1100                q_2       \# 01100$ \\
+$x1100 \#             q_4          01100$ \\
+$x1100 \# x           q_6           1100$ \\
+$x1100 \#             q_6          x1100$ \\
+$x1100                q_7       \# x1100$ \\
+Left shift (0,1) until we hit a x.      \\
+$x                    q_7  1100 \# x1100$ \\
+$x1                   q_1   100 \# x1100$ \\
+$x1x                  q_3    00 \# x1100$ \\
+Right shift (0,1) until we hit a $\#$.  \\
+$x1x00                q_3       \# x1100$ \\
+$x1x00 \#             q_5          x1100$ \\
+$x1x00 \# x           q_5           1100$ \\
+$x1x00 \# xx          q_6            100$ \\
+Left shift (0,1,x) until we hit a $\#$.  \\
+$x1x00 \#             q_6          xx100$ \\
+$x1x00                q_7       \# xx100$ \\
+Left shift (0,1) until we hit a x.        \\
+$x1x                  q_7    00 \# xx100$ \\
+$x1                   q_1   x00 \# xx100$ \\
+$xxx                  q_3    00 \# xx100$ \\
+Right shift (0,1) until we hit a $\#$.  \\
+$xxx00                q_3       \# xx100$ \\
+$xxx00 \#             q_5          xx100$ \\
+Right shift (x) until we hit a 1.
+$xxx00 \# xx          q_5            100$ \\
+$xxx00 \# x           q_6           xx00$ \\
+$xxx00 \#             q_6          xxx00$ \\
+$xxx00                q_7       \# xxx00$ \\
+Left shift (0,1) until we hit a x.        \\
+$xxx                  q_7    00 \# xxx00$ \\
+$xxx0                 q_1     0 \# xxx00$ \\
+$xxxx0                q_2       \# xxx00$ \\
+$xxxx0 \#             q_2          xxx00$ \\
+$xxxx0 \# x           q_4           xx00$ \\
+Right shift (x) until we hit a 0.
+$xxxx0 \# xxx         q_4             00$ \\
+$xxxx0 \# xx          q_6            xx0$ \\
+Left shift (0,1,x) until we hit a $\#$.  \\
+$xxxx0 \#             q_6            xxxx0$ \\
+$xxxx0                q_7        \#  xxxx0$ \\
+$xxxx                 q_7      0 \#  xxxx0$ \\
+$xxxx0                q_1        \#  xxxx0$ \\
+$xxxxx \#             q_2            xxxx0$ \\
+$xxxxx \# x           q_4             xxx0$ \\
+Right shift until we hit a 0. \\
+$xxxxx \# xxxx        q_4                0$ \\
+$xxxxx \# xxx         q_6               xx$ \\
+Left shift (0,1,x) until we hit a $\#$. \\
+$xxxxx \#             q_6            xxxxx$ \\
+$xxxxx                q_7        \#  xxxxx$ \\
+$xxxxx \#             q_1            xxxxx$ \\
+$xxxxx \# x           q_8             xxxx$ \\
+Right shift all the x's. \\
+$xxxxx \# xxxxx       q_8  \Vtextvisiblespace    $ \\
+$xxxxx \# xxxxx  \Vtextvisiblespace  q_{accept} \Vtextvisiblespace $ \\
+
+And this one: $01101\#01100$ \\
+
+Input is $01101\#01100$. Starting state is $q_1 01101\#01100$. \\
+Running $01101\#01100$ on the machine $M_1$ results in the following config: \\
+
+$q_1 01101\#01100$ \\
 
 
 
-c. $1\#\#1.$ \\
-
-d. $10\#11.$ \\
-
-e. $10\#10.$ \\
-
-plus $01100\#01100$ \\
-
-and $01101\#01100$ \\
 
 %*********************************************************************************
 % 3.8  b, c + other stuff
