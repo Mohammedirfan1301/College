@@ -1,0 +1,229 @@
+\documentclass[12pt]{article}
+\setlength\parindent{0pt}
+\usepackage{amsfonts}
+\usepackage{comment}
+\usepackage{tikz}
+\usepackage{forest}
+\usetikzlibrary{arrows,automata}
+
+% Found this on Stackoverflow, seems to make a better explicit space than the default
+% "\textvisiblespace" does, so I used \Vtextvisiblespace instead.
+% https://tex.stackexchange.com/questions/50804/explicit-space-character
+\newcommand\Vtextvisiblespace[1][.8em]{%
+	\mbox{\kern.07em\vrule height.3ex}%
+	\vbox{\hrule width#1}%
+	\hbox{\vrule height.3ex}}
+
+\begin{document}
+
+\noindent
+Jason Downing \\
+Email: jason\_downing@student.uml.edu \\
+Foundations of Computer Science \\
+Homework \#4 - Chapter 3 \\
+11/20/2016 \\
+
+%*********************************************************************************
+% 3.1 a, b, c + 00000000
+
+\noindent
+3.1 This exercise concerns $TM M_2$, whose description and state diagram \\
+appear in Example 3.7. In each of the parts, give the sequence of \\
+configurations that $M_2$ enters when started on the indicated input string. \\
+
+a. 0. \\
+
+$q_10$ is the starting state. \\
+Running the input 0 on the machine $M_2$, we get the following configuration: \\
+
+$q_1 0$ \\
+$\Vtextvisiblespace q_2 \Vtextvisiblespace$ \\
+$\Vtextvisiblespace  \Vtextvisiblespace q_{accept}$  \\
+$M_2$ enters into the $q_{accept}$ state, and as a result the input of 0 is accepted. \\
+
+c. 000. \\
+
+$q_1 000$ is the starting state. \\
+Running the input 000 on the machine $M_2$, we get the following configuration: \\
+
+$q_1 000$ \\
+$\Vtextvisiblespace q_2 00$ \\
+$\Vtextvisiblespace x q_3 0$ \\
+$\Vtextvisiblespace x0 q_4 $ \\
+$\Vtextvisiblespace x0 q_{reject} $ \\
+$M_2$ enters into the $q_{reject}$ state, and as a result the input is rejected. \\
+
+\pagebreak
+d. 000000. \\
+
+$q_1000000$ is the starting state. \\
+Running the input 000000 on the machine $M_2$, we get the following configuration: \\
+
+$q_1 000000$ \\
+$\Vtextvisiblespace       q_2 00000 $  \\
+$\Vtextvisiblespace x     q_3 0000 $ \\
+$\Vtextvisiblespace x0    q_4 000 $ \\
+$\Vtextvisiblespace x0x   q_3 00 $ \\
+$\Vtextvisiblespace x0x0  q_4 0 $ \\
+$\Vtextvisiblespace x0x0x q_3 \Vtextvisiblespace $ \\
+$\Vtextvisiblespace x0x0  q_5 x \Vtextvisiblespace $ \\
+$\Vtextvisiblespace x0x   q_5 0x \Vtextvisiblespace $ \\
+$\Vtextvisiblespace x0    q_5 x0x \Vtextvisiblespace $ \\
+$\Vtextvisiblespace x     q_5 0x0x \Vtextvisiblespace $ \\
+$\Vtextvisiblespace       q_5 x0x0x \Vtextvisiblespace $ \\
+$q_5 \Vtextvisiblespace x0x0x \Vtextvisiblespace $ \\
+$\Vtextvisiblespace       q_2 x0x0x \Vtextvisiblespace $ \\
+$\Vtextvisiblespace x     q_2 0x0x \Vtextvisiblespace $ \\
+$\Vtextvisiblespace xx    q_3 x0x \Vtextvisiblespace $ \\
+$\Vtextvisiblespace xxx   q_3 0x \Vtextvisiblespace $ \\
+$\Vtextvisiblespace xxx0  q_4 x \Vtextvisiblespace $ \\
+$\Vtextvisiblespace xxx0x q_4  \Vtextvisiblespace $ \\
+$\Vtextvisiblespace xxx0x \Vtextvisiblespace q_{reject} $ \\
+$M_2$ enters into the $q_{reject}$ state, and as a result the input is rejected. \\
+
+\pagebreak
+Plus 00000000. \\
+
+$q_100000000$ is the starting state. \\
+Running the input 000000 on the machine $M_2$, we get the following configuration: \\
+
+$q_1 00000000$ \\
+$\Vtextvisiblespace           q_2 0000000 $  \\ 
+$\Vtextvisiblespace x         q_3 000000  $  \\ 
+$\Vtextvisiblespace x0        q_4 00000   $  \\ 
+$\Vtextvisiblespace x0x       q_3 0000    $  \\ 
+$\Vtextvisiblespace x0x0      q_4 000     $  \\ 
+$\Vtextvisiblespace x0x0x     q_3 00      $  \\ 
+$\Vtextvisiblespace x0x0x0    q_4 0       $  \\ 
+$\Vtextvisiblespace x0x0x0x   q_3         \Vtextvisiblespace  $  \\ 
+$\Vtextvisiblespace x0x0x0    q_5 x       \Vtextvisiblespace  $  \\ 
+$\Vtextvisiblespace x0x0x     q_5 0x      \Vtextvisiblespace  $  \\ 
+$\Vtextvisiblespace x0x0      q_5 x0x     \Vtextvisiblespace  $  \\ 
+$\Vtextvisiblespace x0x       q_5 0x0x    \Vtextvisiblespace  $  \\ 
+$\Vtextvisiblespace x0        q_5 x0x0x   \Vtextvisiblespace  $  \\ 
+$\Vtextvisiblespace x         q_5 0x0x0x  \Vtextvisiblespace  $  \\ 
+$\Vtextvisiblespace           q_5 x0x0x0x \Vtextvisiblespace  $  \\ 
+$q_5 \Vtextvisiblespace           x0x0x0x \Vtextvisiblespace  $  \\ 
+$\Vtextvisiblespace           q_2 x0x0x0x \Vtextvisiblespace  $  \\
+$\Vtextvisiblespace x         q_2 0x0x0x  \Vtextvisiblespace  $  \\
+$\Vtextvisiblespace xx        q_3 x0x0x   \Vtextvisiblespace  $  \\
+$\Vtextvisiblespace xxx       q_3 0x0x    \Vtextvisiblespace  $  \\
+$\Vtextvisiblespace xxx0      q_4 x0x     \Vtextvisiblespace  $  \\
+$\Vtextvisiblespace xxx0x     q_4 0x      \Vtextvisiblespace  $  \\
+$\Vtextvisiblespace xxx0xx    q_3 x       \Vtextvisiblespace  $  \\
+$\Vtextvisiblespace xxx0xxx   q_3         \Vtextvisiblespace  $  \\
+$\Vtextvisiblespace xxx0xx    q_5 x       \Vtextvisiblespace  $  \\
+$\Vtextvisiblespace xxx0x     q_5 xx      \Vtextvisiblespace  $  \\
+$\Vtextvisiblespace xxx0      q_5 xxx     \Vtextvisiblespace  $  \\
+$\Vtextvisiblespace xxx       q_5 xxx0    \Vtextvisiblespace  $  \\
+$\Vtextvisiblespace xx        q_5 xxx0x   \Vtextvisiblespace  $  \\
+$\Vtextvisiblespace x         q_5 xxx0xx  \Vtextvisiblespace  $  \\
+$\Vtextvisiblespace           q_5 xxx0xxx \Vtextvisiblespace  $  \\
+$q_5 \Vtextvisiblespace           xxx0xxx \Vtextvisiblespace  $  \\
+$\Vtextvisiblespace           q_2 xxx0xxx \Vtextvisiblespace  $  \\
+$\Vtextvisiblespace x         q_2 xx0xxx  \Vtextvisiblespace  $  \\
+$\Vtextvisiblespace xx        q_2 x0xxx   \Vtextvisiblespace  $  \\
+$\Vtextvisiblespace xxx       q_2 0xxx    \Vtextvisiblespace  $  \\
+$\Vtextvisiblespace xxxx      q_3 xxx     \Vtextvisiblespace  $  \\
+$\Vtextvisiblespace xxxxx     q_3 xx      \Vtextvisiblespace  $  \\
+$\Vtextvisiblespace xxxxxx    q_3 x       \Vtextvisiblespace  $  \\
+$\Vtextvisiblespace xxxxxxx   q_3         \Vtextvisiblespace  $  \\
+$\Vtextvisiblespace xxxxxx    q_5 x       \Vtextvisiblespace  $  \\
+$\Vtextvisiblespace xxxxx     q_5 xx      \Vtextvisiblespace  $  \\
+$\Vtextvisiblespace xxxx      q_5 xxx     \Vtextvisiblespace  $  \\
+$\Vtextvisiblespace xxx       q_5 xxxx    \Vtextvisiblespace  $  \\
+$\Vtextvisiblespace xx        q_5 xxxxx   \Vtextvisiblespace  $  \\
+$\Vtextvisiblespace x         q_5 xxxxxx  \Vtextvisiblespace  $  \\
+$\Vtextvisiblespace           q_5 xxxxxxx \Vtextvisiblespace  $  \\
+$q_5 \Vtextvisiblespace           xxxxxxx \Vtextvisiblespace  $  \\
+$\Vtextvisiblespace           q_2 xxxxxxx \Vtextvisiblespace  $  \\
+$\Vtextvisiblespace x         q_2 xxxxxx  \Vtextvisiblespace  $  \\
+$\Vtextvisiblespace xx        q_2 xxxxx   \Vtextvisiblespace  $  \\
+$\Vtextvisiblespace xxx       q_2 xxxx    \Vtextvisiblespace  $  \\
+$\Vtextvisiblespace xxxx      q_2 xxx     \Vtextvisiblespace  $  \\
+$\Vtextvisiblespace xxxxx     q_2 xx      \Vtextvisiblespace  $  \\
+$\Vtextvisiblespace xxxxxx    q_2 x       \Vtextvisiblespace  $  \\
+$\Vtextvisiblespace xxxxxxx   q_2         \Vtextvisiblespace  $  \\
+$\Vtextvisiblespace xxxxxxx   q_{accept}  \Vtextvisiblespace  $  \\
+
+%*********************************************************************************
+% 3.2 b, c, d, e + 01100#01100, 01101#01100
+\pagebreak
+
+This exercise concerns $TM M_1$, whose description and state diagram appear in 
+Example 3.9. In each of the parts, give the sequence of configurations that $M_1$ 
+enters when started on the indicated input string. \\
+
+b. $1\#1.$ \\
+
+
+
+c. $1\#\#1.$ \\
+
+d. $10\#11.$ \\
+
+e. $10\#10.$ \\
+
+plus $01100\#01100$ \\
+
+and $01101\#01100$ \\
+
+%*********************************************************************************
+% 3.8  b, c + other stuff
+\pagebreak
+
+Give implementation-level descriptions of Turing machines that decide the following
+languages over the alphabet $\{0,1\}$. \\
+
+b. $\{$w $\mid$ w contains twice as many 0s as 1s$\}$ \\
+
+c. $\{$w $\mid$ w does not contain twice as many 0s as 1s$\}$ \\
+
+Plus: Draw the state diagram for Turning Machines 3.8b and 3.8c \\
+3.8b \\
+
+3.8c \\
+
+For these machines draw the configurations for \\
+3.8b: \\
+010100. \\
+
+010101. \\
+
+3.8c: \\
+000111. \\
+
+000110. \\
+
+
+%*********************************************************************************
+% Modify machine M2 to recognize odd number of 0s and draw the state diagram. 
+% Draw the configuration for 000 and 0000
+\pagebreak
+
+Modify machine M2 to recognize odd number of 0s and draw the state \\
+diagram. \\
+
+State diagram: \\
+
+Draw the configuration for \\
+000. \\
+
+0000. \\
+
+%*********************************************************************************
+% Modify machine M2 to recognize even number of 0s and draw the state diagram. 
+% Draw the configuration for 000 and 0000
+\pagebreak
+
+Modify machine M2 to recognize even number of 0s and draw the state \\
+diagram. \\
+
+State diagram: \\
+
+Draw the configuration for \\
+000. \\
+
+0000. \\
+
+\end{document}
