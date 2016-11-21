@@ -14,6 +14,10 @@
 	\vbox{\hrule width#1}%
 	\hbox{\vrule height.3ex}}
 
+% Also found this on Stackoverflow for making tabs.
+% https://tex.stackexchange.com/questions/198432/using-the-tab-command
+\newcommand\tab[1][1cm]{\hspace*{#1}}
+
 \begin{document}
 
 \noindent
@@ -24,14 +28,42 @@ Homework \#4 - Chapter 3 \\
 11/20/2016 \\
 
 %*********************************************************************************
-% 3.1 a, b, c + 00000000
+% Extra Credit Documentation!
+%*********************************************************************************
+**********************************************************************************
+I was unable to complete a large portion of 3.8, including the state diagrams
+and the configurations for those state diagrams. $:($ \\
+To make up for these missing problems I decided to do as much \textbf{Extra Credit}
+as I could. As a result, I did the following \textbf{Extra Credit} problems: \\
 
+1. 3.1 B \\
+2. 3.2 A \\
+3. 3.4 \\
+4. 3.5 A \\
+5. 3.5 B \\
+6. 3.5 C \\
+7. 3.5 D \\
+8. 3.6 \\ 
+9. 3.7 \\
+10. 3.8 A \\ 
+11. 3.10 \\
+12. 3.11 \\
+
+I figured that I missed roughly 12 problems, so I should do up to 12 problems
+worth of Extra Credit. I hope that this is enough extra work to counter the
+missing problems that I was unable to solve before the deadline. \\
+
+********************************************************************************** \\
+
+%*********************************************************************************
+% 3.1 a, b, c + 00000000
+\pagebreak
 \noindent
-3.1 This exercise concerns $TM M_2$, whose description and state diagram \\
+\textbf{3.1} This exercise concerns $TM M_2$, whose description and state diagram \\
 appear in Example 3.7. In each of the parts, give the sequence of \\
 configurations that $M_2$ enters when started on the indicated input string. \\
 
-a. 0. \\
+\textbf{a.} 0. \\
 
 $q_1 0$ is the starting state. \\
 Running the input 0 on the machine $M_2$, we get the following configuration: \\
@@ -41,7 +73,7 @@ $\Vtextvisiblespace q_2 \Vtextvisiblespace$ \\
 $\Vtextvisiblespace  \Vtextvisiblespace q_{accept}$  \\
 $M_2$ enters into the $q_{accept}$ state, and as a result the input is accepted. \\
 
-b. 00. (\textbf{THIS IS EXTRA CREDIT})
+\textbf{b.} 00. (\textbf{THIS IS EXTRA CREDIT})
 
 $q_1 00$ is the starting state. \\
 Running the input 00 on the machine $M_2$, we get the following configuration: \\
@@ -56,7 +88,7 @@ $ \Vtextvisiblespace x       q_2 \Vtextvisiblespace $ \\
 $ \Vtextvisiblespace x  \Vtextvisiblespace q_{accept} $ \\
 
 \pagebreak
-c. 000. \\
+\textbf{c.} 000. \\
 $q_1 000$ is the starting state. \\
 Running the input 000 on the machine $M_2$, we get the following configuration: \\
 
@@ -67,7 +99,7 @@ $\Vtextvisiblespace x0 q_4 $ \\
 $\Vtextvisiblespace x0 q_{reject} $ \\
 $M_2$ enters into the $q_{reject}$ state, and as a result the input is rejected. \\
 
-d. 000000. \\
+\textbf{d.} 000000. \\
 $q_1 000000$ is the starting state. \\
 Running the input 000000 on the machine $M_2$, we get the following config: \\
 
@@ -94,7 +126,7 @@ $\Vtextvisiblespace xxx0x \Vtextvisiblespace q_{reject} $ \\
 $M_2$ enters into the $q_{reject}$ state, and as a result the input is rejected. \\
 
 \pagebreak
-Plus 00000000. \\
+\textbf{Plus 00000000.} \\
 
 $q_1 00000000$ is the starting state. \\
 Running the input 000000 on the machine $M_2$, we get the following configuration: \\
@@ -163,11 +195,11 @@ $M_2$ enters into the $q_{accept}$ state, and as a result the input is accepted.
 % 3.2 b, c, d, e + 01100#01100, 01101#01100
 \pagebreak
 
-3.2 This exercise concerns $TM M_1$, whose description and state diagram appear in 
+\textbf{3.2} This exercise concerns $TM M_1$, whose description and state diagram appear in 
 Example 3.9. In each of the parts, give the sequence of configurations that $M_1$ 
 enters when started on the indicated input string. \\
 
-a. $11$ (\textbf{THIS IS EXTRA CREDIT}) \\
+\textbf{a.} $11$ (\textbf{THIS IS EXTRA CREDIT}) \\
 
 Input is $11$. Starting state is $q_1 11$. Config is: \\
 
@@ -181,7 +213,7 @@ The reason for this is because there is no path for the machine $M_1$ to take at
 $q_3$ that involves a 1. It cannot go to $q_4$ without having a 0, and it cannot
 go to $q_5$ without having a $\Vtextvisiblespace$ before the $q_3$. \\
 
-b. $1\#1$. \\
+\textbf{b.} $1\#1$. \\
 
 Input is $1\#1$. Starting state is $q_1 1\#1$. \\
 Running $1\#1$ on the machine $M_1$ results in the following configuration: \\
@@ -197,7 +229,8 @@ $x \# x q_9 \Vtextvisiblespace $ \\
 $x \# x \Vtextvisiblespace q_{accept} $ \\
 $M_1$ enters into the $q_{accept}$ state, and as a result the input is accepted. \\
 
-c. $1\#\#1$ \\
+\pagebreak
+\textbf{c.} $1\#\#1$ \\
 
 Input is $1\#\#1$. Starting state is $q_1 1\#\#1$. \\
 Running $1\#\#1$ on the machine $M_1$ results in the following configuration: \\
@@ -208,8 +241,7 @@ $x \# q_5 \# 1$ \textit{(At this point $q_5$ does not read the $\#$, so it enter
 $x \# \# q_{reject} 1 $ \\
 $M_1$ enters into the $q_{reject}$ state, and as a result the input is rejected. \\
 
-\pagebreak
-d. $10\#11$. \\
+\textbf{d.} $10\#11$. \\
 
 Input is $10\#11$. Starting state is $q_1 10\#11$. \\
 Running $10\#11$ on the machine $M_1$ results in the following configuration: \\
@@ -229,7 +261,7 @@ $xx \# x 1 q_{reject}    $ \\
 $M_1$ enters into the $q_{reject}$ state, and as a result the input is rejected. \\
 
 \pagebreak
-e. $10\#10$. \\
+\textbf{e.} $10\#10$. \\
 
 Input is $10\#10$. Starting state is $q_1 10\#10$. \\
 Running $10\#10$ on the machine $M_1$ results in the following configuration: \\
@@ -257,7 +289,7 @@ $M_1$ enters into the $q_{accept}$ state, and as a result the input is accepted.
 
 % Plus stuff here!
 \pagebreak
-Also do this one: $01100\#01100$ \\
+\textbf{Plus:} $01100\#01100$ \\
 
 Input is $01100\#01100$. Starting state is $q_1 01100\#0110$. \\
 Running $01100\#01100$ on the machine $M_1$ results in the following config: \\
@@ -324,7 +356,7 @@ $xxxxx \# xxxxx  \Vtextvisiblespace  q_{accept} \Vtextvisiblespace $ \\
 $M_1$ enters into the $q_{accept}$ state, and as a result the input is accepted. \\
 
 \pagebreak
-And this one: $01101\#01100$ \\
+\textbf{Plus:} $01101\#01100$ \\
 
 Input is $01101\#01100$. Starting state is $q_1 01101\#01100$. \\
 Running $01101\#01100$ on the machine $M_1$ results in the following config: \\
@@ -383,15 +415,141 @@ The reason for this failure is that at $q_5$, the machine expects a 1 but it get
 a 0. There are no paths for 0 at $q_5$, and as a result the machine will go into \\
 the reject state as it is unable to continue. \\
 
+%*********************************************************************************
+% 3.4 here
+
+\pagebreak
+\textbf{3.4} (\textbf{THIS IS EXTRA CREDIT}) \\
+Give a formal definition of an enumerator. Consider it to be a type of two-tape
+Turing machine that uses its second tape as the printer. Include a definition
+of the enumerated language. \\
+
+We can define an enumerator as a 7-tuple:
+($Q$, $\sum$, $\tau$, $\delta$, $q_0$, $q_{print}$, $q_{accept}$) \\
+
+Where $Q$, $\sum$, and $\tau$ are finite sets and:
+
+1. $Q$ is the set of states \\
+2. $\tau$ is the work tape alphabet \\
+3. $\sum$ is the output tape alphabet \\
+4. $\delta:$ $Q \times \tau \rightarrow Q \times \tau \times \{L, R\} \times \sum_{\epsilon}$
+is the transition function \\
+5. $q_0 \epsilon Q$ is the starting state \\
+6. $q_{print} \epsilon Q$ is the printing state \\
+7. $q_{accept} \epsilon Q$ is the rejecting state, which is where $q_{print} \ne q_{reject}$ \\
+
+The computation of this enumerator E is defined as an ordinary Turing Machine (TM),
+except for a few points. It has two tapes, a print tape and a work tape, which
+both begin blank initially. During each step, the TM can write a symbol from $\sum$
+onto the output tape, or it can write nothing at all, which is determined by $\delta$.
+If $\delta (q, a) = (r, b, L, c)$, it means that during state $q$ while reading a,
+the enumerator E enters into state R, and it writes B back onto the work tape. It
+then moves the head of the working tape left or right depending on whether L was
+previously R, and it then writes C onto the output tape. If $C \ne \epsilon$, then
+the head of the output tape moves to the right. \\
+
+Whenever we enter the state $q_{print}$, then the output tape is reset to blank,
+and the head returns to the left side. The machine will halt when $q_{accept}$ is
+entered. $L(E) = \{w \epsilon \sum^* | w \}$ will be on the work tape if $q_{print}$
+is entered. \\
+
+%*********************************************************************************
+% 3.5 a, b, c an d here
+
+\pagebreak
+\textbf{3.5} (\textbf{THIS IS EXTRA CREDIT}) \\
+Examine the formal definition of a Turing machine to answer the following questions,
+and explain your reasoning. \\
+
+\textbf{a.} Can a Turing machine ever write the blank symbol $\Vtextvisiblespace$ on its tape? \\
+
+Yes, a turing machine can write the blank symbol $\Vtextvisiblespace$ onto its tape.
+This is because according to the definition of a Turing Machine, a TM may write any
+characters in $\tau$ onto its tape. $\tau$ is the tape alphabet, and according to the
+definition of a TM, $\Vtextvisiblespace \in \tau $. \\
+
+\textbf{b.} Can the tape alphabet $\tau$ be the same as the input alphabet $\sum$? \\
+
+No, this is not possible because $\sum$ never contains the blank symbol $\Vtextvisiblespace$.
+However, $\tau$ always contains the blank symbol $\Vtextvisiblespace$, and as a result,
+they can never be equal. \\
+
+\textbf{c.} Can a Turing machine’s head \textit{ever} be in the same location in two successive 
+steps? \\
+
+Yes, a TM can have its head in the same location during two successive steps. This is because
+if the TM tries to move its head of the left hand side of the tape, it will remain in the same
+location as the previous step. \\
+
+\textbf{d.} Can a Turing machine contain just a single state? \\
+
+No, a TM cannot contain just a single state. Any TM by definition must contain at least
+two distinct states, $q_{accept}$ and $q_{reject}$. As a result, a TM must contain
+at a minimum two states to be considered a TM. \\
+
+%*********************************************************************************
+% 3.6 here
+\pagebreak
+\textbf{3.6} (\textbf{THIS IS EXTRA CREDIT}) \\
+
+In Theorem 3.21, we showed that a language is Turing-recognizable iff some 
+enumerator enumerates it. Why didn’t we use the following simpler algorithm for the
+forward direction of the proof? As before, $s_1$, $s_2$, ... is a list of all strings in $\sum^*$. \\
+
+$E = $"Ignore the input. \\
+\tab 1. Repeat the following for $i = 1, 2, 3, ...$ \\
+\tab 2. Run $M$ on $s_1$ \\
+\tab 3. If it accepts, print ouf $s_1$." \\
+
+The reason we don't use a simpler algorithm during this proof is that in part 2 
+of the algorithm (Run $M$ on $s_1$), if $M$ loops on the input $s_i$, $E$ will not 
+check any inputs after $s_i$. As a result, if that were to occur, $E$ could fail to
+enumerate L(M) as it is required to. \\
+
+%*********************************************************************************
+% 3.7 here
+\textbf{3.7} (\textbf{THIS IS EXTRA CREDIT}) \\
+
+Explain why the following is not a description of a legitimate Turing machine.
+
+$M_{bad} =$ "On input ($p$), a polynomial over variables $x_1$, ..., $x_k$: \\
+\tab 1. Try all possible settings of $x_1$, ..., $x_k$ to integer values. \\
+\tab 2. Evaluate $p$ on all of these settings. \\
+\tab 3. If any of these settings evaluates to 0, $accept$ or otherwise $reject$. \\
+
+This is not a description of a legit Turing Machine because the variables listed
+have an infinite amount of possible settings. A TM would as a result require an
+infinite amount of time to try all possible settings. This is not allowed in a
+valid TM as we require that each step in a Turing Machine be completed in a finite
+amount of steps. Requiring an infinite amount of steps as a result makes it not
+a legitimate Turing Machine. \\
 
 %*********************************************************************************
 % 3.8  b, c + other stuff
 \pagebreak
-
-3.8 Give implementation-level descriptions of Turing machines that decide the following
+\textbf{3.8} Give implementation-level descriptions of Turing machines that decide the following
 languages over the alphabet $\{0,1\}$. \\
 
-b. $\{$w $\mid$ w contains twice as many 0s as 1s$\}$ \\
+\textbf{a.} $\{$w $\mid$ w contains an equal number of 0's and 1's. \\
+(\textbf{THIS IS EXTRA CREDIT})  \\
+
+For input string $w$, we would do the following implementation: \\
+\textbf{1.} Scan the tape, and mark the first 0 which has not been marked
+yet. Now if there are no unmarked 0's, we go to stage $\# 4$. Otherwise,
+we move the head back to the front of the tape. \\
+
+\textbf{2.} We now scan the tape, and mark the first 1 which has no been
+marked yet. If we find no unmarked 1's, we enter the $reject$ state. \\
+
+\textbf{3.} Now move the head back to the front of the tape, and repeat
+step $\# 1$. \\
+
+\textbf{4.} Now move the head to the front of the tape. We scan the tape
+to see if we can find any unmarked 1's that are remaining. If we find no
+unmarked 1's, we enter the $accept$ state. Otherwise, we enter the $reject$
+state. \\
+
+\textbf{b.} $\{$w $\mid$ w contains twice as many 0s as 1s$\}$ \\
 
 For input string $w$, we would do the following implementation: \\
 \textbf{1.} We first scan the tape and mark the first 0 that has not been marked yet.
@@ -409,10 +567,9 @@ is no unmarked 1, we enter the reject state. \\
 the tape to see if we can find any unmarked 1's. If there are none, we enter the
 accept state. Otherwise we enter the reject state. \\
 
-c. $\{$w $\mid$ w does not contain twice as many 0s as 1s$\}$ \\
+\textbf{c.} $\{$w $\mid$ w does not contain twice as many 0s as 1s$\}$ \\
 
 For input string $w$, we would do the following implementation: \\
-
 \textbf{1.} We first scan the tape and mark the first 0 which has not yet been marked.
 If we find no unmarked 0, we go to $\#4$. \\
 
@@ -430,6 +587,65 @@ to see if there are any unmarked 1's. If there are no unmarked 1's, we enter the
 reject state. Otherwise, we enter the accept state. \\
 
 %*********************************************************************************
+% 3.10 here
+
+\pagebreak
+3.10 (\textbf{THIS IS EXTRA CREDIT}) \\
+
+Say that a write-once Turing machine is a single-tape TM that can alter each tape
+square at most once (including the input portion of the tape). Show that this variant
+Turing machine model is equivalent to the ordinary Turing machine model. 
+(Hint: As a first step, consider the case whereby the Turing machine may alter each
+tape square at most twice. Use lots of tape.) \\
+
+We can simulate an ordinary Turing Machine (TM) by using a write-twice TM. The
+write-twice TM can simulate a single step of the original TM by copying its entire
+tape over to a new section of the tape to the right of the currently used section.
+The copy procedure would be as follows: \\
+
+$\bullet$ Copy character, by character, marking a character as it is copied. \\
+$\bullet$ Alter the tape square twice, once to write a character for the first time, and
+a second time to mark that it has been copied. \\
+
+The position of the original TM's tape head is marked on the tape, and when it
+copies the positions around the marked position, the tape contents are updated
+according to the rules of the TM. \\
+
+To complete the simulation with a write-once TM, we would operate the same as before,
+except that we would make sure that each cell of the tape is represented by two cells.
+The first cell would contain the original TM's tape, and the second would be used to
+mark each character as it is copied over during the copying procedure. The input would
+not be presented to the machine as there are two cells per symbol, so as a result the
+first time that the tape is copied the marks are put directly over the input symbols. \\
+
+%*********************************************************************************
+% 3.11 here
+
+\pagebreak
+3.11 (\textbf{THIS IS EXTRA CREDIT}) \\
+
+A \textbf{\textit{Turing machine with doubly infinite tape}} is similar to an ordinary 
+Turing machine, but its tape is infinite to the left as well as to the right. 
+The tape is initially filled with blanks except for the portion that contains the input. 
+Computation is defined as usual except that the head never encounters an end to the tape 
+as it moves leftward. Show that this type of Turing machine recognizes the class of
+Turing-recognizable languages. \\
+
+A Turing Machine (TM) with \textbf{\textit{"doubly infinite tape"}} can easily
+simulate a normal TM. It will need to mark the left side of the input's end, so
+that it can prevent the head from moving off the end of the tape. \\
+
+In order for a normal TM to simulate a \textbf{\textit{"doubly infinite tape"}} TM,
+we will need to show how to simulate the TM with a 2 tape TM. This has already been
+shown to be equal in power to a normal TM. The first tape of this 2 tape TM will be
+written with the input string, and the second tape will be left blank initially.
+We will cut the tape of the doubly infinite tape TM into two separate parts, which
+will be at the starting position of the input string. The input string portion and
+the blank spaces to its right will appear on the first tape of the 2 tape TM. The
+portion to the left of the input string will appear on the second tape, but in
+the reverse order. \\
+
+%*********************************************************************************
 % Extra Credit Documentation!
 %*********************************************************************************
 \pagebreak
@@ -440,21 +656,23 @@ as I could. As a result, I did the following \textbf{Extra Credit} problems: \\
 
  1. 3.1 B \\
  2. 3.2 A \\
- 3.  \\
- 4.  \\
- 5.  \\
- 6.  \\
- 7.  \\
- 8.  \\ 
- 9.  \\
-10.  \\ 
-11.  \\
-12.  \\
+ 3. 3.4 \\
+ 4. 3.5 A \\
+ 5. 3.5 B \\
+ 6. 3.5 C \\
+ 7. 3.5 D \\
+ 8. 3.6 \\ 
+ 9. 3.7 \\
+10. 3.8 A \\ 
+11. 3.10 \\
+12. 3.11 \\
 
 I figured that I missed roughly 12 problems, so I should do up to 12 problems
-worth of Extra Credit. \\
+worth of Extra Credit. I hope that this is enough extra work to counter the
+missing problems that I was unable to solve before the deadline. \\
 
 ********************************************************************************** \\
+
 
 %*********************************************************************************
 % I couldn't do this other stuff. Sorry. ¯\_(ツ)_/¯
