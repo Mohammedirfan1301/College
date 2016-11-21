@@ -1,142 +1,81 @@
 Chapter 6:
-Exercises: 6.3.1 (a, b, c, d), 6.4.6 (b, c, e, h)
+Exercises: 6.5.1 (a, b, c, d, e, f, g)
 
 Product (maker, model, type)
 PC (model, speed, ram, hd, price)
 Laptop (model, speed, ram, hd, screen, price)
 Printer (model, color, type, price)
 
-6.3.1 (a, b, c, d)
-a)
+6.5.1 (a, b, c, d, e, f, g)
 
-- Find the makers of PC's with a speed of at least 3.0
+a) Using two INSERT statements, store in the database the
+fact that PC model 1100 is made by manufacturer C, has a
+speed of 3.2GHZ, RAM of 1024MB, HDD of 180GB and sells for
+$2499.
 
-SELECT DISTINCT maker
-FROM Product CROSS JOIN PC
-WHERE Product.model = PC.model AND PC.speed > 3.0
+INSERT (
 
-Example output from SQLLite Query:
-maker
-B
-E
+)
 
-b)
+INSERT (
 
-- Find the printers with the highest price
+)
 
-SELECT model, MAX(price)
-FROM printer
+Output:
 
-Example output:
- model  | Price
----------------
-"3003"    "899"
-
-c)
-
-- Find the laptops whose speed is slower than that of any PC.
-
-SELECT DISTINCT Laptop.model
-FROM Laptop CROSS JOIN PC
-WHERE Laptop.speed < PC.speed
-
-Example output:
-model
------
-"2001"
-"2002"
-"2003"
-"2004"
-"2005"
-"2006"
-"2007"
-"2008"
-"2009"
-"2010"
-
-d)
-
-- Find the model number of the item (PC, laptop, or printer) with the highest
-price.
-
-SELECT model_prices.model, MAX(model_prices.price)
-FROM (Select model, price from PC
-	UNION ALL
-	Select model, price from Laptop
-	UNION All
-	SELECT model, price from PC
-)  model_prices
-
-Example output:
-model   |  MAX(model_prices.price)
-----------------------------------
-"2001"		 "3673"
 
 --------------------------------------------------------------------------------
 
-6.4.6 (b, c, e, h)
+b) Insert the facts that for every PC there is a laptop with
+the same manufacturer, speed, RAM and HDD, a 17-inch screen,
+a model number 1100 greater and a price $500 more.
 
-Same database schema as 6.3.1
+INSERT (
 
-b)
+)
 
-- Find the average speed of laptops costing over $1,000
+Output:
 
-SELECT AVG(speed)
-FROM Laptop
-WHERE price > 1000
+--------------------------------------------------------------------------------
 
-Example Output:
-AVG(speed)
-1.99833333333333
+c) Delete all PC's with less than 100GB of HDD.
 
-c)
+DELETE
+FROM
+WHERE
 
-- Find the average price of PC's made by manufacturer "A".
+Output:
 
-SELECT AVG(price)
-FROM Product JOIN PC
-WHERE maker = "A"
+--------------------------------------------------------------------------------
 
-Example Output:
-AVG(price)
-827.076923076923
+d) Delete all laptops made by a manufacturer that doesn't
+make printers.
 
-e)
+DELETE?
 
-- Find, for each different speed, the average price of a PC.
+Output:
 
-SELECT DISTINCT speed, AVG(price)
-FROM PC
-GROUP BY speed
+--------------------------------------------------------------------------------
 
-Example output:
-Speed   |   AVG(price)
-"1.42"      "478.0"
-"1.86"      "959.0"
-"2.0"       "650.0"
-"2.1"       "995.0"
-"2.2"       "640.0"
-"2.66"      "2114.0"
-"2.8"       "689.333333333333"
-"3.06"      "529.0"
-"3.2"       "839.5"
+e) Manufacturer A buys Manufacturer B. Change all products
+made by B so they are now made by A.
 
-h)
+UPDATE Product
+SET maker = 'A'
+WHERE maker = 'B';
 
-- Find for each manufacturer who sells PC's, the maximum price of a PC.
+Output:
+There's no output for this one, but checking the DB
+you can clearly see the before / after of running this SQL Query.
+And that is that all references to maker "B" become maker "A".
 
-SELECT DISTINCT Product.maker, MAX(PC.price)
-FROM Product JOIN PC
-WHERE Product.model = PC.model
-GROUP BY Product.maker
+--------------------------------------------------------------------------------
 
-Example output:
+f)
 
-maker | MAX(PC.price)
-"A"			"2114"
-"B"			"1049"
-"C"			"510"
-"D"			"770"
-"E"			"959"
+
+--------------------------------------------------------------------------------
+
+g)
+
 
