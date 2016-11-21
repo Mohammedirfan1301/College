@@ -6,7 +6,7 @@ PC (model, speed, ram, hd, price)
 Laptop (model, speed, ram, hd, screen, price)
 Printer (model, color, type, price)
 
-6.5.1 (a, b, c, d, e, f, g)
+--------------------------------------------------------------------------------
 
 a) Using two INSERT statements, store in the database the
 fact that PC model 1100 is made by manufacturer C, has a
@@ -18,10 +18,6 @@ VALUES ('C', '1100', 'pc');
 
 INSERT INTO PC
 VALUES ('1100', 3.2, 1024, 180, 2499);
-
-Output:
-
-Show before / after? Query was successful.
 
 --------------------------------------------------------------------------------
 
@@ -38,10 +34,6 @@ INSERT INTO Laptop
 SELECT model + 1100, speed, ram, hd, 17, price + 500
 FROM PC;
 
-Output:
-
-Show before / after?
-
 --------------------------------------------------------------------------------
 
 c) Delete all PC's with less than 100GB of HDD.
@@ -49,19 +41,27 @@ c) Delete all PC's with less than 100GB of HDD.
 DELETE FROM PC
 WHERE hd < 100;
 
-Output:
-
-Query was successful, so show before / after PC table.
-
 --------------------------------------------------------------------------------
 
-d) Delete all laptops made by a manufacturer that doesn't
-make printers.
+d) Delete all laptops made by a manufacturer that doesn't make printers.
 
 DELETE FROM Laptop A
 WHERE
 
-Output:
+DELETE FROM laptop
+WHERE model IN
+  ( SELECT product.model
+    FROM product, laptop
+    WHERE product.model = laptop.model
+    AND maker IN
+      ((SELECT DISTINCT maker
+        FROM product)
+        EXCEPT ALL
+        (SELECT DISTINCT maker
+         FROM product
+         WHERE type = 'printer')));
+
+Gotta fix this.
 
 --------------------------------------------------------------------------------
 
@@ -72,11 +72,6 @@ UPDATE Product
 SET maker = 'A'
 WHERE maker = 'B';
 
-Output:
-There's no output for this one, but checking the DB
-you can clearly see the before / after of running this SQL Query.
-And that is that all references to maker "B" become maker "A".
-
 --------------------------------------------------------------------------------
 
 f) For each PC, double the amount of RAM and add 60GB to the amount of
@@ -85,20 +80,14 @@ HDD. (Remember several attributes can be changed by one UPDATE statement).
 UPDATE PC
 SET ram = ram * 2, hd = hd + 60;
 
-Output:
-
-Will need to show before / after probably. :\
-
 --------------------------------------------------------------------------------
 
 g) For each laptop made by manufacturer B, add one inch to the screen
 size and subtract $100 from the price.
 
-UPDATE Laptop A
-SET A.screen = A.screen + 1,
-    A.price  = A.price - 100
-WHERE A.model IN
-      (SELECT P.model
-       FROM Product P
-       WHERE P.maker = 'B');
-
+UPDATE Laptop
+SET screen = screen + 1, price = price - 100
+WHERE model IN
+  (SELECT P.model
+   FROM Laptop L, Product P
+   WHERE L.model = P.model AND P.maker = 'B');
