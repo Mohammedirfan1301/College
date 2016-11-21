@@ -13,16 +13,15 @@ fact that PC model 1100 is made by manufacturer C, has a
 speed of 3.2GHZ, RAM of 1024MB, HDD of 180GB and sells for
 $2499.
 
-INSERT (
+INSERT INTO Product
+VALUES ('C', '1100', 'pc');
 
-)
-
-INSERT (
-
-)
+INSERT INTO PC
+VALUES ('1100', 3.2, 1024, 180, 2499);
 
 Output:
 
+Show before / after? Query was successful.
 
 --------------------------------------------------------------------------------
 
@@ -30,11 +29,18 @@ b) Insert the facts that for every PC there is a laptop with
 the same manufacturer, speed, RAM and HDD, a 17-inch screen,
 a model number 1100 greater and a price $500 more.
 
-INSERT (
+INSERT INTO Product
+SELECT maker, model + 1100, 'laptop'
+FROM Product
+WHERE type = 'pc';
 
-)
+INSERT INTO Laptop
+SELECT model + 1100, speed, ram, hd, 17, price + 500
+FROM PC;
 
 Output:
+
+Show before / after?
 
 --------------------------------------------------------------------------------
 
@@ -52,9 +58,8 @@ Query was successful, so show before / after PC table.
 d) Delete all laptops made by a manufacturer that doesn't
 make printers.
 
-DELETE FROM Laptops
-WHERE (SELECT *
-       FROM )
+DELETE FROM Laptop A
+WHERE
 
 Output:
 
@@ -86,6 +91,14 @@ Will need to show before / after probably. :\
 
 --------------------------------------------------------------------------------
 
-g)
+g) For each laptop made by manufacturer B, add one inch to the screen
+size and subtract $100 from the price.
 
+UPDATE Laptop A
+SET A.screen = A.screen + 1,
+    A.price  = A.price - 100
+WHERE A.model IN
+      (SELECT P.model
+       FROM Product P
+       WHERE P.maker = 'B');
 
