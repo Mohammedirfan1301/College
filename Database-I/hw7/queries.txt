@@ -40,18 +40,21 @@ Output:
 
 c) Delete all PC's with less than 100GB of HDD.
 
-DELETE
-FROM
-WHERE
+DELETE FROM PC
+WHERE hd < 100;
 
 Output:
+
+Query was successful, so show before / after PC table.
 
 --------------------------------------------------------------------------------
 
 d) Delete all laptops made by a manufacturer that doesn't
 make printers.
 
-DELETE?
+DELETE FROM Laptops
+WHERE (SELECT *
+       FROM )
 
 Output:
 
@@ -71,8 +74,15 @@ And that is that all references to maker "B" become maker "A".
 
 --------------------------------------------------------------------------------
 
-f)
+f) For each PC, double the amount of RAM and add 60GB to the amount of
+HDD. (Remember several attributes can be changed by one UPDATE statement).
 
+UPDATE PC
+SET ram = ram * 2, hd = hd + 60;
+
+Output:
+
+Will need to show before / after probably. :\
 
 --------------------------------------------------------------------------------
 
