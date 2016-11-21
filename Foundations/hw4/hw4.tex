@@ -32,9 +32,9 @@ Homework \#4 - Chapter 3 \\
 %*********************************************************************************
 **********************************************************************************
 I was unable to complete a large portion of 3.8, including the state diagrams
-and the configurations for those state diagrams. $:($ \\
-To make up for these missing problems I decided to do as much \textbf{Extra Credit}
-as I could. As a result, I did the following \textbf{Extra Credit} problems: \\
+and the configurations for those state diagrams. To make up for these missing 
+problems I decided to do as much \textbf{Extra Credit} as I could. As a result, 
+I did the following \textbf{Extra Credit} problems: \\
 
 1. 3.1 B \\
 2. 3.2 A \\
@@ -51,7 +51,9 @@ as I could. As a result, I did the following \textbf{Extra Credit} problems: \\
 
 I figured that I missed roughly 12 problems, so I should do up to 12 problems
 worth of Extra Credit. I hope that this is enough extra work to counter the
-missing problems that I was unable to solve before the deadline. \\
+missing problems that I was unable to solve before the deadline. I have marked
+all \textbf{Extra Credit} in bold and I have put them at the end of my PDF in
+a clearly marked "\textbf{Extra Credit}" section.
 
 ********************************************************************************** \\
 
@@ -73,21 +75,6 @@ $\Vtextvisiblespace q_2 \Vtextvisiblespace$ \\
 $\Vtextvisiblespace  \Vtextvisiblespace q_{accept}$  \\
 $M_2$ enters into the $q_{accept}$ state, and as a result the input is accepted. \\
 
-\textbf{b.} 00. (\textbf{THIS IS EXTRA CREDIT})
-
-$q_1 00$ is the starting state. \\
-Running the input 00 on the machine $M_2$, we get the following configuration: \\
-
-$                            q_1 00$ \\
-$ \Vtextvisiblespace         q_2  0$ \\
-$ \Vtextvisiblespace x       q_3  \Vtextvisiblespace $ \\
-$ \Vtextvisiblespace         q_5  x  \Vtextvisiblespace$ \\
-$                            q_5 \Vtextvisiblespace x  \Vtextvisiblespace$ \\
-$ \Vtextvisiblespace         q_2  x  \Vtextvisiblespace$ \\
-$ \Vtextvisiblespace x       q_2 \Vtextvisiblespace $ \\
-$ \Vtextvisiblespace x  \Vtextvisiblespace q_{accept} $ \\
-
-\pagebreak
 \textbf{c.} 000. \\
 $q_1 000$ is the starting state. \\
 Running the input 000 on the machine $M_2$, we get the following configuration: \\
@@ -99,6 +86,7 @@ $\Vtextvisiblespace x0 q_4 $ \\
 $\Vtextvisiblespace x0 q_{reject} $ \\
 $M_2$ enters into the $q_{reject}$ state, and as a result the input is rejected. \\
 
+\pagebreak
 \textbf{d.} 000000. \\
 $q_1 000000$ is the starting state. \\
 Running the input 000000 on the machine $M_2$, we get the following config: \\
@@ -199,20 +187,6 @@ $M_2$ enters into the $q_{accept}$ state, and as a result the input is accepted.
 Example 3.9. In each of the parts, give the sequence of configurations that $M_1$ 
 enters when started on the indicated input string. \\
 
-\textbf{a.} $11$ (\textbf{THIS IS EXTRA CREDIT}) \\
-
-Input is $11$. Starting state is $q_1 11$. Config is: \\
-
-$      q_1 11$ \\
-$ \Vtextvisiblespace q_3 1 $ \\
-$ \Vtextvisiblespace 1 q_3 \Vtextvisiblespace $ \\
-$ \Vtextvisiblespace 1 \Vtextvisiblespace q_{reject} $ \\
-$M_1$ enters into the $q_{reject}$ state, and as a result the input is rejected. \\
-
-The reason for this is because there is no path for the machine $M_1$ to take at
-$q_3$ that involves a 1. It cannot go to $q_4$ without having a 0, and it cannot
-go to $q_5$ without having a $\Vtextvisiblespace$ before the $q_3$. \\
-
 \textbf{b.} $1\#1$. \\
 
 Input is $1\#1$. Starting state is $q_1 1\#1$. \\
@@ -229,7 +203,6 @@ $x \# x q_9 \Vtextvisiblespace $ \\
 $x \# x \Vtextvisiblespace q_{accept} $ \\
 $M_1$ enters into the $q_{accept}$ state, and as a result the input is accepted. \\
 
-\pagebreak
 \textbf{c.} $1\#\#1$ \\
 
 Input is $1\#\#1$. Starting state is $q_1 1\#\#1$. \\
@@ -241,6 +214,7 @@ $x \# q_5 \# 1$ \textit{(At this point $q_5$ does not read the $\#$, so it enter
 $x \# \# q_{reject} 1 $ \\
 $M_1$ enters into the $q_{reject}$ state, and as a result the input is rejected. \\
 
+\pagebreak
 \textbf{d.} $10\#11$. \\
 
 Input is $10\#11$. Starting state is $q_1 10\#11$. \\
@@ -416,10 +390,85 @@ a 0. There are no paths for 0 at $q_5$, and as a result the machine will go into
 the reject state as it is unable to continue. \\
 
 %*********************************************************************************
-% 3.4 here
-
+% 3.8  b, c
 \pagebreak
-\textbf{3.4} (\textbf{THIS IS EXTRA CREDIT}) \\
+\textbf{3.8} Give implementation-level descriptions of Turing machines that decide the following
+languages over the alphabet $\{0,1\}$. \\
+\textbf{b.} $\{$w $\mid$ w contains twice as many 0s as 1s$\}$ \\
+
+For input string $w$, we would do the following implementation: \\
+\textbf{1.} We first scan the tape and mark the first 0 that has not been marked yet.
+If we find no unmarked 0's, we then continue to $\#4$. \\
+\textbf{2.} We move onto mark the next unmarked 0. If we do not find any on the tape,
+we enter the reject state. Otherwise, we move back to the front of the tape. \\
+\textbf{3.} We scan the tape and mark the first 1 which has not been marked yet. If there
+is no unmarked 1, we enter the reject state. \\
+\textbf{4.} We now move the head back to the front of the tape, and repeat $\#1$. \\
+\textbf{5.} We move the head of the tape back to the front of the tape, and we then scan
+the tape to see if we can find any unmarked 1's. If there are none, we enter the
+accept state. Otherwise we enter the reject state. \\
+
+\textbf{c.} $\{$w $\mid$ w does not contain twice as many 0s as 1s$\}$ \\
+
+For input string $w$, we would do the following implementation: \\
+\textbf{1.} We first scan the tape and mark the first 0 which has not yet been marked.
+If we find no unmarked 0, we go to $\#4$. \\
+\textbf{2.} We continue moving and mark the next unmarked 0. If we do not find any on
+the tape, then we enter the accept state. Otherwise, we move the head of the tape back
+to the front and we continue. \\
+\textbf{3.} We scan the tape and mark the first 1 which has not yet been marked. If 
+there are no unmarked 1's, we enter the accept state. \\
+\textbf{4.} We move the head back to the front of the tape, and we repeat $\#1$. \\
+\textbf{5.} We move the head back to the front of the tape, and we scan the tape
+to see if there are any unmarked 1's. If there are no unmarked 1's, we enter the 
+reject state. Otherwise, we enter the accept state. \\
+
+%*********************************************************************************
+% Extra Credit Section!
+%*********************************************************************************
+\pagebreak
+**********************************************************************************
+
+\tab\tab\tab \textbf{EXTRA CREDIT SECTION BEGINS HERE}
+
+**********************************************************************************
+
+%*********************************************************************************
+% 3.1 b here
+\textbf{3.1 b.} 00. (\textbf{EXTRA CREDIT}) \\
+
+$q_1 00$ is the starting state. \\
+Running the input 00 on the machine $M_2$, we get the following configuration: \\
+
+$                            q_1 00$ \\
+$ \Vtextvisiblespace         q_2  0$ \\
+$ \Vtextvisiblespace x       q_3  \Vtextvisiblespace $ \\
+$ \Vtextvisiblespace         q_5  x  \Vtextvisiblespace$ \\
+$                            q_5 \Vtextvisiblespace x  \Vtextvisiblespace$ \\
+$ \Vtextvisiblespace         q_2  x  \Vtextvisiblespace$ \\
+$ \Vtextvisiblespace x       q_2 \Vtextvisiblespace $ \\
+$ \Vtextvisiblespace x  \Vtextvisiblespace q_{accept} $ \\
+
+%*********************************************************************************
+% 3.2 a here
+\textbf{3.2 a.} $11$ (\textbf{EXTRA CREDIT}) \\
+
+Input is $11$. Starting state is $q_1 11$. Config is: \\
+
+$      q_1 11$ \\
+$ \Vtextvisiblespace q_3 1 $ \\
+$ \Vtextvisiblespace 1 q_3 \Vtextvisiblespace $ \\
+$ \Vtextvisiblespace 1 \Vtextvisiblespace q_{reject} $ \\
+$M_1$ enters into the $q_{reject}$ state, and as a result the input is rejected. \\
+
+The reason for this is because there is no path for the machine $M_1$ to take at
+$q_3$ that involves a 1. It cannot go to $q_4$ without having a 0, and it cannot
+go to $q_5$ without having a $\Vtextvisiblespace$ before the $q_3$. \\
+
+%*********************************************************************************
+% 3.4 here
+\pagebreak
+\textbf{3.4} (\textbf{EXTRA CREDIT}) \\
 Give a formal definition of an enumerator. Consider it to be a type of two-tape
 Turing machine that uses its second tape as the printer. Include a definition
 of the enumerated language. \\
@@ -457,7 +506,7 @@ is entered. \\
 % 3.5 a, b, c an d here
 
 \pagebreak
-\textbf{3.5} (\textbf{THIS IS EXTRA CREDIT}) \\
+\textbf{3.5} (\textbf{EXTRA CREDIT}) \\
 Examine the formal definition of a Turing machine to answer the following questions,
 and explain your reasoning. \\
 
@@ -490,7 +539,7 @@ at a minimum two states to be considered a TM. \\
 %*********************************************************************************
 % 3.6 here
 \pagebreak
-\textbf{3.6} (\textbf{THIS IS EXTRA CREDIT}) \\
+\textbf{3.6} (\textbf{EXTRA CREDIT}) \\
 
 In Theorem 3.21, we showed that a language is Turing-recognizable iff some 
 enumerator enumerates it. Why didn’t we use the following simpler algorithm for the
@@ -508,7 +557,7 @@ enumerate L(M) as it is required to. \\
 
 %*********************************************************************************
 % 3.7 here
-\textbf{3.7} (\textbf{THIS IS EXTRA CREDIT}) \\
+\textbf{3.7} (\textbf{EXTRA CREDIT}) \\
 
 Explain why the following is not a description of a legitimate Turing machine.
 
@@ -525,13 +574,10 @@ amount of steps. Requiring an infinite amount of steps as a result makes it not
 a legitimate Turing Machine. \\
 
 %*********************************************************************************
-% 3.8  b, c + other stuff
+% 3.8 a here
 \pagebreak
-\textbf{3.8} Give implementation-level descriptions of Turing machines that decide the following
-languages over the alphabet $\{0,1\}$. \\
-
-\textbf{a.} $\{$w $\mid$ w contains an equal number of 0's and 1's. \\
-(\textbf{THIS IS EXTRA CREDIT})  \\
+\textbf{3.8 a.} $\{$w $\mid$ w contains an equal number of 0's and 1's.
+(\textbf{EXTRA CREDIT})  \\
 
 For input string $w$, we would do the following implementation: \\
 \textbf{1.} Scan the tape, and mark the first 0 which has not been marked
@@ -549,48 +595,10 @@ to see if we can find any unmarked 1's that are remaining. If we find no
 unmarked 1's, we enter the $accept$ state. Otherwise, we enter the $reject$
 state. \\
 
-\textbf{b.} $\{$w $\mid$ w contains twice as many 0s as 1s$\}$ \\
-
-For input string $w$, we would do the following implementation: \\
-\textbf{1.} We first scan the tape and mark the first 0 that has not been marked yet.
-If we find no unmarked 0's, we then continue to $\#4$. \\
-
-\textbf{2.} We move onto mark the next unmarked 0. If we do not find any on the tape,
-we enter the reject state. Otherwise, we move back to the front of the tape. \\
-
-\textbf{3.} We scan the tape and mark the first 1 which has not been marked yet. If there
-is no unmarked 1, we enter the reject state. \\
-
-\textbf{4.} We now move the head back to the front of the tape, and repeat $\#1$. \\
-
-\textbf{5.} We move the head of the tape back to the front of the tape, and we then scan
-the tape to see if we can find any unmarked 1's. If there are none, we enter the
-accept state. Otherwise we enter the reject state. \\
-
-\textbf{c.} $\{$w $\mid$ w does not contain twice as many 0s as 1s$\}$ \\
-
-For input string $w$, we would do the following implementation: \\
-\textbf{1.} We first scan the tape and mark the first 0 which has not yet been marked.
-If we find no unmarked 0, we go to $\#4$. \\
-
-\textbf{2.} We continue moving and mark the next unmarked 0. If we do not find any on
-the tape, then we enter the accept state. Otherwise, we move the head of the tape back
-to the front and we continue. \\
-
-\textbf{3.} We scan the tape and mark the first 1 which has not yet been marked. If 
-there are no unmarked 1's, we enter the accept state. \\
-
-\textbf{4.} We move the head back to the front of the tape, and we repeat $\#1$. \\
-
-\textbf{5.} We move the head back to the front of the tape, and we scan the tape
-to see if there are any unmarked 1's. If there are no unmarked 1's, we enter the 
-reject state. Otherwise, we enter the accept state. \\
-
 %*********************************************************************************
 % 3.10 here
-
 \pagebreak
-3.10 (\textbf{THIS IS EXTRA CREDIT}) \\
+3.10 (\textbf{EXTRA CREDIT}) \\
 
 Say that a write-once Turing machine is a single-tape TM that can alter each tape
 square at most once (including the input portion of the tape). Show that this variant
@@ -620,9 +628,8 @@ first time that the tape is copied the marks are put directly over the input sym
 
 %*********************************************************************************
 % 3.11 here
-
 \pagebreak
-3.11 (\textbf{THIS IS EXTRA CREDIT}) \\
+3.11 (\textbf{EXTRA CREDIT}) \\
 
 A \textbf{\textit{Turing machine with doubly infinite tape}} is similar to an ordinary 
 Turing machine, but its tape is infinite to the left as well as to the right. 
@@ -646,37 +653,12 @@ portion to the left of the input string will appear on the second tape, but in
 the reverse order. \\
 
 %*********************************************************************************
-% Extra Credit Documentation!
-%*********************************************************************************
-\pagebreak
-**********************************************************************************
-Everything else from here on I could not figure out how to do. $:($
-To make up for these missing problems I decided to do as much \textbf{Extra Credit}
-as I could. As a result, I did the following \textbf{Extra Credit} problems: \\
-
- 1. 3.1 B \\
- 2. 3.2 A \\
- 3. 3.4 \\
- 4. 3.5 A \\
- 5. 3.5 B \\
- 6. 3.5 C \\
- 7. 3.5 D \\
- 8. 3.6 \\ 
- 9. 3.7 \\
-10. 3.8 A \\ 
-11. 3.10 \\
-12. 3.11 \\
-
-I figured that I missed roughly 12 problems, so I should do up to 12 problems
-worth of Extra Credit. I hope that this is enough extra work to counter the
-missing problems that I was unable to solve before the deadline. \\
-
-********************************************************************************** \\
-
-
-%*********************************************************************************
 % I couldn't do this other stuff. Sorry. ¯\_(ツ)_/¯
 \pagebreak
+
+\textbf{Everything else from here on down I was unable to complete. \\
+I left it here for future reference.} \\
+
 Plus: Draw the state diagram for Turning Machines 3.8b and 3.8c \\
 3.8b \\
 
