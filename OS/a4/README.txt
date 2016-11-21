@@ -4,8 +4,9 @@ Assignment 4 - Producer-Consumer Problem
  Date: 11/8/2016
 Email: jason_downing@student.uml.edu
 
-I believe I was 90% successful in writing the code, as the majority of it was
-provided by Professor Moloney on his cs308 website:
+Sorry for the late submission. It took me a while to get everything working,
+and running in mercury. I believe I was 90% successful in writing the code, as
+the majority of it was provided by Professor Moloney on his cs308 website:
 http://www.cs.uml.edu/~bill/cs308/
 
 As a result, I spent most of my time trying to figure out how to run to generate
