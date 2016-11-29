@@ -40,10 +40,10 @@ int main(int argc, char *argv[]) {
   printf("Best fit works!\n");
 
   // Buddy system
-  if (strcmp(argv[1], "buddy") == 0) {
-    // buddy system function here
-    //allocate_switch(mem_size, argv[3], ALLOC_BUDDY_SYS);
-  }
+  // if (strcmp(argv[1], "buddy") == 0) {
+  //   // buddy system function here
+  //   //allocate_switch(mem_size, argv[3], ALLOC_BUDDY_SYS);
+  // }
 
   // debug
   printf("First fit works!!\n");
