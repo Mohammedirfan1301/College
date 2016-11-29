@@ -27,7 +27,7 @@ first_fit.o: first_fit.c main.h
 clean:
 	rm *.o a5 output*
 
-generate:
+files:
 	./a5 first 512 proj5_data > output_first_512kb.txt
 	./a5 first 1024 proj5_data > output_first_1024kb.txt
 	./a5 best 512 proj5_data > output_best_512kb.txt

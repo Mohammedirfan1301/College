@@ -38,7 +38,7 @@ int first_fit(int memorySize, char *fileToWrite) {
     list_head.block_size = -1;
 
     // Read all requests
-    while (fscanf(file, "%d %s %d", &req_seq, &req_type, &req_size) != EOF) {
+    while (fscanf(file, "%d %s %d", &req_seq, req_type, &req_size) != EOF) {
 
         if (strcmp(req_type, "alloc") == 0) {
 

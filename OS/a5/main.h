@@ -43,12 +43,12 @@ int total_free;
 // Function calls
 //int allocate_memory(struct request *);
 int update_list(int index);
-//void print_results(char* policy, int memorySize, struct request* req);
+void print_results(char* policy, int memorySize, struct request* req);
 
 // Best fit, Buddy sys, and First Fit functions
-//int best_fit(int memorySize, char *fileToWrite);
+int best_fit(int memorySize, char *fileToWrite);
 int allocate_best_fit(struct request *);
-//int first_fit(int memorySize, char *fileToWrite);
+int first_fit(int memorySize, char *fileToWrite);
 int allocate_first_fit(struct request *);
 
 // Couldn't finish this one so I commented it out.
