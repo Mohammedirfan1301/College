@@ -26,7 +26,7 @@ int allocate_buddy_sys(struct request *request) {
     }
   }
 
-  // useful?
+  // hmm
   if (validList != NULL) {
     request->is_allocated = TRUE;
     request->base_adr = validList->block_adr;

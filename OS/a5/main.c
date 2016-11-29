@@ -21,13 +21,13 @@ int main(int argc, char *argv[]) {
 
   // Step two: get the memory policy
   // Best Fit
-  if (strcmp(argv[1], "first") == 0) {
+  if (strcmp(argv[1], "best") == 0) {
     // best fit function here
     allocate_switch(mem_size, argv[3], ALLOC_BEST_FIT);
   }
 
   // Buddy system
-  if (strcmp(argv[1], "first") == 0) {
+  if (strcmp(argv[1], "buddy") == 0) {
     // best fit function here
     allocate_switch(mem_size, argv[3], ALLOC_BUDDY_SYS);
   }
@@ -145,6 +145,7 @@ int allocate_switch(int mem_size, char *fileWrite, int alloc_flag) {
   fclose(file);
 }
 
+// Update the list
 int update_list(int index){
 
   /* free_lists to hold objects*/
@@ -152,25 +153,23 @@ int update_list(int index){
   struct free_list* newBlock;
   struct free_list* combineBlock;
 
-  if(req_array[index].is_allocated == FALSE){
-    /* unusued */
-    return 0;
+  if(req_array[index].is_allocated == FALSE) {
+    return 0;    // unusued
   }
 
-  /* block is done */
+  /// skip block is done
   req_array[index].is_allocated = DONE;
   total_free += req_array[index].size;
 
-  /* look at all the blocks in the free list */
-  for(freeList = list_head.next; freeList; freeList = freeList -> next){
+  // look at all the blocks in the free list
+  for(freeList = list_head.next; freeList; freeList = freeList -> next) {
 
-    /* out of range */
+    // out of range
     if(req_array[index].base_adr > freeList -> block_adr) {
-      /* skip */
-      continue;
+      continue;   // skip
     }
 
-    /* create a block to store */
+    // create a block to store
     newBlock = malloc(sizeof(struct free_list));
     newBlock -> block_size = req_array[index].size;
     newBlock -> block_adr = req_array[index].base_adr;
@@ -181,10 +180,11 @@ int update_list(int index){
     newBlock -> previous = freeList -> previous;
     freeList -> previous = newBlock;
 
-    /* Check to see if we can combine with next */
+    // Check to see if we can combine with next
     if(newBlock -> adjacent_adr == newBlock -> next -> block_adr) {
       combineBlock = newBlock -> next;
-      newBlock -> block_size = newBlock -> block_size + newBlock -> next -> block_size;
+      newBlock -> block_size = newBlock -> block_size +
+                               newBlock -> next -> block_size;
       newBlock -> adjacent_adr = newBlock -> next -> adjacent_adr;
       newBlock -> next = newBlock -> next -> next;
 
@@ -193,24 +193,24 @@ int update_list(int index){
       }
 
       free(combineBlock);
-
     }
 
-    /* with previous */
+    // with previous
     newBlock = newBlock -> previous;
     if((newBlock != NULL) && (newBlock -> adjacent_adr != 0)) {
+
       if(newBlock -> adjacent_adr == newBlock -> next -> block_adr) {
         combineBlock = newBlock->next;
-        newBlock -> block_size = newBlock -> block_size + newBlock -> next -> block_size;
+        newBlock -> block_size = newBlock -> block_size +
+                                 newBlock -> next -> block_size;
         newBlock -> adjacent_adr = newBlock -> next -> adjacent_adr;
         newBlock -> next = newBlock -> next -> next;
 
-        if(newBlock -> next){
+        if(newBlock -> next) {
           newBlock ->next -> previous = newBlock;
-  }
+        }
 
         free(combineBlock);
-
       }
     }
 
@@ -219,7 +219,7 @@ int update_list(int index){
   }
 }
 
-// Print function for the report.
+// Print function for the report
 void print_results(char* policy, int memorySize, struct request* req) {
 
   // File Headers

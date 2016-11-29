@@ -38,7 +38,7 @@ struct free_list{
 }list_head, *top;
 
 int total_free_space;
-int free_list_length = 0, total_free;
+int total_free;
 
 // Function calls
 int allocate_memory(struct request *);
@@ -75,7 +75,6 @@ struct lh{
 
 struct lh lst_ary[21];
 int total_free_space, total_free;
-int mal_cnt=0;
 
 struct lel *find_el(int bit);
 int update_lists(struct lel *el);
