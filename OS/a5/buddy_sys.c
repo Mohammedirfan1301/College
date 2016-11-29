@@ -3,9 +3,10 @@
  *     Assignment 5 buddy system c file
  *
  */
+#include "main.h"
 
 // Allocate using buddy sys
-int allocate_buddy_sys(struct request *) {
+int allocate_buddy_sys(struct request *request) {
   struct free_list *freeList = NULL;
   struct free_list *validList = NULL;
 

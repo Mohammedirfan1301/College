@@ -7,7 +7,7 @@
 #
 
 all: main.o best_fit.o buddy_sys.o first_fit.o
-	gcc -o a5 main.o best_fit.o buddy_sys.o
+	gcc -o a5 main.o best_fit.o buddy_sys.o first_fit.o
 
 main.o: main.c main.h
 	gcc -c main.c
@@ -16,10 +16,10 @@ best_fit.o: best_fit.c main.h
 	gcc -c best_fit.c
 
 buddy_sys.o: buddy_sys.c main.h
-gcc -c buddy_sys.c
+	gcc -c buddy_sys.c
 
 first_fit.o: first_fit.c main.h
-gcc -c first_fit.c
+	gcc -c first_fit.c
 
 clean:
 	rm *.o a5

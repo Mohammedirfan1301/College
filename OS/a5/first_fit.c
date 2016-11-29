@@ -3,9 +3,10 @@
  *     Assignment 5 first first c file
  *
  */
+#include "main.h"
 
 // Allocate first fit
-int allocate_first_fit(struct request *) {
+int allocate_first_fit(struct request *request) {
   struct free_list *freeList = NULL;
 
   // Find first block that fits

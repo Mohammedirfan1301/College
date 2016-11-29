@@ -10,6 +10,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <math.h>
 
 #define NUMBER_ENTRIES  (1001)
@@ -41,18 +42,19 @@ int free_list_length = 0, total_free;
 
 // Function calls
 int allocate_memory(struct request *);
-int update_list(int);
+int update_list(int index);
+void print_results(char* policy, int memorySize, struct request* req);
 
 // Best fit, Buddy sys, and First Fit functions
-int allocate_switch(int mem_size, char *fileWrite);
+int allocate_switch(int mem_size, char *fileWrite, int alloc_flag);
 int allocate_best_fit(struct request *);
 int allocate_buddy_sys(struct request *);
 int allocate_first_fit(struct request *);
 
 // Flags for which allocate systel we are doing. Starts with 0, ends with 2.
-int const ALLOC_BEST_FIT = 0;
-int const ALLOC_BUDDY_SYS = 1;
-int const ALLOC_FIRST_FIT = 2;
+#define ALLOC_BEST_FIT  (0)
+#define ALLOC_BUDDY_SYS (1)
+#define ALLOC_FIRST_FIT (2)
 
 // a block list element on one of the block sized
 // list of addresses
