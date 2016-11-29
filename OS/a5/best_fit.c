@@ -4,5 +4,8 @@
  *
  */
 
+// Allocate using best fit
+int allocate_best_fit(struct request *) {
 
 
+}

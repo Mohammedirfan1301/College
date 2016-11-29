@@ -4,5 +4,8 @@
  *
  */
 
+// Allocate using buddy sys
+int allocate_buddy_sys(struct request *) {
 
 
+}

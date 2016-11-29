@@ -4,14 +4,22 @@
 # 11/29/2016
 #
 # Makefile for Assignment 5
-# File given by Prof. Moloney at the following URL:
-# http://www.cs.uml.edu/~bill/cs308/assignment_3_makefile.txt
-#
-# I modified it for Assignment 5.
 #
 
-pc_threads: pc_threads.h pc_threads.c
-	gcc -o pc_threads pc_threads.c -lpthread
+all: main.o best_fit.o buddy_sys.o first_fit.o
+	gcc -o a5 main.o best_fit.o buddy_sys.o
+
+main.o: main.c main.h
+	gcc -c main.c
+
+best_fit.o: best_fit.c main.h
+	gcc -c best_fit.c
+
+buddy_sys.o: buddy_sys.c main.h
+gcc -c buddy_sys.c
+
+first_fit.o: first_fit.c main.h
+gcc -c first_fit.c
 
 clean:
-	rm *.o pc_threads c*
+	rm *.o

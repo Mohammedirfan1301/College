@@ -17,6 +17,37 @@
 #define TRUE            (1)
 #define DONE            (2)
 
+struct request{
+        int is_req;
+        int is_allocated;
+        int size;
+        int base_adr;
+        int next_boundary_adr;
+        int memory_left;
+        int largest_chunk;
+        int elements_on_free_list;
+}req_array[NUMBER_ENTRIES];
+
+struct free_list{
+        struct free_list *next;
+        struct free_list *previous;
+        int block_size;
+        int block_adr;
+        int adjacent_adr;
+}list_head, *top;
+
+int total_free_space;
+int free_list_length = 0, total_free;
+
+// Function calls
+int allocate_memory(struct request *);
+int update_list(int);
+
+// Best fit, Buddy sys, and First Fit functions
+int allocate_best_fit(struct request *);
+int allocate_buddy_sys(struct request *);
+int allocate_first_fit(struct request *);
+
 // a block list element on one of the block sized
 // list of addresses
 struct lel{
@@ -33,19 +64,6 @@ struct lh{
   struct lel *head;
   int cnt;
 };
-
-struct request{
-  int is_req;
-  int is_allocated;
-  int size;
-  int act_size;
-  int base_adr;
-  int next_boundary_adr;
-  int memory_left;
-  int largest_chunk;
-  int elements_on_free_list;
-  struct lel *this_req;
-}req_array[NUMBER_ENTRIES];
 
 struct lh lst_ary[21];
 int total_free_space, total_free;

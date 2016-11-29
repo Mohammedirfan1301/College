@@ -4,4 +4,7 @@
  *
  */
 
+// Allocate first fit
+int allocate_first_fit(struct request *) {
 
+}
