@@ -6,11 +6,14 @@
 # Makefile for Assignment 5
 #
 
-all: main.o best_fit.o buddy_sys.o first_fit.o
-	gcc -o a5 main.o best_fit.o buddy_sys.o first_fit.o
+all: main.o alloc.o best_fit.o buddy_sys.o first_fit.o
+	gcc -o a5 main.o alloc.o best_fit.o buddy_sys.o first_fit.o
 
 main.o: main.c main.h
 	gcc -c main.c
+
+alloc.o: alloc.c main.h
+	gcc -c alloc.c
 
 best_fit.o: best_fit.c main.h
 	gcc -c best_fit.c
