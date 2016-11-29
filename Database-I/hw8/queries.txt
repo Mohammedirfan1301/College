@@ -3,12 +3,86 @@ Exercises: 7.1.3, 7.2.2, 7.4.1, 7.5.2
 
 7.1.3
 
+Suggest suitable keys and foreign keys for the relations of the PC database:
+
+Product (maker, model, type)
+PC (model, speed, ram, hd, price)
+Laptop (model, speed, ram, hd, screen, price)
+Printer (model, color, type, price)
+
+of Exercise 2.4.1. Modify your SQL scheme from Exercise 2.3.1 to include
+declarations of these keys.
+
+ALTER TABLE Product
+  ADD PRIMARY KEY (model);
+
+ALTER TABLE PC
+  ADD FOREIGN KEY (model) REFERENCES Product (model);
+
+ALTER
 
 7.2.2
 
+Write the following constraints on attributes from our example scheme
+
+Product (maker, model, type)
+PC (model, speed, ram, hd, price)
+Laptop (model, speed, ram, hd, screen, price)
+Printer (model, color, type, price)
+
+of Exercise 2.4.1.
+
+a) The speed of a laptop must be at least 2.0.
+
+b) The only types of printers are laser, ink-jet, and bubble-jet.
+
+c) The only types of products are PC's, laptops and printers.
+
+d) A model of a product must also be the model of a PC, a laptop, or a
+printer
 
 7.4.1
 
+Write the following assertions. The database scheme is from the "PC" example
+of Exercise 2.4.1:
+
+Product (maker, model, type)
+PC (model, speed, ram, hd, price)
+Laptop (model, speed, ram, hd, screen, price)
+Printer (model, color, type, price)
+
+a) No manufacturer of PC's may also make laptops.
+
+b) A manufacturer of a PC must also make a laptop with at least as great as
+processor speed.
+
+c) If a laptop has a larger main memory than a PC, then the laptop must also
+have a higher price than the PC.
+
+d) If the relation Product mentions a model and its type, then this model must
+appear in the relation appropriate to that type.
 
 7.5.2
 
+Write the following as triggers. In each case, disallow or undo the
+modification if it does not satisfy the stated constraint. The database schema
+is from the "PC" example of Exercise 2.4.1:
+
+Product (maker, model, type)
+PC (model, speed, ram, hd, price)
+Laptop (model, speed, ram, hd, screen, price)
+Printer (model, color, type, price)
+
+a) When updating the price of a PC, check that there is no lower priced PC
+with the same speed.
+
+b) When inserting a new printer, check that the model number exists in Product.
+
+c) When making any modification to the Laptop relation, check that the average
+price of laptops for each manufacturer is at least $1500.
+
+d) When updating the RAM or hard disk of any PC, check that the updated PC has
+at least 100 times as much hard disk as RAM.
+
+e) When inserting a new PC, laptop, or printer, make sure that the model number
+did not previously appear in any of PC, Laptop, or Printer.
