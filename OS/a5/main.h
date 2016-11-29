@@ -56,6 +56,8 @@ int allocate_first_fit(struct request *);
 #define ALLOC_BUDDY_SYS (1)
 #define ALLOC_FIRST_FIT (2)
 
+/*  Buddy list structures below
+
 // a block list element on one of the block sized
 // list of addresses
 struct lel{
@@ -78,5 +80,7 @@ int total_free_space, total_free;
 
 struct lel *find_el(int bit);
 int update_lists(struct lel *el);
+
+*/
 
 #endif

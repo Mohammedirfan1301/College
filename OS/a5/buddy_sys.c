@@ -9,9 +9,7 @@
 int allocate_buddy_sys(struct request *request) {
   struct free_list *freeList = NULL;
   struct free_list *validList = NULL;
-
-  int diff = 0;
-  int left = 0;
+  int diff = 0, left = 0;
 
   // find block
   for (freeList = list_head.next; freeList; freeList = freeList->next) {

@@ -38,7 +38,7 @@ int allocate_switch(int mem_size, char *fileWrite, int alloc_flag) {
   list_head.block_size = -1;
 
   // Read all requests
-  while (fscanf(file, "%d %s %d", &req_seq, &req_type, &req_size) != EOF) {
+  while (fscanf(file, "%d %30s %d", &req_seq, &req_type, &req_size) != EOF) {
 
     if (strcmp(req_type, "alloc") == 0) {
 
@@ -105,7 +105,26 @@ int allocate_switch(int mem_size, char *fileWrite, int alloc_flag) {
     }
 
   }
-  print_results("Best Fit", mem_size, req_array);
+
+  // Print the results!
+  switch(alloc_flag) {
+    case 0:
+      print_results("Best Fit", mem_size, req_array);
+      break;
+
+    case 1:
+      print_results("Buddy System", mem_size, req_array);
+      break;
+
+    case 2:
+      print_results("First Fit", mem_size, req_array);
+      break;
+
+    default:
+      printf("\nError, invalid alloc type!");
+      exit(2);
+  }
+
   fclose(file);
 }
 

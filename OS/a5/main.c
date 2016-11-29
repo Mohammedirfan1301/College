@@ -41,7 +41,7 @@ int main(int argc, char *argv[]) {
   // First fit
   if (strcmp(argv[1], "first") == 0) {
     // first fit function here
-    //allocate_switch(mem_size, argv[3], ALLOC_FIRST_FIT);
+    allocate_switch(mem_size, argv[3], ALLOC_FIRST_FIT);
   }
 
   // debug

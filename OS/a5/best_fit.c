@@ -10,8 +10,7 @@ int allocate_best_fit(struct request *request) {
   // Free lists
   struct free_list *freeList = NULL;
   struct free_list *validList = NULL;
-  int sizeDiff = 0;
-  int leftover = 0;
+  int sizeDiff = 0, leftover = 0;
 
   // Find the smallest block that fits
   int bFlag = TRUE;
