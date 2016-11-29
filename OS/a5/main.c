@@ -23,10 +23,17 @@ int main(int argc, char *argv[]) {
   printf("Hey we got here!\n");
 
   // Step two: get the memory policy
+
+  // First fit
+  if (strcmp(argv[1], "first") == 0) {
+    // first fit function here
+    first_fit(mem_size, argv[3]);
+  }
+
   // Best Fit
   if (strcmp(argv[1], "best") == 0) {
     // best fit function here
-    allocate_switch(mem_size, argv[3], ALLOC_BEST_FIT);
+    best_fit(mem_size, argv[3]);
   }
 
   // debug
@@ -36,12 +43,6 @@ int main(int argc, char *argv[]) {
   if (strcmp(argv[1], "buddy") == 0) {
     // buddy system function here
     //allocate_switch(mem_size, argv[3], ALLOC_BUDDY_SYS);
-  }
-
-  // First fit
-  if (strcmp(argv[1], "first") == 0) {
-    // first fit function here
-    allocate_switch(mem_size, argv[3], ALLOC_FIRST_FIT);
   }
 
   // debug
