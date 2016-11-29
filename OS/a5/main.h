@@ -18,22 +18,22 @@
 #define DONE            (2)
 
 struct request{
-        int is_req;
-        int is_allocated;
-        int size;
-        int base_adr;
-        int next_boundary_adr;
-        int memory_left;
-        int largest_chunk;
-        int elements_on_free_list;
+  int is_req;
+  int is_allocated;
+  int size;
+  int base_adr;
+  int next_boundary_adr;
+  int memory_left;
+  int largest_chunk;
+  int elements_on_free_list;
 }req_array[NUMBER_ENTRIES];
 
 struct free_list{
-        struct free_list *next;
-        struct free_list *previous;
-        int block_size;
-        int block_adr;
-        int adjacent_adr;
+  struct free_list *next;
+  struct free_list *previous;
+  int block_size;
+  int block_adr;
+  int adjacent_adr;
 }list_head, *top;
 
 int total_free_space;
@@ -44,9 +44,15 @@ int allocate_memory(struct request *);
 int update_list(int);
 
 // Best fit, Buddy sys, and First Fit functions
+int allocate_switch(int mem_size, char *fileWrite);
 int allocate_best_fit(struct request *);
 int allocate_buddy_sys(struct request *);
 int allocate_first_fit(struct request *);
+
+// Flags for which allocate systel we are doing. Starts with 0, ends with 2.
+int const ALLOC_BEST_FIT = 0;
+int const ALLOC_BUDDY_SYS = 1;
+int const ALLOC_FIRST_FIT = 2;
 
 // a block list element on one of the block sized
 // list of addresses

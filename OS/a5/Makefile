@@ -22,4 +22,4 @@ first_fit.o: first_fit.c main.h
 gcc -c first_fit.c
 
 clean:
-	rm *.o
+	rm *.o a5
