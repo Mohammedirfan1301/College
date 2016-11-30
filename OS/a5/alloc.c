@@ -26,11 +26,11 @@ int allocate_switch(int mem_size, char *fileWrite, int alloc_flag) {
 
   // Free node setup
   top = malloc(sizeof(struct free_list));
-  top->next = NULL;
-  top->previous = &list_head;
-  top->block_size = total_free_space;
-  top->block_adr = 0;
-  top->adjacent_adr = total_free_space;
+  top -> next = NULL;
+  top -> previous = &list_head;
+  top -> block_size = total_free_space;
+  top -> block_adr = 0;
+  top -> adjacent_adr = total_free_space;
 
   // Next free node
   list_head.next = top;

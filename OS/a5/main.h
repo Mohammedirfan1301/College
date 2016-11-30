@@ -3,7 +3,6 @@
  *     Assignment 5 main header file
  *     Mostly taken from Prof. Moloney's site:
  *     http://www.cs.uml.edu/~bill/cs308/Assignment_5_data_structs.txt
- *
  */
 #ifndef _MAIN_H
 #define _MAIN_H

@@ -1,7 +1,7 @@
 Assignment 5 - Allocation requests and memory free operations
 ==============================================================
  Name: Jason Downing
- Date: 11/8/2016
+ Date: 11/29/2016
 Email: jason_downing@student.uml.edu
 
 For this homework assignment, I was able to implement the allocation requests
@@ -12,12 +12,12 @@ completing this homework assignment.
 
 I have created a Makefile which will compile my program.
 
-If you would like to compile the code, type make all in the terminal.
+If you would like to compile the code, type "make all" in the terminal.
 
-For testing the code, type make files and that will generate the four
-(out of six) files for the code that I have completed (best / first fit).
+For testing the code, type "make files" and that will generate the four
+(out of six) files for the code that I have completed (best & first fit).
 
-You can clean the directory using make clean, and all object files / output
+You can clean the directory using "make clean", and all object files & output
 files will be deleted.
 
 The following is from my Makefile and will generate the files requested:

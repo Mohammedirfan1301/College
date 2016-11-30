@@ -1,7 +1,6 @@
 /**
  *     Jason Downing
  *     Assignment 5 first first c file
- *
  */
 #include "main.h"
 
