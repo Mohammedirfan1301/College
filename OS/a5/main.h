@@ -27,7 +27,7 @@ struct request{
   int memory_left;
   int largest_chunk;
   int elements_on_free_list;
-}req_array[NUMBER_ENTRIES];
+} req_array[NUMBER_ENTRIES];
 
 struct free_list{
   struct free_list *next;
@@ -35,7 +35,7 @@ struct free_list{
   int block_size;
   int block_adr;
   int adjacent_adr;
-}list_head, *top;
+} list_head, *top;
 
 int total_free_space;
 int total_free;

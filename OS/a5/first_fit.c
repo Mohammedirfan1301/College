@@ -7,6 +7,8 @@
 
 // Allocate first fit
 int allocate_first_fit(struct request *request) {
+
+  // Free list
   struct free_list *freeList = NULL;
 
   // Find first block that fits

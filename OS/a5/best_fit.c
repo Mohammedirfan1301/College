@@ -15,6 +15,7 @@ int allocate_best_fit(struct request *request) {
 
   // Find the smallest block that fits
   int bFlag = TRUE;
+
   for (freeList = list_head.next; freeList; freeList = freeList->next) {
     if (request->size <= freeList->block_size) {
       sizeDiff = freeList->block_size - request->size;
@@ -29,14 +30,14 @@ int allocate_best_fit(struct request *request) {
     }
   }
 
-  // Did we find stuff we can use
+  // Did we find a match?
   if (validList != NULL) {
-    /* Set request */
+    // Set request
     request->is_allocated = TRUE;
     request->base_adr = validList->block_adr;
     request->next_boundary_adr = request->base_adr + request->size;
 
-    // update
+    // Update
     total_free = total_free - request->size;
     request->memory_left = total_free;
 

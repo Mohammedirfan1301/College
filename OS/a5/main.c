@@ -7,6 +7,7 @@
 
 // Command line program
 int main(int argc, char *argv[]) {
+
   // Make sure the user isn't an idiot and enters the right number of arguments.
   if (argc <= 3 || argc > 4) {
     // User is an idiot.
