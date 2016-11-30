@@ -103,8 +103,26 @@ int allocate_switch(int mem_size, char *fileWrite, int alloc_flag) {
 
   }
 
-  // Print the results! Using a switch to mark it as whatever method we're using.
-  print_results("Best Fit", mem_size, req_array);
+  // Print the results!
+  // Using a switch to mark it as whatever method we're using.
+  switch(alloc_flag) {
+    case ALLOC_BEST_FIT:
+      print_results("Best Fit", mem_size, req_array);
+      break;
+
+    case ALLOC_BUDDY_SYS:
+      print_results("Buddy System", mem_size, req_array);
+      break;
+
+    case ALLOC_FIRST_FIT:
+      print_results("First Fit", mem_size, req_array);
+      break;
+
+    default:
+      printf("\nError, invalid alloc type!");
+      exit(2);
+  }
+
   fclose(file);
 }
 
