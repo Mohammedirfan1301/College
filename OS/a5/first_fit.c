@@ -6,36 +6,37 @@
 #include "main.h"
 
 // Allocate first fit
-int allocate_first_fit(struct request *request) {
+int allocate_first_fit(struct request *req) {
 
-  // Free list
-  struct free_list *freeList = NULL;
+  struct free_list *f_list = NULL;  // Free list
 
   // Find first block that fits
-  for (freeList = list_head.next; freeList; freeList = freeList->next) {
-    if (request->size <= freeList->block_size) {
+  for (f_list = list_head.next; f_list; f_list = f_list -> next) {
+    if (req -> size <= f_list -> block_size) {
+
       // Valid
-      request->is_allocated = TRUE;
-      request->base_adr = freeList->block_adr;
-      request->next_boundary_adr = request->base_adr + request->size;
+      req -> is_allocated = TRUE;
+      req -> base_adr = f_list -> block_adr;
+      req -> next_boundary_adr = req -> base_adr + req -> size;
 
-      total_free = total_free - request->size;
-      request->memory_left = total_free;
+      total_free = total_free - req -> size;
+      req -> memory_left = total_free;
 
-      if ((freeList->block_size = freeList->block_size - request->size) == 0) {
-        freeList->previous->next = freeList->next;
-        freeList->next->previous = freeList->previous;
+      // Check for the first block that fits (size - request = 0)
+      if ( (f_list -> block_size = f_list -> block_size - req -> size) == 0) {
+        f_list -> previous -> next = f_list -> next;
+        f_list -> next -> previous = f_list -> previous;
 
-        free(freeList);
+        free(f_list);
         return 0;
       }
 
-      freeList->block_adr = freeList->block_adr + request->size;
+      f_list -> block_adr = f_list -> block_adr + req -> size;
       return 0;
     }
   }
 
-  // No valid block
-  request->memory_left = total_free;
+  // No valid blocks :(
+  req -> memory_left = total_free;
   return 0;
 }

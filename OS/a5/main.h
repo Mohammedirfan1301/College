@@ -46,20 +46,18 @@ void print_results(char* policy, int memorySize, struct request* req);
 
 // Best fit, Buddy sys, and First Fit functions
 int allocate_switch(int mem_size, char *fileWrite, int alloc_flag);
-int allocate_best_fit(struct request *);
-int allocate_buddy_sys(struct request *);
-int allocate_first_fit(struct request *);
+int allocate_best_fit(struct request *req);
+int allocate_buddy_sys(struct request *req);
+int allocate_first_fit(struct request *req);
 
 // Flags for which allocate systel we are doing. Starts with 0, ends with 2.
 #define ALLOC_BEST_FIT  (0)
 #define ALLOC_BUDDY_SYS (1)
 #define ALLOC_FIRST_FIT (2)
 
-// Couldn't finish this one so I commented it out.
-// int allocate_buddy_sys(struct request *);
+// I never finished the buddy system so I commented it out.
 
 /*  Buddy list structures below.
-    I never finished it so I commented it out.
 
 // a block list element on one of the block sized
 // list of addresses

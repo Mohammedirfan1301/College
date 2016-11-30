@@ -7,7 +7,6 @@
 
 // Command line program
 int main(int argc, char *argv[]) {
-
   // Make sure the user isn't an idiot and enters the right number of arguments.
   if (argc <= 3 || argc > 4) {
     // User is an idiot.
@@ -28,13 +27,13 @@ int main(int argc, char *argv[]) {
     allocate_switch(mem_size, argv[3], ALLOC_BEST_FIT);
   }
 
-  // Buddy system
-  if (strcmp(argv[1], "buddy") == 0) {
-    // best fit function here
-    allocate_switch(mem_size, argv[3], ALLOC_BUDDY_SYS);
+  // First Fit
+  if (strcmp(argv[1], "first") == 0) {
+    // first fit function here
+    allocate_switch(mem_size, argv[3], ALLOC_FIRST_FIT);
   }
 
-  // I couldn't get this working, so I commented it out.
+  // I couldn't get the buddy system working, so I commented it out.
 
   // Buddy system
   // if (strcmp(argv[1], "buddy") == 0) {

@@ -5,55 +5,60 @@
 #include "main.h"
 
 // Allocate using best fit
-int allocate_best_fit(struct request *request) {
+int allocate_best_fit(struct request *req) {
 
-  // Free lists
-  struct free_list *freeList = NULL;
-  struct free_list *validList = NULL;
-  int size_diff = 0;
-  int left_over = 0;
+  struct free_list *f_list = NULL;      // free list
+  struct free_list *v_list = NULL;      // valid list
+  int size_diff = 0, left_over = 0;     // Sizes
+  int sFlag = TRUE;                     // starting flag
 
   // Find the smallest block that fits
-  int smBlock_Flag = TRUE;
+  for (f_list = list_head.next; f_list; f_list = f_list -> next) {
+    if (req -> size <= f_list -> block_size) {
 
-  for (freeList = list_head.next; freeList; freeList = freeList->next) {
-    if (request->size <= freeList->block_size) {
-      size_diff = freeList->block_size - request->size;
+      // Size difference between the free list and the req
+      size_diff = f_list -> block_size - req -> size;
 
+      // Found a possible match
       if (left_over >= size_diff) {
         left_over = size_diff;
-        validList = freeList;
+        v_list = f_list;
       }
 
-      if (smBlock_Flag) left_over = size_diff;
-      smBlock_Flag = FALSE;
+      // Start of the list
+      if (sFlag) {
+        left_over = size_diff;
+      }
+
+      sFlag = FALSE;    // Not at the start anymore.
     }
   }
 
   // Did we find a match?
-  if (validList != NULL) {
-    // Set request
-    request->is_allocated = TRUE;
-    request->base_adr = validList->block_adr;
-    request->next_boundary_adr = request->base_adr + request->size;
+  if (v_list != NULL) {
+    // Set the req
+    req -> is_allocated = TRUE;
+    req -> base_adr = v_list -> block_adr;
+    req -> next_boundary_adr = req -> base_adr + req -> size;
 
-    // Update
-    total_free = total_free - request->size;
-    request->memory_left = total_free;
+    // Update the free count
+    total_free = total_free - req -> size;
+    req -> memory_left = total_free;
 
-    // If there is a perfect match
-    if ((validList->block_size = validList->block_size - request->size) == 0) {
-      validList->previous->next = validList->next;
-      validList->next->previous = validList->previous;
-      free(validList);
+    // Check to see if there is a match
+    if ((v_list -> block_size = v_list -> block_size - req -> size) == 0) {
+      v_list -> previous -> next = v_list -> next;
+      v_list -> next -> previous = v_list -> previous;
+
+      free(v_list);
       return 0;
     }
 
-    validList->block_adr = validList->block_adr + request->size;
+    v_list -> block_adr = v_list -> block_adr + req -> size;
     return 0;
   }
 
-    // No valid space
-    request->memory_left = total_free;
-    return 0;
+  // We didn't find a match :(
+  req -> memory_left = total_free;
+  return 0;
 }
