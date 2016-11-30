@@ -128,7 +128,7 @@ int allocate_switch(int mem_size, char *fileWrite, int alloc_flag) {
 int update_list(int index){
 
   // free_lists to hold objects
-  struct free_list* free_list, new_block, combine_block;
+  struct free_list *free_list, *new_block, *combine_block;
 
   if(req_array[index].is_allocated == FALSE) {
     return 0;

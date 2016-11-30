@@ -11,9 +11,12 @@ the submission deadline. As a result, I estimate that I am 70% successful in
 completing this homework assignment.
 
 I have created a Makefile which will compile my program.
+
 If you would like to compile the code, type make all in the terminal.
+
 For testing the code, type make files and that will generate the four
 (out of six) files for the code that I have completed (best / first fit).
+
 You can clean the directory using make clean, and all object files / output
 files will be deleted.
 
@@ -22,13 +25,6 @@ The following is from my Makefile and will generate the files requested:
   ./a5 first 1024 proj5_data > output_first_1024kb.txt
   ./a5 best 512 proj5_data > output_best_512kb.txt
   ./a5 best 1024 proj5_data > output_best_1024kb.txt
-
-Final summary below:
-
-Best  fit  512KB:
-Best  fit 1024KB:
-First fit  512KB:
-First fit 1024KB:
 
 I used the header file provided by Prof. Moloney found at this URL:
 http://www.cs.uml.edu/~bill/cs308/Assignment_5_data_structs.txt
