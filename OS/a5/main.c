@@ -19,34 +19,27 @@ int main(int argc, char *argv[]) {
   // Step one: get the memory size
   int mem_size = atoi(argv[2]);
 
-  // debug
-  printf("Hey we got here!\n");
-
   // Step two: get the memory policy
-
-  // First fit
-  if (strcmp(argv[1], "first") == 0) {
-    // first fit function here
-    first_fit(mem_size, argv[3]);
-  }
 
   // Best Fit
   if (strcmp(argv[1], "best") == 0) {
     // best fit function here
-    best_fit(mem_size, argv[3]);
+    allocate_switch(mem_size, argv[3], ALLOC_BEST_FIT);
   }
 
-  // debug
-  printf("Best fit works!\n");
+  // Buddy system
+  if (strcmp(argv[1], "buddy") == 0) {
+    // best fit function here
+    allocate_switch(mem_size, argv[3], ALLOC_BUDDY_SYS);
+  }
+
+  // I couldn't get this working, so I commented it out.
 
   // Buddy system
   // if (strcmp(argv[1], "buddy") == 0) {
   //   // buddy system function here
   //   //allocate_switch(mem_size, argv[3], ALLOC_BUDDY_SYS);
   // }
-
-  // debug
-  printf("First fit works!!\n");
 
   return 0;
 }
