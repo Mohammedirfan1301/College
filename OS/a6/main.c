@@ -38,7 +38,7 @@ int main(int argc, char *argv[]) {
   }
   // No arguments
   else {
-
+    printf("HEY WE DIDN'T GET ANY ARGUMENTS!\n");
   }
 
   return 0;
