@@ -4,6 +4,8 @@
  */
 #include <dirent.h>
 #include <grp.h>
+#include <locale.h>
+#include <langinfo.h>
 #include <pwd.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -13,7 +15,7 @@
 #include <time.h>
 
 // Print function, displays all the stats about the files
-void print_details(struct stat statBuffer);
+void print_details(struct dirent *entry, struct stat statBuffer);
 
 // Command line program
 int main(int argc, char *argv[]) {
@@ -42,7 +44,7 @@ int main(int argc, char *argv[]) {
       // Now we can print the details for this file.
       // First print the file name, then print the stats about it.
       printf("File name: %s\n", argv[x]);
-      print_details(statBuffer);
+      print_details(entry, statBuffer);
     }
   }
   // Since we got no arguments, that means we should check this directory
@@ -67,8 +69,8 @@ int main(int argc, char *argv[]) {
 
       // Now we can print the details for this file.
       // Print the file name, and then the stats about it.
-      printf("File name: %s\n", entry -> d_name);
-      print_details(statBuffer);
+      printf("FILE NAME: %s\n", entry -> d_name);
+      print_details(entry, statBuffer);
     }
   }
 
@@ -79,7 +81,11 @@ int main(int argc, char *argv[]) {
 // Print function, displays all the stats about the files
 // Some of this is from Prof. Moloney's lecture capture:
 // URL: *put url here since he went over this on 12/1/2016*
-void print_details(struct stat statBuffer) {
+// Also, I found a man page that had examples so I referenced that:
+// URL: http://pubs.opengroup.org/onlinepubs/009604499/functions/stat.html
+void print_details(struct dirent *entry, struct stat statBuffer) {
+  struct tm      *tm;
+  char            dateString[256];
 
   /*
       Output should look like the following:
@@ -112,18 +118,27 @@ void print_details(struct stat statBuffer) {
 
 
   // print the permissions, in the format: rw- r-- r--
+  printf("PERMISSIONS: %10.10s", sperm (statBuffer.st_mode));
 
   // print the owner name
+  printf("OWNER_NAME: %-8d", statBuffer.st_uid);
 
   // print the group name
+  printf("GROUP_NAME: %-8d", statBuffer.st_gid);
 
   // print the date of last modification in format: MONTH | DAY | TIME | YEAR
+  tm = localtime(&statBuffer.st_mtime);
+  strftime(dateString, sizeof(dateString), nl_langinfo(D_T_FMT), tm);
+  printf("DATE_OF_LAST_MODIFICATION: %s %s\n", dateString, entry -> d_name);
 
   // print the link count
+  printf("LINK_COUNT: %4d\n", statBuffer.st_nlink);
 
   // print the size in bytes
+  printf("SIZE_IN_BYTES: %9jd\n", (intmax_t) statBuffer.st_size);
 
   // print the inode number
+  printf("INODE_NUMBER: \n");
 
   // Print a blank link between each entry.
   printf("\n");
