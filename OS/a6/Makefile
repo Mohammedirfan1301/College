@@ -13,4 +13,4 @@ main.o: main.c
 	gcc -c main.c
 
 clean:
-	rm *.o a6 #output*
+	rm *.o a6
