@@ -4,6 +4,7 @@
 \usepackage{comment}
 \usepackage{tikz}
 \usepackage{forest}
+\usepackage{amsmath}
 \usetikzlibrary{arrows,automata}
 
 % Found this on Stackoverflow, seems to make a better explicit space than the default
@@ -44,11 +45,21 @@ These problems are at the end of my PDF in the "\textbf{Extra Credit}" section.
 %*			Chapter 4 starts here!
 %*********************************************************************************
 % 4.2
-\pagebreak
 \textbf{4.2} Consider the problem of determining whether a $DFA$ and a regular \\
 expression are equivalent. Express this problem as a language and show that it is decidable. \\
 
+We can describe this problem as the language: \\
+$AB_{DFA,REX} = \{ \langle D, R \rangle | D $
+is a DFA, R is a regular expression and $L(D) = L(R) \}$. The following Turing Machine (TM)
+M decides $AB_{DFA,REX}$: \\
 
+$M = $ "On input $\langle D, R \rangle$:
+\begin{enumerate}
+	\item Convert the regular expression $R$ to an equivalent DFA $A$ using the procedure that is given in Theorem 1.28.
+	\item Use the TM $C$ for deciding $AB_{DFA,REX}$ in Theorem 4.5, on input $\langle D, A \rangle$.
+	\item If R accepts, $accept$.
+	\item If R rejects, $reject$."
+\end{enumerate}
 
 %*********************************************************************************
 % 4.3
@@ -56,15 +67,31 @@ expression are equivalent. Express this problem as a language and show that it i
 \textbf{4.3} Let $ALL_{DFA}$ = $\{ \langle A \rangle | A$ is a $DFA$ and $L(A) = \sum^*\}$.
 Show that $ALL_{DFA}$ is decidable. \\
 
+Let $ALL_{DFA}$ = $\{ \langle A \rangle | A$ is a $DFA$ that recognizes $\sum^*$. The TM M
+decides $ALL_{DFA}$:
 
+M = "On input $\langle A \rangle$ where A is a DFA:
+\begin{enumerate}
+	\item Construct DFA B that recognizes $\overline{L(A)}$ which is described in the 1.10 exercise.
+	\item Run TM T from Theorem 4.4 on the input  $\langle B \rangle$, where T will decide $E_DFA$.
+	\item If T accepts, $accept$.
+	\item If T rejects, $reject$."
+\end{enumerate}
 
 %*********************************************************************************
 % 4.4
-\pagebreak
 \textbf{4.4} Let $A\epsilon_{CFG}$ = $\{ \langle G \rangle | G$ is a $CFG$ that generates $\epsilon \}$.
 Show that $A\epsilon_{CFG}$ is decidable. \\
 
+Let $A\epsilon_{CFG}$ = $\{ \langle G \rangle | G$ is a $CFG$ that generates $\epsilon \}$.
+The following TM M will decide $A\epsilon_{CFG}$:
 
+M = "On input $\langle G \rangle$ where $G$ is a CFG:
+\begin{enumerate}
+	\item Run TM S from Theorem 4.6 on input $\langle G, \epsilon \rangle$, where $S$ is a decider for $A\epsilon_{CFG}$.
+	\item If S accepts, $accept$.
+	\item If S rejects, $reject$."
+\end{enumerate}
 
 %*********************************************************************************
 % 4.6
@@ -95,16 +122,24 @@ Answer each part and give a reason for each negative answer. \\
 
 
 \textbf{a.} Is $f$ one-to-one? \\
+\textbf{\underline{Answer:}} No, $f$ is not one-to-one because we can find a case that shows \\
+it is not. Which is when $f(1) = f(3)$, as well as $f(2) = f(4)$ and $f(3) = f(5)$. \\
 
 \textbf{b.} Is $f$ onto? \\
+\textbf{\underline{Answer:}} No, $f$ is not onto because there is no case that exists where $x \in X$
+is $f(x) = 10$. \\
 
 \textbf{c.} Is $f$ a correspondence? \\
+\textbf{\underline{Answer:}} No, $f$ is not a correspondence because $f$ is not one-to-one and onto.
 
 \textbf{d.} Is $g$ one-to-one? \\
+\textbf{\underline{Answer:}} Yes, $g$ is one-to-one. \\
 
 \textbf{e.} Is $g$ onto? \\
+\textbf{\underline{Answer:}} Yes, $g$ is onto. \\
 
 \textbf{f.} Is $g$ a correspondence? \\
+\textbf{\underline{Answer:}} Yes, $g$ is a correspondence because $g$ is one-to-one and onto. \\
 
 %*********************************************************************************
 % 4.7
@@ -112,14 +147,20 @@ Answer each part and give a reason for each negative answer. \\
 \textbf{4.7} Let $\mathcal{B}$ be the set of all infinite sequences over $\{0, 1\}$. 
 Show that $\mathcal{B}$ is uncountable using a proof by diagonalization. \\
 
-
+We can assume that $B$ is countable, and that a correspondence $f:\mathcal{N} \rightarrow \mathcal{B}$
+exists. We can then construct $x$ in $\mathcal{B}$ that does not pair with anything in $\mathcal{N}$.
+We can then let $x = x_1, x_2, ...$. Let $x_i = 0$ if we find that $f(i)_i) = 1$, and we can also say that
+$x_i = 1$ if we find that $f(i)_i = 0$ where $f(i)_i$ is the $i$th bit of $f(i)$. This will let us make
+sure that $x$ is not in $f(i)$ for any $i$ because it is different then the $f(i$ in the $i$th symbol.
+As a result, a contradiction will occur, and this proves that $\mathcal{B}$ is uncountable. \\
 
 %*********************************************************************************
 % 4.8
-\pagebreak
 \textbf{4.8} Let $T = \{(i, j, k)| i, j, k \; \in \; \mathcal{N}\}$. Show that $T$ is countable. \\
 
-
+We can demonstrate that $T$ is one-to-one with the following function:
+$f: T \rightarrow \mathcal{N}$. We can let $f(i, j, k) = 2^i 3^j 5^k$. The function
+$f$ is one-to-one because when $a \ne b$, $f(a) \ne f(b)$. As a result, $T$ is countable.
 
 %*********************************************************************************
 %*			Chapter 5 starts here!
@@ -128,28 +169,30 @@ Show that $\mathcal{B}$ is uncountable using a proof by diagonalization. \\
 %*********************************************************************************
 % 5.1
 \pagebreak
-\textbf{5.1} \\
+\textbf{5.1} Show that $EQ_{CFG}$ is undecidable. \\
 
 
 
 %*********************************************************************************
 % 5.2
-\pagebreak
-\textbf{5.2} \\
+\textbf{5.2} Show that $EQ_{CFG}$ is co-Turing-recognizable. \\
 
 
 
 %*********************************************************************************
 % 5.3
-\pagebreak
-\textbf{5.3} \\
+\textbf{5.3} Find a match in the following instance of the Post Correspondence Problem.
+
+\begin{center}
+	$\{ [ \dfrac{ab}{abab} ], [ \dfrac{b}{a} ], [ \dfrac{aba}{b} ], [ \dfrac{aa}{a} ] \}$ \\
+\end{center}
 
 
 
 %*********************************************************************************
 % 5.4
-\pagebreak
-\textbf{5.4} \\
+\textbf{5.4} If $A \le_m B$, and B is a regular language, does that imply that A is
+a regular language? Why, or why not? \\
 
 
 
