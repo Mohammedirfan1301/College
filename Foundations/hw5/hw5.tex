@@ -171,31 +171,64 @@ $f$ is one-to-one because when $a \ne b$, $f(a) \ne f(b)$. As a result, $T$ is c
 \pagebreak
 \textbf{5.1} Show that $EQ_{CFG}$ is undecidable. \\
 
+ We can show that $EQ_{CFG}$ is undecidable by showing a contradiction for $EQ_{CFG}$
+that is decidable. We can construct a decider, $D$, for $ALL_{CFG}$ = 
+$\{ \langle G \rangle | G$ is a $CFG$ and $L(G) = \sum^* \}$ that is as follows: \\
+
+$D = $ "On input $ \langle G \rangle $:
+\begin{enumerate}
+	\item Construct a CFG C such that $L(C) = \sum^*$.
+	\item Run the decider for $EQ_{CFG}$ on the input $ \langle G, C \rangle $
+	\item If it accepts, we $accept$.
+	\item If it rejects, we $reject$." \\
+\end{enumerate}
 
 
 %*********************************************************************************
 % 5.2
 \textbf{5.2} Show that $EQ_{CFG}$ is co-Turing-recognizable. \\
 
+We can show that $EQ_{CFG}$ is co-Turing-recognizable by showing a Turing Machine (TM)
+T which will recognize the complement of $EQ_{CFG}$: \\
 
+$T = $ "On input $ \langle G, H \rangle $:
+\begin{enumerate}
+	\item Generate the strings $x \in \sum^*$ lexicographically.
+	\item Test each string $x$ and see whether $x \in L(G)$ and $x \in L(H)$ are true, using the algorithm for $A_{CFG}$.
+	\item If we find that one of the tests accepts, and the other rejects, then we mark it as $accept$.
+	\item Otherwise, we continue." \\
+\end{enumerate}
 
 %*********************************************************************************
 % 5.3
-\textbf{5.3} Find a match in the following instance of the Post Correspondence Problem.
+\pagebreak
+\textbf{5.3} \; Find a match in the following instance of the \\
+\tab Post Correspondence Problem:
 
 \begin{center}
 	$\{ [ \dfrac{ab}{abab} ], [ \dfrac{b}{a} ], [ \dfrac{aba}{b} ], [ \dfrac{aa}{a} ] \}$ \\
 \end{center}
 
+One possible match is:
+\begin{center}
+	$ [ \dfrac{ab}{abab} ] \quad [ \dfrac{ab}{abab} ] \quad [ \dfrac{aba}{b} ] \quad [ \dfrac{b}{a} ]
+\quad [ \dfrac{b}{a} ]     \quad [ \dfrac{aa}{a} ]    \quad [ \dfrac{aa}{a} ]  $
+\end{center}
 
+% add another line to make the PDF look pretty.
+\leavevmode \newline
 
 %*********************************************************************************
 % 5.4
 \textbf{5.4} If $A \le_m B$, and B is a regular language, does that imply that A is
 a regular language? Why, or why not? \\
 
-
-
+\textbf{\underline{Answer:}} No, this does not implty that A is a regular language.
+One example that shows it is not a regular language is: 
+$\{ a^n b^n c^n | \; n \; \ge 0 \} \le_m \{ a^n b^n | \; n \; \ge 0 \}$ \\ \\
+The reduction is what first tests whether the input is a member of 
+$\{ a^n b^n c^n | \; n \; \ge 0 \}$. If it is a member, then it outputs the string
+$ab$, and if it is not a member then it just outputs the string $a$.
 
 %*********************************************************************************
 % Extra Credit Section!
@@ -206,7 +239,5 @@ a regular language? Why, or why not? \\
 \tab\tab\tab \textbf{EXTRA CREDIT SECTION BEGINS HERE}
 
 **********************************************************************************
-
-
 
 \end{document}
