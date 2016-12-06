@@ -16,24 +16,20 @@
 #include <time.h>
 
 // Print function, displays all the stats about the files
-void print_details(struct dirent *entry, struct stat statBuffer);
+void print_details(struct stat statBuffer);
 
-// Command line program
 int main(int argc, char *argv[]) {
-
   struct stat statBuffer;
   struct dirent* entry;
   DIR* directory;
   int x;
 
   // Two ways to run this program: no arguments, or multiple arguments
-
   // Multiple arguments if argc isn't equal to 1
   if (argc > 1) {
 
     // Let's run through all the arguments
     for(x = 1; x < argc; x++) {
-
       // Should print details. argv[] has the file names, so let's check them.
       // First see if we can access the current file
       if (lstat(argv[x], &statBuffer ) == -1) {
@@ -43,8 +39,8 @@ int main(int argc, char *argv[]) {
 
       // Now we can print the details for this file.
       // First print the file name, then print the stats about it.
-      printf("File name: %s\n", argv[x]);
-      print_details(entry, statBuffer);
+      printf("FILE NAME: %s\n", argv[x]);
+      print_details(statBuffer);
     }
 
     return 0;     // Le end of multiple arguments
@@ -54,7 +50,6 @@ int main(int argc, char *argv[]) {
   // and display stats the files in it.
   // Let's see if we can open the current directory (. = current directory)
   if ( (directory = opendir(".")) == NULL) {
-
     printf("Error: failed to open the current directory!\n");
     exit(1);
   }
@@ -64,7 +59,6 @@ int main(int argc, char *argv[]) {
 
     // Check and see if we can even open the current directory
     if (lstat(entry -> d_name, &statBuffer) == -1) {
-
       // It failed for some reason
       printf("Error: lstat failed on the current directory!\n");
       exit(2);
@@ -73,18 +67,17 @@ int main(int argc, char *argv[]) {
     // Now we can print the details for this file.
     // Print the file name, and then the stats about it.
     printf("FILE NAME: %s\n", entry -> d_name);
-    print_details(entry, statBuffer);
+    print_details(statBuffer);
   }
 
   return 0;     // Le end
 }
 
 // Print function, displays all the stats about the files
-// Some of this is from Prof. Moloney's lecture capture:
-// URL: *put url here since he went over this on 12/1/2016*
-// Also, I found a man page that had examples so I referenced that:
+// Some of this is from Prof. Moloney's lecture capture, and I also
+// found a man page that had examples so I referenced that:
 // URL: http://pubs.opengroup.org/onlinepubs/009604499/functions/stat.html
-void print_details(struct dirent *entry, struct stat statBuffer) {
+void print_details(struct stat statBuffer) {
   struct passwd  *owner;
   struct group   *group;
 
@@ -171,8 +164,7 @@ void print_details(struct dirent *entry, struct stat statBuffer) {
   if ( (owner = getpwuid(statBuffer.st_uid) ) != NULL) {
     printf("OWNER_NAME: %-8.8s\n", owner -> pw_name);
   }
-  // Otherwise just print the UID
-  else {
+  else {    // Otherwise just print the UID
     printf("OWNER_NAME: %-8d\n", statBuffer.st_uid);
   }
 
@@ -180,8 +172,7 @@ void print_details(struct dirent *entry, struct stat statBuffer) {
   if ( (group = getgrgid(statBuffer.st_gid) ) != NULL) {
     printf("GROUP_NAME: %-8.8s\n", group -> gr_name);
   }
-  // Otherwise just print the GID
-  else {
+  else {    // Otherwise just print the GID
     printf("GROUP_NAME: %-8d\n", statBuffer.st_gid);
   }
   // Print the date of last modification in local time format
@@ -190,13 +181,9 @@ void print_details(struct dirent *entry, struct stat statBuffer) {
   // URL: http://man7.org/linux/man-pages/man3/ctime.3.html
   printf("DATE_OF_LAST_MODIFICATION: %s", ctime(&(statBuffer.st_mtime)));
 
-  // Print the link count
+  // Print the link count, size in bytes and inode number
   printf("LINK_COUNT: %jd\n", (long) statBuffer.st_nlink);
-
-  // Print the size in bytes
   printf("SIZE_IN_BYTES: %jd\n", (long) statBuffer.st_size);
-
-  // Print the inode number
   printf("INODE_NUMBER: %jd\n", (long) statBuffer.st_ino);
 
   // Print a blank link between each entry.

@@ -4,4 +4,93 @@ Assignment 6 - File stats
  Date: 11/29/2016
 Email: jason_downing@student.uml.edu
 
-For this homework assignment...
+For this homework assignment I feel I was 100% successful. This is because
+I was able to create a C program that is able to produce the desired output
+as described in the assignment6 PDF file. Here is an example output on this
+README file on my Ubuntu 16.04 LTS laptop for example:
+
+------------------------------------------------------
+asus@asus: a6$ ./a6 README
+FILE NAME: README
+FILE_TYPE: ordinary
+PERMISSIONS: -rw-rw-r--
+OWNER_NAME: asus
+GROUP_NAME: asus
+DATE_OF_LAST_MODIFICATION: Tue Dec  6 17:37:28 2016
+LINK_COUNT: 1
+SIZE_IN_BYTES: 791
+INODE_NUMBER: 2752929
+------------------------------------------------------
+
+As you can see, I display the file name, the file type, the permissions in
+--------- format, the owner and group names, the date of the last modification,
+the link count, the size in bytes and the inode_number. This program can also
+be called without any arguments, in which case it will display the file stats
+for all files in the current directory.
+
+Here are example outputs for each file type:
+------------------------------------------------------
+                      Ordinary
+------------------------------------------------------
+asus@asus: a6$ ./a6 README
+FILE NAME: README
+FILE_TYPE: ordinary
+PERMISSIONS: -rw-rw-r--
+OWNER_NAME: asus
+GROUP_NAME: asus
+DATE_OF_LAST_MODIFICATION: Tue Dec  6 17:37:28 2016
+LINK_COUNT: 1
+SIZE_IN_BYTES: 791
+INODE_NUMBER: 2752929
+------------------------------------------------------
+                      Directory
+------------------------------------------------------
+FILE NAME: .
+FILE_TYPE: directory
+PERMISSIONS: drwxrwxr-x
+OWNER_NAME: asus
+GROUP_NAME: asus
+DATE_OF_LAST_MODIFICATION: Tue Dec  6 17:28:48 2016
+LINK_COUNT: 2
+SIZE_IN_BYTES: 4096
+INODE_NUMBER: 2752927
+------------------------------------------------------
+                    Symbolic Link
+------------------------------------------------------
+asus@asus: a6$ sudo ./a6 /dev/fd
+FILE NAME: /dev/fd
+FILE_TYPE: symbolic link
+PERMISSIONS: -rwxrwxrwx
+OWNER_NAME: root
+GROUP_NAME: root
+DATE_OF_LAST_MODIFICATION: Tue Dec  6 12:25:58 2016
+LINK_COUNT: 1
+SIZE_IN_BYTES: 13
+INODE_NUMBER: 178
+------------------------------------------------------
+                  Character Device
+------------------------------------------------------
+asus@asus: a6$ sudo ./a6 /dev/tty
+FILE NAME: /dev/tty
+FILE_TYPE: character device
+PERMISSIONS: -rw-rw-rw-
+OWNER_NAME: root
+GROUP_NAME: tty
+DATE_OF_LAST_MODIFICATION: Tue Dec  6 17:46:48 2016
+LINK_COUNT: 1
+SIZE_IN_BYTES: 0
+INODE_NUMBER: 13
+------------------------------------------------------
+                    Block Device
+------------------------------------------------------
+asus@asus: a6$ sudo ./a6 /dev/sda
+FILE NAME: /dev/sda
+FILE_TYPE: block device
+PERMISSIONS: -rw-rw----
+OWNER_NAME: root
+GROUP_NAME: disk
+DATE_OF_LAST_MODIFICATION: Tue Dec  6 12:26:00 2016
+LINK_COUNT: 1
+SIZE_IN_BYTES: 0
+INODE_NUMBER: 369
+------------------------------------------------------
