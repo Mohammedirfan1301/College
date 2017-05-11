@@ -33,7 +33,7 @@ This repository includes the following:
 
 * Database I - Relational Algebra, basic SQL, and a final project that can be found in the [Database I Project](https://github.com/JasonD94/Database-I-Project) repo. All this fun stuff for [COMP 3090](http://www.cs.uml.edu/~cchen/309-F16/index.html). I used this class as one of my CS electives.
 
-* Database II - SUPER "ADVANCED" TOPICS IN DATABASE SYSTEMS! INCLUDES (ONE) WEB BASED DATABASE WRITTEN IN MYSQL AND PHP! All to be taken during Spring 2017. Should look like [COMP 3100](http://www.cs.uml.edu/~cchen/310-S16/index.html). This class was taken as one of my technical electives.
+* Database II - Advanced topics in Database Systems. Created a full stack website using MySQL, PHP and HTML. Connected the web server to an Android app. Should look like [COMP 3100](http://www.cs.uml.edu/~cchen/310-S17/index.html). This class was taken as one of my technical electives.
 
 WARNING
 ========
